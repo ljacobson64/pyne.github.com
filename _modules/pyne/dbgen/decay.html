@@ -140,11 +140,13 @@
 
     <span class="n">ln2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
     <span class="n">decay_data</span> <span class="o">=</span> <span class="p">[(</span><span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">fn</span><span class="p">),</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">tn</span><span class="p">),</span> <span class="n">tn</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">ln2</span><span class="o">/</span><span class="n">hl</span><span class="p">,</span> <span class="n">br</span><span class="p">)</span> <span class="k">for</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">br</span> <span class="ow">in</span> <span class="n">decay_data</span><span class="p">]</span>
+    <span class="n">decay_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">decay_data</span><span class="p">)</span>
+    <span class="n">decay_data</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">decay_data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
 
     <span class="n">decay_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">decay_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">atomic_decay_dtype</span><span class="p">)</span>
-    <span class="n">da</span><span class="p">,</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">decay_array</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">mask</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-    <span class="n">decay_array</span> <span class="o">=</span> <span class="n">decay_array</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="c">#da, mask = np.unique(decay_array, return_index=True)</span>
+    <span class="c">#mask.sort()</span>
+    <span class="c">#decay_array = decay_array[mask]</span>
     <span class="k">return</span> <span class="n">decay_array</span>
     
     </div>

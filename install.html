@@ -102,10 +102,40 @@ prevents the developers from distributing it with PyNE.  However, the
 <tt class="docutils literal"><span class="pre">nuc_data_make</span></tt> program (which is installed by <tt class="docutils literal"><span class="pre">setup.py</span></tt>) will
 do its best to find relevant nuclear data elsewhere on your machine
 or from public sources on the internet.</p>
-<div class="section" id="linux-ubuntu-epd">
-<h3>Linux (Ubuntu) + EPD<a class="headerlink" href="#linux-ubuntu-epd" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="windows-installation">
+<span id="win-install"></span><h3>Windows Installation<a class="headerlink" href="#windows-installation" title="Permalink to this headline">¶</a></h3>
+<p>Depending on the current state of your system, installing on Windows may
+be more or less involved.  We recommend the following procedure.  This
+ensures that all dependencies are installed correctly and PyNE has been
+built and tested using this setup.</p>
+<ol class="arabic">
+<li><p class="first">Install the Enthought Python Distribution (<a class="reference external" href="http://www.enthought.com/products/epd.php">EPD</a>).</p>
+</li>
+<li><p class="first">Determine your HDF5 version by running the following command:</p>
+<div class="highlight-python"><pre>python -c "import tables; print tables.getHDF5Version()"</pre>
+</div>
+</li>
+<li><p class="first">Download the <a class="reference external" href="http://www.hdfgroup.org/ftp/HDF5/releases/">HDF5 Windows binaries</a> for your version.
+Navigate to something like <tt class="docutils literal"><span class="pre">http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-{h5ver}/bin/windows/</span></tt>
+and select the appropriate 32- or 64-bit file.  Do not download the source-only files.</p>
+</li>
+<li><p class="first">Unzip HDF5 to the C-drive (<tt class="docutils literal"><span class="pre">C:\\hdf5-{h5ver}</span></tt>).</p>
+</li>
+<li><p class="first">Download and unzip the source (<a class="reference external" href="https://github.com/pyne/pyne/zipball/0.1-rc">zip</a>).</p>
+</li>
+<li><p class="first">Move into the source directory and run the PyNE setup command with the <tt class="docutils literal"><span class="pre">--hdf5</span></tt> option:</p>
+<div class="highlight-python"><pre>cd pyne\
+python setup.py install --user --hdf5=C:\\hdf5-{h5ver}</pre>
+</div>
+</li>
+</ol>
+<p>And voila, everything will have installed correctly.  Should this still fail,
+please report your problem to <a class="reference external" href="mailto:pyne-dev&#37;&#52;&#48;googlegroups&#46;com">pyne-dev<span>&#64;</span>googlegroups<span>&#46;</span>com</a>.</p>
+</div>
+<div class="section" id="linux-epd">
+<h3>Linux + EPD<a class="headerlink" href="#linux-epd" title="Permalink to this headline">¶</a></h3>
 <p>Assuming you are on some flavor of Linux and you primarily use Python
-through the Enthought Python Distribution (EPD), you can install PyNE
+through the Enthought Python Distribution (<a class="reference external" href="http://www.enthought.com/products/epd.php">EPD</a>), you can install PyNE
 to be based off of the EPD packages.</p>
 <p>First, you&#8217;ll need to know where on your system EPD is installed.
 Call this variable <tt class="docutils literal"><span class="pre">EPD_DIR</span></tt>; for example if you have installed it
@@ -143,7 +173,8 @@ installing EPD but <em>prior to</em> installing PyNE:</p>
 <li><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li><a class="reference internal" href="#binary">Binary</a></li>
 <li><a class="reference internal" href="#source">Source</a><ul>
-<li><a class="reference internal" href="#linux-ubuntu-epd">Linux (Ubuntu) + EPD</a></li>
+<li><a class="reference internal" href="#windows-installation">Windows Installation</a></li>
+<li><a class="reference internal" href="#linux-epd">Linux + EPD</a></li>
 </ul>
 </li>
 </ul>

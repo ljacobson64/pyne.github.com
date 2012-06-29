@@ -89,14 +89,20 @@ for <a class="reference internal" href="../usersguide/ace.html#usersguide-ace"><
 <h2>Library Class<a class="headerlink" href="#library-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyne.ace.Library">
-<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">Library</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/ace.html#Library"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ace.Library" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">Library</tt><a class="headerlink" href="#pyne.ace.Library" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Library objects represents an ACE-formatted file which may contain
 multiple tables with data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Attributes :</th><td class="field-body"><dl class="first docutils">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote>
+<div><p>Path of the ACE library file to load.</p>
+</div></blockquote>
+<p><strong>:attributes:</strong> :</p>
+<blockquote class="last">
+<div><dl class="docutils">
 <dt><strong>binary</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
 <dd><p class="first last">Identifies Whether the library is in binary format or not</p>
 </dd>
@@ -109,11 +115,6 @@ are the instances of subclasses of AceTable (e.g. NeutronTable)</p>
 Library</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
-<blockquote class="last">
-<div><p>Path of the ACE library file to load.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -121,7 +122,7 @@ Library</p>
 </table>
 <dl class="method">
 <dt id="pyne.ace.Library.find_table">
-<tt class="descname">find_table</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/ace.html#Library.find_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ace.Library.find_table" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">find_table</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.ace.Library.find_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a cross-section table with a given name.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -139,7 +140,7 @@ Library</p>
 
 <dl class="method">
 <dt id="pyne.ace.Library.read">
-<tt class="descname">read</tt><big>(</big><em>table_names=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/ace.html#Library.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ace.Library.read" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">read</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.ace.Library.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read through and parse the ACE-format library.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -160,13 +161,13 @@ tables. If str, reads in only the single table of a matching name.</p>
 
 <dl class="class">
 <dt id="pyne.ace.AceTable">
-<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">AceTable</tt><big>(</big><em>name</em>, <em>awr</em>, <em>temp</em><big>)</big><a class="reference internal" href="../_modules/pyne/ace.html#AceTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ace.AceTable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">AceTable</tt><a class="headerlink" href="#pyne.ace.AceTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract superclass of all other classes for cross section tables.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyne.ace.NeutronTable">
-<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">NeutronTable</tt><big>(</big><em>name</em>, <em>awr</em>, <em>temp</em><big>)</big><a class="reference internal" href="../_modules/pyne/ace.html#NeutronTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ace.NeutronTable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">NeutronTable</tt><a class="headerlink" href="#pyne.ace.NeutronTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>A NeutronTable object contains continuous-energy neutron interaction data
 read from an ACE-formatted Type I table. These objects are not normally
 instantiated by the user but rather created when reading data using a
@@ -176,7 +177,21 @@ object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Attributes :</th><td class="field-body"><dl class="first docutils">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>ZAID identifier of the table, e.g. &#8216;92235.70c&#8217;.</p>
+</div></blockquote>
+<p><strong>awr</strong> : float</p>
+<blockquote>
+<div><p>Atomic weight ratio of the target nuclide.</p>
+</div></blockquote>
+<p><strong>temp</strong> : float</p>
+<blockquote>
+<div><p>Temperature of the target nuclide in eV.</p>
+</div></blockquote>
+<p><strong>:Attributes:</strong> :</p>
+<blockquote class="last">
+<div><dl class="docutils">
 <dt><strong>awr</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
 <dd><p class="first last">Atomic weight ratio of the target nuclide.</p>
 </dd>
@@ -228,19 +243,6 @@ grid.</p>
 <dd><p class="first last">Temperature of the target nuclide in eV.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
-<blockquote>
-<div><p>ZAID identifier of the table, e.g. 92235.70c.</p>
-</div></blockquote>
-<p><strong>awr</strong> : float</p>
-<blockquote>
-<div><p>Atomic weight ratio of the target nuclide.</p>
-</div></blockquote>
-<p><strong>temp</strong> : float</p>
-<blockquote class="last">
-<div><p>Temperature of the target nuclide in eV.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -250,14 +252,28 @@ grid.</p>
 
 <dl class="class">
 <dt id="pyne.ace.SabTable">
-<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">SabTable</tt><big>(</big><em>name</em>, <em>awr</em>, <em>temp</em><big>)</big><a class="reference internal" href="../_modules/pyne/ace.html#SabTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ace.SabTable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">SabTable</tt><a class="headerlink" href="#pyne.ace.SabTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>A SabTable object contains thermal scattering data as represented by
 an S(alpha, beta) table.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Attributes :</th><td class="field-body"><dl class="first docutils">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>ZAID identifier of the table, e.g. lwtr.10t.</p>
+</div></blockquote>
+<p><strong>awr</strong> : float</p>
+<blockquote>
+<div><p>Atomic weight ratio of the target nuclide.</p>
+</div></blockquote>
+<p><strong>temp</strong> : float</p>
+<blockquote>
+<div><p>Temperature of the target nuclide in eV.</p>
+</div></blockquote>
+<p><strong>:Attributes:</strong> :</p>
+<blockquote class="last">
+<div><dl class="docutils">
 <dt><strong>awr</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
 <dd><p class="first last">Atomic weight ratio of the target nuclide.</p>
 </dd>
@@ -288,19 +304,6 @@ tabulated.</p>
 <dd><p class="first last">Temperature of the target nuclide in eV.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
-<blockquote>
-<div><p>ZAID identifier of the table, e.g. lwtr.10t.</p>
-</div></blockquote>
-<p><strong>awr</strong> : float</p>
-<blockquote>
-<div><p>Atomic weight ratio of the target nuclide.</p>
-</div></blockquote>
-<p><strong>temp</strong> : float</p>
-<blockquote class="last">
-<div><p>Temperature of the target nuclide in eV.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -310,7 +313,7 @@ tabulated.</p>
 
 <dl class="class">
 <dt id="pyne.ace.Reaction">
-<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">Reaction</tt><big>(</big><em>MT</em>, <em>table=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/ace.html#Reaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ace.Reaction" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">Reaction</tt><a class="headerlink" href="#pyne.ace.Reaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Reaction object represents a single reaction channel for a nuclide with
 an associated cross section and, if present, a secondary angle and energy
 distribution. These objects are stored within the <tt class="docutils literal"><span class="pre">reactions</span></tt> attribute on
@@ -319,7 +322,20 @@ subclasses of AceTable, e.g. NeutronTable.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Attributes :</th><td class="field-body"><dl class="first docutils">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>MT</strong> : int</p>
+<blockquote>
+<div><p>The ENDF MT number for this reaction. On occasion, MCNP uses MT numbers
+that don&#8217;t correspond exactly to the ENDF specification.</p>
+</div></blockquote>
+<p><strong>table</strong> : AceTable</p>
+<blockquote>
+<div><p>The ACE table which contains this reaction. This is useful if data on
+the parent nuclide is needed (for instance, the energy grid at which
+cross sections are tabulated)</p>
+</div></blockquote>
+<p><strong>:Attributes:</strong> :</p>
+<blockquote class="last">
+<div><dl class="docutils">
 <dt><strong>ang_energy_in</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of floats</span></dt>
 <dd><p class="first last">Incoming energies in MeV at which angular distributions are tabulated.</p>
 </dd>
@@ -361,18 +377,6 @@ performed in the center-of-mass system. If positive, scattering should
 be preformed in the laboratory system.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>MT</strong> : int</p>
-<blockquote>
-<div><p>The ENDF MT number for this reaction. On occasion, MCNP uses MT numbers
-that don&#8217;t correspond exactly to the ENDF specification.</p>
-</div></blockquote>
-<p><strong>table</strong> : AceTable</p>
-<blockquote class="last">
-<div><p>The ACE table which contains this reaction. This is useful if data on
-the parent nuclide is needed (for instance, the energy grid at which
-cross sections are tabulated)</p>
 </div></blockquote>
 </td>
 </tr>
@@ -380,7 +384,7 @@ cross sections are tabulated)</p>
 </table>
 <dl class="method">
 <dt id="pyne.ace.Reaction.threshold">
-<tt class="descname">threshold</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/ace.html#Reaction.threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ace.Reaction.threshold" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">threshold</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.ace.Reaction.threshold" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return energy threshold for this reaction</p>
 </dd></dl>
 
