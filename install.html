@@ -140,20 +140,18 @@ to be based off of the EPD packages.</p>
 <p>First, you&#8217;ll need to know where on your system EPD is installed.
 Call this variable <tt class="docutils literal"><span class="pre">EPD_DIR</span></tt>; for example if you have installed it
 to your home directory then <tt class="docutils literal"><span class="pre">EPD_DIR=$HOME/epd</span></tt>.  You&#8217;ll then need
-to add the following lines to your <tt class="file docutils literal"><span class="pre">~/.bashrc</span></tt> file <em>after</em>
+to add the following lines to your <tt class="docutils literal"><span class="pre">~/.bashrc</span></tt> file <em>after</em>
 installing EPD but <em>prior to</em> installing PyNE:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$EPD_DIR</span>/bin:<span class="nv">$HOME</span>/.local/bin:<span class="nv">$PATH</span>
-<span class="nb">export </span><span class="nv">CPATH</span><span class="o">=</span><span class="nv">$EPD_DIR</span>/include:<span class="nv">$CPATH</span>
-<span class="nb">export </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$EPD_DIR</span>/lib:<span class="nv">$LD_LIBRARY_PATH</span>
-</pre></div>
+<div class="highlight-python"><pre>export PATH=$EPD_DIR/bin:$HOME/.local/bin:$PATH
+export CPATH=$EPD_DIR/include:$CPATH
+export LD_LIBRARY_PATH=$EPD_DIR/lib:$LD_LIBRARY_PATH</pre>
 </div>
 <p>Or as in the example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/epd/bin:<span class="nv">$HOME</span>/.local/bin:<span class="nv">$PATH</span>
-<span class="nb">export </span><span class="nv">CPATH</span><span class="o">=</span><span class="nv">$HOME</span>/epd/include:<span class="nv">$CPATH</span>
-<span class="nb">export </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$HOME</span>/epd/lib:<span class="nv">$LD_LIBRARY_PATH</span>
-</pre></div>
+<div class="highlight-python"><pre>export PATH=$HOME/epd/bin:$HOME/.local/bin:$PATH
+export CPATH=$HOME/epd/include:$CPATH
+export LD_LIBRARY_PATH=$HOME/epd/lib:$LD_LIBRARY_PATH</pre>
 </div>
-<p>You may now proceed with the PyNE install <a class="reference internal" href="#install-source"><em>as above</em></a>.</p>
+<p>You may now proceed with the PyNE install as above.</p>
 </div>
 </div>
 </div>
