@@ -4,14 +4,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>pyne.cccc &mdash; PyNE 0.1</title>
+    
     <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -97,6 +100,31 @@
 <div class="viewcode-block" id="Isotxs"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Isotxs">[docs]</a><span class="k">class</span> <span class="nc">Isotxs</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An Isotxs object represents a binary ISOTXS file written according to the</span>
 <span class="sd">    CCCC specifications.</span>
+
+<span class="sd">    :Attributes:</span>
+<span class="sd">      **chi** : list of floats</span>
+<span class="sd">        Fission yields by group.</span>
+
+<span class="sd">      **emax** : list of floats</span>
+<span class="sd">        Maximum energy bound for each group</span>
+
+<span class="sd">      **emin** : float</span>
+<span class="sd">        Minimum energy bound of set</span>
+
+<span class="sd">      **fc** : dict</span>
+<span class="sd">        Dictionary with file-control information</span>
+
+<span class="sd">      **fileVersion** : int</span>
+<span class="sd">        Version of the ISOTXS file.</span>
+
+<span class="sd">      **label** : str</span>
+<span class="sd">        File identification string</span>
+
+<span class="sd">      **nuclides** : list of _Nuclides</span>
+<span class="sd">        List of individual nuclides in the ISOTXS file.</span>
+
+<span class="sd">      **vel** : float</span>
+<span class="sd">        Mean neutron velocity in each group.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -431,6 +459,31 @@
 <span class="sd">    and decay constants reduced to multigroup form. Typically, the data in a</span>
 <span class="sd">    DLAYXS file would be related to cross-section files in ISOTXS and GRUPXS.</span>
 
+<span class="sd">    :Attributes:</span>
+<span class="sd">      **isotopes** : list of strs</span>
+<span class="sd">        Names of the isotopes in the DLAYXS file.</span>
+
+<span class="sd">      **isotopeFamily** : dict</span>
+<span class="sd">        Dictionary whose keys are the isotope names and whose values are </span>
+
+<span class="sd">      **decay** : dict</span>
+<span class="sd">        Dictionary whose keys are names of nuclides and whose values are decay</span>
+<span class="sd">        constants for each delayed neutron family.</span>
+
+<span class="sd">      **spectrum** : dict</span>
+
+<span class="sd">      **nGroups** : int</span>
+<span class="sd">        Number of energy groups</span>
+
+<span class="sd">      **nIsotopes** : int</span>
+<span class="sd">        Number of isotopes</span>
+
+<span class="sd">      **nFamilies** : int</span>
+<span class="sd">        Number of delayed neutron families</span>
+
+<span class="sd">      **nu** : dict</span>
+<span class="sd">      </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    filename : str</span>
@@ -652,7 +705,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -689,7 +742,7 @@
 
     <div class="footer">
         &copy; Copyright 2011-2012, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
     <!-- cloud_sptheme 1.3 -->
   </body>

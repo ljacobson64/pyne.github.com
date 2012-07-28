@@ -4,14 +4,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>CCCC Formats &mdash; PyNE 0.1</title>
+    
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -99,26 +102,26 @@ the attributes of the <tt class="docutils literal"><span class="pre">isoFile</sp
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">chi:</th><td class="field-body">Normalized fission spectrum, giving the fraction of neutrons emitted in each
+<tr class="field-odd field"><th class="field-name">chi:</th><td class="field-body">Normalized fission spectrum, giving the fraction of neutrons emitted in each
 energy group.</td>
 </tr>
-<tr class="field"><th class="field-name">emax:</th><td class="field-body">Maximum energies for each of the energy groups in units of eV.</td>
+<tr class="field-even field"><th class="field-name">emax:</th><td class="field-body">Maximum energies for each of the energy groups in units of eV.</td>
 </tr>
-<tr class="field"><th class="field-name">emin:</th><td class="field-body">Minimum energy for the lowest (thermal) energy group, typically somewhere
+<tr class="field-odd field"><th class="field-name">emin:</th><td class="field-body">Minimum energy for the lowest (thermal) energy group, typically somewhere
 around 0.00001 eV.</td>
 </tr>
-<tr class="field"><th class="field-name">fc:</th><td class="field-body">Dictionary containing several important parameters. For example
+<tr class="field-even field"><th class="field-name">fc:</th><td class="field-body">Dictionary containing several important parameters. For example
 <tt class="docutils literal"><span class="pre">isofile.fc['niso']</span></tt> tells you the number of nuclides in the file and
 <tt class="docutils literal"><span class="pre">isoFile.fc['ngroup']</span></tt> tells you the number of energy groups.</td>
 </tr>
-<tr class="field"><th class="field-name">label:</th><td class="field-body">Identification label describing the data in the file.</td>
+<tr class="field-odd field"><th class="field-name">label:</th><td class="field-body">Identification label describing the data in the file.</td>
 </tr>
-<tr class="field"><th class="field-name">nucNames:</th><td class="field-body">A list of the labels for each nuclide.</td>
+<tr class="field-even field"><th class="field-name">nucNames:</th><td class="field-body">A list of the labels for each nuclide.</td>
 </tr>
-<tr class="field"><th class="field-name">nuclides:</th><td class="field-body">A list of nuclides present in the file. Each nuclide is an instance of
+<tr class="field-odd field"><th class="field-name">nuclides:</th><td class="field-body">A list of nuclides present in the file. Each nuclide is an instance of
 the <tt class="docutils literal"><span class="pre">Nuclide</span></tt> class which contains data on cross-sections.</td>
 </tr>
-<tr class="field"><th class="field-name">vel:</th><td class="field-body">Mean neutron velocity in each energy group.</td>
+<tr class="field-even field"><th class="field-name">vel:</th><td class="field-body">Mean neutron velocity in each energy group.</td>
 </tr>
 </tbody>
 </table>
@@ -156,7 +159,7 @@ the <tt class="docutils literal"><span class="pre">Nuclide</span></tt> class whi
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -199,7 +202,7 @@ the <tt class="docutils literal"><span class="pre">Nuclide</span></tt> class whi
 
     <div class="footer">
         &copy; Copyright 2011-2012, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
     <!-- cloud_sptheme 1.3 -->
   </body>

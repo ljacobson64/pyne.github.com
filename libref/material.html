@@ -4,14 +4,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Materials – pyne.material &mdash; PyNE 0.1</title>
+    
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -94,7 +97,7 @@ have two main attributes which define them.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>comp</strong> : dict or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>comp</strong> : dict or str</p>
 <blockquote>
 <div><p>This is the input nuclide component dictionary.  This dictionary need
 not be normalized; Material initialization will automatically
@@ -134,17 +137,16 @@ destruction.</p>
 </tr>
 </tbody>
 </table>
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.del_mat">
-<tt class="descname">del_mat</tt><a class="headerlink" href="#pyne.material.Material.del_mat" title="Permalink to this definition">¶</a></dt>
-<dd><p>del_mat(nuc_sequence, char * name=&#8221;&#8221;)
-Removes a subset of the material and returns a new material
+<tt class="descname">del_mat</tt><big>(</big><em>nuc_sequence</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.del_mat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a subset of the material and returns a new material
 comprised of only the non-specified nuclides.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
 <blockquote>
 <div><p>Nuclides to be taken out of the current material.</p>
 </div></blockquote>
@@ -154,7 +156,7 @@ comprised of only the non-specified nuclides.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new material object that only has the members not given in
 nuc_sequence.  The mass of the submaterial is calculated based on
@@ -170,17 +172,16 @@ nuclide is asked for via nuc_sequence that is not present in the
 original material.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.del_range">
-<tt class="descname">del_range</tt><a class="headerlink" href="#pyne.material.Material.del_range" title="Permalink to this definition">¶</a></dt>
-<dd><p>del_range(lower=0, upper=10000000, char * name=&#8221;&#8221;)
-Remove a range [lower, upper) of nuclides from this material and
+<tt class="descname">del_range</tt><big>(</big><em>lower=0</em>, <em>upper=10000000</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.del_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a range [lower, upper) of nuclides from this material and
 returns a submaterial.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
 <blockquote>
 <div><p>Lower bound on nuclide range.</p>
 </div></blockquote>
@@ -194,7 +195,7 @@ returns a submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that does not contain nuclides on the
 given range.</p>
@@ -205,16 +206,15 @@ given range.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.from_atom_frac">
-<tt class="descname">from_atom_frac</tt><a class="headerlink" href="#pyne.material.Material.from_atom_frac" title="Permalink to this definition">¶</a></dt>
-<dd><p>from_atom_frac(atom_fracs)
-Loads the material composition based on a mapping of atom fractions.</p>
+<tt class="descname">from_atom_frac</tt><big>(</big><em>atom_fracs</em><big>)</big><a class="headerlink" href="#pyne.material.Material.from_atom_frac" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the material composition based on a mapping of atom fractions.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : dict</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : dict</p>
 <blockquote class="last">
 <div><p>Dictionary that maps nuclides or materials to atom fractions for
 the material.  The keys may be intergers, strings, or materials.
@@ -246,16 +246,15 @@ The values must be castable to floats.</p>
 This is possible because Materials are hashable.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.from_hdf5">
-<tt class="descname">from_hdf5</tt><a class="headerlink" href="#pyne.material.Material.from_hdf5" title="Permalink to this definition">¶</a></dt>
-<dd><p>from_hdf5(char * filename, char * datapath, int row=-1, int protocol=1)
-Initialize a Material object from an HDF5 file.</p>
+<tt class="descname">from_hdf5</tt><big>(</big><em>char * filename</em>, <em>char * datapath</em>, <em>int row=-1</em>, <em>int protocol=1</em><big>)</big><a class="headerlink" href="#pyne.material.Material.from_hdf5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a Material object from an HDF5 file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>Path to HDF5 file that contains the data to read in.</p>
 </div></blockquote>
@@ -327,16 +326,15 @@ Initialization is therefore a two-step process:</p>
 </div>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.from_text">
-<tt class="descname">from_text</tt><a class="headerlink" href="#pyne.material.Material.from_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>from_text(char * filename)
-Initialize a Material object from a simple text file.</p>
+<tt class="descname">from_text</tt><big>(</big><em>char * filename</em><big>)</big><a class="headerlink" href="#pyne.material.Material.from_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a Material object from a simple text file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>Path to text file that contains the data to read in.</p>
 </div></blockquote>
@@ -372,24 +370,23 @@ Initialization is therefore a two-step process:</p>
 <p>This method is most often called implicitly by the Material constructor.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.molecular_weight">
-<tt class="descname">molecular_weight</tt><a class="headerlink" href="#pyne.material.Material.molecular_weight" title="Permalink to this definition">¶</a></dt>
-<dd><p>molecular_weight(atoms_per_mol=-1.0)
-This method returns the molecular weight of the comp of this
+<tt class="descname">molecular_weight</tt><big>(</big><em>atoms_per_mol=-1.0</em><big>)</big><a class="headerlink" href="#pyne.material.Material.molecular_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns the molecular weight of the comp of this
 material.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>atoms_per_mol</strong> : double, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>atoms_per_mol</strong> : double, optional</p>
 <blockquote>
 <div><p>Number of atoms to per molecule of material.  Needed to obtain
 proper scaling.  For example, this value for water is 3.0.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mol_weight</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mol_weight</strong> : float</p>
 <blockquote class="last">
 <div><p>Molecular weight in [amu].</p>
 </div></blockquote>
@@ -399,20 +396,20 @@ proper scaling.  For example, this value for water is 3.0.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.mult_by_mass">
-<tt class="descname">mult_by_mass</tt><a class="headerlink" href="#pyne.material.Material.mult_by_mass" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">mult_by_mass</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.mult_by_mass" title="Permalink to this definition">¶</a></dt>
 <dd><p>This multiplies multiplies comp by mass and returns the resultant
 nuctopic vector.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>nucvec</strong> : dict</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>nucvec</strong> : dict</p>
 <blockquote class="last">
 <div><p>For a Material mat,</p>
 <div class="math">
-<p><img src="../_images/math/495fec41f9f75e228227f5af0356cc874f1f6c44.png" alt="\mbox{nucvec[nuc]} = \mbox{mat.comp[nuc]} \times \mbox{mat.mass}" /></p>
+<p><img src="../_images/math/495fec41f9f75e228227f5af0356cc874f1f6c44.png" alt="\mbox{nucvec[nuc]} = \mbox{mat.comp[nuc]} \times \mbox{mat.mass}"/></p>
 </div></div></blockquote>
 </td>
 </tr>
@@ -420,31 +417,30 @@ nuctopic vector.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.norm_comp">
-<tt class="descname">norm_comp</tt><a class="headerlink" href="#pyne.material.Material.norm_comp" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">norm_comp</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.norm_comp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalizes the composition, preserving the mass of the nuclide
 vector as mass.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.normalize">
-<tt class="descname">normalize</tt><a class="headerlink" href="#pyne.material.Material.normalize" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">normalize</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.normalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>This convenience method normalizes the mass stream by setting its
 mass = 1.0.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.set_mat">
-<tt class="descname">set_mat</tt><a class="headerlink" href="#pyne.material.Material.set_mat" title="Permalink to this definition">¶</a></dt>
-<dd><p>set_mat(nuc_sequence, value, char * name=&#8221;&#8221;)
-Sets a subset of the material to a new value and returns a new
+<tt class="descname">set_mat</tt><big>(</big><em>nuc_sequence</em>, <em>value</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.set_mat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a subset of the material to a new value and returns a new
 material.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
 <blockquote>
 <div><p>Elements and nuctopes to be taken from current stream.
 Members of this list must be integers.  For example, [92, 942390]
@@ -460,7 +456,7 @@ would take all uranium atoms and Pu-239.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new material object whose members in nuc_sequence have the
 cooresponding mass value.  The mass of the submaterial is
@@ -473,17 +469,16 @@ original material.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.set_range">
-<tt class="descname">set_range</tt><a class="headerlink" href="#pyne.material.Material.set_range" title="Permalink to this definition">¶</a></dt>
-<dd><p>set_range(lower=0, upper=10000000, value=0.0, char * name=&#8221;&#8221;)
-Sets a sub-material from this mat based on a range [lower, upper) to
+<tt class="descname">set_range</tt><big>(</big><em>lower=0</em>, <em>upper=10000000</em>, <em>value=0.0</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.set_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a sub-material from this mat based on a range [lower, upper) to
 a new mass weight value.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
 <blockquote>
 <div><p>Lower bound on nuclide range.</p>
 </div></blockquote>
@@ -501,7 +496,7 @@ a new mass weight value.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has nuclides on the given range.</p>
 </div></blockquote>
@@ -511,22 +506,21 @@ a new mass weight value.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.sub_act">
-<tt class="descname">sub_act</tt><a class="headerlink" href="#pyne.material.Material.sub_act" title="Permalink to this definition">¶</a></dt>
-<dd><p>sub_act(char * name=&#8221;&#8221;)
-Convenience method that gets the Actinide portion of a mass stream.</p>
+<tt class="descname">sub_act</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_act" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience method that gets the Actinide portion of a mass stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
 <blockquote>
 <div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Actinide members.</p>
 </div></blockquote>
@@ -536,23 +530,22 @@ Convenience method that gets the Actinide portion of a mass stream.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.sub_fp">
-<tt class="descname">sub_fp</tt><a class="headerlink" href="#pyne.material.Material.sub_fp" title="Permalink to this definition">¶</a></dt>
-<dd><p>sub_fp(char * name=&#8221;&#8221;)
-Convenience method that gets the Fission Product portion of a mass
+<tt class="descname">sub_fp</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_fp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience method that gets the Fission Product portion of a mass
 stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
 <blockquote>
 <div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Fission Product members.</p>
 </div></blockquote>
@@ -562,22 +555,21 @@ stream.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.sub_lan">
-<tt class="descname">sub_lan</tt><a class="headerlink" href="#pyne.material.Material.sub_lan" title="Permalink to this definition">¶</a></dt>
-<dd><p>sub_lan(char * name=&#8221;&#8221;)
-Convenience method that gets the Lanthanide portion of a mass stream.</p>
+<tt class="descname">sub_lan</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_lan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience method that gets the Lanthanide portion of a mass stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
 <blockquote>
 <div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Lanthanide members.</p>
 </div></blockquote>
@@ -587,23 +579,22 @@ Convenience method that gets the Lanthanide portion of a mass stream.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.sub_ma">
-<tt class="descname">sub_ma</tt><a class="headerlink" href="#pyne.material.Material.sub_ma" title="Permalink to this definition">¶</a></dt>
-<dd><p>sub_ma(char * name=&#8221;&#8221;)
-Convenience method that gets the Minor Actinide portion of a mass
+<tt class="descname">sub_ma</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_ma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience method that gets the Minor Actinide portion of a mass
 stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
 <blockquote>
 <div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Minor Actinide members.</p>
 </div></blockquote>
@@ -613,17 +604,16 @@ stream.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.sub_mat">
-<tt class="descname">sub_mat</tt><a class="headerlink" href="#pyne.material.Material.sub_mat" title="Permalink to this definition">¶</a></dt>
-<dd><p>sub_mat(nuc_sequence, char * name=&#8221;&#8221;)
-Grabs a subset of the material and returns a new material comprised
+<tt class="descname">sub_mat</tt><big>(</big><em>nuc_sequence</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_mat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grabs a subset of the material and returns a new material comprised
 of only the specified nuclides.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
 <blockquote>
 <div><p>Elements and nuctopes to be taken from current stream.
 Members of this list must be integers.  For example, [92, 942390]
@@ -635,7 +625,7 @@ would take all uranium atoms and Pu-239.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only
 has the members given in nuc_sequence.  The mass of the submaterial
@@ -652,22 +642,21 @@ nuclide is asked for via nuc_sequence that is not present in the
 original material.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.sub_pu">
-<tt class="descname">sub_pu</tt><a class="headerlink" href="#pyne.material.Material.sub_pu" title="Permalink to this definition">¶</a></dt>
-<dd><p>sub_pu(char * name=&#8221;&#8221;)
-Convenience method that gets the Plutonium portion of a mass stream.</p>
+<tt class="descname">sub_pu</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_pu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience method that gets the Plutonium portion of a mass stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
 <blockquote>
 <div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Plutonium members.</p>
 </div></blockquote>
@@ -677,17 +666,16 @@ Convenience method that gets the Plutonium portion of a mass stream.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.sub_range">
-<tt class="descname">sub_range</tt><a class="headerlink" href="#pyne.material.Material.sub_range" title="Permalink to this definition">¶</a></dt>
-<dd><p>sub_range(lower=0, upper=10000000, char * name=&#8221;&#8221;)
-Grabs a sub-material from this mat based on a range [lower, upper)
+<tt class="descname">sub_range</tt><big>(</big><em>lower=0</em>, <em>upper=10000000</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grabs a sub-material from this mat based on a range [lower, upper)
 of values.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
 <blockquote>
 <div><p>Lower bound on nuclide range.</p>
 </div></blockquote>
@@ -701,7 +689,7 @@ of values.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has nuclides on the given range.</p>
 </div></blockquote>
@@ -711,23 +699,22 @@ of values.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.sub_tru">
-<tt class="descname">sub_tru</tt><a class="headerlink" href="#pyne.material.Material.sub_tru" title="Permalink to this definition">¶</a></dt>
-<dd><p>sub_tru(char * name=&#8221;&#8221;)
-Convenience method that gets the Transuranic portion of a mass
+<tt class="descname">sub_tru</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_tru" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience method that gets the Transuranic portion of a mass
 stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
 <blockquote>
 <div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Transuranic members.</p>
 </div></blockquote>
@@ -737,22 +724,21 @@ stream.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.sub_u">
-<tt class="descname">sub_u</tt><a class="headerlink" href="#pyne.material.Material.sub_u" title="Permalink to this definition">¶</a></dt>
-<dd><p>sub_u(char * name=&#8221;&#8221;)
-Convenience method that gets the Uranium portion of a mass stream.</p>
+<tt class="descname">sub_u</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_u" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience method that gets the Uranium portion of a mass stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
 <blockquote>
 <div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Uranium members.</p>
 </div></blockquote>
@@ -762,15 +748,15 @@ Convenience method that gets the Uranium portion of a mass stream.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.to_atom_frac">
-<tt class="descname">to_atom_frac</tt><a class="headerlink" href="#pyne.material.Material.to_atom_frac" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">to_atom_frac</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.to_atom_frac" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts the material to a map of nuclides to atom fractions.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : mapping</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : mapping</p>
 <blockquote class="last">
 <div><p>Dictionary-like object that maps nuclides to atom fractions in the
 material.</p>
@@ -781,17 +767,16 @@ material.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.write_hdf5">
-<tt class="descname">write_hdf5</tt><a class="headerlink" href="#pyne.material.Material.write_hdf5" title="Permalink to this definition">¶</a></dt>
-<dd><p>write_hdf5(filename, datapath=&#8221;/material&#8221;, nucpath=&#8221;/nuc_zz&#8221;, row=-0.0, chunksize=100)
-Writes the material to an HDF5 file, using Protocol 1 (see the
+<tt class="descname">write_hdf5</tt><big>(</big><em>filename</em>, <em>datapath=&quot;/material&quot;</em>, <em>nucpath=&quot;/nuc_zz&quot;</em>, <em>row=-0.0</em>, <em>chunksize=100</em><big>)</big><a class="headerlink" href="#pyne.material.Material.write_hdf5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the material to an HDF5 file, using Protocol 1 (see the
 from_hdf5() method).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>Path to HDF5 file to write the data out to.  If the file does not
 exist, it will be created.</p>
@@ -843,16 +828,15 @@ table:</p>
 </div>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyne.material.Material.write_text">
-<tt class="descname">write_text</tt><a class="headerlink" href="#pyne.material.Material.write_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>write_text(filename)
-Writes the material to a plain text file.</p>
+<tt class="descname">write_text</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyne.material.Material.write_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the material to a plain text file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>Path to text file to write the data to.  If the file already
 exists, it will be overwritten.</p>
@@ -877,14 +861,13 @@ exists, it will be overwritten.</p>
 <p>The following top-level module functions are used to generate materials from various sources.</p>
 <dl class="function">
 <dt id="pyne.material.from_atom_frac">
-<tt class="descclassname">pyne.material.</tt><tt class="descname">from_atom_frac</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.from_atom_frac" title="Permalink to this definition">¶</a></dt>
-<dd><p>from_atom_frac(atom_fracs, double mass=-1.0, char * name=&#8217;&#8216;, double atoms_per_mol=-1.0)
-Create a Material from a mapping of atom fractions.</p>
+<tt class="descclassname">pyne.material.</tt><tt class="descname">from_atom_frac</tt><big>(</big><em>atom_fracs</em>, <em>double mass=-1.0</em>, <em>char * name=''</em>, <em>double atoms_per_mol=-1.0</em><big>)</big><a class="headerlink" href="#pyne.material.from_atom_frac" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Material from a mapping of atom fractions.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : dict</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : dict</p>
 <blockquote>
 <div><p>Dictionary that maps nuclides or materials to atom fractions for the
 material.  The keys may be intergers, strings, or materials. The values
@@ -910,7 +893,7 @@ scaling of molecular weights.  For example, this value for water is
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
 <blockquote class="last">
 <div><p>A material generated from atom fractions.</p>
 </div></blockquote>
@@ -947,14 +930,13 @@ This is possible because Materials are hashable.</p>
 <hr class="docutils" />
 <dl class="function">
 <dt id="pyne.material.from_hdf5">
-<tt class="descclassname">pyne.material.</tt><tt class="descname">from_hdf5</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.from_hdf5" title="Permalink to this definition">¶</a></dt>
-<dd><p>from_hdf5(char * filename, char * datapath, int row=-1, int protocol=1)
-Create a Material object from an HDF5 file.</p>
+<tt class="descclassname">pyne.material.</tt><tt class="descname">from_hdf5</tt><big>(</big><em>char * filename</em>, <em>char * datapath</em>, <em>int row=-1</em>, <em>int protocol=1</em><big>)</big><a class="headerlink" href="#pyne.material.from_hdf5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Material object from an HDF5 file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>Path to HDF5 file that contains the data to read in.</p>
 </div></blockquote>
@@ -976,7 +958,7 @@ the HDF5 file.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
 <blockquote class="last">
 <div><p>A material found in the HDF5 file.</p>
 </div></blockquote>
@@ -1001,14 +983,13 @@ the HDF5 file.</p>
 <hr class="docutils" />
 <dl class="function">
 <dt id="pyne.material.from_text">
-<tt class="descclassname">pyne.material.</tt><tt class="descname">from_text</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.from_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>from_text(char * filename, double mass=-1.0, char * name=&#8217;&#8216;, double atoms_per_mol=-1.0)
-Create a Material object from a simple text file.</p>
+<tt class="descclassname">pyne.material.</tt><tt class="descname">from_text</tt><big>(</big><em>char * filename</em>, <em>double mass=-1.0</em>, <em>char * name=''</em>, <em>double atoms_per_mol=-1.0</em><big>)</big><a class="headerlink" href="#pyne.material.from_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Material object from a simple text file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>Path to text file that contains the data to read in.</p>
 </div></blockquote>
@@ -1032,7 +1013,7 @@ scaling of molecular weights.  For example, this value for water is
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
 <blockquote class="last">
 <div><p>A material found in the HDF5 file.</p>
 </div></blockquote>
@@ -1089,7 +1070,7 @@ scaling of molecular weights.  For example, this value for water is
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -1132,7 +1113,7 @@ scaling of molecular weights.  For example, this value for water is
 
     <div class="footer">
         &copy; Copyright 2011-2012, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
     <!-- cloud_sptheme 1.3 -->
   </body>
