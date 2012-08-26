@@ -93,7 +93,7 @@
     <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datapath</span><span class="p">,</span> <span class="s">&quot;[Cc][Ii][Nn][Dd][Ee][Rr].[Dd][Aa][Tt]&quot;</span><span class="p">)</span>
     <span class="n">local_filename</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">local_filename</span><span class="p">)</span>
     <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">local_filename</span><span class="p">):</span>
-        <span class="k">print</span> <span class="s">&quot;Grabing cinder.dat from &quot;</span> <span class="o">+</span> <span class="n">datapath</span>
+        <span class="k">print</span> <span class="s">&quot;Grabbing cinder.dat from &quot;</span> <span class="o">+</span> <span class="n">datapath</span>
         <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">local_filename</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">build_filename</span><span class="p">)</span>
         <span class="n">rtn</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="k">else</span><span class="p">:</span>
@@ -219,10 +219,8 @@
 <span class="n">to_nuc_base</span> <span class="o">=</span> <span class="s">&quot;#[\s\d]{4}:\s+(\d+) produced by the following C-X  \((.{4})\) REF:.*?</span><span class="se">\n</span><span class="s">&quot;</span>
 
 <span class="n">absorption_dtype_tuple</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s">&#39;from_nuc_name&#39;</span><span class="p">,</span> <span class="s">&#39;S6&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;from_nuc_zz&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;to_nuc_name&#39;</span><span class="p">,</span> <span class="s">&#39;S6&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;to_nuc_zz&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;from_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;to_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;reaction_type&#39;</span><span class="p">,</span> <span class="s">&#39;S4&#39;</span><span class="p">),</span>
     <span class="c"># Extra &#39;xs&#39; entry should be appended with value (&#39;xs&#39;, float, G_n)    </span>
     <span class="p">]</span>
@@ -263,26 +261,24 @@
 
     <span class="c"># Iterate through all from nuctopes.</span>
     <span class="k">for</span> <span class="n">m_from</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">from_nuc_pattern</span><span class="p">,</span> <span class="n">raw_data</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">):</span>
-        <span class="n">from_nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_from</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">from_nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_from</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 
         <span class="c"># Check matestable state</span>
-        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">from_nuc_zz</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">from_nuc</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
             <span class="c"># Metastable state too high!</span>
             <span class="k">continue</span>
-        <span class="n">from_nuc_name</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">from_nuc_zz</span><span class="p">)</span>
 
         <span class="c"># Grab the string for this from_nuc in order to get all of the to_nucs</span>
         <span class="n">from_nuc_part</span> <span class="o">=</span> <span class="n">m_from</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="c"># Iterate over all to_nucs</span>
         <span class="k">for</span> <span class="n">m_to</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">to_nuc_pattern</span><span class="p">,</span> <span class="n">from_nuc_part</span><span class="p">):</span>
-            <span class="n">to_nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_to</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">to_nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_to</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 
             <span class="c"># Check matestable state</span>
-            <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">to_nuc_zz</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
+            <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">to_nuc</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
                 <span class="c"># Metastable state too high!</span>
                 <span class="k">continue</span>
-            <span class="n">to_nuc_name</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">to_nuc_zz</span><span class="p">)</span>
 
             <span class="c"># Munge reaction type</span>
             <span class="n">rx_type</span> <span class="o">=</span> <span class="n">m_to</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -293,12 +289,8 @@
             <span class="k">assert</span> <span class="n">xs</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">G_n</span><span class="p">,</span> <span class="p">)</span>
 
             <span class="c"># Write this row to the absorption table</span>
-            <span class="n">abrow</span><span class="p">[</span><span class="s">&#39;from_nuc_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_nuc_name</span>
-            <span class="n">abrow</span><span class="p">[</span><span class="s">&#39;from_nuc_zz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_nuc_zz</span>
-
-            <span class="n">abrow</span><span class="p">[</span><span class="s">&#39;to_nuc_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_nuc_name</span>
-            <span class="n">abrow</span><span class="p">[</span><span class="s">&#39;to_nuc_zz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_nuc_zz</span>
-
+            <span class="n">abrow</span><span class="p">[</span><span class="s">&#39;from_nuc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_nuc</span>
+            <span class="n">abrow</span><span class="p">[</span><span class="s">&#39;to_nuc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_nuc</span>
             <span class="n">abrow</span><span class="p">[</span><span class="s">&#39;reaction_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rx_type</span>
             <span class="n">abrow</span><span class="p">[</span><span class="s">&#39;xs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xs</span>
 
@@ -314,8 +306,7 @@
 <span class="n">fission_base</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">([\s\d]+),([\s\d]+),([\s\d]+)=\(n,f\) yield sets\. If &gt; 0,[\s\d]{4}-gp fisn CX follows\..*?</span><span class="se">\n</span><span class="s">&quot;</span>
 
 <span class="n">fission_dtype_tuple</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s">&#39;nuc_name&#39;</span><span class="p">,</span> <span class="s">&#39;S6&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;nuc_zz&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;thermal_yield&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;fast_yield&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;high_energy_yield&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">),</span>
@@ -358,13 +349,12 @@
 
     <span class="c"># Iterate through all from nuctopes.</span>
     <span class="k">for</span> <span class="n">m_from</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">from_nuc_pattern</span><span class="p">,</span> <span class="n">raw_data</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">):</span>
-        <span class="n">from_nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_from</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">from_nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_from</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 
         <span class="c"># Check matestable state</span>
-        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">from_nuc_zz</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">from_nuc</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
             <span class="c"># Metastable state too high!</span>
             <span class="k">continue</span>
-        <span class="n">from_nuc_name</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">from_nuc_zz</span><span class="p">)</span>
 
         <span class="c"># Grab the string for this from_nuc in order to get all of the to_nucs</span>
         <span class="n">from_nuc_part</span> <span class="o">=</span> <span class="n">m_from</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -384,8 +374,7 @@
         <span class="k">assert</span> <span class="n">xs</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">G_n</span><span class="p">,</span> <span class="p">)</span>
 
         <span class="c"># Write fission table row</span>
-        <span class="n">frow</span><span class="p">[</span><span class="s">&#39;nuc_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_nuc_name</span>
-        <span class="n">frow</span><span class="p">[</span><span class="s">&#39;nuc_zz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_nuc_zz</span>
+        <span class="n">frow</span><span class="p">[</span><span class="s">&#39;nuc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_nuc</span>
 
         <span class="n">frow</span><span class="p">[</span><span class="s">&#39;thermal_yield&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">yield_t</span>
         <span class="n">frow</span><span class="p">[</span><span class="s">&#39;fast_yield&#39;</span><span class="p">]</span>        <span class="o">=</span> <span class="n">yield_f</span>
@@ -405,8 +394,7 @@
                    <span class="n">cinder_float</span> <span class="o">+</span> <span class="s">&quot;)</span><span class="se">\n</span><span class="s">&quot;</span>
 
 <span class="n">gamma_decay_dtype_tuple</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s">&#39;nuc_name&#39;</span><span class="p">,</span> <span class="s">&#39;S6&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;nuc_zz&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;energy&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;scaling_factor&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
     <span class="c"># Extra &#39;spectrum&#39; entry should be appended with value (&#39;spectrum&#39;, float, G_g)</span>
@@ -448,13 +436,12 @@
 
     <span class="c"># Iterate through all from nuctopes.</span>
     <span class="k">for</span> <span class="n">m_from</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">from_nuc_pattern</span><span class="p">,</span> <span class="n">raw_data</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">):</span>
-        <span class="n">from_nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_from</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">from_nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_from</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 
         <span class="c"># Check matestable state</span>
-        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">from_nuc_zz</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">from_nuc</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
             <span class="c"># Metastable state too high!</span>
             <span class="k">continue</span>
-        <span class="n">from_nuc_name</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">from_nuc_zz</span><span class="p">)</span>
 
         <span class="c"># Grab the string for this from_nuc in order to get all of the to_nucs</span>
         <span class="n">from_nuc_part</span> <span class="o">=</span> <span class="n">m_from</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -473,8 +460,7 @@
         <span class="k">assert</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">G_g</span><span class="p">,</span> <span class="p">)</span>
 
         <span class="c"># Prepare the row</span>
-        <span class="n">gdrow</span><span class="p">[</span><span class="s">&#39;nuc_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_nuc_name</span>
-        <span class="n">gdrow</span><span class="p">[</span><span class="s">&#39;nuc_zz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_nuc_zz</span>
+        <span class="n">gdrow</span><span class="p">[</span><span class="s">&#39;nuc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_nuc</span>
 
         <span class="n">gdrow</span><span class="p">[</span><span class="s">&#39;energy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span>
         <span class="n">gdrow</span><span class="p">[</span><span class="s">&#39;scaling_factor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scale</span>
@@ -520,8 +506,7 @@
 </div>
 <span class="n">fp_info_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
     <span class="p">(</span><span class="s">&#39;index&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;nuc_name&#39;</span><span class="p">,</span> <span class="s">&#39;S6&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;nuc_zz&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;type&#39;</span><span class="p">,</span> <span class="s">&#39;S11&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;mass&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
     <span class="p">])</span>
@@ -549,7 +534,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    info_table : array </span>
-<span class="sd">        Structured array with the form &quot;(index, nuc_name, nuc_zz, type, mass)&quot;. </span>
+<span class="sd">        Structured array with the form &quot;(index, nuc, type, mass)&quot;. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c"># Get group sizes</span>
     <span class="n">N_n</span><span class="p">,</span> <span class="n">N_g</span> <span class="o">=</span> <span class="n">get_fp_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
@@ -574,16 +559,15 @@
         <span class="n">iit</span> <span class="o">=</span> <span class="n">iits</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
         <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">iit</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-        <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">iit</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">iit</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="c"># Correct for metastable flag</span>
-        <span class="k">if</span> <span class="mi">0</span> <span class="o">!=</span> <span class="n">nuc_zz</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
-            <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nuc_zz</span> <span class="o">+</span> <span class="mi">2000</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">!=</span> <span class="n">nuc</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
+            <span class="n">nuc</span> <span class="o">=</span> <span class="n">nuc</span> <span class="o">+</span> <span class="mi">2000</span>
 
-        <span class="n">nuc_name</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">nuc_zz</span><span class="p">)</span>
         <span class="nb">type</span> <span class="o">=</span> <span class="n">fp_type_flag</span><span class="p">[</span><span class="n">iit</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
         <span class="n">mass</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">masses</span><span class="p">[</span><span class="n">m</span><span class="p">])</span>
 
-        <span class="n">info_row</span> <span class="o">=</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">nuc_name</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
+        <span class="n">info_row</span> <span class="o">=</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
         <span class="n">info_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info_row</span><span class="p">)</span>
 
     <span class="n">info_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">info_table</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">fp_info_dtype</span><span class="p">)</span>
@@ -640,7 +624,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    info_table : array </span>
-<span class="sd">        Structured array with the form &quot;(index, nuc_name, nuc_zz, type, mass)&quot;. </span>
+<span class="sd">        Structured array with the form &quot;(index, nuc, type, mass)&quot;. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c"># Get group sizes</span>
     <span class="n">N_n</span><span class="p">,</span> <span class="n">N_g</span> <span class="o">=</span> <span class="n">get_fp_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
@@ -665,16 +649,15 @@
         <span class="n">iit</span> <span class="o">=</span> <span class="n">iits</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
         <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">iit</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-        <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">iit</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">iit</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="c"># Correct for metastable flag</span>
-        <span class="k">if</span> <span class="mi">0</span> <span class="o">!=</span> <span class="n">nuc_zz</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
-            <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nuc_zz</span> <span class="o">+</span> <span class="mi">2000</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">!=</span> <span class="n">nuc</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
+            <span class="n">nuc</span> <span class="o">=</span> <span class="n">nuc</span> <span class="o">+</span> <span class="mi">2000</span>
 
-        <span class="n">nuc_name</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">nuc_zz</span><span class="p">)</span>
         <span class="nb">type</span> <span class="o">=</span> <span class="n">fp_type_flag</span><span class="p">[</span><span class="n">iit</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
         <span class="n">mass</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">masses</span><span class="p">[</span><span class="n">m</span><span class="p">])</span>
 
-        <span class="n">info_row</span> <span class="o">=</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">nuc_name</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
+        <span class="n">info_row</span> <span class="o">=</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
         <span class="n">info_table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info_row</span><span class="p">)</span>
 
     <span class="n">info_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">info_table</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">fp_info_dtype</span><span class="p">)</span>
@@ -717,10 +700,8 @@
 </div>
 <span class="n">fp_yields_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
     <span class="p">(</span><span class="s">&#39;index&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;from_nuc_name&#39;</span><span class="p">,</span> <span class="s">&#39;S6&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;from_nuc_zz&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;to_nuc_name&#39;</span><span class="p">,</span> <span class="s">&#39;S6&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;to_nuc_zz&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;from_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;to_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;mass_frac&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
     <span class="p">])</span>
 
@@ -770,13 +751,12 @@
     <span class="c"># Iterate over all to-nucs</span>
     <span class="n">fp_to_nuc_pattern</span> <span class="o">=</span> <span class="n">fp_to_nuc_base</span> <span class="o">+</span> <span class="n">N_n</span><span class="o">*</span><span class="n">fp_to_nuc_insert</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span>
     <span class="k">for</span> <span class="n">m_to</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">fp_to_nuc_pattern</span><span class="p">,</span> <span class="n">nfp_yields_raw</span><span class="p">):</span>
-        <span class="n">to_nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_to</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="n">to_nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_to</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
 
         <span class="c"># Check matestable state</span>
-        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">to_nuc_zz</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">to_nuc</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
             <span class="c"># Metastable state too high!</span>
             <span class="k">continue</span>
-        <span class="n">to_nuc_name</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">to_nuc_zz</span><span class="p">)</span>
 
         <span class="c"># Get the array of yield data</span>
         <span class="n">yields</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">m_to</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
@@ -785,14 +765,10 @@
         <span class="c"># Prep rows to the table</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_n</span><span class="p">):</span>
             <span class="n">info</span> <span class="o">=</span> <span class="n">info_table</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
-
             <span class="n">nfprow</span><span class="p">[</span><span class="s">&#39;index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">nfprow</span><span class="p">[</span><span class="s">&#39;from_nuc_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">nfprow</span><span class="p">[</span><span class="s">&#39;from_nuc_zz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-            <span class="n">nfprow</span><span class="p">[</span><span class="s">&#39;to_nuc_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_nuc_name</span>
-            <span class="n">nfprow</span><span class="p">[</span><span class="s">&#39;to_nuc_zz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_nuc_zz</span>
+            <span class="n">nfprow</span><span class="p">[</span><span class="s">&#39;from_nuc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">nfprow</span><span class="p">[</span><span class="s">&#39;to_nuc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_nuc</span>
             <span class="n">nfprow</span><span class="p">[</span><span class="s">&#39;mass_frac&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yields</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
-
             <span class="n">nfprow</span><span class="o">.</span><span class="n">append</span><span class="p">()</span>
 
         <span class="c"># Write the table</span>
@@ -844,13 +820,12 @@
     <span class="c"># Iterate over all to-nucs</span>
     <span class="n">fp_to_nuc_pattern</span> <span class="o">=</span> <span class="n">fp_to_nuc_base</span> <span class="o">+</span> <span class="n">N_g</span><span class="o">*</span><span class="n">fp_to_nuc_insert</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span>
     <span class="k">for</span> <span class="n">m_to</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">fp_to_nuc_pattern</span><span class="p">,</span> <span class="n">gfp_yields_raw</span><span class="p">):</span>
-        <span class="n">to_nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_to</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="n">to_nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">m_to</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
 
         <span class="c"># Check matestable state</span>
-        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">to_nuc_zz</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">to_nuc</span><span class="o">%</span><span class="mi">10</span><span class="p">:</span>
             <span class="c"># Metastable state too high!</span>
             <span class="k">continue</span>
-        <span class="n">to_nuc_name</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">to_nuc_zz</span><span class="p">)</span>
 
         <span class="c"># Get the array of yield data</span>
         <span class="n">yields</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">m_to</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
@@ -859,14 +834,10 @@
         <span class="c"># Prep rows to the table</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_g</span><span class="p">):</span>
             <span class="n">info</span> <span class="o">=</span> <span class="n">info_table</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
-
             <span class="n">gfprow</span><span class="p">[</span><span class="s">&#39;index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">gfprow</span><span class="p">[</span><span class="s">&#39;from_nuc_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">gfprow</span><span class="p">[</span><span class="s">&#39;from_nuc_zz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-            <span class="n">gfprow</span><span class="p">[</span><span class="s">&#39;to_nuc_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_nuc_name</span>
-            <span class="n">gfprow</span><span class="p">[</span><span class="s">&#39;to_nuc_zz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_nuc_zz</span>
+            <span class="n">gfprow</span><span class="p">[</span><span class="s">&#39;from_nuc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">gfprow</span><span class="p">[</span><span class="s">&#39;to_nuc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_nuc</span>
             <span class="n">gfprow</span><span class="p">[</span><span class="s">&#39;mass_frac&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yields</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
-
             <span class="n">gfprow</span><span class="o">.</span><span class="n">append</span><span class="p">()</span>
 
         <span class="c"># Write the table</span>

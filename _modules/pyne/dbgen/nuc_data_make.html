@@ -78,6 +78,7 @@
 <span class="kn">from</span> <span class="nn">pyne.dbgen.scattering_lengths</span> <span class="kn">import</span> <span class="n">make_scattering_lengths</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.simple_xs</span> <span class="kn">import</span> <span class="n">make_simple_xs</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.cinder</span> <span class="kn">import</span> <span class="n">make_cinder</span>
+<span class="kn">from</span> <span class="nn">pyne.dbgen.eaf</span> <span class="kn">import</span> <span class="n">make_eaf</span>
 
 <span class="c"># Thanks to http://patorjk.com/software/taag/</span>
 <span class="c"># and http://www.chris.com/ascii/index.php?art=creatures/dragons (Jeff Ferris)</span>
@@ -134,9 +135,10 @@
                   <span class="p">(</span><span class="s">&#39;decay&#39;</span><span class="p">,</span> <span class="n">make_decay</span><span class="p">),</span> 
                   <span class="p">(</span><span class="s">&#39;simple_xs&#39;</span><span class="p">,</span> <span class="n">make_simple_xs</span><span class="p">),</span> 
                   <span class="p">(</span><span class="s">&#39;cinder&#39;</span><span class="p">,</span> <span class="n">make_cinder</span><span class="p">),</span> 
+                  <span class="p">(</span><span class="s">&#39;eaf&#39;</span><span class="p">,</span> <span class="n">make_eaf</span><span class="p">)</span>
                   <span class="p">]</span>
     <span class="n">make_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">make_funcs</span><span class="p">)</span>
-    <span class="n">make_open</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;atomic_weight&#39;</span><span class="p">,</span> <span class="s">&#39;scattering_lengths&#39;</span><span class="p">,</span> <span class="s">&#39;simple_xs&#39;</span><span class="p">}</span>
+    <span class="n">make_open</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;atomic_weight&#39;</span><span class="p">,</span> <span class="s">&#39;scattering_lengths&#39;</span><span class="p">,</span> <span class="s">&#39;simple_xs&#39;</span><span class="p">])</span>
 
     <span class="c"># Parse the command line arguments</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">&#39;Make a nuclear data library.&#39;</span><span class="p">)</span>

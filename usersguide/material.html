@@ -96,7 +96,7 @@ dictionaries of compositions are shown below.</p>
 <span class="gp">In [2]: </span><span class="n">leu</span> <span class="o">=</span> <span class="n">Material</span><span class="p">({</span><span class="s">&#39;U238&#39;</span><span class="p">:</span> <span class="mf">0.96</span><span class="p">,</span> <span class="s">&#39;U235&#39;</span><span class="p">:</span> <span class="mf">0.04</span><span class="p">},</span> <span class="mi">42</span><span class="p">,</span> <span class="s">&#39;LEU&#39;</span><span class="p">)</span>
 
 <span class="gp">In [3]: </span><span class="n">leu</span>
-<span class="gr">Out[3]: </span><span class="n">pyne</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">Material</span><span class="p">({</span><span class="mi">922350</span><span class="p">:</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mi">922380</span><span class="p">:</span> <span class="mf">0.96</span><span class="p">},</span> <span class="mf">42.0</span><span class="p">,</span> <span class="s">&#39;LEU&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="gr">Out[3]: </span><span class="n">pyne</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">Material</span><span class="p">({</span><span class="mi">922350</span><span class="p">:</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mi">922380</span><span class="p">:</span> <span class="mf">0.96</span><span class="p">},</span> <span class="mf">42.0</span><span class="p">,</span> <span class="s">&#39;LEU&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="p">{})</span>
 
 <span class="gp">In [4]: </span><span class="n">nucvec</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10010</span><span class="p">:</span>  <span class="mf">1.0</span><span class="p">,</span> <span class="mi">80160</span><span class="p">:</span>  <span class="mf">1.0</span><span class="p">,</span> <span class="mi">691690</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">922350</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
 <span class="gp">   ...:</span>           <span class="mi">922380</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">942390</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">942410</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">952420</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
@@ -149,7 +149,7 @@ of the two original. Multiplying a Material by 2, however, will simply double th
 <span class="gr">Out[12]: </span><span class="n">pyne</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">Material</span><span class="p">({</span><span class="mi">10010</span><span class="p">:</span> <span class="mf">0.111111111111</span><span class="p">,</span> <span class="mi">80160</span><span class="p">:</span> <span class="mf">0.111111111111</span><span class="p">,</span> <span class="mi">691690</span><span class="p">:</span> <span class="mf">0.111111111111</span><span class="p">,</span>
 <span class="gp">   ...:</span>                          <span class="mi">922350</span><span class="p">:</span> <span class="mf">0.111111111111</span><span class="p">,</span> <span class="mi">922380</span><span class="p">:</span> <span class="mf">0.111111111111</span><span class="p">,</span> <span class="mi">942390</span><span class="p">:</span> <span class="mf">0.111111111111</span><span class="p">,</span>
 <span class="gp">   ...:</span>                          <span class="mi">942410</span><span class="p">:</span> <span class="mf">0.111111111111</span><span class="p">,</span> <span class="mi">952420</span><span class="p">:</span> <span class="mf">0.111111111111</span><span class="p">,</span> <span class="mi">962440</span><span class="p">:</span> <span class="mf">0.111111111111</span><span class="p">},</span>
-<span class="gp">   ...:</span>                          <span class="mf">2.0</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+<span class="gp">   ...:</span>                          <span class="mf">2.0</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="p">{})</span>
 
 <span class="gp">In [13]: </span><span class="n">other_mat</span><span class="o">.</span><span class="n">mass</span>
 <span class="gr">Out[13]: </span><span class="mf">2.0</span>
@@ -173,9 +173,10 @@ of the two original. Multiplying a Material by 2, however, will simply double th
 </pre></div>
 </div>
 </div>
-<div class="section" id="raw-attribute-access">
-<h2>Raw Attribute Access<a class="headerlink" href="#raw-attribute-access" title="Permalink to this headline">¶</a></h2>
-<p>You may also change the attributes of a material directly without generating a new material instance.</p>
+<div class="section" id="raw-member-access">
+<h2>Raw Member Access<a class="headerlink" href="#raw-member-access" title="Permalink to this headline">¶</a></h2>
+<p>You may also change the attributes of a material directly without generating a new
+material instance.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [16]: </span><span class="n">other_mat</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="gp">In [17]: </span><span class="n">other_mat</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Other Material&quot;</span>
@@ -219,7 +220,7 @@ the material may be performed with integer-keys, string-keys, slices, or sequenc
 <span class="gr">Out[23]: </span><span class="mf">1.68</span>
 
 <span class="gp">In [24]: </span><span class="n">weird_mat</span><span class="p">[</span><span class="s">&#39;U&#39;</span><span class="p">:</span><span class="s">&#39;Am&#39;</span><span class="p">]</span>
-<span class="gr">Out[24]: </span><span class="n">pyne</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">Material</span><span class="p">({</span><span class="mi">922350</span><span class="p">:</span> <span class="mf">0.0736</span><span class="p">,</span> <span class="mi">922380</span><span class="p">:</span> <span class="mf">0.8464</span><span class="p">,</span> <span class="mi">942390</span><span class="p">:</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mi">942410</span><span class="p">:</span> <span class="mf">0.04</span><span class="p">},</span> <span class="mf">50.0</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="gr">Out[24]: </span><span class="n">pyne</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">Material</span><span class="p">({</span><span class="mi">922350</span><span class="p">:</span> <span class="mf">0.0736</span><span class="p">,</span> <span class="mi">922380</span><span class="p">:</span> <span class="mf">0.8464</span><span class="p">,</span> <span class="mi">942390</span><span class="p">:</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mi">942410</span><span class="p">:</span> <span class="mf">0.04</span><span class="p">},</span> <span class="mf">50.0</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="p">{})</span>
 
 <span class="gp">In [25]: </span><span class="n">other_mat</span><span class="p">[:</span><span class="mi">920000</span><span class="p">]</span> <span class="o">=</span> <span class="mf">42.0</span>
 
@@ -236,7 +237,7 @@ the material may be performed with integer-keys, string-keys, slices, or sequenc
 <span class="gp">In [28]: </span><span class="n">mat</span><span class="p">[:]</span>
 <span class="gr">Out[28]: </span><span class="n">pyne</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">Material</span><span class="p">({</span><span class="mi">10010</span><span class="p">:</span> <span class="mf">0.166666666667</span><span class="p">,</span> <span class="mi">922350</span><span class="p">:</span> <span class="mf">0.166666666667</span><span class="p">,</span> <span class="mi">922380</span><span class="p">:</span> <span class="mf">0.166666666667</span><span class="p">,</span>
 <span class="gp">   ...:</span>                          <span class="mi">942390</span><span class="p">:</span> <span class="mf">0.166666666667</span><span class="p">,</span> <span class="mi">942410</span><span class="p">:</span> <span class="mf">0.166666666667</span><span class="p">,</span> <span class="mi">952420</span><span class="p">:</span> <span class="mf">0.166666666667</span><span class="p">},</span>
-<span class="gp">   ...:</span>                          <span class="mf">0.666666666667</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="gp">   ...:</span>                          <span class="mf">0.666666666667</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="p">{})</span>
 </pre></div>
 </div>
 <p>Other methods also exist for obtaining commonly used sub-materials, such as gathering the Uranium or
@@ -334,7 +335,66 @@ and low-enriched uranium.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Materials may be used as keys in a dictionary because they are hashable.</p>
 </div>
-<p>Further information on the Material class may be seen in the library reference <a class="reference internal" href="../libref/material.html#pyne-material"><em>Materials &#8211; pyne.material</em></a>.</p>
+</div>
+<div class="section" id="user-defined-metadata">
+<h2>User-defined Metadata<a class="headerlink" href="#user-defined-metadata" title="Permalink to this headline">¶</a></h2>
+<p>Materials also have an <tt class="docutils literal"><span class="pre">attrs</span></tt> attribute which allows users to store arbitrary
+custom information about the material.  This can include things like units, comments,
+provenance information, or anything else the user desires.  This is implemented as an
+in-memory JSON object attached to the C++ class.  Therefore, what may be stored in
+the <tt class="docutils literal"><span class="pre">attrs</span></tt> is subject to the same restrictions as JSON itself.  The top-level
+of the attrs <em>should</em> be a dictionary, though this is not explicitly enforced.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [48]: </span><span class="n">leu</span> <span class="o">=</span> <span class="n">Material</span><span class="p">({</span><span class="mi">922350</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">922380</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">},</span> <span class="mi">15</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;kg&#39;</span><span class="p">})</span>
+
+<span class="gp">In [49]: </span><span class="k">print</span> <span class="n">leu</span>
+<span class="go">Material:</span>
+<span class="go">mass = 15.0</span>
+<span class="go">atoms per molecule = -1.0</span>
+<span class="go">units = kg</span>
+<span class="go">-------------------------</span>
+<span class="go">U235   0.05</span>
+<span class="go">U238   0.95</span>
+
+<span class="gp">In [50]: </span><span class="n">leu</span>
+<span class="gr">Out[50]: </span><span class="n">pyne</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">Material</span><span class="p">({</span><span class="mi">922350</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">922380</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">},</span> <span class="mf">15.0</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span> <span class="p">{</span><span class="s">&quot;units&quot;</span><span class="p">:</span><span class="s">&quot;kg&quot;</span><span class="p">})</span>
+
+<span class="gp">In [51]: </span><span class="n">leu</span><span class="o">.</span><span class="n">attrs</span>
+<span class="gr">Out[51]: </span><span class="p">{</span><span class="s">&quot;units&quot;</span><span class="p">:</span><span class="s">&quot;kg&quot;</span><span class="p">}</span>
+
+<span class="gp">In [52]: </span><span class="n">a</span> <span class="o">=</span> <span class="n">leu</span><span class="o">.</span><span class="n">attrs</span>
+
+<span class="gp">In [53]: </span><span class="n">a</span><span class="p">[</span><span class="s">&#39;comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Anthony made this material.&#39;</span><span class="p">]</span>
+
+<span class="gp">In [54]: </span><span class="n">leu</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;And then Katy made it better!&#39;</span><span class="p">)</span>
+
+<span class="gp">In [55]: </span><span class="n">a</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+
+<span class="gp">In [56]: </span><span class="n">leu</span><span class="o">.</span><span class="n">attrs</span>
+<span class="gr">Out[56]: </span><span class="p">{</span><span class="s">&quot;comments&quot;</span><span class="p">:[</span><span class="s">&quot;Anthony made this material.&quot;</span><span class="p">,</span><span class="s">&quot;And then Katy made it better!&quot;</span><span class="p">],</span>\
+<span class="go">          &quot;id&quot;:42,&quot;units&quot;:&quot;kg&quot;}</span>
+
+<span class="gp">In [57]: </span><span class="n">leu</span><span class="o">.</span><span class="n">attr</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;solar mass&#39;</span><span class="p">}</span>
+
+<span class="gp">In [58]: </span><span class="n">leu</span><span class="o">.</span><span class="n">attr</span>
+<span class="gr">Out[58]: </span><span class="p">{</span><span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;solar mass&#39;</span><span class="p">}</span>
+
+<span class="gp">In [59]: </span><span class="n">a</span>
+<span class="gr">Out[59]: </span><span class="p">{</span><span class="s">&quot;comments&quot;</span><span class="p">:[</span><span class="s">&quot;Anthony made this material.&quot;</span><span class="p">,</span><span class="s">&quot;And then Katy made it better!&quot;</span><span class="p">],</span>\
+<span class="go">          &quot;id&quot;:42,&quot;units&quot;:&quot;kg&quot;}</span>
+
+<span class="gp">In [60]: </span><span class="n">leu</span><span class="o">.</span><span class="n">attr</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;not solar masses&#39;</span>
+
+<span class="gp">In [61]: </span><span class="n">leu</span><span class="o">.</span><span class="n">attr</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span>
+<span class="gr">Out[61]: </span><span class="s">&#39;not solar masses&#39;</span>
+</pre></div>
+</div>
+<p>As you can see from the above, the attrs interface provides a view into the underlying
+JSON object.  This can be manipulated directly or by renaming it to another variable.
+Additionally, <tt class="docutils literal"><span class="pre">attrs</span></tt> can be replaced with a new object of the appropriate type.
+Doing so invalidates any previous views into this container.</p>
+<hr class="docutils" />
+<p>Further information on the Material class may be seen in the library reference
+<a class="reference internal" href="../libref/material.html#pyne-material"><em>Materials &#8211; pyne.material</em></a>.</p>
 </div>
 </div>
 
@@ -351,9 +411,10 @@ and low-enriched uranium.</p>
   <ul>
 <li><a class="reference internal" href="#">Materials</a><ul>
 <li><a class="reference internal" href="#material-arithmetic">Material Arithmetic</a></li>
-<li><a class="reference internal" href="#raw-attribute-access">Raw Attribute Access</a></li>
+<li><a class="reference internal" href="#raw-member-access">Raw Member Access</a></li>
 <li><a class="reference internal" href="#indexing-slicing">Indexing &amp; Slicing</a></li>
 <li><a class="reference internal" href="#molecular-weights-atom-fractions">Molecular Weights &amp; Atom Fractions</a></li>
+<li><a class="reference internal" href="#user-defined-metadata">User-defined Metadata</a></li>
 </ul>
 </li>
 </ul>

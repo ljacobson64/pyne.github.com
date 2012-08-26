@@ -155,22 +155,22 @@
         <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_f</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
 
     <span class="c"># Get the fission XS</span>
-    <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">sigma_f_n_nuc_zz</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_f_n&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">)</span>
-    <span class="n">sigma_f_g_nuc_zz</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_f_g&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">)</span>
+    <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
+    <span class="n">sigma_f_n_nuc</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_f_n&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
+    <span class="n">sigma_f_g_nuc</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_f_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
-    <span class="k">if</span> <span class="n">sigma_f_g_nuc_zz</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">sigma_f_g_nuc_zz</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">sigma_f_g_nuc</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">sigma_f_g_nuc</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">sigma_f_n</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">sigma_f_n_nuc_zz</span><span class="p">]</span>
+        <span class="n">sigma_f_n</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">sigma_f_n_nuc</span><span class="p">]</span>
 
     <span class="c"># Perform the group collapse, knowing that the right data is in the cache</span>
     <span class="n">sigma_f_g</span> <span class="o">=</span> <span class="n">group_collapse</span><span class="p">(</span><span class="n">sigma_f_n</span><span class="p">,</span> <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;phi_n&#39;</span><span class="p">],</span> <span class="n">phi_g</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">],</span> 
                                <span class="n">partial_energies</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;partial_energy_matrix&#39;</span><span class="p">])</span>
 
     <span class="c"># Put this value back into the cache, with the appropriate label</span>
-    <span class="n">xs_cache</span><span class="p">[</span><span class="n">sigma_f_g_nuc_zz</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_f_g</span>
+    <span class="n">xs_cache</span><span class="p">[</span><span class="n">sigma_f_g_nuc</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_f_g</span>
 
     <span class="k">return</span> <span class="n">sigma_f_g</span>
 
@@ -219,8 +219,8 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_s_gh</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
 
-    <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_s_gh&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_s_gh&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
     <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
@@ -228,8 +228,8 @@
 
     <span class="c"># Get some needed data</span>
     <span class="n">G</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">pyne</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">b</span><span class="p">(</span><span class="n">nuc_zz</span><span class="p">)</span>
-    <span class="n">aw</span> <span class="o">=</span> <span class="n">pyne</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">atomic_mass</span><span class="p">(</span><span class="n">nuc_zz</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">pyne</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">b</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
+    <span class="n">aw</span> <span class="o">=</span> <span class="n">pyne</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">atomic_mass</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
 
     <span class="c"># OMG FIXME So hard!</span>
     <span class="c">## Initialize the scattering kernel</span>
@@ -297,9 +297,9 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_s</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
 
-    <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key_g</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_s_g&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
-    <span class="n">key_gh</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_s_gh&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
+    <span class="n">key_g</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_s_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">key_gh</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_s_gh&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
     <span class="k">if</span> <span class="n">key_g</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
@@ -358,9 +358,9 @@
         <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_a_reaction</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
 
     <span class="c"># Get the absorption XS</span>
-    <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key_n</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_rx_n&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
-    <span class="n">key_g</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_rx_g&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
+    <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
+    <span class="n">key_n</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_rx_n&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
+    <span class="n">key_g</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_rx_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
     <span class="k">if</span> <span class="n">key_g</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
@@ -464,9 +464,9 @@
         <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_a</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
 
     <span class="c"># Get the absorption XS</span>
-    <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key_n</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_a_n&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">)</span>
-    <span class="n">key_g</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_a_g&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">)</span>
+    <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
+    <span class="n">key_n</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_a_n&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
+    <span class="n">key_g</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_a_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
     <span class="k">if</span> <span class="n">key_g</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
@@ -519,8 +519,8 @@
         <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
 
     <span class="c"># Get the fission XS</span>
-    <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;chi_g&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">)</span>
+    <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;chi_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
     <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
@@ -529,18 +529,18 @@
     <span class="c"># Get the the set of nuclides we know we need chi for.  </span>
     <span class="k">if</span> <span class="s">&#39;fissionable_nucs&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">pyne_conf</span><span class="o">.</span><span class="n">NUC_DATA_PATH</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">fn</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">fission</span><span class="o">.</span><span class="n">cols</span><span class="o">.</span><span class="n">nuc_zz</span><span class="p">)</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">fission</span><span class="o">.</span><span class="n">cols</span><span class="o">.</span><span class="n">nuc</span><span class="p">)</span>
         <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;fissionable_nucs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fn</span>
     <span class="n">fissionable_nucs</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;fissionable_nucs&#39;</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">nuc_zz</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fissionable_nucs</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">86</span> <span class="o">&lt;=</span> <span class="n">nuc_zz</span><span class="o">/</span><span class="mi">10000</span><span class="p">):</span>
-        <span class="n">fissionable_nucs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">nuc_zz</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">nuc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fissionable_nucs</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">86</span> <span class="o">&lt;=</span> <span class="n">nuc</span><span class="o">/</span><span class="mi">10000</span><span class="p">):</span>
+        <span class="n">fissionable_nucs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
 
     <span class="c"># Perform the group collapse on a continuous chi</span>
     <span class="n">G</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="n">chi_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">nuc_zz</span> <span class="ow">in</span> <span class="n">fissionable_nucs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">nuc</span> <span class="ow">in</span> <span class="n">fissionable_nucs</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
             <span class="n">E_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">][</span><span class="n">g</span><span class="p">]),</span> 
                                   <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">][</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">]),</span> <span class="n">eres</span><span class="p">)</span>
@@ -593,10 +593,10 @@
         <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_t</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
 
     <span class="c"># Get the total XS</span>
-    <span class="n">nuc_zz</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key_a</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_a_g&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">)</span>
-    <span class="n">key_s</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_t_g&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
-    <span class="n">key_t</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_t_g&#39;</span><span class="p">,</span> <span class="n">nuc_zz</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
+    <span class="n">key_a</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_a_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
+    <span class="n">key_s</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_t_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">key_t</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_t_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
     <span class="k">if</span> <span class="n">key_t</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>

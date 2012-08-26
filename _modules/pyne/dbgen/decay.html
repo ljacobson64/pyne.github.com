@@ -102,7 +102,7 @@
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">ensdf_zip</span><span class="p">:</span>
         <span class="n">fpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">f</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">build_dir</span><span class="p">):</span>
-            <span class="k">print</span> <span class="s">&quot;  grabing {0} and placing it in {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fpath</span><span class="p">)</span>
+            <span class="k">print</span> <span class="s">&quot;  grabbing {0} and placing it in {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fpath</span><span class="p">)</span>
             <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">iaea_base_url</span> <span class="o">+</span> <span class="n">f</span><span class="p">,</span> <span class="n">fpath</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1048576</span><span class="p">:</span> 
@@ -110,20 +110,23 @@
                 <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
                 <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">s3_base_url</span> <span class="o">+</span> <span class="n">f</span><span class="p">,</span> <span class="n">fpath</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>
+        <span class="c"># not using ZipFile context manager (with statement for Python 2.6)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">zf</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">zf</span><span class="o">.</span><span class="n">namelist</span><span class="p">():</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">name</span><span class="p">)):</span>
                     <span class="k">print</span> <span class="s">&quot;    extracting {0} from {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
                     <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
 
 
 </div>
 <span class="n">atomic_decay_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
-    <span class="p">(</span><span class="s">&#39;from_nuc_name&#39;</span><span class="p">,</span> <span class="s">&#39;S6&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;from_nuc_zz&#39;</span><span class="p">,</span>   <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;from_nuc&#39;</span><span class="p">,</span>   <span class="nb">int</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;level&#39;</span><span class="p">,</span>         <span class="nb">float</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;to_nuc_name&#39;</span><span class="p">,</span>   <span class="s">&#39;S6&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;to_nuc_zz&#39;</span><span class="p">,</span>     <span class="nb">int</span><span class="p">),</span> 
+    <span class="p">(</span><span class="s">&#39;to_nuc&#39;</span><span class="p">,</span>     <span class="nb">int</span><span class="p">),</span> 
     <span class="p">(</span><span class="s">&#39;half_life&#39;</span><span class="p">,</span>     <span class="nb">float</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;decay_const&#39;</span><span class="p">,</span>   <span class="nb">float</span><span class="p">),</span>
     <span class="p">(</span><span class="s">&#39;branch_ratio&#39;</span><span class="p">,</span>  <span class="nb">float</span><span class="p">),</span>
@@ -142,7 +145,7 @@
         <span class="n">decay_data</span> <span class="o">+=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">half_life</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
     <span class="n">ln2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
-    <span class="n">decay_data</span> <span class="o">=</span> <span class="p">[(</span><span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">fn</span><span class="p">),</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">tn</span><span class="p">),</span> <span class="n">tn</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">ln2</span><span class="o">/</span><span class="n">hl</span><span class="p">,</span> <span class="n">br</span><span class="p">)</span> <span class="k">for</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">br</span> <span class="ow">in</span> <span class="n">decay_data</span><span class="p">]</span>
+    <span class="n">decay_data</span> <span class="o">=</span> <span class="p">[(</span><span class="n">fn</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">ln2</span><span class="o">/</span><span class="n">hl</span><span class="p">,</span> <span class="n">br</span><span class="p">)</span> <span class="k">for</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">br</span> <span class="ow">in</span> <span class="n">decay_data</span><span class="p">]</span>
     <span class="n">decay_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">decay_data</span><span class="p">)</span>
     <span class="n">decay_data</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">decay_data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
 
@@ -194,7 +197,7 @@
             <span class="k">return</span> 
 
     <span class="c"># grab the decay data</span>
-    <span class="k">print</span> <span class="s">&quot;Grabing the ENSDF decay data from IAEA&quot;</span>
+    <span class="k">print</span> <span class="s">&quot;Grabbing the ENSDF decay data from IAEA&quot;</span>
     <span class="n">grab_ensdf_decay</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
 
     <span class="c"># Make atomic weight table once we have the array</span>
