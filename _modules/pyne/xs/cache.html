@@ -101,6 +101,7 @@
                          <span class="s">&#39;sigma_a_n&#39;</span><span class="p">:</span> <span class="n">get_sigma_a_n</span><span class="p">,</span>
                          <span class="s">&#39;sigma_rx_n&#39;</span><span class="p">:</span> <span class="n">get_sigma_a_reaction_n</span><span class="p">,</span>
                          <span class="s">&#39;phi_g&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">phi_g</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;E_n&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;phi_n&#39;</span><span class="p">]),</span>
+                         <span class="s">&#39;eaf_xs&#39;</span><span class="p">:</span> <span class="n">get_eaf_xs</span><span class="p">,</span>
                         <span class="p">}</span>
 
     <span class="c">#</span>
@@ -292,7 +293,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    nuc : int</span>
-<span class="sd">        nuclide in zzaaam form.</span>
+<span class="sd">        Nuclide in zzaaam form.</span>
 <span class="sd">    rx : str </span>
 <span class="sd">        Reaction key: &#39;gamma&#39;, &#39;alpha&#39;, &#39;p&#39;, etc.</span>
 
@@ -340,7 +341,91 @@
     <span class="k">return</span> <span class="n">sigma_rx_n</span>
 
 
-<span class="c"># Make a singleton of the cross-section cache</span></div>
+<span class="c">#EAF_RX = set([&quot;&quot;, &#39;np *&#39;, &#39;a  *&#39;, &#39;h  *&#39;, &#39;2p *&#39;, &#39;3n *&#39;, &#39;d  *&#39;, &#39;np/d&#39;, </span>
+<span class="c">#                     &#39;na&#39;, &#39;*&#39;, &#39;nd&#39;, &#39;g  *&#39;, &#39;3n&#39;, &#39;np&#39;, &#39;nt&#39;, &#39;t&#39;, &#39;nt *&#39;, </span>
+<span class="c">#                     &#39;x  *&#39;, &#39;4n *&#39;, &#39;na *&#39;, &#39;nd *&#39;, &#39;t  *&#39;, &#39;a&#39;, &#39;c&#39;, &#39;2p&#39;, &#39;d&#39;, </span>
+<span class="c">#                     &#39;g&#39;, &#39;h&#39;, &#39;n&#39;, &#39;4n&#39;, &#39;p&#39;, &#39;n  *&#39;, &#39;2a&#39;, &#39;2n *&#39;, &#39;x&#39;, &#39;2n&#39;, </span>
+<span class="c">#                     &#39;nh *&#39;, &#39;p  *&#39;,</span></div>
+<span class="n">EAF_RX</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;1020&#39;</span><span class="p">,</span> <span class="s">&#39;1021&#39;</span><span class="p">,</span> <span class="s">&#39;1022&#39;</span><span class="p">,</span> <span class="s">&#39;1030&#39;</span><span class="p">,</span> <span class="s">&#39;1031&#39;</span><span class="p">,</span> <span class="s">&#39;1032&#39;</span><span class="p">,</span> <span class="s">&#39;1040&#39;</span><span class="p">,</span> 
+                     <span class="s">&#39;1041&#39;</span><span class="p">,</span> <span class="s">&#39;1042&#39;</span><span class="p">,</span> <span class="s">&#39;1050&#39;</span><span class="p">,</span> <span class="s">&#39;1051&#39;</span><span class="p">,</span> <span class="s">&#39;1052&#39;</span><span class="p">,</span> <span class="s">&#39;1060&#39;</span><span class="p">,</span> <span class="s">&#39;1061&#39;</span><span class="p">,</span> 
+                     <span class="s">&#39;1062&#39;</span><span class="p">,</span> <span class="s">&#39;1070&#39;</span><span class="p">,</span> <span class="s">&#39;1071&#39;</span><span class="p">,</span> <span class="s">&#39;1072&#39;</span><span class="p">,</span> <span class="s">&#39;1080&#39;</span><span class="p">,</span> <span class="s">&#39;1110&#39;</span><span class="p">,</span> <span class="s">&#39;1111&#39;</span><span class="p">,</span> 
+                     <span class="s">&#39;1112&#39;</span><span class="p">,</span> <span class="s">&#39;160&#39;</span><span class="p">,</span> <span class="s">&#39;161&#39;</span><span class="p">,</span> <span class="s">&#39;162&#39;</span><span class="p">,</span> <span class="s">&#39;170&#39;</span><span class="p">,</span> <span class="s">&#39;171&#39;</span><span class="p">,</span> <span class="s">&#39;172&#39;</span><span class="p">,</span> <span class="s">&#39;180&#39;</span><span class="p">,</span>
+                     <span class="s">&#39;220&#39;</span><span class="p">,</span> <span class="s">&#39;221&#39;</span><span class="p">,</span> <span class="s">&#39;222&#39;</span><span class="p">,</span> <span class="s">&#39;240&#39;</span><span class="p">,</span> <span class="s">&#39;280&#39;</span><span class="p">,</span> <span class="s">&#39;281&#39;</span><span class="p">,</span> <span class="s">&#39;282&#39;</span><span class="p">,</span> <span class="s">&#39;290&#39;</span><span class="p">,</span>
+                     <span class="s">&#39;320&#39;</span><span class="p">,</span> <span class="s">&#39;321&#39;</span><span class="p">,</span> <span class="s">&#39;322&#39;</span><span class="p">,</span> <span class="s">&#39;330&#39;</span><span class="p">,</span> <span class="s">&#39;331&#39;</span><span class="p">,</span> <span class="s">&#39;332&#39;</span><span class="p">,</span> <span class="s">&#39;340&#39;</span><span class="p">,</span> <span class="s">&#39;341&#39;</span><span class="p">,</span>
+                     <span class="s">&#39;342&#39;</span><span class="p">,</span> <span class="s">&#39;370&#39;</span><span class="p">,</span> <span class="s">&#39;371&#39;</span><span class="p">,</span> <span class="s">&#39;40&#39;</span><span class="p">,</span> <span class="s">&#39;41&#39;</span><span class="p">,</span> <span class="s">&#39;42&#39;</span><span class="p">,</span> <span class="s">&#39;420&#39;</span><span class="p">])</span>
+
+<span class="n">EAF_RX_MAP</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;neutron&#39;</span><span class="p">:</span> <span class="s">&#39;n&#39;</span><span class="p">,</span>
+    <span class="s">&#39;gamma&#39;</span><span class="p">:</span> <span class="s">&#39;g&#39;</span><span class="p">,</span> 
+    <span class="s">&#39;alpha&#39;</span><span class="p">:</span> <span class="s">&#39;a&#39;</span><span class="p">,</span>
+    <span class="s">&#39;proton&#39;</span><span class="p">:</span> <span class="s">&#39;p&#39;</span><span class="p">,</span>
+    <span class="s">&#39;trit&#39;</span><span class="p">:</span> <span class="s">&#39;t&#39;</span><span class="p">,</span>
+    <span class="s">&#39;triton&#39;</span><span class="p">:</span> <span class="s">&#39;t&#39;</span><span class="p">,</span>
+    <span class="s">&#39;deut&#39;</span><span class="p">:</span> <span class="s">&#39;d&#39;</span><span class="p">,</span>
+    <span class="s">&#39;deuteron&#39;</span><span class="p">:</span> <span class="s">&#39;d&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">get_eaf_xs</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Grabs group-wise cross section values fro a given nuclide and reaction from the EAF format activation library.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nuc : int</span>
+<span class="sd">        Nuclide in zzaaam form.</span>
+<span class="sd">    rx : str </span>
+<span class="sd">        Reaction MT # in nnnm form.</span>
+<span class="sd">      OR: (eventually)</span>
+<span class="sd">        Reaction key: &#39;gamma&#39;, &#39;alpha&#39;, &#39;p&#39;, etc.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sigma_n : numpy array</span>
+<span class="sd">        The cross-section pulled from the nuc_data library file.</span>
+<span class="sd">        If not present in the library, a zero-array is returned.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    pyne.xs.cache.EAF_RX</span>
+<span class="sd">    pyne.xs.cache.EAF_RX_MAP</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># munge the reaction rate</span>
+    <span class="c">#TODO:</span>
+    <span class="c">#if rx not in EAF_RX:</span>
+    <span class="c">#    while any([(key in rx) for key in EAF_RX_MAP]):</span>
+    <span class="c">#        for key, value in EAF_RX_MAP.items():</span>
+    <span class="c">#            rx = rx.replace(key, value)</span>
+
+    <span class="c">#if &#39;_x&#39; in rx:</span>
+    <span class="c">#    if len(rx) == 3:</span>
+    <span class="c">#        rx = rx.replace(&#39;_x&#39;, &#39;  *&#39;)</span>
+    <span class="c">#    else:</span>
+    <span class="c">#        rx = rx.replace(&#39;_x&#39;, &#39; *&#39;)</span>
+
+    <span class="k">if</span> <span class="n">rx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">EAF_RX</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;the reaction &#39;{rx}&#39; is not valid.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rx</span><span class="o">=</span><span class="n">rx</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c"># Read in the data</span>
+    <span class="n">nuc_data</span> <span class="o">=</span> <span class="n">pyne_conf</span><span class="o">.</span><span class="n">NUC_DATA_PATH</span>
+    <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">eaf_xs</span><span class="o">.</span><span class="n">eaf_xs</span><span class="o">.</span><span class="n">coldescrs</span><span class="p">[</span><span class="s">&#39;xsec&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cond</span> <span class="o">=</span> <span class="s">&quot;(nuc_zz == {0}) &amp; (rxnum == &#39;{1}&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">&#39;xsec&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> \
+                <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">eaf_xs</span><span class="o">.</span><span class="n">eaf_xs</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="p">)]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c"># No absportion, return zero-array</span>
+        <span class="k">print</span> <span class="s">&#39;not found&#39;</span>
+        <span class="n">sigma_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+        <span class="n">sigma_n</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sigma_n</span>
+
+
+<span class="c"># Make a singleton of the cross-section cache</span>
 <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">XSCache</span><span class="p">()</span>
 </pre></div>
 

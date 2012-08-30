@@ -116,11 +116,6 @@ an empty Material object is constructed.</p>
 sum of compdict&#8217;s components before normalization.  If the mass here is
 positive or zero, then this mass overrides the calculated one.</p>
 </div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>A string label for the material.  Helpful for large numbers of
-streams. Default &#8216;&#8217;.</p>
-</div></blockquote>
 <p><strong>atoms_per_mol</strong> : float, optional</p>
 <blockquote>
 <div><p>Number of atoms to per molecule of material.  Needed to obtain proper
@@ -145,7 +140,7 @@ destruction.</p>
 </table>
 <dl class="method">
 <dt id="pyne.material.Material.del_mat">
-<tt class="descname">del_mat</tt><big>(</big><em>nuc_sequence</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.del_mat" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">del_mat</tt><big>(</big><em>nuc_sequence</em><big>)</big><a class="headerlink" href="#pyne.material.Material.del_mat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes a subset of the material and returns a new material
 comprised of only the non-specified nuclides.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -155,10 +150,6 @@ comprised of only the non-specified nuclides.</p>
 <tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
 <blockquote>
 <div><p>Nuclides to be taken out of the current material.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -180,7 +171,7 @@ original material.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.del_range">
-<tt class="descname">del_range</tt><big>(</big><em>lower=0</em>, <em>upper=10000000</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.del_range" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">del_range</tt><big>(</big><em>lower=0</em>, <em>upper=10000000</em><big>)</big><a class="headerlink" href="#pyne.material.Material.del_range" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove a range [lower, upper) of nuclides from this material and
 returns a submaterial.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -194,10 +185,6 @@ returns a submaterial.</p>
 <p><strong>upper</strong> : nuclide-name, optional</p>
 <blockquote>
 <div><p>Upper bound on nuclide range.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -233,18 +220,18 @@ The values must be castable to floats.</p>
 <p class="rubric">Examples</p>
 <p>To get a material from water, based on atom fractions:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">h2o</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10010</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="s">&#39;O16&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
-<span class="n">mat</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;water&#39;</span><span class="p">)</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="n">Material</span><span class="p">()</span>
 <span class="n">mat</span><span class="o">.</span><span class="n">from_atom_frac</span><span class="p">(</span><span class="n">h2o</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Or for Uranium-Oxide, based on an initial fuel vector:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Define initial heavy metal</span>
-<span class="n">ihm</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;IHM&#39;</span><span class="p">)</span>
+<span class="n">ihm</span> <span class="o">=</span> <span class="n">Material</span><span class="p">()</span>
 <span class="n">ihm</span><span class="o">.</span><span class="n">from_atom_frac</span><span class="p">({</span><span class="s">&#39;U235&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s">&#39;U238&#39;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">})</span>
 
 <span class="c"># Define Uranium-Oxide</span>
 <span class="n">uox</span> <span class="o">=</span> <span class="p">{</span><span class="n">ihm</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">80160</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">}</span>
-<span class="n">mat</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;UOX&#39;</span><span class="p">)</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="n">Material</span><span class="p">()</span>
 <span class="n">mat</span><span class="o">.</span><span class="n">from_atom_frac</span><span class="p">(</span><span class="n">uox</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -439,7 +426,7 @@ mass = 1.0.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.set_mat">
-<tt class="descname">set_mat</tt><big>(</big><em>nuc_sequence</em>, <em>value</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.set_mat" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_mat</tt><big>(</big><em>nuc_sequence</em>, <em>value</em><big>)</big><a class="headerlink" href="#pyne.material.Material.set_mat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets a subset of the material to a new value and returns a new
 material.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -455,10 +442,6 @@ would take all uranium atoms and Pu-239.</p>
 <p><strong>value</strong> : float</p>
 <blockquote>
 <div><p>Mass value to set all nuclides in sequence to on the material.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -477,7 +460,7 @@ original material.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.set_range">
-<tt class="descname">set_range</tt><big>(</big><em>lower=0</em>, <em>upper=10000000</em>, <em>value=0.0</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.set_range" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_range</tt><big>(</big><em>lower=0</em>, <em>upper=10000000</em>, <em>value=0.0</em><big>)</big><a class="headerlink" href="#pyne.material.Material.set_range" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets a sub-material from this mat based on a range [lower, upper) to
 a new mass weight value.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -496,10 +479,6 @@ a new mass weight value.</p>
 <blockquote>
 <div><p>Mass value to set all nuclides on the range to on the material.</p>
 </div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
-</div></blockquote>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
@@ -514,19 +493,13 @@ a new mass weight value.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.sub_act">
-<tt class="descname">sub_act</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_act" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sub_act</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_act" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method that gets the Actinide portion of a mass stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Actinide members.</p>
 </div></blockquote>
@@ -538,20 +511,14 @@ a new mass weight value.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.sub_fp">
-<tt class="descname">sub_fp</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_fp" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sub_fp</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_fp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method that gets the Fission Product portion of a mass
 stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Fission Product members.</p>
 </div></blockquote>
@@ -563,19 +530,13 @@ stream.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.sub_lan">
-<tt class="descname">sub_lan</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_lan" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sub_lan</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_lan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method that gets the Lanthanide portion of a mass stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Lanthanide members.</p>
 </div></blockquote>
@@ -587,20 +548,14 @@ stream.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.sub_ma">
-<tt class="descname">sub_ma</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_ma" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sub_ma</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_ma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method that gets the Minor Actinide portion of a mass
 stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Minor Actinide members.</p>
 </div></blockquote>
@@ -612,7 +567,7 @@ stream.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.sub_mat">
-<tt class="descname">sub_mat</tt><big>(</big><em>nuc_sequence</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_mat" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sub_mat</tt><big>(</big><em>nuc_sequence</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_mat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Grabs a subset of the material and returns a new material comprised
 of only the specified nuclides.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -624,10 +579,6 @@ of only the specified nuclides.</p>
 <div><p>Elements and nuctopes to be taken from current stream.
 Members of this list must be integers.  For example, [92, 942390]
 would take all uranium atoms and Pu-239.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -650,19 +601,13 @@ original material.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.sub_pu">
-<tt class="descname">sub_pu</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_pu" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sub_pu</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_pu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method that gets the Plutonium portion of a mass stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Plutonium members.</p>
 </div></blockquote>
@@ -674,7 +619,7 @@ original material.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.sub_range">
-<tt class="descname">sub_range</tt><big>(</big><em>lower=0</em>, <em>upper=10000000</em>, <em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_range" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sub_range</tt><big>(</big><em>lower=0</em>, <em>upper=10000000</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_range" title="Permalink to this definition">¶</a></dt>
 <dd><p>Grabs a sub-material from this mat based on a range [lower, upper)
 of values.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -688,10 +633,6 @@ of values.</p>
 <p><strong>upper</strong> : nuclide-name, optional</p>
 <blockquote>
 <div><p>Upper bound on nuclide range.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -707,20 +648,14 @@ of values.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.sub_tru">
-<tt class="descname">sub_tru</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_tru" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sub_tru</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_tru" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method that gets the Transuranic portion of a mass
 stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Transuranic members.</p>
 </div></blockquote>
@@ -732,19 +667,13 @@ stream.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.sub_u">
-<tt class="descname">sub_u</tt><big>(</big><em>char * name=&quot;&quot;</em><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_u" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sub_u</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.sub_u" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience method that gets the Uranium portion of a mass stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the submaterial.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Uranium members.</p>
 </div></blockquote>
@@ -867,7 +796,7 @@ exists, it will be overwritten.</p>
 <p>The following top-level module functions are used to generate materials from various sources.</p>
 <dl class="function">
 <dt id="pyne.material.from_atom_frac">
-<tt class="descclassname">pyne.material.</tt><tt class="descname">from_atom_frac</tt><big>(</big><em>atom_fracs</em>, <em>double mass=-1.0</em>, <em>char * name=''</em>, <em>double atoms_per_mol=-1.0</em><big>)</big><a class="headerlink" href="#pyne.material.from_atom_frac" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyne.material.</tt><tt class="descname">from_atom_frac</tt><big>(</big><em>atom_fracs</em>, <em>double mass=-1.0</em>, <em>double atoms_per_mol=-1.0</em><big>)</big><a class="headerlink" href="#pyne.material.from_atom_frac" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a Material from a mapping of atom fractions.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -885,11 +814,6 @@ must be castable to floats.</p>
 (default -1.0) then the mass of the new stream is calculated from the
 sum of compdict&#8217;s components before normalization.  If the mass here is
 positive or zero, then this mass overrides the calculated one.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>A string label for the material.  Helpful for large numbers of
-streams. Default &#8216;&#8217;.</p>
 </div></blockquote>
 <p><strong>atoms_per_mol</strong> : float, optional</p>
 <blockquote>
@@ -923,16 +847,16 @@ arbitrary metadata about the material.</p>
 <p class="rubric">Examples</p>
 <p>To get a material from water, based on atom fractions:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">h2o</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10010</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="s">&#39;O16&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
-<span class="n">mat</span> <span class="o">=</span> <span class="n">from_atom_frac</span><span class="p">(</span><span class="n">h2o</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;water&#39;</span><span class="p">)</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="n">from_atom_frac</span><span class="p">(</span><span class="n">h2o</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Or for Uranium-Oxide, based on an initial fuel vector:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Define initial heavy metal</span>
-<span class="n">ihm</span> <span class="o">=</span> <span class="n">from_atom_frac</span><span class="p">({</span><span class="s">&#39;U235&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s">&#39;U238&#39;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;IHM&#39;</span><span class="p">)</span>
+<span class="n">ihm</span> <span class="o">=</span> <span class="n">from_atom_frac</span><span class="p">({</span><span class="s">&#39;U235&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s">&#39;U238&#39;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">})</span>
 
 <span class="c"># Define Uranium-Oxide</span>
 <span class="n">uox</span> <span class="o">=</span> <span class="p">{</span><span class="n">ihm</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">80160</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">}</span>
-<span class="n">mat</span> <span class="o">=</span> <span class="n">from_atom_frac</span><span class="p">(</span><span class="n">uox</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;UOX&#39;</span><span class="p">)</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="n">from_atom_frac</span><span class="p">(</span><span class="n">uox</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note that the initial heavy metal was used as a key in a dictionary.
@@ -995,7 +919,7 @@ the HDF5 file.</p>
 <hr class="docutils" />
 <dl class="function">
 <dt id="pyne.material.from_text">
-<tt class="descclassname">pyne.material.</tt><tt class="descname">from_text</tt><big>(</big><em>char * filename</em>, <em>double mass=-1.0</em>, <em>char * name=''</em>, <em>double atoms_per_mol=-1.0</em><big>)</big><a class="headerlink" href="#pyne.material.from_text" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyne.material.</tt><tt class="descname">from_text</tt><big>(</big><em>char * filename</em>, <em>double mass=-1.0</em>, <em>double atoms_per_mol=-1.0</em><big>)</big><a class="headerlink" href="#pyne.material.from_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a Material object from a simple text file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1011,11 +935,6 @@ the HDF5 file.</p>
 (default -1.0) then the mass of the new stream is calculated from the
 sum of compdict&#8217;s components before normalization.  If the mass here is
 positive or zero, then this mass overrides the calculated one.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>A string label for the material.  Helpful for large numbers of
-streams. Default &#8216;&#8217;.</p>
 </div></blockquote>
 <p><strong>atoms_per_mol</strong> : float, optional</p>
 <blockquote>
@@ -1079,7 +998,7 @@ arbitrary metadata about the material.</p>
                         title="previous chapter">Basic Nuclear Data &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.data</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="bins.html"
-                        title="next chapter">Binning Functions &#8211; <tt class="docutils literal"><span class="pre">pyne.bins</span></tt></a></p>
+                        title="next chapter">Binning Functions &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.bins</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/libref/material.txt"
