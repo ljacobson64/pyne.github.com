@@ -82,21 +82,25 @@ digits for the atomic mass number, and ends with a metastable flag (0 = ground,
 be expressed as &#8216;922350&#8217;.</li>
 <li><strong>name</strong>: This is the more common, human readable notation.  The chemical symbol
 (one or two characters long) is first, followed by the atomic weight.  Lastly if
-the nuclide is metastable, the letter <em>M</em> is concatenated to the end.  For example,
-&#8216;H-1&#8217; and &#8216;Am242M&#8217; are both valid.  Note that nucname will always return name form with
-the dash removed and all letters uppercase.</li>
-<li><strong>MCNP</strong>: The MCNP format for entering nuclides is unfortunately non-standard.  In most
-ways it is similar to zzaaam form, except that it lacks the metastable flag.  For information
-on how metastable isotopes are named, please consult the MCNPX documentation for more information.</li>
-<li><strong>Serpent</strong>: The serpent naming convention is similar to name form.  However, only the first
-letter in the chemical symbol is uppercase, the dash is always present, and the the meta-stable
-flag is lowercase.  For instance, &#8216;Am-242m&#8217; is the valid serpent notation for this nuclide.</li>
-<li><strong>NIST</strong>: The NIST naming convention is also similar to the Serpent form.  However, this
-convention contains no metastable information.  Moreover, the A-number comes before the
-element symbol.  For example, &#8216;242Am&#8217; is the valid NIST notation.</li>
-<li><strong>CINDER</strong>: The CINDER format is similar to zzaaam form except that the placement of the Z- and
-A-numbers are swapped. Therefore, this format is effectively aaazzzm.  For example, &#8216;2420951&#8217; is
-the valid cinder notation for &#8216;AM242M&#8217;.</li>
+the nuclide is metastable, the letter <em>M</em> is concatenated to the end.  For
+example, &#8216;H-1&#8217; and &#8216;Am242M&#8217; are both valid.  Note that nucname will always
+return name form with the dash removed and all letters uppercase.</li>
+<li><strong>MCNP</strong>: The MCNP format for entering nuclides is unfortunately
+non-standard.  In most ways it is similar to zzaaam form, except that it
+lacks the metastable flag.  For information on how metastable isotopes are
+named, please consult the MCNPX documentation for more information.</li>
+<li><strong>Serpent</strong>: The serpent naming convention is similar to name form.
+However, only the first letter in the chemical symbol is uppercase, the
+dash is always present, and the the meta-stable flag is lowercase.  For
+instance, &#8216;Am-242m&#8217; is the valid serpent notation for this nuclide.</li>
+<li><strong>NIST</strong>: The NIST naming convention is also similar to the Serpent form.
+However, this convention contains no metastable information.  Moreover, the
+A-number comes before the element symbol.  For example, &#8216;242Am&#8217; is the
+valid NIST notation.</li>
+<li><strong>CINDER</strong>: The CINDER format is similar to zzaaam form except that the
+placement of the Z- and A-numbers are swapped. Therefore, this format is
+effectively aaazzzm.  For example, &#8216;2420951&#8217; is the valid cinder notation
+for &#8216;AM242M&#8217;.</li>
 </ol>
 </div></blockquote>
 <p>All functionality may be found in the <tt class="docutils literal"><span class="pre">nucname</span></tt> package:</p>
@@ -289,7 +293,8 @@ For example:</p>
 </div>
 <div class="section" id="element-groups-name">
 <h2>Element Groups (name)<a class="headerlink" href="#element-groups-name" title="Permalink to this headline">¶</a></h2>
-<p>Element groups for the Lanthanides, Actinides, Transuranics, Minor Actinides, and Fission Products.</p>
+<p>Element groups for the Lanthanides, Actinides, Transuranics, Minor Actinides,
+and Fission Products.</p>
 <dl class="attribute">
 <dt id="pyne.nucname.nucname.LAN">
 <tt class="descclassname">nucname.</tt><tt class="descname">LAN</tt><a class="headerlink" href="#pyne.nucname.nucname.LAN" title="Permalink to this definition">¶</a></dt>
@@ -337,7 +342,8 @@ For example:</p>
 </div>
 <div class="section" id="element-groups-zz">
 <h2>Element Groups (zz)<a class="headerlink" href="#element-groups-zz" title="Permalink to this headline">¶</a></h2>
-<p>Element groups for the Lanthanides, Actinides, Transuranics, Minor Actinides, and Fission Products.</p>
+<p>Element groups for the Lanthanides, Actinides, Transuranics, Minor Actinides,
+and Fission Products.</p>
 <dl class="attribute">
 <dt id="pyne.nucname.nucname.lan">
 <tt class="descclassname">nucname.</tt><tt class="descname">lan</tt><a class="headerlink" href="#pyne.nucname.nucname.lan" title="Permalink to this definition">¶</a></dt>
