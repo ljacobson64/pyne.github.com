@@ -1,0 +1,989 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Definition Module – pyne.simplesim.definition &mdash; PyNE 0.1</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.1" href="../index.html" />
+    <link rel="up" title="Simple Simulation Input – pyne.simplesim" href="simplesim.html" />
+    <link rel="next" title="Input File Module – pyne.simplesim.inputfile" href="simplesim_inputfile.html" />
+    <link rel="prev" title="Nested Geometry – pyne.simplesim.nestedgeom" href="simplesim_nestedgeom.html" /> 
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="simplesim_inputfile.html" title="Input File Module – pyne.simplesim.inputfile"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="simplesim_nestedgeom.html" title="Nested Geometry – pyne.simplesim.nestedgeom"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >Library Reference</a> &raquo;</li>
+          <li><a href="simplesim.html" accesskey="U">Simple Simulation Input &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.simplesim</span></tt></a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pyne.simplesim.definition">
+<span id="definition-module-pyne-simplesim-definition"></span><span id="pyne-simplesim-definition"></span><h1>Definition Module &#8211; <a class="reference internal" href="#module-pyne.simplesim.definition" title="pyne.simplesim.definition"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.definition</span></tt></a><a class="headerlink" href="#module-pyne.simplesim.definition" title="Permalink to this headline">¶</a></h1>
+<p>The <tt class="docutils literal"><span class="pre">definition</span></tt> module can be imported as such:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne.simplesim</span> <span class="kn">import</span> <span class="n">definition</span>
+</pre></div>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>There are primarily two types of
+definitions: system definitions and simulation definitions:</p>
+<blockquote>
+<div><ul class="simple">
+<li>System definitions describe the geometry and material composition of a
+system, and nothing else. It is intended that the definition is
+completely code-dependent (i.e. independent of codes such as MCNP),
+though the way in which geometry is specified is very similar to how it
+is done for MCNP.</li>
+<li>Simulation definitions, which require a system definition, contain
+information about how to simulate the system: where to place particle
+sources, what information is desired from the simulation, etc. The
+simulation definition may have different information depending on the
+code being used to perform the simulation (e.g. MCNP, etc.), though it is
+likely that these codes do have some common elements. The common elements
+are to be found/placed in <a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">SimulationDefinition</span></tt></a>, while the
+elements relevant to the abilities of specific codes would be found in
+classes such as <a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation" title="pyne.simplesim.definition.MCNPSimulation"><tt class="xref py py-class docutils literal"><span class="pre">MCNPSimulation</span></tt></a>.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Saving and loading simulations is not implemented, though some preliminary
+work with JSON encoding has been performed. At the bottm of this module is a
+subclass of <tt class="xref py py-class docutils literal"><span class="pre">json.JSONEncoder</span></tt> that is intended to aid the
+reading/writing of simulations.</li>
+<li>MCNP is the only code for which simulations have been explored.</li>
+</ul>
+<p>An inheritance diagram of all the classes in this module can be found at
+<a class="reference internal" href="simplesim_inheritance.html#pyne-simplesim-inheritance"><em>Inheritance Diagrams</em></a>.</p>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyne.simplesim.definition.DefinitionEncoder">
+<em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">DefinitionEncoder</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#DefinitionEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.DefinitionEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to encode definitions into JSON files. Unimplemented.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.simplesim.definition.IDefinition">
+<em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">IDefinition</tt><big>(</big><em>fname=None</em>, <em>verbose=True</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#IDefinition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.IDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is not used by the user. Abstract base class for
+system and simulation definitions.</p>
+<p>Creates a new definition or loads one from <tt class="docutils literal"><span class="pre">fname</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>fname</strong> : str, optional</p>
+<blockquote>
+<div><p>If not provided, then a new definition is created. Otherwise, an
+existing definition is loaded from file <tt class="docutils literal"><span class="pre">fname</span></tt>.</p>
+</div></blockquote>
+<p><strong>verbose</strong> : bool, optional</p>
+<blockquote class="last">
+<div><p>Prints updates about what the class is doing.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.simplesim.definition.IDefinition.save">
+<tt class="descname">save</tt><big>(</big><em>fname</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#IDefinition.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.IDefinition.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save object data to a JSON file. Unimplemented.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.simplesim.definition.MCNPSimulation">
+<em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">MCNPSimulation</tt><big>(</big><em>systemdef</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#MCNPSimulation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds transformation and more tally functionality to
+<a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">SimulationDefinition</span></tt></a>. See the constructor there.</p>
+<p>Creates a new definition or loads one from a file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>systemdef: :py:class:`SystemDefinition`</strong> :</p>
+<blockquote>
+<div><p>A system definition for which this simulation is defined. This
+system definition is stored in <tt class="xref py py-attr docutils literal"><span class="pre">sys</span></tt>, from where it can be
+modified.</p>
+</div></blockquote>
+<p><strong>fname</strong> : str, optional</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="#pyne.simplesim.definition.IDefinition" title="pyne.simplesim.definition.IDefinition"><tt class="xref py py-class docutils literal"><span class="pre">IDefinition</span></tt></a>.</p>
+</div></blockquote>
+<p><strong>verbose</strong> : bool, optional</p>
+<blockquote class="last">
+<div><p>See <a class="reference internal" href="#pyne.simplesim.definition.IDefinition" title="pyne.simplesim.definition.IDefinition"><tt class="xref py py-class docutils literal"><span class="pre">IDefinition</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.simplesim.definition.MCNPSimulation.add_tally">
+<tt class="descname">add_tally</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#MCNPSimulation.add_tally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation.add_tally" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds tally cards to the simulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>card</strong> : <tt class="xref py py-class docutils literal"><span class="pre">cards.ICard</span></tt> or subclass</p>
+<blockquote>
+<div><p>The tally card to be added to the simulation.</p>
+</div></blockquote>
+<p><strong>*args :</strong> :</p>
+<blockquote class="last">
+<div><p>Any number of such cards.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.MCNPSimulation.add_transformation">
+<tt class="descname">add_transformation</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#MCNPSimulation.add_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation.add_transformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds transformation cards to the simulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>card</strong> : <tt class="xref py py-class docutils literal"><span class="pre">cards.Transformation</span></tt> or subclass</p>
+<blockquote>
+<div><p>The card to be added to the simulation.</p>
+</div></blockquote>
+<p><strong>*args</strong> : card, ...</p>
+<blockquote>
+<div><p>Any number of such cards.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>num</strong> : int</p>
+<blockquote class="last">
+<div><p>If only one card is added, the method returns the card number
+of that card. Be careful; the card number may change if other cards
+are deleted. May be useful when defining unique cards.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.MCNPSimulation.remove_tally">
+<tt class="descname">remove_tally</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#MCNPSimulation.remove_tally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation.remove_tally" title="Permalink to this definition">¶</a></dt>
+<dd><p>See <a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_tally" title="pyne.simplesim.definition.SimulationDefinition.remove_tally"><tt class="xref py py-meth docutils literal"><span class="pre">SimulationDefinition.remove_tally()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.MCNPSimulation.remove_transformation">
+<tt class="descname">remove_transformation</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#MCNPSimulation.remove_transformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation.remove_transformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a transformation card from the system. No dependency check is
+performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the transformation card to remove.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>transformation</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.Transformation" title="pyne.simplesim.cards.Transformation"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.Transformation</span></tt></a></p>
+<blockquote class="last">
+<div><p>The transformation card that has been removed from the system.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.MCNPSimulation.tally_num">
+<tt class="descname">tally_num</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#MCNPSimulation.tally_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation.tally_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.ITally</span></tt> card in the MCNP
+input file. Note that <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.TallyCustom" title="pyne.simplesim.cards.TallyCustom"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.TallyCustom</span></tt></a>
+cards with <tt class="xref py py-attr docutils literal"><span class="pre">tallyclass</span></tt> as None do not have a tally number.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the tally. Names must be unique across all tally types.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>tally_num</strong> : int</p>
+<blockquote class="last">
+<div><p>The tally number for a given tally type. For the first cell flux
+tally, a value of 1 is returned, not 14.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.MCNPSimulation.transformation_num">
+<tt class="descname">transformation_num</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#MCNPSimulation.transformation_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation.transformation_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.Transformation</span></tt> card in
+the MCNP input file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the <tt class="xref py py-class docutils literal"><span class="pre">cards.Transformation</span></tt>. Names must be unique
+across all transformations.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>transformation_num</strong> : int</p>
+<blockquote class="last">
+<div><p>The transformation number.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.simplesim.definition.MCNPSimulation.transformations">
+<tt class="descname">transformations</tt><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#MCNPSimulation.transformations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation.transformations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordered dictionary of transformation cards (from
+<tt class="xref py py-class docutils literal"><span class="pre">cards.Transformation</span></tt>).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.simplesim.definition.SimulationDefinition">
+<em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">SimulationDefinition</tt><big>(</big><em>systemdef</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>This definition contains source, source distribution, tally/detector,
+and miscellaneous cards. Code-specific functionality/cards is found in
+subclasses of this class.</p>
+<p>Creates a new definition or loads one from a file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>systemdef: :py:class:`SystemDefinition`</strong> :</p>
+<blockquote>
+<div><p>A system definition for which this simulation is defined. This
+system definition is stored in <tt class="xref py py-attr docutils literal"><span class="pre">sys</span></tt>, from where it can be
+modified.</p>
+</div></blockquote>
+<p><strong>fname</strong> : str, optional</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="#pyne.simplesim.definition.IDefinition" title="pyne.simplesim.definition.IDefinition"><tt class="xref py py-class docutils literal"><span class="pre">IDefinition</span></tt></a>.</p>
+</div></blockquote>
+<p><strong>verbose</strong> : bool, optional</p>
+<blockquote class="last">
+<div><p>See <a class="reference internal" href="#pyne.simplesim.definition.IDefinition" title="pyne.simplesim.definition.IDefinition"><tt class="xref py py-class docutils literal"><span class="pre">IDefinition</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.simplesim.definition.SimulationDefinition.add_dist">
+<tt class="descname">add_dist</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.add_dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.add_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds distribution cards to the simulation, or replaces existing ones if the added
+card has the same name as a distribution card in the simulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>dist</strong> : <tt class="xref py py-class docutils literal"><span class="pre">cards.Distribution</span></tt> or subclass</p>
+<blockquote>
+<div><p>The card to be added to the simulation.</p>
+</div></blockquote>
+<p><strong>*args</strong> : dist, ...</p>
+<blockquote>
+<div><p>Any number of such cards.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>num</strong> : int</p>
+<blockquote class="last">
+<div><p>If only one card is added, the method returns the card number
+of that card. Be careful; the card number may change if other cards
+are deleted. May be useful when defining unique cards.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>This card is used as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sys</span> <span class="o">=</span> <span class="n">SystemDefinition</span><span class="p">()</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">SimulationDefinition</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add_dist</span><span class="p">(</span><span class="n">distA</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add_dist</span><span class="p">(</span><span class="n">distB</span><span class="p">,</span> <span class="n">distC</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SimulationDefinition.add_misc">
+<tt class="descname">add_misc</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.add_misc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.add_misc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds miscellaneous cards to the simulation, or replaces existing
+ones if the added card has the same name as a misc card in the
+simulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>misc</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.IMisc</span></tt></a> or subclass</p>
+<p><strong>*args</strong> : misc, ...</p>
+<blockquote class="last">
+<div><p>Any number of misc cards.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>This card is used as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sys</span> <span class="o">=</span> <span class="n">SystemDefinition</span><span class="p">()</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">SimulationDefinition</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add_misc</span><span class="p">(</span><span class="n">miscA</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add_misc</span><span class="p">(</span><span class="n">miscB</span><span class="p">,</span> <span class="n">miscC</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SimulationDefinition.add_source">
+<tt class="descname">add_source</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.add_source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.add_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds source cards to the simulation, or replaces existing ones if
+the added card has the same name as a source card in the simulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>source</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.ISource" title="pyne.simplesim.cards.ISource"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.ISource</span></tt></a> or subclass</p>
+<p><strong>*args</strong> : source, ...</p>
+<blockquote class="last">
+<div><p>Any number of source cards.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>This card is used as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sys</span> <span class="o">=</span> <span class="n">SystemDefinition</span><span class="p">()</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">SimulationDefinition</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">sourceA</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">sourceB</span><span class="p">,</span> <span class="n">sourceC</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SimulationDefinition.add_tally">
+<tt class="descname">add_tally</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.add_tally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.add_tally" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds tally cards to the simulation, or replaces existing ones if
+the added card has the same name as a tally card in the simulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>tally</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.ITally</span></tt></a> or subclass</p>
+<p><strong>*args</strong> : tally, ...</p>
+<blockquote class="last">
+<div><p>Any number of tally cards.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>This card is used as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sys</span> <span class="o">=</span> <span class="n">SystemDefinition</span><span class="p">()</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">SimulationDefinition</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add_tally</span><span class="p">(</span><span class="n">tallyA</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add_tally</span><span class="p">(</span><span class="n">tallyB</span><span class="p">,</span> <span class="n">tallyC</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SimulationDefinition.dist_num">
+<tt class="descname">dist_num</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.dist_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.dist_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.Distribution</span></tt> card in
+the MCNP input file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the <tt class="xref py py-class docutils literal"><span class="pre">cards.Distribution</span></tt>. Names must be unique
+across all distributions, and perhaps across cell and surface
+cards.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dist_num</strong> : int</p>
+<blockquote class="last">
+<div><p>The distribution number.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SimulationDefinition.remove_dist">
+<tt class="descname">remove_dist</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.remove_dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.remove_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a distribution card from the system. No dependency check is
+performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the distribution card to remove.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dist</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.Distribution" title="pyne.simplesim.cards.Distribution"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.Distribution</span></tt></a></p>
+<blockquote class="last">
+<div><p>The distribution card that has been removed from the system.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SimulationDefinition.remove_misc">
+<tt class="descname">remove_misc</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.remove_misc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.remove_misc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a misc card from the system. No dependency check is
+performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the misc card to remove.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>misc</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.IMisc</span></tt></a></p>
+<blockquote class="last">
+<div><p>The misc card that has been removed from the system.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SimulationDefinition.remove_source">
+<tt class="descname">remove_source</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.remove_source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.remove_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a source card from the system. No dependency check is
+performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the source card to remove.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>source</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.ISource" title="pyne.simplesim.cards.ISource"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.ISource</span></tt></a></p>
+<blockquote class="last">
+<div><p>The source card that has been removed from the system.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SimulationDefinition.remove_tally">
+<tt class="descname">remove_tally</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.remove_tally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.remove_tally" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a tally card from the system. No dependency check is
+performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the tally card to remove.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>tally</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.ITally</span></tt></a></p>
+<blockquote class="last">
+<div><p>The tally card that has been removed from the system.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.simplesim.definition.SimulationDefinition.dists">
+<tt class="descname">dists</tt><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.dists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.dists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordered dictionary of distribution cards (from
+<tt class="xref py py-class docutils literal"><span class="pre">cards.Distribution</span></tt>).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.simplesim.definition.SimulationDefinition.misc">
+<tt class="descname">misc</tt><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.misc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.misc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordered dictionary of misc. cards (from <tt class="xref py py-class docutils literal"><span class="pre">cards.IMisc</span></tt>).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.simplesim.definition.SimulationDefinition.source">
+<tt class="descname">source</tt><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordered dictionary of source cards (from <tt class="xref py py-class docutils literal"><span class="pre">cards.ISource</span></tt>)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.simplesim.definition.SimulationDefinition.tally">
+<tt class="descname">tally</tt><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SimulationDefinition.tally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.tally" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordered dictionary of tallies (from <tt class="xref py py-class docutils literal"><span class="pre">cards.ITally</span></tt>).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.simplesim.definition.SystemDefinition">
+<em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">SystemDefinition</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class creates a system definition as is done in MCNP: homogeneous
+regions in space in the reactor, called cells, are defined through the
+intersection, union, etc of surfaces and are filled by materials.</p>
+<p>Creates a new reactor definition or loads one from a JSON file. See
+<a class="reference internal" href="#pyne.simplesim.definition.IDefinition" title="pyne.simplesim.definition.IDefinition"><tt class="xref py py-class docutils literal"><span class="pre">IDefinition</span></tt></a>.</p>
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.add_cell">
+<tt class="descname">add_cell</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.add_cell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.add_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a cell to the system, and also adds the materials and surfaces
+in those cells to the system. This method can also be used to replace a
+cell that has already been given to the system. If this cell is part of
+a universe, that universe is also registered with the system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cell</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.Cell</span></tt></a> or subclass</p>
+<p><strong>*args</strong> : cell, ...</p>
+<blockquote>
+<div><p>Any number of cells.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>num</strong> : int</p>
+<blockquote class="last">
+<div><p>If only one card is added, the method returns the card number
+of that card. Be careful; the card number may change if other cards
+are deleted. May be useful when defining unique cards.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>This card is used as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sys</span> <span class="o">=</span> <span class="n">SystemDefinition</span><span class="p">()</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">add_cell</span><span class="p">(</span><span class="n">cellA</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">add_cell</span><span class="p">(</span><span class="n">cellB</span><span class="p">,</span> <span class="n">cellC</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.add_material">
+<tt class="descname">add_material</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.add_material"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.add_material" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is only used by the user for materials that are not on a
+cell card.  Materials on cell cards are added automatically.
+Alternatively, this method can be used to replace an existing material.
+Note that this must be a <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.Material" title="pyne.simplesim.cards.Material"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.Material</span></tt></a>, not
+just a <a class="reference internal" href="material.html#pyne.material.Material" title="pyne.material.Material"><tt class="xref py py-class docutils literal"><span class="pre">pyne.material.Material</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>material</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.Material" title="pyne.simplesim.cards.Material"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.Material</span></tt></a> subclass</p>
+<p><strong>*args</strong> : material, ...</p>
+<blockquote>
+<div><p>Any number of materials.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>num</strong> : int</p>
+<blockquote class="last">
+<div><p>If only one card is added, the method returns the card number
+of that card. Be careful; the card number may change if other cards
+are deleted. May be useful when defining unique cards.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>This card is used as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sys</span> <span class="o">=</span> <span class="n">SystemDefinition</span><span class="p">()</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">add_material</span><span class="p">(</span><span class="n">matA</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">add_material</span><span class="p">(</span><span class="n">matB</span><span class="p">,</span> <span class="n">matC</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.add_surface">
+<tt class="descname">add_surface</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.add_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.add_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is only used by the user for surfaces that are not on a
+cell card. Surfaces on a cell card are added automatically. Duplication
+is checked by card name, therefore surface names should be unique
+unless the user intends to replace a surface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>surface</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.ISurface</span></tt></a> subclass</p>
+<p><strong>*args</strong> : surface, ...</p>
+<blockquote>
+<div><p>Any number of surfaces.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>num</strong> : int</p>
+<blockquote class="last">
+<div><p>If only one card is added, the method returns the card number
+of that card. Be careful; the card number may change if other cards
+are deleted. May be useful when defining unique cards.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>This card is used as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sys</span> <span class="o">=</span> <span class="n">SystemDefinition</span><span class="p">()</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">add_surface</span><span class="p">(</span><span class="n">surfA</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">add_surface</span><span class="p">(</span><span class="n">surfB</span><span class="p">,</span> <span class="n">surfC</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.cell_num">
+<tt class="descname">cell_num</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.cell_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.cell_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the cell number for the cell name provided. If a cell with
+that name is not in the system, an exception is raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.material_num">
+<tt class="descname">material_num</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.material_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.material_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the material number for the material name provided. If a
+material with that name is not in the system, an exception is raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.remove_cell">
+<tt class="descname">remove_cell</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.remove_cell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.remove_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a cell from the system. No dependency check is performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the cell to remove.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>cell</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.Cell</span></tt></a></p>
+<blockquote class="last">
+<div><p>The cell that has been removed from the system.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.remove_material">
+<tt class="descname">remove_material</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.remove_material"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.remove_material" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a material from the system. No dependency check is performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the material to remove.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>material</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.Material" title="pyne.simplesim.cards.Material"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.Material</span></tt></a></p>
+<blockquote class="last">
+<div><p>The material that has been removed from the system.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.remove_surface">
+<tt class="descname">remove_surface</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.remove_surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.remove_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a surface from the system. No dependency check is performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the surface to remove.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>surface</strong> : <a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.ISurface</span></tt></a></p>
+<blockquote class="last">
+<div><p>The surface that has been removed from the system.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.remove_universe">
+<tt class="descname">remove_universe</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.remove_universe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.remove_universe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a universe from the system. No dependency check is performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of the universe to remove.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>universe</strong> : str</p>
+<blockquote class="last">
+<div><p>The name of the universe that has been removed from the system.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.surface_num">
+<tt class="descname">surface_num</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.surface_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.surface_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the surface number for the surface name provided. If a
+surface with that name is not in the system, an exception is raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.simplesim.definition.SystemDefinition.universe_num">
+<tt class="descname">universe_num</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.universe_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.universe_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the universe number for the universe name provided. If a
+universe with that name is not in the system, an exception is raised.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.simplesim.definition.SystemDefinition.cells">
+<tt class="descname">cells</tt><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.cells"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.cells" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordered dictionary of cells (<a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.Cell</span></tt></a>).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.simplesim.definition.SystemDefinition.materials">
+<tt class="descname">materials</tt><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.materials"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.materials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordered dictionary of materials
+(<a class="reference internal" href="simplesim_cards.html#pyne.simplesim.cards.Material" title="pyne.simplesim.cards.Material"><tt class="xref py py-class docutils literal"><span class="pre">pyne.simplesim.cards.Material</span></tt></a>).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.simplesim.definition.SystemDefinition.surfaces">
+<tt class="descname">surfaces</tt><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.surfaces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.surfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordered dictionary of surfaces (<tt class="xref py py-class docutils literal"><span class="pre">cards.ISurface</span></tt>).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.simplesim.definition.SystemDefinition.universes">
+<tt class="descname">universes</tt><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.universes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.universes" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of universe names (see <tt class="xref py py-class docutils literal"><span class="pre">cards.Universes</span></tt>).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Definition Module &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.definition</span></tt></a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#limitations">Limitations</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="simplesim_nestedgeom.html"
+                        title="previous chapter">Nested Geometry &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.simplesim.nestedgeom</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="simplesim_inputfile.html"
+                        title="next chapter">Input File Module &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.inputfile</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/libref/simplesim_definition.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="simplesim_inputfile.html" title="Input File Module – pyne.simplesim.inputfile"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="simplesim_nestedgeom.html" title="Nested Geometry – pyne.simplesim.nestedgeom"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >Library Reference</a> &raquo;</li>
+          <li><a href="simplesim.html" >Simple Simulation Input &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.simplesim</span></tt></a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

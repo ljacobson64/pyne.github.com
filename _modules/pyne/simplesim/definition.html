@@ -1,0 +1,1181 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyne.simplesim.definition &mdash; PyNE 0.1</title>
+    
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.1" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pyne.simplesim.definition</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/env python</span>
+
+<span class="sd">&quot;&quot;&quot;The ``definition`` module can be imported as such::</span>
+
+<span class="sd">    from pyne.simplesim import definition</span>
+
+<span class="sd">********</span>
+<span class="sd">Overview</span>
+<span class="sd">********</span>
+
+<span class="sd">There are primarily two types of</span>
+<span class="sd">definitions: system definitions and simulation definitions:</span>
+
+<span class="sd">    - System definitions describe the geometry and material composition of a</span>
+<span class="sd">      system, and nothing else. It is intended that the definition is</span>
+<span class="sd">      completely code-dependent (i.e. independent of codes such as MCNP),</span>
+<span class="sd">      though the way in which geometry is specified is very similar to how it</span>
+<span class="sd">      is done for MCNP.</span>
+<span class="sd">    - Simulation definitions, which require a system definition, contain</span>
+<span class="sd">      information about how to simulate the system: where to place particle</span>
+<span class="sd">      sources, what information is desired from the simulation, etc. The</span>
+<span class="sd">      simulation definition may have different information depending on the</span>
+<span class="sd">      code being used to perform the simulation (e.g. MCNP, etc.), though it is</span>
+<span class="sd">      likely that these codes do have some common elements. The common elements</span>
+<span class="sd">      are to be found/placed in :py:class:`SimulationDefinition`, while the</span>
+<span class="sd">      elements relevant to the abilities of specific codes would be found in</span>
+<span class="sd">      classes such as :py:class:`MCNPSimulation`.</span>
+
+
+<span class="sd">***********</span>
+<span class="sd">Limitations</span>
+<span class="sd">***********</span>
+<span class="sd">- Saving and loading simulations is not implemented, though some preliminary</span>
+<span class="sd">  work with JSON encoding has been performed. At the bottm of this module is a</span>
+<span class="sd">  subclass of :py:class:`json.JSONEncoder` that is intended to aid the</span>
+<span class="sd">  reading/writing of simulations.</span>
+<span class="sd">- MCNP is the only code for which simulations have been explored.</span>
+
+
+<span class="sd">An inheritance diagram of all the classes in this module can be found at</span>
+<span class="sd">:ref:`pyne_simplesim_inheritance`.</span>
+
+<span class="sd">.. moduleauthor:: Chris Dembia &lt;cld72@cornell.edu&gt;</span>
+
+
+<span class="sd">*********</span>
+<span class="sd">Reference</span>
+<span class="sd">*********</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c"># TODO check overwriting warning.</span>
+<span class="c"># TODO test the exceptions for getting *_num() not in list/dict.</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">simplejson</span> <span class="kn">as</span> <span class="nn">json</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">material</span>
+<span class="kn">from</span> <span class="nn">pyne.simplesim</span> <span class="kn">import</span> <span class="n">cards</span>
+
+<div class="viewcode-block" id="IDefinition"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.IDefinition">[docs]</a><span class="k">class</span> <span class="nc">IDefinition</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for</span>
+<span class="sd">    system and simulation definitions.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a new definition or loads one from ``fname``.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fname : str, optional</span>
+<span class="sd">            If not provided, then a new definition is created. Otherwise, an</span>
+<span class="sd">            existing definition is loaded from file ``fname``.</span>
+<span class="sd">        verbose : bool, optional</span>
+<span class="sd">            Prints updates about what the class is doing.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="k">if</span> <span class="n">fname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&quot;Opening definition stored in {0!r}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&quot;Creating a new definition.&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_new</span><span class="p">()</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_create_new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Definition started from scratch. Initialize all fields. &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+<div class="viewcode-block" id="IDefinition.save"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.IDefinition.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save object data to a JSON file. Unimplemented.&quot;&quot;&quot;</span>
+        <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+        <span class="c">#pickle.dump(self, fid)</span>
+        <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">DefinitionEncoder</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</div>
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Open object data from a JSON file. Unimplemented.&quot;&quot;&quot;</span>
+        <span class="c"># TODO Ensure the file exists.</span>
+        <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+        <span class="c"># Process.</span>
+        <span class="c">#self = pickle.load(fname)</span>
+        <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_assert_unique</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">card_type</span><span class="p">,</span> <span class="n">card</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks if the name on a card has already been used for another</span>
+<span class="sd">        card. If so, a warning is issued.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        card_type : str</span>
+<span class="sd">            String identifying a type/category of card.</span>
+<span class="sd">        card : :py:class:`pyne.simplesim.cards.ICard` or subclass</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        unique : bool</span>
+<span class="sd">            True if card with the name is not in the simulation, otherwise</span>
+<span class="sd">            False.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO Don&#39;t require the user to pass the card_type string; just get</span>
+        <span class="c"># the class of the object passed in.</span>
+        <span class="k">if</span> <span class="n">card_type</span> <span class="o">==</span> <span class="s">&#39;cell&#39;</span><span class="p">:</span>
+            <span class="n">dict_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span>
+        <span class="k">elif</span> <span class="n">card_type</span> <span class="o">==</span> <span class="s">&#39;surface&#39;</span><span class="p">:</span>
+            <span class="n">dict_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">surfaces</span>
+        <span class="k">elif</span> <span class="n">card_type</span> <span class="o">==</span> <span class="s">&#39;material&#39;</span><span class="p">:</span>
+            <span class="n">dict_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">materials</span>
+        <span class="k">elif</span> <span class="n">card_type</span> <span class="o">==</span> <span class="s">&#39;source&#39;</span><span class="p">:</span>
+            <span class="n">dict_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
+        <span class="k">elif</span> <span class="n">card_type</span> <span class="o">==</span> <span class="s">&#39;tally&#39;</span><span class="p">:</span>
+            <span class="n">dict_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tally</span>
+        <span class="k">elif</span> <span class="n">card_type</span> <span class="o">==</span> <span class="s">&#39;misc&#39;</span><span class="p">:</span>
+            <span class="n">dict_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">misc</span>
+        <span class="k">elif</span> <span class="n">card_type</span> <span class="o">==</span> <span class="s">&#39;transformation&#39;</span><span class="p">:</span>
+            <span class="n">dict_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformations</span>
+        <span class="k">elif</span> <span class="n">card_type</span> <span class="o">==</span> <span class="s">&#39;dist&#39;</span><span class="p">:</span>
+            <span class="n">dict_to_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dists</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;The input ``card_type`` must be either &quot;</span>
+                    <span class="s">&quot;&#39;cell&#39;, &#39;surface&#39;, &#39;material&#39;, &#39;source&#39;, &quot;</span>
+                    <span class="s">&quot;&#39;tally&#39;, or &#39;misc&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">card</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">dict_to_check</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;Card {0!r}, type {1!r} is already part of the &quot;</span>
+                    <span class="s">&quot;definition; overwriting.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">card_type</span><span class="p">))</span>
+            <span class="c">#raise UserWarning(&quot;Card {0!r}, type {0!r} is already part of the &quot;</span>
+            <span class="c">#        &quot;definition; overwriting.&quot;.format(card.name, card_type))</span>
+            <span class="c">#raise Exception(&quot;The %s name %s has already been used for &quot;</span>
+            <span class="c">#        &quot;another %s&quot; % (card_type, card.name, card_type))</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span>
+
+    <span class="nd">@verbose.setter</span>
+    <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="o">=</span> <span class="n">value</span>
+
+</div>
+<div class="viewcode-block" id="SystemDefinition"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition">[docs]</a><span class="k">class</span> <span class="nc">SystemDefinition</span><span class="p">(</span><span class="n">IDefinition</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This class creates a system definition as is done in MCNP: homogeneous</span>
+<span class="sd">    regions in space in the reactor, called cells, are defined through the</span>
+<span class="sd">    intersection, union, etc of surfaces and are filled by materials.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a new reactor definition or loads one from a JSON file. See</span>
+<span class="sd">        :py:class:`IDefinition`.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SystemDefinition</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_surfaces</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_materials</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_universes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SystemDefinition.add_cell"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_cell">[docs]</a>    <span class="k">def</span> <span class="nf">add_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds a cell to the system, and also adds the materials and surfaces</span>
+<span class="sd">        in those cells to the system. This method can also be used to replace a</span>
+<span class="sd">        cell that has already been given to the system. If this cell is part of</span>
+<span class="sd">        a universe, that universe is also registered with the system.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cell : :py:class:`pyne.simplesim.cards.Cell` or subclass</span>
+<span class="sd">        *args : cell, ...</span>
+<span class="sd">            Any number of cells.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        num : int</span>
+<span class="sd">            If only one card is added, the method returns the card number</span>
+<span class="sd">            of that card. Be careful; the card number may change if other cards</span>
+<span class="sd">            are deleted. May be useful when defining unique cards.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        This card is used as follows::</span>
+
+<span class="sd">            sys = SystemDefinition()</span>
+<span class="sd">            sys.add_cell(cellA)</span>
+<span class="sd">            sys.add_cell(cellB, cellC)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="c"># Warn the user if a cell with this name is already in the system.</span>
+            <span class="c"># already.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;cell&#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">)</span>
+            <span class="c"># Custom card; just add and move on.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">Custom</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[</span><span class="n">cell</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&quot;Adding cell </span><span class="si">%s</span><span class="s">.&quot;</span> <span class="o">%</span> <span class="n">cell</span><span class="o">.</span><span class="n">name</span>
+            <span class="c"># Add all surfaces that aren&#39;t already added. Do this by walking the</span>
+            <span class="c"># region tree and calling _add_unique_surfaces() at the leaves.</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">region</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_unique_surfaces</span><span class="p">)</span>
+            <span class="c"># Only add the material if this is not a void cell and if it doesn&#39;t</span>
+            <span class="c"># already exist.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">material</span> <span class="ow">and</span> <span class="n">cell</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">materials</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_material</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">material</span><span class="p">)</span>
+            <span class="c"># Constituent surfaces and material have been added, so we can added</span>
+            <span class="c"># the cell.</span>
+            <span class="c"># Add universes to system.</span>
+            <span class="k">if</span> <span class="n">cell</span><span class="o">.</span><span class="n">universe</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_register_universe</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">universe</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[</span><span class="n">cell</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_num</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SystemDefinition.add_surface"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_surface">[docs]</a>    <span class="k">def</span> <span class="nf">add_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method is only used by the user for surfaces that are not on a</span>
+<span class="sd">        cell card. Surfaces on a cell card are added automatically. Duplication</span>
+<span class="sd">        is checked by card name, therefore surface names should be unique</span>
+<span class="sd">        unless the user intends to replace a surface.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        surface : :py:class:`pyne.simplesim.cards.ISurface` subclass</span>
+<span class="sd">        *args : surface, ...</span>
+<span class="sd">            Any number of surfaces.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        num : int</span>
+<span class="sd">            If only one card is added, the method returns the card number</span>
+<span class="sd">            of that card. Be careful; the card number may change if other cards</span>
+<span class="sd">            are deleted. May be useful when defining unique cards.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        This card is used as follows::</span>
+
+<span class="sd">            sys = SystemDefinition()</span>
+<span class="sd">            sys.add_surface(surfA)</span>
+<span class="sd">            sys.add_surface(surfB, surfC)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">surface</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;surface&#39;</span><span class="p">,</span> <span class="n">surface</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_surfaces</span><span class="p">[</span><span class="n">surface</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">surface</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">surface_num</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">_add_unique_surfaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regionleaf</span><span class="p">):</span>
+        <span class="c"># Used by add_cell().</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">regionleaf</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;Trying to add surface {0!r}...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">surfaces</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_surface</span><span class="p">(</span><span class="n">regionleaf</span><span class="o">.</span><span class="n">surface</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&quot;  Surface {0!r} added successfully.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="k">print</span> <span class="p">(</span><span class="s">&quot;  Surface {0!r} already exists in the &quot;</span>
+                        <span class="s">&quot;definition.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+<div class="viewcode-block" id="SystemDefinition.add_material"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_material">[docs]</a>    <span class="k">def</span> <span class="nf">add_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method is only used by the user for materials that are not on a</span>
+<span class="sd">        cell card.  Materials on cell cards are added automatically.</span>
+<span class="sd">        Alternatively, this method can be used to replace an existing material.</span>
+<span class="sd">        Note that this must be a :py:class:`pyne.simplesim.cards.Material`, not</span>
+<span class="sd">        just a :py:class:`pyne.material.Material`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        material : :py:class:`pyne.simplesim.cards.Material` subclass</span>
+<span class="sd">        *args : material, ...</span>
+<span class="sd">            Any number of materials.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        num : int</span>
+<span class="sd">            If only one card is added, the method returns the card number</span>
+<span class="sd">            of that card. Be careful; the card number may change if other cards</span>
+<span class="sd">            are deleted. May be useful when defining unique cards.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        This card is used as follows::</span>
+
+<span class="sd">            sys = SystemDefinition()</span>
+<span class="sd">            sys.add_material(matA)</span>
+<span class="sd">            sys.add_material(matB, matC)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">material</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">material</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">material</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;The ``name`` property of the material cannot &quot;</span>
+                        <span class="s">&quot;be empty.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;material&#39;</span><span class="p">,</span> <span class="n">material</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_materials</span><span class="p">[</span><span class="n">material</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">material</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">material_num</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">_register_universe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">univ_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method is not used by the user. It is called by</span>
+<span class="sd">        :py:meth:`cards.Cell.mcnp` and :py:meth:`cards.Universes._mcnp_unit` to</span>
+<span class="sd">        register universe names with the system definition.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c">#self._assert_unique(&#39;universe&#39;, univ_name)</span>
+        <span class="k">if</span> <span class="n">univ_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">universes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_universes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">univ_name</span><span class="p">]</span>
+
+<div class="viewcode-block" id="SystemDefinition.cell_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.cell_num">[docs]</a>    <span class="k">def</span> <span class="nf">cell_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the cell number for the cell name provided. If a cell with</span>
+<span class="sd">        that name is not in the system, an exception is raised.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO removing cards.</span>
+        <span class="c"># Must add one because indices start at 0 but card numbers at 1.</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StandardError</span><span class="p">(</span><span class="s">&quot;Cell {0!r} is not in the system.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">name</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="SystemDefinition.surface_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.surface_num">[docs]</a>    <span class="k">def</span> <span class="nf">surface_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the surface number for the surface name provided. If a</span>
+<span class="sd">        surface with that name is not in the system, an exception is raised.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Must add one because indices start at 0 but card numbers at 1.</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">surfaces</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StandardError</span><span class="p">(</span><span class="s">&quot;Surface {0!r} is not in the system.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">name</span><span class="p">))</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">surfaces</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">surfaces</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">cards</span><span class="o">.</span><span class="n">Facet</span><span class="p">):</span>
+            <span class="c"># This does not work, as self.surfaces is the macrobody with the</span>
+            <span class="c"># same name, not the facet.</span>
+            <span class="k">return</span> <span class="n">num</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">surfaces</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">number</span> <span class="o">/</span> <span class="mi">10</span>
+        <span class="k">return</span> <span class="n">num</span>
+</div>
+<div class="viewcode-block" id="SystemDefinition.material_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.material_num">[docs]</a>    <span class="k">def</span> <span class="nf">material_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the material number for the material name provided. If a</span>
+<span class="sd">        material with that name is not in the system, an exception is raised.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Must add one because indices start at 0 but card numbers at 1.</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">materials</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StandardError</span><span class="p">(</span><span class="s">&quot;Material {0!r} is not in the system.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">name</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="SystemDefinition.universe_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.universe_num">[docs]</a>    <span class="k">def</span> <span class="nf">universe_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the universe number for the universe name provided. If a</span>
+<span class="sd">        universe with that name is not in the system, an exception is raised.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">universes</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StandardError</span><span class="p">(</span><span class="s">&quot;Universe {0!r} is not in the system.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">name</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">universes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="SystemDefinition.remove_cell"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_cell">[docs]</a>    <span class="k">def</span> <span class="nf">remove_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a cell from the system. No dependency check is performed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the cell to remove.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cell : :py:class:`pyne.simplesim.cards.Cell`</span>
+<span class="sd">            The cell that has been removed from the system.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO Perform a dependency check.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SystemDefinition.remove_surface"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_surface">[docs]</a>    <span class="k">def</span> <span class="nf">remove_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a surface from the system. No dependency check is performed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the surface to remove.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        surface : :py:class:`pyne.simplesim.cards.ISurface`</span>
+<span class="sd">            The surface that has been removed from the system.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO Perform a dependency check.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_surfaces</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SystemDefinition.remove_material"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_material">[docs]</a>    <span class="k">def</span> <span class="nf">remove_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a material from the system. No dependency check is performed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the material to remove.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        material : :py:class:`pyne.simplesim.cards.Material`</span>
+<span class="sd">            The material that has been removed from the system.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO Perform a dependency check.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_materials</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SystemDefinition.remove_universe"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_universe">[docs]</a>    <span class="k">def</span> <span class="nf">remove_universe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a universe from the system. No dependency check is performed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the universe to remove.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        universe : str</span>
+<span class="sd">            The name of the universe that has been removed from the system.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO Perform a dependency check.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_universes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">universes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+</div>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SystemDefinition</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SystemDefinition</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SystemDefinition.surfaces"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.surfaces">[docs]</a>    <span class="k">def</span> <span class="nf">surfaces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ordered dictionary of surfaces (:py:class:`cards.ISurface`).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_surfaces</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SystemDefinition.materials"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.materials">[docs]</a>    <span class="k">def</span> <span class="nf">materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ordered dictionary of materials</span>
+<span class="sd">        (:py:class:`pyne.simplesim.cards.Material`).</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_materials</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SystemDefinition.cells"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.cells">[docs]</a>    <span class="k">def</span> <span class="nf">cells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ordered dictionary of cells (:py:class:`pyne.simplesim.cards.Cell`).</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SystemDefinition.universes"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.universes">[docs]</a>    <span class="k">def</span> <span class="nf">universes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List of universe names (see :py:class:`cards.Universes`).&quot;&quot;&quot;</span>
+        <span class="c"># TODO would become an ordered dictionary when Universes become their</span>
+        <span class="c"># own cards.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_universes</span>
+
+</div></div>
+<div class="viewcode-block" id="SimulationDefinition"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition">[docs]</a><span class="k">class</span> <span class="nc">SimulationDefinition</span><span class="p">(</span><span class="n">IDefinition</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This definition contains source, source distribution, tally/detector,</span>
+<span class="sd">    and miscellaneous cards. Code-specific functionality/cards is found in</span>
+<span class="sd">    subclasses of this class.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">systemdef</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a new definition or loads one from a file.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        systemdef: :py:class:`SystemDefinition`</span>
+<span class="sd">            A system definition for which this simulation is defined. This</span>
+<span class="sd">            system definition is stored in :py:attr:`sys`, from where it can be</span>
+<span class="sd">            modified.</span>
+<span class="sd">        fname : str, optional</span>
+<span class="sd">            See :py:class:`IDefinition`.</span>
+<span class="sd">        verbose : bool, optional</span>
+<span class="sd">            See :py:class:`IDefinition`.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">SimulationDefinition</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c"># TODO when saving a simulation def, the the system def should also be</span>
+        <span class="c"># saved, and so this assignment that happens on this next line</span>
+        <span class="c"># shouldn&#39;t happen this way.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sys</span> <span class="o">=</span> <span class="n">systemdef</span>
+
+    <span class="k">def</span> <span class="nf">_create_new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes attributes/properties.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tally</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_misc</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dists</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SimulationDefinition.add_source"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_source">[docs]</a>    <span class="k">def</span> <span class="nf">add_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds source cards to the simulation, or replaces existing ones if</span>
+<span class="sd">        the added card has the same name as a source card in the simulation.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        source : :py:class:`pyne.simplesim.cards.ISource` or subclass</span>
+<span class="sd">        *args : source, ...</span>
+<span class="sd">            Any number of source cards.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        This card is used as follows::</span>
+
+<span class="sd">            sys = SystemDefinition()</span>
+<span class="sd">            sim = SimulationDefinition(sys)</span>
+<span class="sd">            sim.add_source(sourceA)</span>
+<span class="sd">            sim.add_source(sourceB, sourceC)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">ISource</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Only cards subclassed from ``ISource`` can be &quot;</span>
+                        <span class="s">&quot;added by this method. User provided {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">card</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;source&#39;</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+</div>
+<div class="viewcode-block" id="SimulationDefinition.add_tally"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_tally">[docs]</a>    <span class="k">def</span> <span class="nf">add_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds tally cards to the simulation, or replaces existing ones if</span>
+<span class="sd">        the added card has the same name as a tally card in the simulation.</span>
+<span class="sd">        </span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tally : :py:class:`pyne.simplesim.cards.ITally` or subclass</span>
+<span class="sd">        *args : tally, ...</span>
+<span class="sd">            Any number of tally cards.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        This card is used as follows::</span>
+
+<span class="sd">            sys = SystemDefinition()</span>
+<span class="sd">            sim = SimulationDefinition(sys)</span>
+<span class="sd">            sim.add_tally(tallyA)</span>
+<span class="sd">            sim.add_tally(tallyB, tallyC)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="c"># TODO check cells and surfaces? only if moving to string refs.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">ITally</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Only cards subclassed from ``ITally`` can be &quot;</span>
+                        <span class="s">&quot;added by this method. User provided {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">card</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;tally&#39;</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tally</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+</div>
+<div class="viewcode-block" id="SimulationDefinition.add_misc"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_misc">[docs]</a>    <span class="k">def</span> <span class="nf">add_misc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds miscellaneous cards to the simulation, or replaces existing</span>
+<span class="sd">        ones if the added card has the same name as a misc card in the</span>
+<span class="sd">        simulation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        misc : :py:class:`pyne.simplesim.cards.IMisc` or subclass</span>
+<span class="sd">        *args : misc, ...</span>
+<span class="sd">            Any number of misc cards.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        This card is used as follows::</span>
+
+<span class="sd">            sys = SystemDefinition()</span>
+<span class="sd">            sim = SimulationDefinition(sys)</span>
+<span class="sd">            sim.add_misc(miscA)</span>
+<span class="sd">            sim.add_misc(miscB, miscC)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="c"># TODO check references to tallies? only if moving to string refs.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">IMisc</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Only cards subclassed from ``IMisc`` can be &quot;</span>
+                        <span class="s">&quot;added by this method. User provided {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">card</span><span class="p">))</span>
+            <span class="c"># Add universes to system.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">Universes</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">uni</span> <span class="ow">in</span> <span class="n">card</span><span class="o">.</span><span class="n">univ_names</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">_register_universe</span><span class="p">(</span><span class="n">uni</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;misc&#39;</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_misc</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+</div>
+<div class="viewcode-block" id="SimulationDefinition.add_dist"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_dist">[docs]</a>    <span class="k">def</span> <span class="nf">add_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds distribution cards to the simulation, or replaces existing ones if the added</span>
+<span class="sd">        card has the same name as a distribution card in the simulation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dist : :py:class:`cards.Distribution` or subclass</span>
+<span class="sd">            The card to be added to the simulation.</span>
+<span class="sd">        *args : dist, ...</span>
+<span class="sd">            Any number of such cards.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        num : int</span>
+<span class="sd">            If only one card is added, the method returns the card number</span>
+<span class="sd">            of that card. Be careful; the card number may change if other cards</span>
+<span class="sd">            are deleted. May be useful when defining unique cards.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        This card is used as follows::</span>
+
+<span class="sd">            sys = SystemDefinition()</span>
+<span class="sd">            sim = SimulationDefinition(sys)</span>
+<span class="sd">            sim.add_dist(distA)</span>
+<span class="sd">            sim.add_dist(distB, distC)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">Distribution</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Only ``Distribution`` cards can be &quot;</span>
+                        <span class="s">&quot;added by this method. User provided {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">card</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;dist&#39;</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dists</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist_num</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SimulationDefinition.dist_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.dist_num">[docs]</a>    <span class="k">def</span> <span class="nf">dist_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the number of a :py:class:`cards.Distribution` card in</span>
+<span class="sd">        the MCNP input file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the :py:class:`cards.Distribution`. Names must be unique</span>
+<span class="sd">            across all distributions, and perhaps across cell and surface</span>
+<span class="sd">            cards.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dist_num : int</span>
+<span class="sd">            The distribution number.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dists</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StandardError</span><span class="p">(</span><span class="s">&quot;Distribution {0!r} is not in &quot;</span>
+                    <span class="s">&quot;the simulation.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dists</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="SimulationDefinition.remove_source"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_source">[docs]</a>    <span class="k">def</span> <span class="nf">remove_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a source card from the system. No dependency check is</span>
+<span class="sd">        performed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the source card to remove.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        source : :py:class:`pyne.simplesim.cards.ISource`</span>
+<span class="sd">            The source card that has been removed from the system.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO Perform a dependency check.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SimulationDefinition.remove_tally"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_tally">[docs]</a>    <span class="k">def</span> <span class="nf">remove_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a tally card from the system. No dependency check is</span>
+<span class="sd">        performed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the tally card to remove.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tally : :py:class:`pyne.simplesim.cards.ITally`</span>
+<span class="sd">            The tally card that has been removed from the system.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO Perform a dependency check.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SimulationDefinition.remove_misc"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_misc">[docs]</a>    <span class="k">def</span> <span class="nf">remove_misc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a misc card from the system. No dependency check is</span>
+<span class="sd">        performed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the misc card to remove.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        misc : :py:class:`pyne.simplesim.cards.IMisc`</span>
+<span class="sd">            The misc card that has been removed from the system.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO Perform a dependency check.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_misc</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SimulationDefinition.remove_dist"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_dist">[docs]</a>    <span class="k">def</span> <span class="nf">remove_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a distribution card from the system. No dependency check is</span>
+<span class="sd">        performed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the distribution card to remove.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dist : :py:class:`pyne.simplesim.cards.Distribution`</span>
+<span class="sd">            The distribution card that has been removed from the system.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO Perform a dependency check.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dists</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SimulationDefinition</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SimulationDefinition</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_save</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sys</span>
+
+    <span class="nd">@sys.setter</span>
+    <span class="k">def</span> <span class="nf">sys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sys</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SimulationDefinition.source"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.source">[docs]</a>    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ordered dictionary of source cards (from :py:class:`cards.ISource`)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SimulationDefinition.tally"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.tally">[docs]</a>    <span class="k">def</span> <span class="nf">tally</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ordered dictionary of tallies (from :py:class:`cards.ITally`).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SimulationDefinition.misc"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.misc">[docs]</a>    <span class="k">def</span> <span class="nf">misc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ordered dictionary of misc. cards (from :py:class:`cards.IMisc`).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_misc</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="SimulationDefinition.dists"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.dists">[docs]</a>    <span class="k">def</span> <span class="nf">dists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ordered dictionary of distribution cards (from</span>
+<span class="sd">        :py:class:`cards.Distribution`).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dists</span>
+
+</div></div>
+<div class="viewcode-block" id="MCNPSimulation"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation">[docs]</a><span class="k">class</span> <span class="nc">MCNPSimulation</span><span class="p">(</span><span class="n">SimulationDefinition</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Adds transformation and more tally functionality to</span>
+<span class="sd">    :py:class:`SimulationDefinition`. See the constructor there.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_create_new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes any attributes/properties.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MCNPSimulation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_create_new</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transformations</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfacecurrent</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfaceflux</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellflux</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellenergydep</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellfissiondep</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_pulseheight</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_detector</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+
+<div class="viewcode-block" id="MCNPSimulation.add_tally"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.add_tally">[docs]</a>    <span class="k">def</span> <span class="nf">add_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds tally cards to the simulation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        card : :py:class:`cards.ICard` or subclass</span>
+<span class="sd">            The tally card to be added to the simulation.</span>
+<span class="sd">        *args :</span>
+<span class="sd">            Any number of such cards.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="c"># Can move this line out of the loop.</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">MCNPSimulation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">add_tally</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceCurrent</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfacecurrent</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceFlux</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfaceflux</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFlux</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellflux</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellEnergyDeposition</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellenergydep</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFissionEnergyDeposition</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellfissiondep</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">CellPulseHeight</span><span class="p">,</span>
+                    <span class="n">cards</span><span class="o">.</span><span class="n">CellChargeDeposition</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_tally_pulseheight</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">IDetector</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_tally_detector</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">Custom</span><span class="p">):</span>
+                <span class="c"># See if class attribute is not None.</span>
+                <span class="k">if</span> <span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceCurrent</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfacecurrent</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+                    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceFlux</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfaceflux</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+                    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFlux</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellflux</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+                    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellEnergyDeposition</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellenergydep</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+                    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFissionEnergyDeposition</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellfissiondep</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+                    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">CellPulseHeight</span><span class="p">,</span>
+                            <span class="n">cards</span><span class="o">.</span><span class="n">CellChargeDeposition</span><span class="p">)):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_pulseheight</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+                    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">IDetector</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_tally_detector</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Unrecognized tally card {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">card</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Unrecognized tally card {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">card</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="MCNPSimulation.tally_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.tally_num">[docs]</a>    <span class="k">def</span> <span class="nf">tally_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the number of a :py:class:`cards.ITally` card in the MCNP</span>
+<span class="sd">        input file. Note that :py:class:`pyne.simplesim.cards.TallyCustom`</span>
+<span class="sd">        cards with :py:attr:`tallyclass` as None do not have a tally number.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the tally. Names must be unique across all tally types.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tally_num : int</span>
+<span class="sd">            The tally number for a given tally type. For the first cell flux</span>
+<span class="sd">            tally, a value of 1 is returned, not 14.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">card</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="c"># Must add one because indices start at 0 but card numbers at 1.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceCurrent</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfacecurrent</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceFlux</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfaceflux</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFlux</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellflux</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellEnergyDeposition</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellenergydep</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFissionEnergyDeposition</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellfissiondep</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">CellPulseHeight</span><span class="p">,</span>
+                <span class="n">cards</span><span class="o">.</span><span class="n">CellChargeDeposition</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_pulseheight</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">IDetector</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_detector</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">Custom</span><span class="p">):</span>
+            <span class="c"># See if class attribute is not None.</span>
+            <span class="k">if</span> <span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceCurrent</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfacecurrent</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceFlux</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfaceflux</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFlux</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellflux</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellEnergyDeposition</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellenergydep</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFissionEnergyDeposition</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellfissiondep</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">CellPulseHeight</span><span class="p">,</span>
+                        <span class="n">cards</span><span class="o">.</span><span class="n">CellChargeDeposition</span><span class="p">)):</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_pulseheight</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">IDetector</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally_detector</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Unrecognized tally card {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">card</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Unrecognized tally type. name {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="MCNPSimulation.remove_tally"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.remove_tally">[docs]</a>    <span class="k">def</span> <span class="nf">remove_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;See :py:meth:`SimulationDefinition.remove_tally`.&quot;&quot;&quot;</span>
+        <span class="n">card</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="c"># Must add one because indices start at 0 but card numbers at 1.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceCurrent</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfacecurrent</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceFlux</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfaceflux</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFlux</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellflux</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellEnergyDeposition</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellenergydep</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFissionEnergyDeposition</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellfissiondep</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">CellPulseHeight</span><span class="p">,</span>
+                <span class="n">cards</span><span class="o">.</span><span class="n">CellChargeDeposition</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tally_pulseheight</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">IDetector</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tally_detector</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">Custom</span><span class="p">):</span>
+            <span class="c"># See if class attribute is not None.</span>
+            <span class="k">if</span> <span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceCurrent</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfacecurrent</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">SurfaceFlux</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tally_surfaceflux</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFlux</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellflux</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellEnergyDeposition</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellenergydep</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">CellFissionEnergyDeposition</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tally_cellfissiondep</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">CellPulseHeight</span><span class="p">,</span>
+                        <span class="n">cards</span><span class="o">.</span><span class="n">CellChargeDeposition</span><span class="p">)):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tally_pulseheight</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">tallyclass</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">IDetector</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tally_detector</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">MCNPSimulation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">remove_tally</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="MCNPSimulation.add_transformation"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.add_transformation">[docs]</a>    <span class="k">def</span> <span class="nf">add_transformation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds transformation cards to the simulation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        card : :py:class:`cards.Transformation` or subclass</span>
+<span class="sd">            The card to be added to the simulation.</span>
+<span class="sd">        *args : card, ...</span>
+<span class="sd">            Any number of such cards.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        num : int</span>
+<span class="sd">            If only one card is added, the method returns the card number</span>
+<span class="sd">            of that card. Be careful; the card number may change if other cards</span>
+<span class="sd">            are deleted. May be useful when defining unique cards.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">Transformation</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Only ``Transformation``s can be &quot;</span>
+                        <span class="s">&quot;added by this method. User provided {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">card</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;transformation&#39;</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_transformations</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformation_num</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="MCNPSimulation.transformation_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.transformation_num">[docs]</a>    <span class="k">def</span> <span class="nf">transformation_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the number of a :py:class:`cards.Transformation` card in</span>
+<span class="sd">        the MCNP input file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the :py:class:`cards.Transformation`. Names must be unique</span>
+<span class="sd">            across all transformations.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        transformation_num : int</span>
+<span class="sd">            The transformation number.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformations</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StandardError</span><span class="p">(</span><span class="s">&quot;Transformation {0!r} is not in &quot;</span>
+                    <span class="s">&quot;the simulation.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformations</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="MCNPSimulation.remove_transformation"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.remove_transformation">[docs]</a>    <span class="k">def</span> <span class="nf">remove_transformation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a transformation card from the system. No dependency check is</span>
+<span class="sd">        performed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the transformation card to remove.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        transformation : :py:class:`pyne.simplesim.cards.Transformation`</span>
+<span class="sd">            The transformation card that has been removed from the system.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO Perform a dependency check.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transformations</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MCNPSimulation.transformations"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.transformations">[docs]</a>    <span class="k">def</span> <span class="nf">transformations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ordered dictionary of transformation cards (from</span>
+<span class="sd">        :py:class:`cards.Transformation`).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transformations</span>
+
+</div></div>
+<div class="viewcode-block" id="DefinitionEncoder"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.DefinitionEncoder">[docs]</a><span class="k">class</span> <span class="nc">DefinitionEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Used to encode definitions into JSON files. Unimplemented.&quot;&quot;&quot;</span>
+    <span class="c"># TODO circular reference issue with Regions.</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DefinitionEncoder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">cards</span><span class="o">.</span><span class="n">ISurface</span><span class="p">):</span>
+                <span class="c"># TODO something like this to get around the circular</span>
+                <span class="c"># reference.</span>
+                <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">material</span><span class="o">.</span><span class="n">Material</span><span class="p">):</span>
+                <span class="c"># Issue with stlconverters.</span>
+                <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;__dict__&#39;</span><span class="p">):</span>
+                <span class="n">mydict</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">__dict__</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">mydict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                        <span class="n">mydict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">mydict</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="c">#if isinstance(obj, cards.Cell) or issubclass(obj, cards.Cell):</span>
+            <span class="c">#    print &quot;cell&quot;</span>
+            <span class="c">#    return &#39;&#39;</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;exception: &quot;</span>
+            <span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="k">print</span> <span class="n">obj</span>
+            <span class="k">raise</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../../../index.html">
+          <img class="logo" src="../../../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>
