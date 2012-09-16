@@ -60,7 +60,7 @@
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../index.html" >Library Reference</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Cross Section Interface &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
+          <li><a href="index.html" accesskey="U">Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
       </ul>
     </div>
     </div>
@@ -71,122 +71,50 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="cross-section-cache-pyne-xs-cache">
-<span id="pyne-xs-cache"></span><h1>Cross Section Cache &#8211; <tt class="xref py py-mod docutils literal"><span class="pre">pyne.xs.cache</span></tt><a class="headerlink" href="#cross-section-cache-pyne-xs-cache" title="Permalink to this headline">¶</a></h1>
-<p>This module contains the <tt class="docutils literal"><span class="pre">XSCache</span></tt> class, a singleton instance of this class <tt class="docutils literal"><span class="pre">xs_cache</span></tt>,
-and this classes associated helper functions.  Largely, these helper functions are responsible
-for pulling the appropriate data out of <tt class="docutils literal"><span class="pre">nuc_data.h5</span></tt>.</p>
-<p>All functionality may be found in the <tt class="docutils literal"><span class="pre">cache</span></tt> module:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne.xs</span> <span class="kn">import</span> <span class="n">cache</span>
-</pre></div>
-</div>
-<p>The reason for using a cache for multi-group cross sections is to prevent excessive re-computation
-and to be able to automatically invalidate all data when then group structure changes.</p>
-<p>The following terminology applies for this module:</p>
-<ul class="simple">
-<li><strong>G</strong>: The number of user specified energy groups, indexed by <strong>g</strong>.</li>
-<li><strong>N</strong>: The number of high-resolution energy groups, indexed by <strong>n</strong>.</li>
-<li><strong>E_g</strong>: The user specified group structure.  This is often at a
-lower resolution than what is present in the data library.  Must be
-monotonic.</li>
-<li><strong>E_n</strong>: The high-resolution group structure.  This is often comes from
-the CINDER data within <tt class="docutils literal"><span class="pre">nuc_data.h5</span></tt>.  Must be monotonic in the same
-direction as <strong>E_g</strong>.  (Note: the default cinder group structure is
-monotonically decreasing.)</li>
-</ul>
-<p>The cache will allow you to circumvent reading data from cinder if you supply it
-with your own <strong>E_n</strong> and your own high-resolution cross sections.</p>
-<div class="section" id="xscache-class">
-<h2>XSCache Class<a class="headerlink" href="#xscache-class" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="module-pyne.xs.cache">
+<span id="cross-section-cache-pyne-xs-cache"></span><span id="pyne-xs-cache"></span><h1>Cross Section Cache &#8211; <a class="reference internal" href="#module-pyne.xs.cache" title="pyne.xs.cache"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.xs.cache</span></tt></a><a class="headerlink" href="#module-pyne.xs.cache" title="Permalink to this headline">¶</a></h1>
+<p>This module provides a cross section cache which automatically extracts 
+cross-sections from provided nuclear data sets.</p>
 <dl class="class">
 <dt id="pyne.xs.cache.XSCache">
-<em class="property">class </em><tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">XSCache</tt><a class="reference internal" href="../../_modules/pyne/xs/cache.html#XSCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.cache.XSCache" title="Permalink to this definition">¶</a></dt>
-<dd><p>A lightweight multigroup cross-section cache based off of python dictionaries.
-High resolution (<tt class="docutils literal"><span class="pre">*_n</span></tt>) data will be read from nuc_data.  Note, that this requires
-that nuc_data.h5 was built with CINDER data.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="pyne.xs.cache.xs_cache">
-<tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">xs_cache</tt><a class="headerlink" href="#pyne.xs.cache.xs_cache" title="Permalink to this definition">¶</a></dt>
-<dd><p>A singleton instance of XSCache.  Rather than creating your own instance,
-you should just import and use this one:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># API</span>
-<span class="kn">from</span> <span class="nn">pyne.xs.api</span> <span class="kn">import</span> <span class="n">xs_cache</span>
-
-<span class="c"># Directly</span>
-<span class="kn">from</span> <span class="nn">pyne.xs.cache</span> <span class="kn">import</span> <span class="n">xs_cache</span>
-</pre></div>
-</div>
-</dd></dl>
-
-</div>
-<div class="section" id="cache-helper-functions">
-<h2>Cache Helper Functions<a class="headerlink" href="#cache-helper-functions" title="Permalink to this headline">¶</a></h2>
-<p>The following functions help the cache extract data from the <tt class="docutils literal"><span class="pre">nuc_data.h5</span></tt> file.</p>
-<dl class="function">
-<dt id="pyne.xs.cache.get_E_n">
-<tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">get_E_n</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/cache.html#get_E_n"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.cache.get_E_n" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads and returns the cinder energy bounds array, E_n, from the nuc_data library.</p>
-</dd></dl>
-
-<hr class="docutils" />
-<dl class="function">
-<dt id="pyne.xs.cache.get_sigma_f_n">
-<tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">get_sigma_f_n</tt><big>(</big><em>nuc</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/cache.html#get_sigma_f_n"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.cache.get_sigma_f_n" title="Permalink to this definition">¶</a></dt>
-<dd><p>Grabs a nuclide&#8217;s fission cross-section from the nuc_data library.</p>
+<em class="property">class </em><tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">XSCache</tt><big>(</big><em>group_struct=None</em>, <em>data_source_classes=(&lt;class 'pyne.xs.data_source.CinderDataSource'&gt;</em>, <em>&lt;class 'pyne.xs.data_source.NullDataSource'&gt;)</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/cache.html#XSCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.cache.XSCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>A lightweight multigroup cross section cache based off of python 
+dictionaries. This relies on a list of cross section data source from which
+discretized group constants may be computed from raw, underlying data.  
+Normally this requires that some cross section data be built into nuc_data.
+A default instance of this class is provided (pyne.xs.cache.xs_cache).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>group_struct</strong> : array-like of floats, optional</p>
 <blockquote>
-<div><p>nuclide in zzaaam form.</p>
+<div><p>Energy group structure E_g [MeV] from highest-to-lowest energy, length G+1.
+If the group structure is not present in the cache or is None, all cross 
+sections pulled from the sources will not be discretized or collapsed.</p>
 </div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sigma_f_n</strong> : numpy array</p>
+<p><strong>data_source_classes</strong> : list of DataSource classes, optional</p>
 <blockquote class="last">
-<div><p>This nuclide&#8217;s fission cross-section pulled from the nuc_data library file.  If not 
-present in the library, a zero-array is returned.</p>
+<div><p>Sequence of DataSource classes (not instances!) from which to grab cross 
+section data. Data from a source earlier in the sequence (eg, index 1)
+will take precednce over data later in the sequence (eg, index 5).</p>
 </div></blockquote>
 </td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="pyne.xs.cache.XSCache.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.xs.cache.XSCache.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the cache, retaining E_g and phi_g.</p>
 </dd></dl>
 
-<hr class="docutils" />
-<dl class="function">
-<dt id="pyne.xs.cache.get_sigma_a_n">
-<tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">get_sigma_a_n</tt><big>(</big><em>nuc</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/cache.html#get_sigma_a_n"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.cache.get_sigma_a_n" title="Permalink to this definition">¶</a></dt>
-<dd><p>Grabs a nuclide&#8217;s absorption cross-section from the nuc_data library.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int</p>
-<blockquote>
-<div><p>nuclide in zzaaam form.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sigma_a_n</strong> : numpy array</p>
-<blockquote class="last">
-<div><p>This nuclide&#8217;s absorption cross-section pulled from the database library file.  If not 
-present in the library, a zero-array is returned.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
-<hr class="docutils" />
 <dl class="function">
-<dt id="pyne.xs.cache.get_sigma_a_reaction_n">
-<tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">get_sigma_a_reaction_n</tt><big>(</big><em>nuc</em>, <em>rx</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/cache.html#get_sigma_a_reaction_n"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.cache.get_sigma_a_reaction_n" title="Permalink to this definition">¶</a></dt>
-<dd><p>Grabs a nuclide&#8217;s absorption reaction cross-section from the nuc_data library.</p>
+<dt id="pyne.xs.cache.get_eaf_xs">
+<tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">get_eaf_xs</tt><big>(</big><em>nuc</em>, <em>rx</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/cache.html#get_eaf_xs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.cache.get_eaf_xs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grabs group-wise cross section values fro a given nuclide and reaction from the EAF format activation library.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -197,14 +125,16 @@ present in the library, a zero-array is returned.</p>
 </div></blockquote>
 <p><strong>rx</strong> : str</p>
 <blockquote>
-<div><p>Reaction key: &#8216;gamma&#8217;, &#8216;alpha&#8217;, &#8216;p&#8217;, etc.</p>
+<div><p>Reaction MT # in nnnm form.
+OR: (eventually)
+Reaction key: &#8216;gamma&#8217;, &#8216;alpha&#8217;, &#8216;p&#8217;, etc.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sigma_rx_n</strong> : numpy array</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sigma_n</strong> : numpy array</p>
 <blockquote class="last">
-<div><p>This nuclide&#8217;s absorption reaction cross-section pulled from the nuc_data library 
-file.  If not present in the library, a zero-array is returned.</p>
+<div><p>The cross-section pulled from the nuc_data library file.
+If not present in the library, a zero-array is returned.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -212,41 +142,10 @@ file.  If not present in the library, a zero-array is returned.</p>
 </table>
 <div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pyne.xs.cache.ABSORPTION_RX" title="pyne.xs.cache.ABSORPTION_RX"><tt class="xref py py-obj docutils literal"><span class="pre">pyne.xs.cache.ABSORPTION_RX</span></tt></a>, <a class="reference internal" href="#pyne.xs.cache.ABSORPTION_RX_MAP" title="pyne.xs.cache.ABSORPTION_RX_MAP"><tt class="xref py py-obj docutils literal"><span class="pre">pyne.xs.cache.ABSORPTION_RX_MAP</span></tt></a></p>
+<p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">pyne.xs.cache.EAF_RX</span></tt>, <tt class="xref py py-obj docutils literal"><span class="pre">pyne.xs.cache.EAF_RX_MAP</span></tt></p>
 </div>
 </dd></dl>
 
-<dl class="data">
-<dt id="pyne.xs.cache.ABSORPTION_RX">
-<tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">ABSORPTION_RX</tt><a class="headerlink" href="#pyne.xs.cache.ABSORPTION_RX" title="Permalink to this definition">¶</a></dt>
-<dd><p>Acceptable absorption reaction strings:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nb">set</span><span class="p">([</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&#39;np *&#39;</span><span class="p">,</span> <span class="s">&#39;a  *&#39;</span><span class="p">,</span> <span class="s">&#39;h  *&#39;</span><span class="p">,</span> <span class="s">&#39;2p *&#39;</span><span class="p">,</span> <span class="s">&#39;3n *&#39;</span><span class="p">,</span> <span class="s">&#39;d  *&#39;</span><span class="p">,</span> <span class="s">&#39;np/d&#39;</span><span class="p">,</span>
-     <span class="s">&#39;na&#39;</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="s">&#39;nd&#39;</span><span class="p">,</span> <span class="s">&#39;g  *&#39;</span><span class="p">,</span> <span class="s">&#39;3n&#39;</span><span class="p">,</span> <span class="s">&#39;np&#39;</span><span class="p">,</span> <span class="s">&#39;nt&#39;</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;nt *&#39;</span><span class="p">,</span>
-     <span class="s">&#39;x  *&#39;</span><span class="p">,</span> <span class="s">&#39;4n *&#39;</span><span class="p">,</span> <span class="s">&#39;na *&#39;</span><span class="p">,</span> <span class="s">&#39;nd *&#39;</span><span class="p">,</span> <span class="s">&#39;t  *&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;2p&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">,</span>
-     <span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="s">&#39;h&#39;</span><span class="p">,</span> <span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="s">&#39;4n&#39;</span><span class="p">,</span> <span class="s">&#39;p&#39;</span><span class="p">,</span> <span class="s">&#39;n  *&#39;</span><span class="p">,</span> <span class="s">&#39;2a&#39;</span><span class="p">,</span> <span class="s">&#39;2n *&#39;</span><span class="p">,</span> <span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;2n&#39;</span><span class="p">,</span>
-     <span class="s">&#39;nh *&#39;</span><span class="p">,</span> <span class="s">&#39;p  *&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="data">
-<dt id="pyne.xs.cache.ABSORPTION_RX_MAP">
-<tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">ABSORPTION_RX_MAP</tt><a class="headerlink" href="#pyne.xs.cache.ABSORPTION_RX_MAP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Aliases for absorption reactions:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;neutron&#39;</span><span class="p">:</span> <span class="s">&#39;n&#39;</span><span class="p">,</span>
- <span class="s">&#39;gamma&#39;</span><span class="p">:</span> <span class="s">&#39;g&#39;</span><span class="p">,</span>
- <span class="s">&#39;alpha&#39;</span><span class="p">:</span> <span class="s">&#39;a&#39;</span><span class="p">,</span>
- <span class="s">&#39;proton&#39;</span><span class="p">:</span> <span class="s">&#39;p&#39;</span><span class="p">,</span>
- <span class="s">&#39;trit&#39;</span><span class="p">:</span> <span class="s">&#39;t&#39;</span><span class="p">,</span>
- <span class="s">&#39;triton&#39;</span><span class="p">:</span> <span class="s">&#39;t&#39;</span><span class="p">,</span>
- <span class="s">&#39;deut&#39;</span><span class="p">:</span> <span class="s">&#39;d&#39;</span><span class="p">,</span>
- <span class="s">&#39;deuteron&#39;</span><span class="p">:</span> <span class="s">&#39;d&#39;</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</dd></dl>
-
-</div>
 </div>
 
 
@@ -258,21 +157,12 @@ file.  If not present in the library, a zero-array is returned.</p>
         <p class="logo"><a href="../../index.html">
           <img class="logo" src="../../_static/pyne_icon_small.png" alt="Logo"/>
         </a></p>
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Cross Section Cache &#8211; <tt class="docutils literal"><span class="pre">pyne.xs.cache</span></tt></a><ul>
-<li><a class="reference internal" href="#xscache-class">XSCache Class</a></li>
-<li><a class="reference internal" href="#cache-helper-functions">Cache Helper Functions</a></li>
-</ul>
-</li>
-</ul>
-
   <h4>Previous topic</h4>
   <p class="topless"><a href="models.html"
                         title="previous chapter">Cross Section Models &#8211; <tt class="docutils literal"><span class="pre">pyne.xs.models</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="channels.html"
-                        title="next chapter">Nuclear Reaction Channels &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.xs.channels</span></tt></a></p>
+                        title="next chapter">Nuclear Reaction Channels &#8211; <tt class="docutils literal"><span class="pre">pyne.xs.channels</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/libref/xs/cache.txt"
@@ -318,7 +208,7 @@ file.  If not present in the library, a zero-array is returned.</p>
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../index.html" >Library Reference</a> &raquo;</li>
-          <li><a href="index.html" >Cross Section Interface &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
+          <li><a href="index.html" >Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
       </ul>
     </div>
     </div>
