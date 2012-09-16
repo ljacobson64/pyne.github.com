@@ -1,0 +1,326 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cross Section Data Sources – pyne.xs.data_source &mdash; PyNE 0.1</title>
+    
+    <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.1" href="../../index.html" />
+    <link rel="up" title="Cross Section Interface – pyne.xs" href="index.html" />
+    <link rel="next" title="Cross Section Cache – pyne.xs.cache" href="cache.html" />
+    <link rel="prev" title="Cross Section Models – pyne.xs.models" href="models.html" /> 
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="cache.html" title="Cross Section Cache – pyne.xs.cache"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="models.html" title="Cross Section Models – pyne.xs.models"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../index.html" >Library Reference</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pyne.xs.data_source">
+<span id="cross-section-data-sources-pyne-xs-data-source"></span><span id="pyne-xs-data-source"></span><h1>Cross Section Data Sources &#8211; <a class="reference internal" href="#module-pyne.xs.data_source" title="pyne.xs.data_source"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.xs.data_source</span></tt></a><a class="headerlink" href="#module-pyne.xs.data_source" title="Permalink to this headline">¶</a></h1>
+<p>Cross section library data source interfaces.</p>
+<dl class="class">
+<dt id="pyne.xs.data_source.DataSource">
+<em class="property">class </em><tt class="descclassname">pyne.xs.data_source.</tt><tt class="descname">DataSource</tt><big>(</big><em>src_phi_g=None</em>, <em>dst_group_struct=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#DataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.DataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base cross section data source.</p>
+<p>This is an abstract class which provides default functionality when subclassed
+and certain methods are overridden.  A data source should know how to find cross 
+section information for a given nuclide, reaction type, and temperature, if 
+available.  If such data is not present for this source, then the source should
+return None.</p>
+<p>Furthermore, a data source must be able to declare whether the data is present
+on the users system.</p>
+<p>Finally, data sources distinguish between group structure information coming
+from or for the source itself (src) and optional user-defined destination (dst) 
+group structure information.  This allows the data source to define how it wishes
+to discretize its data to the custom destination form.</p>
+<p>The following methods must be overridden in all DataSource subclasses:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Is this DataSource available on the user&#39;s system?</span>
+    <span class="k">return</span> <span class="p">(</span><span class="bp">True</span> <span class="ow">or</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_load_group_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Sets the source group structure, E_g, native to this DataSource</span>
+    <span class="o">...</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">src_group_struct</span> <span class="o">=</span> <span class="n">E_g</span> <span class="p">(</span><span class="n">array</span><span class="o">-</span><span class="n">like</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_load_reaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">):</span>
+    <span class="c"># Returns the rection channel for a nuclide at a given temperature</span>
+    <span class="c"># or returns None, if this unavailable in this DataSource.</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">rxdata</span> <span class="p">(</span><span class="n">ndarray</span> <span class="n">of</span> <span class="n">floats</span><span class="p">,</span> <span class="n">length</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_ngroups</span><span class="p">,</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that non-multigroup data sources should also override the discretize()
+method.  Other methods and properties may also need to be overriden depending
+on the data source at hand.</p>
+<p>All data sources may be used independenly or in conjunction with a cross
+section cache instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>src_phi_g</strong> : array-like, optional</p>
+<blockquote>
+<div><p>Group fluxes which must match the group structure for this data source.</p>
+</div></blockquote>
+<p><strong>dst_group_struct</strong> : array-like, optional</p>
+<blockquote class="last">
+<div><p>The energy group structure [MeV] of the destination cross sections.  Used when 
+discretizing cross sections from this source.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.xs.data_source.DataSource.reaction">
+<tt class="descname">reaction</tt><big>(</big><em>nuc</em>, <em>rx</em>, <em>temp=300.0</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#DataSource.reaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.DataSource.reaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the cross section data for this reaction channel either directly from
+the data source or from the rxcache.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<blockquote>
+<div><p>A nuclide.</p>
+</div></blockquote>
+<p><strong>rx</strong> : int or str</p>
+<blockquote>
+<div><p>Reaction key (&#8216;gamma&#8217;, &#8216;alpha&#8217;, &#8216;p&#8217;, etc.) or MT number.</p>
+</div></blockquote>
+<p><strong>temp</strong> : float, optional</p>
+<blockquote>
+<div><p>Temperature [K] of material, defaults to 300.0.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>rxdata</strong> : ndarry</p>
+<blockquote class="last">
+<div><p>Source cross section data, length src_ngroups.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.xs.data_source.DataSource.discretize">
+<tt class="descname">discretize</tt><big>(</big><em>nuc</em>, <em>rx</em>, <em>temp=300.0</em>, <em>src_phi_g=None</em>, <em>dst_phi_g=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#DataSource.discretize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.DataSource.discretize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discretizes the reaction channel from the source group structure to that 
+of the destination weighted by the group fluxes.  This implemenation is only
+valid for multi-group data sources.  Non-multigroup data source should also
+override this method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<blockquote>
+<div><p>A nuclide.</p>
+</div></blockquote>
+<p><strong>rx</strong> : int or str</p>
+<blockquote>
+<div><p>Reaction key (&#8216;gamma&#8217;, &#8216;alpha&#8217;, &#8216;p&#8217;, etc.) or MT number.</p>
+</div></blockquote>
+<p><strong>temp</strong> : float, optional</p>
+<blockquote>
+<div><p>Temperature [K] of material, defaults to 300.0.</p>
+</div></blockquote>
+<p><strong>src_phi_g</strong> : array-like, optional</p>
+<blockquote>
+<div><p>Group fluxes for this data source, length src_ngroups.</p>
+</div></blockquote>
+<p><strong>dst_phi_g</strong> : array-like, optional</p>
+<blockquote>
+<div><p>Group fluxes for the destiniation structure, length dst_ngroups.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dst_sigma</strong> : ndarry</p>
+<blockquote class="last">
+<div><p>Destination cross section data, length dst_ngroups.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.xs.data_source.NullDataSource">
+<em class="property">class </em><tt class="descclassname">pyne.xs.data_source.</tt><tt class="descname">NullDataSource</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#NullDataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.NullDataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cross section data source that always exists and always returns zeros.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>kwargs</strong> : optional</p>
+<blockquote class="last">
+<div><p>Keyword arguments to be sent to base class.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.xs.data_source.NullDataSource.discretize">
+<tt class="descname">discretize</tt><big>(</big><em>nuc</em>, <em>rx</em>, <em>temp=300.0</em>, <em>src_phi_g=None</em>, <em>dst_phi_g=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#NullDataSource.discretize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.NullDataSource.discretize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns zeros.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.xs.data_source.CinderDataSource">
+<em class="property">class </em><tt class="descclassname">pyne.xs.data_source.</tt><tt class="descname">CinderDataSource</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#CinderDataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.CinderDataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cinder cross section data source. The relevant cinder cross section data must
+be present in the nuc_data for this data source to exist.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>kwargs</strong> : optional</p>
+<blockquote class="last">
+<div><p>Keyword arguments to be sent to base class.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../../index.html">
+          <img class="logo" src="../../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="models.html"
+                        title="previous chapter">Cross Section Models &#8211; <tt class="docutils literal"><span class="pre">pyne.xs.models</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="cache.html"
+                        title="next chapter">Cross Section Cache &#8211; <tt class="docutils literal"><span class="pre">pyne.xs.cache</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/libref/xs/data_source.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="cache.html" title="Cross Section Cache – pyne.xs.cache"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="models.html" title="Cross Section Models – pyne.xs.models"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../index.html" >Library Reference</a> &raquo;</li>
+          <li><a href="index.html" >Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>
