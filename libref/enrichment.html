@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Enrichment – pyne.enrichment &mdash; PyNE 0.1</title>
+    <title>Enrichment – pyne.enrichment &mdash; PyNE 0.2-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1',
+        VERSION:     '0.2-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.1" href="../index.html" />
+    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
     <link rel="up" title="Library Reference" href="index.html" />
     <link rel="next" title="Utility Functions – pyne.utils" href="utils.html" />
     <link rel="prev" title="Serpent Support – pyne.serpent" href="serpent.html" /> 
@@ -247,7 +247,7 @@ sensible initial values for this very common case.</p>
 <h2>Enrichment Solvers<a class="headerlink" href="#enrichment-solvers" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyne.enrichment.multicomponent">
-<tt class="descclassname">pyne.enrichment.</tt><tt class="descname">multicomponent</tt><big>(</big><em>orig_casc</em>, <em>tolerance=1.0E-7</em>, <em>max_iter=100</em><big>)</big><a class="headerlink" href="#pyne.enrichment.multicomponent" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyne.enrichment.</tt><tt class="descname">multicomponent</tt><big>(</big><em>orig_casc</em>, <em>solver=&quot;symbolic&quot;</em>, <em>tolerance=1.0E-7</em>, <em>max_iter=100</em><big>)</big><a class="headerlink" href="#pyne.enrichment.multicomponent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the optimal value of Mstar by minimzing the seperative power.
 The minimizing the seperative power is equivelent to minimizing <img class="math" src="../_images/math/87a9233b76d0b20fc059d0f68cc03c84907ba0f8.png" alt="L_t/F"/>,
 or the total flow rate for the cascade divided by the feed flow rate. 
@@ -261,6 +261,11 @@ This function is appropriate for feed materials with more than 2 nuclides
 <tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>orig_casc</strong> : Cascade</p>
 <blockquote>
 <div><p>A cascade to optimize.</p>
+</div></blockquote>
+<p><strong>solver</strong> : str, optional</p>
+<blockquote>
+<div><p>Flag for underlying cascade solver function to use. Current options 
+are either &#8220;symbolic&#8221; or &#8220;numeric&#8221;.</p>
 </div></blockquote>
 <p><strong>tolerance</strong> : float, optional</p>
 <blockquote>
@@ -286,8 +291,8 @@ are also computed on this instance.</p>
 
 <hr class="docutils" />
 <dl class="function">
-<dt id="pyne.enrichment.ltot_per_feed">
-<tt class="descclassname">pyne.enrichment.</tt><tt class="descname">ltot_per_feed</tt><big>(</big><em>orig_casc</em>, <em>tolerance=1.0E-7</em>, <em>max_iter=100</em><big>)</big><a class="headerlink" href="#pyne.enrichment.ltot_per_feed" title="Permalink to this definition">¶</a></dt>
+<dt id="pyne.enrichment.solve_numeric">
+<tt class="descclassname">pyne.enrichment.</tt><tt class="descname">solve_numeric</tt><big>(</big><em>orig_casc</em>, <em>tolerance=1.0E-7</em>, <em>max_iter=100</em><big>)</big><a class="headerlink" href="#pyne.enrichment.solve_numeric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the total flow rate (<img class="math" src="../_images/math/c06de7744737a7319b5189179d949e670219ea31.png" alt="L_t"/>) over the feed flow 
 rate (<img class="math" src="../_images/math/a055f405829e64a3b70253ab67cb45ed6ed5bb29.png" alt="F"/>).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -306,6 +311,33 @@ mat_prod, and mat_tail attributes for.</p>
 <p><strong>max_iter</strong> : int, optional</p>
 <blockquote>
 <div><p>Maximum number of iterations for underlying solvers, default=100.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>casc</strong> : Cascade</p>
+<blockquote class="last">
+<div><p>A new cascade object, copied from the original, with the appropriate
+attributes computed.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="pyne.enrichment.solve_symbolic">
+<tt class="descclassname">pyne.enrichment.</tt><tt class="descname">solve_symbolic</tt><big>(</big><em>orig_casc</em><big>)</big><a class="headerlink" href="#pyne.enrichment.solve_symbolic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the cascade parameters based on a given initial state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>orig_casc</strong> : Cascade</p>
+<blockquote>
+<div><p>A cascade to compute the l_t_per_feed, swu_per_feed, swu_per_prod,
+mat_prod, and mat_tail attributes for.</p>
 </div></blockquote>
 </td>
 </tr>

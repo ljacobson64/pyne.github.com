@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyne.dbgen.nuc_data_make &mdash; PyNE 0.1</title>
+    <title>pyne.dbgen.nuc_data_make &mdash; PyNE 0.2-dev</title>
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.1',
+        VERSION:     '0.2-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.1" href="../../../index.html" />
+    <link rel="top" title="PyNE 0.2-dev" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -75,6 +75,7 @@
 <span class="kn">from</span> <span class="nn">pyne.dbgen.api</span> <span class="kn">import</span> <span class="n">build_dir</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.decay</span> <span class="kn">import</span> <span class="n">make_decay</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.atomic_weight</span> <span class="kn">import</span> <span class="n">make_atomic_weight</span>
+<span class="kn">from</span> <span class="nn">pyne.dbgen.materials_library</span> <span class="kn">import</span> <span class="n">make_materials_library</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.scattering_lengths</span> <span class="kn">import</span> <span class="n">make_scattering_lengths</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.simple_xs</span> <span class="kn">import</span> <span class="n">make_simple_xs</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.cinder</span> <span class="kn">import</span> <span class="n">make_cinder</span>
@@ -135,10 +136,11 @@
                   <span class="p">(</span><span class="s">&#39;decay&#39;</span><span class="p">,</span> <span class="n">make_decay</span><span class="p">),</span> 
                   <span class="p">(</span><span class="s">&#39;simple_xs&#39;</span><span class="p">,</span> <span class="n">make_simple_xs</span><span class="p">),</span> 
                   <span class="p">(</span><span class="s">&#39;cinder&#39;</span><span class="p">,</span> <span class="n">make_cinder</span><span class="p">),</span> 
-                  <span class="p">(</span><span class="s">&#39;eaf&#39;</span><span class="p">,</span> <span class="n">make_eaf</span><span class="p">)</span>
+				  <span class="p">(</span><span class="s">&#39;materials&#39;</span><span class="p">,</span> <span class="n">make_materials_library</span><span class="p">),</span>
+                  <span class="p">(</span><span class="s">&#39;eaf&#39;</span><span class="p">,</span> <span class="n">make_eaf</span><span class="p">),</span>
                   <span class="p">]</span>
     <span class="n">make_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">make_funcs</span><span class="p">)</span>
-    <span class="n">make_open</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;atomic_weight&#39;</span><span class="p">,</span> <span class="s">&#39;scattering_lengths&#39;</span><span class="p">,</span> <span class="s">&#39;simple_xs&#39;</span><span class="p">])</span>
+    <span class="n">make_open</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;atomic_weight&#39;</span><span class="p">,</span> <span class="s">&#39;scattering_lengths&#39;</span><span class="p">,</span> <span class="s">&#39;simple_xs&#39;</span><span class="p">,</span> <span class="s">&#39;materials&#39;</span><span class="p">])</span>
 
     <span class="c"># Parse the command line arguments</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">&#39;Make a nuclear data library.&#39;</span><span class="p">)</span>

@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ACE Cross Sections – pyne.ace &mdash; PyNE 0.1</title>
+    <title>ACE Cross Sections – pyne.ace &mdash; PyNE 0.2-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1',
+        VERSION:     '0.2-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.1" href="../index.html" />
+    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
     <link rel="up" title="Library Reference" href="index.html" />
     <link rel="next" title="ENSDF File Support – pyne.ensdf" href="ensdf.html" />
     <link rel="prev" title="CCCC Formats – pyne.cccc" href="cccc.html" /> 
@@ -125,7 +125,7 @@ Library</p>
 </table>
 <dl class="method">
 <dt id="pyne.ace.Library.find_table">
-<tt class="descname">find_table</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.ace.Library.find_table" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">find_table</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyne.ace.Library.find_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a cross-section table with a given name.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -143,7 +143,7 @@ Library</p>
 
 <dl class="method">
 <dt id="pyne.ace.Library.read">
-<tt class="descname">read</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.ace.Library.read" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">read</tt><big>(</big><em>table_names=None</em><big>)</big><a class="headerlink" href="#pyne.ace.Library.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read through and parse the ACE-format library.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -316,7 +316,7 @@ tabulated.</p>
 
 <dl class="class">
 <dt id="pyne.ace.Reaction">
-<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">Reaction</tt><a class="headerlink" href="#pyne.ace.Reaction" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.ace.</tt><tt class="descname">Reaction</tt><big>(</big><em>MT</em>, <em>table=None</em><big>)</big><a class="headerlink" href="#pyne.ace.Reaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Reaction object represents a single reaction channel for a nuclide with
 an associated cross section and, if present, a secondary angle and energy
 distribution. These objects are stored within the <tt class="docutils literal"><span class="pre">reactions</span></tt> attribute on
@@ -388,7 +388,7 @@ be preformed in the laboratory system.</p>
 <dl class="method">
 <dt id="pyne.ace.Reaction.threshold">
 <tt class="descname">threshold</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.ace.Reaction.threshold" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return energy threshold for this reaction</p>
+<dd><p>Return energy threshold for this reaction.</p>
 </dd></dl>
 
 </dd></dl>

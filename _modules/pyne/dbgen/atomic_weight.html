@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyne.dbgen.atomic_weight &mdash; PyNE 0.1</title>
+    <title>pyne.dbgen.atomic_weight &mdash; PyNE 0.2-dev</title>
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.1',
+        VERSION:     '0.2-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.1" href="../../../index.html" />
+    <link rel="top" title="PyNE 0.2-dev" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -228,7 +228,7 @@
     <span class="c"># Add naturally occuring elements</span>
     <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name_zz</span><span class="p">:</span>
         <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-        <span class="n">A</span><span class="p">[</span><span class="n">nuc</span><span class="p">]</span> <span class="o">=</span> <span class="n">nuc</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">nuc</span><span class="p">]</span> <span class="o">=</span> <span class="n">nuc</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span>
         
     <span class="k">for</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">abund</span> <span class="ow">in</span> <span class="n">atomic_abund</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">zz</span> <span class="o">=</span> <span class="n">nuc</span> <span class="o">/</span> <span class="mi">10000</span>
@@ -239,7 +239,7 @@
         <span class="n">elem_zz</span><span class="p">,</span> <span class="n">elem_mass</span><span class="p">,</span> <span class="n">_error</span><span class="p">,</span> <span class="n">_abund</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">element_zz</span><span class="p">]</span>
 
         <span class="n">new_elem_mass</span> <span class="o">=</span> <span class="n">elem_mass</span> <span class="o">+</span> <span class="p">(</span><span class="n">nuc_mass</span> <span class="o">*</span> <span class="n">abund</span><span class="p">)</span>
-        <span class="n">A</span><span class="p">[</span><span class="n">element_zz</span><span class="p">]</span> <span class="o">=</span> <span class="n">element_zz</span><span class="p">,</span> <span class="n">new_elem_mass</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">element_zz</span><span class="p">]</span> <span class="o">=</span> <span class="n">element_zz</span><span class="p">,</span> <span class="n">new_elem_mass</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span>
 
 
     <span class="n">A</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -268,6 +268,7 @@
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s">&#39;atomic_weight&#39;</span><span class="p">):</span>
+                <span class="k">print</span> <span class="s">&quot;skipping atomic weights data table creation; already exists.&quot;</span>
                 <span class="k">return</span> 
 
     <span class="c"># First grab the atomic abundance data</span>

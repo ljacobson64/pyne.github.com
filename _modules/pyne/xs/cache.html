@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyne.xs.cache &mdash; PyNE 0.1</title>
+    <title>pyne.xs.cache &mdash; PyNE 0.2-dev</title>
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.1',
+        VERSION:     '0.2-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.1" href="../../../index.html" />
+    <link rel="top" title="PyNE 0.2-dev" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -63,8 +63,8 @@
           <div class="body">
             
   <h1>Source code for pyne.xs.cache</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;This module provides a cross-section cache which automatically extracts cross-sections</span>
-<span class="sd">from the nuclear database.&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;This module provides a cross section cache which automatically extracts </span>
+<span class="sd">cross-sections from provided nuclear data sets.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">MutableMapping</span>
 
@@ -74,35 +74,61 @@
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">pyne.pyne_config</span> <span class="kn">import</span> <span class="n">pyne_conf</span>
 <span class="kn">from</span> <span class="nn">pyne.xs.models</span> <span class="kn">import</span> <span class="n">partial_energy_matrix</span><span class="p">,</span> <span class="n">phi_g</span>
+<span class="kn">from</span> <span class="nn">pyne.xs</span> <span class="kn">import</span> <span class="n">data_source</span>
+
+
+<span class="k">def</span> <span class="nf">_same_arr_or_none</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> 
+    <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">b</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="ow">is</span> <span class="n">b</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">_valid_group_struct</span><span class="p">(</span><span class="n">E_g</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">E_g</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="n">E_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">E_g</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;f8&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">E_g</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">E_g</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">E_g</span> <span class="o">=</span> <span class="n">E_g</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">E_g</span>
 
 
 <span class="c">###############################################################################</span>
 <span class="c">### Set up a cross-section cache so the same data isn&#39;t loaded repetitively ###</span>
 <span class="c">###############################################################################</span>
 
-<span class="k">def</span> <span class="nf">is_g_indexed</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="n">is_g</span> <span class="o">=</span> <span class="s">&#39;_g&#39;</span> <span class="ow">in</span> <span class="n">key</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">is_g</span> <span class="o">=</span> <span class="s">&#39;_g&#39;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">is_g</span>
-
 <div class="viewcode-block" id="XSCache"><a class="viewcode-back" href="../../../libref/xs/cache.html#pyne.xs.cache.XSCache">[docs]</a><span class="k">class</span> <span class="nc">XSCache</span><span class="p">(</span><span class="n">MutableMapping</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A lightweight multigroup cross-section cache based off of python dictionaries.</span>
-<span class="sd">    High resolution (``*_n``) data will be read from nuc_data.  Note, that this requires</span>
-<span class="sd">    that nuc_data.h5 was built with CINDER data.</span>
+    <span class="sd">&quot;&quot;&quot;A lightweight multigroup cross section cache based off of python </span>
+<span class="sd">    dictionaries. This relies on a list of cross section data source from which</span>
+<span class="sd">    discretized group constants may be computed from raw, underlying data.  </span>
+<span class="sd">    Normally this requires that some cross section data be built into nuc_data.</span>
+<span class="sd">    A default instance of this class is provided (pyne.xs.cache.xs_cache).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    group_struct : array-like of floats, optional</span>
+<span class="sd">        Energy group structure E_g [MeV] from highest-to-lowest energy, length G+1.</span>
+<span class="sd">        If the group structure is not present in the cache or is None, all cross </span>
+<span class="sd">        sections pulled from the sources will not be discretized or collapsed.</span>
+<span class="sd">    data_source_classes : list of DataSource classes, optional</span>
+<span class="sd">        Sequence of DataSource classes (not instances!) from which to grab cross </span>
+<span class="sd">        section data. Data from a source earlier in the sequence (eg, index 1)</span>
+<span class="sd">        will take precednce over data later in the sequence (eg, index 5).</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_struct</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> 
+                 <span class="n">data_source_classes</span><span class="o">=</span><span class="p">(</span><span class="n">data_source</span><span class="o">.</span><span class="n">CinderDataSource</span><span class="p">,</span>
+                                      <span class="n">data_source</span><span class="o">.</span><span class="n">SimpleDataSource</span><span class="p">,</span>
+                                      <span class="n">data_source</span><span class="o">.</span><span class="n">EAFDataSource</span><span class="p">,</span>
+                                      <span class="n">data_source</span><span class="o">.</span><span class="n">NullDataSource</span><span class="p">,)):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_get_fns</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;E_n&#39;</span><span class="p">:</span> <span class="n">get_E_n</span><span class="p">,</span>
-                         <span class="s">&#39;sigma_f_n&#39;</span><span class="p">:</span> <span class="n">get_sigma_f_n</span><span class="p">,</span>
-                         <span class="s">&#39;sigma_a_n&#39;</span><span class="p">:</span> <span class="n">get_sigma_a_n</span><span class="p">,</span>
-                         <span class="s">&#39;sigma_rx_n&#39;</span><span class="p">:</span> <span class="n">get_sigma_a_reaction_n</span><span class="p">,</span>
-                         <span class="s">&#39;phi_g&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">phi_g</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;E_n&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;phi_n&#39;</span><span class="p">]),</span>
-                         <span class="s">&#39;eaf_xs&#39;</span><span class="p">:</span> <span class="n">get_eaf_xs</span><span class="p">,</span>
-                        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_sources</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">cls</span> <span class="ow">in</span> <span class="n">data_source_classes</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">dst_group_struct</span><span class="o">=</span><span class="n">group_struct</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ds</span><span class="o">.</span><span class="n">exists</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_valid_group_struct</span><span class="p">(</span><span class="n">group_struct</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="c">#</span>
     <span class="c"># Mutable mapping pass-through interface</span>
@@ -126,13 +152,22 @@
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Key lookup by via custom loading from the nuc_data database file.&quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fns</span> <span class="ow">or</span> <span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fns</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fns</span><span class="p">[</span><span class="n">key</span><span class="p">]()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
+            <span class="n">E_g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">E_g</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_sources</span><span class="p">:</span>
+                    <span class="n">xsdata</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">reaction</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">xsdata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">xsdata</span>
+                        <span class="k">break</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fns</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]](</span><span class="o">*</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-
+                <span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s">&#39;nuc&#39;</span><span class="p">,</span> <span class="s">&#39;rx&#39;</span><span class="p">,</span> <span class="s">&#39;temp&#39;</span><span class="p">],</span> <span class="n">key</span><span class="p">))</span>
+                <span class="n">kw</span><span class="p">[</span><span class="s">&#39;dst_phi_g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_sources</span><span class="p">:</span>
+                    <span class="n">xsdata</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">discretize</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">xsdata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">xsdata</span>
+                        <span class="k">break</span>            
         <span class="c"># Return the value requested</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
@@ -141,291 +176,35 @@
         <span class="sd">&quot;&quot;&quot;Key setting via custom cache functionality.&quot;&quot;&quot;</span>
         <span class="c"># Set the E_g</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">==</span> <span class="s">&#39;E_g&#39;</span><span class="p">):</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-
-            <span class="c"># If the E_gs are the same, don&#39;t set anything</span>
-            <span class="k">if</span> <span class="p">(</span><span class="s">&#39;E_g&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">):</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">]))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-                    <span class="k">return</span> 
-
-            <span class="c"># Otherwise, preload some stuff.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;partial_energy_matrix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">partial_energy_matrix</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;E_n&#39;</span><span class="p">])</span>
-
-            <span class="c"># And remove any previous paramters dependent on E_g</span>
-            <span class="n">dirty_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="k">if</span> <span class="n">is_g_indexed</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span>
-            <span class="k">for</span> <span class="n">dk</span> <span class="ow">in</span> <span class="n">dirty_keys</span><span class="p">:</span>
-                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">dk</span><span class="p">]</span>
-
-
-        <span class="c"># Set the E_n</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">==</span> <span class="s">&#39;E_n&#39;</span><span class="p">):</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-            
-            <span class="c"># If the E_gs are the same, don&#39;t set anything</span>
-            <span class="k">if</span> <span class="p">(</span><span class="s">&#39;E_n&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">):</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;E_n&#39;</span><span class="p">]))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;E_n&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-                    <span class="k">return</span> 
-
-            <span class="c"># Otherwise, preload some stuff.</span>
-            <span class="k">if</span> <span class="s">&#39;E_g&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;partial_energy_matrix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">partial_energy_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span>
-
-
-        <span class="c"># Set the high resolution flux, phi_n</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;phi_n&#39;</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-
-            <span class="c"># If the flux is same, don&#39;t set or remove anything</span>
-            <span class="k">if</span> <span class="p">(</span><span class="s">&#39;phi_n&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">):</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;phi_n&#39;</span><span class="p">]))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;phi_n&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-                    <span class="k">return</span> 
-
-            <span class="c"># And remove any previous paramters dependent on phi_n</span>
-            <span class="n">dirty_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="k">if</span> <span class="p">(</span><span class="n">is_g_indexed</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="s">&#39;E_g&#39;</span><span class="p">)]</span>
-            <span class="k">for</span> <span class="n">dk</span> <span class="ow">in</span> <span class="n">dirty_keys</span><span class="p">:</span>
-                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">dk</span><span class="p">]</span>
-
+            <span class="n">value</span> <span class="o">=</span> <span class="n">_valid_group_struct</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">cache_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">_same_arr_or_none</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">cache_value</span><span class="p">):</span>
+                <span class="k">return</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_sources</span><span class="p">:</span>
+                <span class="n">ds</span><span class="o">.</span><span class="n">dst_group_struct</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">key</span> <span class="o">==</span> <span class="s">&#39;phi_g&#39;</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;f8&#39;</span><span class="p">)</span>
+            <span class="n">cache_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">_same_arr_or_none</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">cache_value</span><span class="p">):</span>
+                <span class="k">return</span>
+            <span class="n">E_g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">E_g</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;phi_g does not match existing group structure E_g!&quot;</span><span class="p">)</span>
         <span class="c"># Set the value normally</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
+<div class="viewcode-block" id="XSCache.clear"><a class="viewcode-back" href="../../../libref/xs/cache.html#pyne.xs.cache.XSCache.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clears the cache, retaining E_g and phi_g.&quot;&quot;&quot;</span>
+        <span class="n">E_g</span><span class="p">,</span> <span class="n">phi_g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">]</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">E_g</span><span class="p">,</span> <span class="n">phi_g</span>
+        
 
-<span class="c">#################################</span>
-<span class="c">### Get functions for XSCache ### </span>
-<span class="c">#################################</span>
-</div>
-<div class="viewcode-block" id="get_E_n"><a class="viewcode-back" href="../../../libref/xs/cache.html#pyne.xs.cache.get_E_n">[docs]</a><span class="k">def</span> <span class="nf">get_E_n</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Loads and returns the cinder energy bounds array, E_n, from the nuc_data library.&quot;&quot;&quot;</span>
-    <span class="n">nuc_data</span> <span class="o">=</span> <span class="n">pyne_conf</span><span class="o">.</span><span class="n">NUC_DATA_PATH</span>
-    <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">E_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">E_g</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">E_n</span>
-
-</div>
-<div class="viewcode-block" id="get_sigma_f_n"><a class="viewcode-back" href="../../../libref/xs/cache.html#pyne.xs.cache.get_sigma_f_n">[docs]</a><span class="k">def</span> <span class="nf">get_sigma_f_n</span><span class="p">(</span><span class="n">nuc</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Grabs a nuclide&#39;s fission cross-section from the nuc_data library.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    nuc : int</span>
-<span class="sd">        nuclide in zzaaam form.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    sigma_f_n : numpy array </span>
-<span class="sd">        This nuclide&#39;s fission cross-section pulled from the nuc_data library file.  If not </span>
-<span class="sd">        present in the library, a zero-array is returned.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">nuc_data</span> <span class="o">=</span> <span class="n">pyne_conf</span><span class="o">.</span><span class="n">NUC_DATA_PATH</span>
-    <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">N</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">fission</span><span class="o">.</span><span class="n">coldescrs</span><span class="p">[</span><span class="s">&#39;xs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">cond</span> <span class="o">=</span> <span class="s">&#39;nuc == {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-        <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">&#39;xs&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">fission</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="p">)]</span>
-
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="c"># Not fissionable, return zero-array</span>
-        <span class="n">sigma_f_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="c"># Return cross-section from file</span>
-        <span class="n">sigma_f_n</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">nuc_name</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-        <span class="n">err_str</span> <span class="o">=</span> <span class="s">&quot;The database contains multiple entries for the fission cross-section for {0}!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc_name</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_str</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">sigma_f_n</span>
-
-</div>
-<div class="viewcode-block" id="get_sigma_a_n"><a class="viewcode-back" href="../../../libref/xs/cache.html#pyne.xs.cache.get_sigma_a_n">[docs]</a><span class="k">def</span> <span class="nf">get_sigma_a_n</span><span class="p">(</span><span class="n">nuc</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Grabs a nuclide&#39;s absorption cross-section from the nuc_data library.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    nuc : int</span>
-<span class="sd">        nuclide in zzaaam form.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    sigma_a_n : numpy array</span>
-<span class="sd">        This nuclide&#39;s absorption cross-section pulled from the database library file.  If not </span>
-<span class="sd">        present in the library, a zero-array is returned.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">nuc_data</span> <span class="o">=</span> <span class="n">pyne_conf</span><span class="o">.</span><span class="n">NUC_DATA_PATH</span>
-    <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">N</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">absorption</span><span class="o">.</span><span class="n">coldescrs</span><span class="p">[</span><span class="s">&#39;xs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">cond</span> <span class="o">=</span> <span class="s">&quot;(from_nuc == {0}) &amp; (reaction_type != &#39;c&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-        <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">&#39;xs&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">absorption</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="p">)]</span>
-
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="c"># No absportion, return zero-array</span>
-        <span class="n">sigma_a_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
-        <span class="n">sigma_a_n</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="c"># Add in the fission cross-section</span>
-    <span class="n">sigma_f_n</span> <span class="o">=</span> <span class="n">get_sigma_f_n</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">sigma_a_n</span> <span class="o">+=</span> <span class="n">sigma_f_n</span>
-
-    <span class="k">return</span> <span class="n">sigma_a_n</span>
-
-
-</div>
-<span class="n">ABSORPTION_RX</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&#39;np *&#39;</span><span class="p">,</span> <span class="s">&#39;a  *&#39;</span><span class="p">,</span> <span class="s">&#39;h  *&#39;</span><span class="p">,</span> <span class="s">&#39;2p *&#39;</span><span class="p">,</span> <span class="s">&#39;3n *&#39;</span><span class="p">,</span> <span class="s">&#39;d  *&#39;</span><span class="p">,</span> <span class="s">&#39;np/d&#39;</span><span class="p">,</span> 
-                     <span class="s">&#39;na&#39;</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="s">&#39;nd&#39;</span><span class="p">,</span> <span class="s">&#39;g  *&#39;</span><span class="p">,</span> <span class="s">&#39;3n&#39;</span><span class="p">,</span> <span class="s">&#39;np&#39;</span><span class="p">,</span> <span class="s">&#39;nt&#39;</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;nt *&#39;</span><span class="p">,</span> 
-                     <span class="s">&#39;x  *&#39;</span><span class="p">,</span> <span class="s">&#39;4n *&#39;</span><span class="p">,</span> <span class="s">&#39;na *&#39;</span><span class="p">,</span> <span class="s">&#39;nd *&#39;</span><span class="p">,</span> <span class="s">&#39;t  *&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;2p&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">,</span> 
-                     <span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="s">&#39;h&#39;</span><span class="p">,</span> <span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="s">&#39;4n&#39;</span><span class="p">,</span> <span class="s">&#39;p&#39;</span><span class="p">,</span> <span class="s">&#39;n  *&#39;</span><span class="p">,</span> <span class="s">&#39;2a&#39;</span><span class="p">,</span> <span class="s">&#39;2n *&#39;</span><span class="p">,</span> <span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;2n&#39;</span><span class="p">,</span> 
-                     <span class="s">&#39;nh *&#39;</span><span class="p">,</span> <span class="s">&#39;p  *&#39;</span><span class="p">])</span>
-
-<span class="n">ABSORPTION_RX_MAP</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;neutron&#39;</span><span class="p">:</span> <span class="s">&#39;n&#39;</span><span class="p">,</span>
-    <span class="s">&#39;gamma&#39;</span><span class="p">:</span> <span class="s">&#39;g&#39;</span><span class="p">,</span> 
-    <span class="s">&#39;alpha&#39;</span><span class="p">:</span> <span class="s">&#39;a&#39;</span><span class="p">,</span>
-    <span class="s">&#39;proton&#39;</span><span class="p">:</span> <span class="s">&#39;p&#39;</span><span class="p">,</span>
-    <span class="s">&#39;trit&#39;</span><span class="p">:</span> <span class="s">&#39;t&#39;</span><span class="p">,</span>
-    <span class="s">&#39;triton&#39;</span><span class="p">:</span> <span class="s">&#39;t&#39;</span><span class="p">,</span>
-    <span class="s">&#39;deut&#39;</span><span class="p">:</span> <span class="s">&#39;d&#39;</span><span class="p">,</span>
-    <span class="s">&#39;deuteron&#39;</span><span class="p">:</span> <span class="s">&#39;d&#39;</span><span class="p">,</span>
-    <span class="p">}</span>
-
-<div class="viewcode-block" id="get_sigma_a_reaction_n"><a class="viewcode-back" href="../../../libref/xs/cache.html#pyne.xs.cache.get_sigma_a_reaction_n">[docs]</a><span class="k">def</span> <span class="nf">get_sigma_a_reaction_n</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Grabs a nuclide&#39;s absorption reaction cross-section from the nuc_data library.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    nuc : int</span>
-<span class="sd">        Nuclide in zzaaam form.</span>
-<span class="sd">    rx : str </span>
-<span class="sd">        Reaction key: &#39;gamma&#39;, &#39;alpha&#39;, &#39;p&#39;, etc.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    sigma_rx_n : numpy array</span>
-<span class="sd">        This nuclide&#39;s absorption reaction cross-section pulled from the nuc_data library </span>
-<span class="sd">        file.  If not present in the library, a zero-array is returned.</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-<span class="sd">    pyne.xs.cache.ABSORPTION_RX</span>
-<span class="sd">    pyne.xs.cache.ABSORPTION_RX_MAP</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># munge the reaction rate</span>
-    <span class="k">if</span> <span class="n">rx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ABSORPTION_RX</span><span class="p">:</span>
-        <span class="k">while</span> <span class="nb">any</span><span class="p">([(</span><span class="n">key</span> <span class="ow">in</span> <span class="n">rx</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ABSORPTION_RX_MAP</span><span class="p">]):</span>
-            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">ABSORPTION_RX_MAP</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">rx</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="s">&#39;_x&#39;</span> <span class="ow">in</span> <span class="n">rx</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">rx</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;_x&#39;</span><span class="p">,</span> <span class="s">&#39;  *&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">rx</span> <span class="o">=</span> <span class="n">rx</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;_x&#39;</span><span class="p">,</span> <span class="s">&#39; *&#39;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">rx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ABSORPTION_RX</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;the reaction &#39;{rx}&#39; is not valid.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rx</span><span class="o">=</span><span class="n">rx</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-
-    <span class="c"># Read in the data</span>
-    <span class="n">nuc_data</span> <span class="o">=</span> <span class="n">pyne_conf</span><span class="o">.</span><span class="n">NUC_DATA_PATH</span>
-    <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">N</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">absorption</span><span class="o">.</span><span class="n">coldescrs</span><span class="p">[</span><span class="s">&#39;xs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">cond</span> <span class="o">=</span> <span class="s">&quot;(from_nuc == {0}) &amp; (reaction_type == &#39;{1}&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
-        <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">&#39;xs&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">absorption</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="p">)]</span>
-
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="c"># No absportion, return zero-array</span>
-         <span class="n">sigma_rx_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
-        <span class="n">sigma_rx_n</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">sigma_rx_n</span>
-
-
-<span class="c">#EAF_RX = set([&quot;&quot;, &#39;np *&#39;, &#39;a  *&#39;, &#39;h  *&#39;, &#39;2p *&#39;, &#39;3n *&#39;, &#39;d  *&#39;, &#39;np/d&#39;, </span>
-<span class="c">#                     &#39;na&#39;, &#39;*&#39;, &#39;nd&#39;, &#39;g  *&#39;, &#39;3n&#39;, &#39;np&#39;, &#39;nt&#39;, &#39;t&#39;, &#39;nt *&#39;, </span>
-<span class="c">#                     &#39;x  *&#39;, &#39;4n *&#39;, &#39;na *&#39;, &#39;nd *&#39;, &#39;t  *&#39;, &#39;a&#39;, &#39;c&#39;, &#39;2p&#39;, &#39;d&#39;, </span>
-<span class="c">#                     &#39;g&#39;, &#39;h&#39;, &#39;n&#39;, &#39;4n&#39;, &#39;p&#39;, &#39;n  *&#39;, &#39;2a&#39;, &#39;2n *&#39;, &#39;x&#39;, &#39;2n&#39;, </span>
-<span class="c">#                     &#39;nh *&#39;, &#39;p  *&#39;,</span></div>
-<span class="n">EAF_RX</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;1020&#39;</span><span class="p">,</span> <span class="s">&#39;1021&#39;</span><span class="p">,</span> <span class="s">&#39;1022&#39;</span><span class="p">,</span> <span class="s">&#39;1030&#39;</span><span class="p">,</span> <span class="s">&#39;1031&#39;</span><span class="p">,</span> <span class="s">&#39;1032&#39;</span><span class="p">,</span> <span class="s">&#39;1040&#39;</span><span class="p">,</span> 
-                     <span class="s">&#39;1041&#39;</span><span class="p">,</span> <span class="s">&#39;1042&#39;</span><span class="p">,</span> <span class="s">&#39;1050&#39;</span><span class="p">,</span> <span class="s">&#39;1051&#39;</span><span class="p">,</span> <span class="s">&#39;1052&#39;</span><span class="p">,</span> <span class="s">&#39;1060&#39;</span><span class="p">,</span> <span class="s">&#39;1061&#39;</span><span class="p">,</span> 
-                     <span class="s">&#39;1062&#39;</span><span class="p">,</span> <span class="s">&#39;1070&#39;</span><span class="p">,</span> <span class="s">&#39;1071&#39;</span><span class="p">,</span> <span class="s">&#39;1072&#39;</span><span class="p">,</span> <span class="s">&#39;1080&#39;</span><span class="p">,</span> <span class="s">&#39;1110&#39;</span><span class="p">,</span> <span class="s">&#39;1111&#39;</span><span class="p">,</span> 
-                     <span class="s">&#39;1112&#39;</span><span class="p">,</span> <span class="s">&#39;160&#39;</span><span class="p">,</span> <span class="s">&#39;161&#39;</span><span class="p">,</span> <span class="s">&#39;162&#39;</span><span class="p">,</span> <span class="s">&#39;170&#39;</span><span class="p">,</span> <span class="s">&#39;171&#39;</span><span class="p">,</span> <span class="s">&#39;172&#39;</span><span class="p">,</span> <span class="s">&#39;180&#39;</span><span class="p">,</span>
-                     <span class="s">&#39;220&#39;</span><span class="p">,</span> <span class="s">&#39;221&#39;</span><span class="p">,</span> <span class="s">&#39;222&#39;</span><span class="p">,</span> <span class="s">&#39;240&#39;</span><span class="p">,</span> <span class="s">&#39;280&#39;</span><span class="p">,</span> <span class="s">&#39;281&#39;</span><span class="p">,</span> <span class="s">&#39;282&#39;</span><span class="p">,</span> <span class="s">&#39;290&#39;</span><span class="p">,</span>
-                     <span class="s">&#39;320&#39;</span><span class="p">,</span> <span class="s">&#39;321&#39;</span><span class="p">,</span> <span class="s">&#39;322&#39;</span><span class="p">,</span> <span class="s">&#39;330&#39;</span><span class="p">,</span> <span class="s">&#39;331&#39;</span><span class="p">,</span> <span class="s">&#39;332&#39;</span><span class="p">,</span> <span class="s">&#39;340&#39;</span><span class="p">,</span> <span class="s">&#39;341&#39;</span><span class="p">,</span>
-                     <span class="s">&#39;342&#39;</span><span class="p">,</span> <span class="s">&#39;370&#39;</span><span class="p">,</span> <span class="s">&#39;371&#39;</span><span class="p">,</span> <span class="s">&#39;40&#39;</span><span class="p">,</span> <span class="s">&#39;41&#39;</span><span class="p">,</span> <span class="s">&#39;42&#39;</span><span class="p">,</span> <span class="s">&#39;420&#39;</span><span class="p">])</span>
-
-<span class="n">EAF_RX_MAP</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;neutron&#39;</span><span class="p">:</span> <span class="s">&#39;n&#39;</span><span class="p">,</span>
-    <span class="s">&#39;gamma&#39;</span><span class="p">:</span> <span class="s">&#39;g&#39;</span><span class="p">,</span> 
-    <span class="s">&#39;alpha&#39;</span><span class="p">:</span> <span class="s">&#39;a&#39;</span><span class="p">,</span>
-    <span class="s">&#39;proton&#39;</span><span class="p">:</span> <span class="s">&#39;p&#39;</span><span class="p">,</span>
-    <span class="s">&#39;trit&#39;</span><span class="p">:</span> <span class="s">&#39;t&#39;</span><span class="p">,</span>
-    <span class="s">&#39;triton&#39;</span><span class="p">:</span> <span class="s">&#39;t&#39;</span><span class="p">,</span>
-    <span class="s">&#39;deut&#39;</span><span class="p">:</span> <span class="s">&#39;d&#39;</span><span class="p">,</span>
-    <span class="s">&#39;deuteron&#39;</span><span class="p">:</span> <span class="s">&#39;d&#39;</span><span class="p">,</span>
-    <span class="p">}</span>
-
-
-<div class="viewcode-block" id="get_eaf_xs"><a class="viewcode-back" href="../../../libref/xs/cache.html#pyne.xs.cache.get_eaf_xs">[docs]</a><span class="k">def</span> <span class="nf">get_eaf_xs</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Grabs group-wise cross section values fro a given nuclide and reaction from the EAF format activation library.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    nuc : int</span>
-<span class="sd">        Nuclide in zzaaam form.</span>
-<span class="sd">    rx : str </span>
-<span class="sd">        Reaction MT # in nnnm form.</span>
-<span class="sd">      OR: (eventually)</span>
-<span class="sd">        Reaction key: &#39;gamma&#39;, &#39;alpha&#39;, &#39;p&#39;, etc.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    sigma_n : numpy array</span>
-<span class="sd">        The cross-section pulled from the nuc_data library file.</span>
-<span class="sd">        If not present in the library, a zero-array is returned.</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-<span class="sd">    pyne.xs.cache.EAF_RX</span>
-<span class="sd">    pyne.xs.cache.EAF_RX_MAP</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># munge the reaction rate</span>
-    <span class="c">#TODO:</span>
-    <span class="c">#if rx not in EAF_RX:</span>
-    <span class="c">#    while any([(key in rx) for key in EAF_RX_MAP]):</span>
-    <span class="c">#        for key, value in EAF_RX_MAP.items():</span>
-    <span class="c">#            rx = rx.replace(key, value)</span>
-
-    <span class="c">#if &#39;_x&#39; in rx:</span>
-    <span class="c">#    if len(rx) == 3:</span>
-    <span class="c">#        rx = rx.replace(&#39;_x&#39;, &#39;  *&#39;)</span>
-    <span class="c">#    else:</span>
-    <span class="c">#        rx = rx.replace(&#39;_x&#39;, &#39; *&#39;)</span>
-
-    <span class="k">if</span> <span class="n">rx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">EAF_RX</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;the reaction &#39;{rx}&#39; is not valid.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rx</span><span class="o">=</span><span class="n">rx</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-
-    <span class="c"># Read in the data</span>
-    <span class="n">nuc_data</span> <span class="o">=</span> <span class="n">pyne_conf</span><span class="o">.</span><span class="n">NUC_DATA_PATH</span>
-    <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">N</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">eaf_xs</span><span class="o">.</span><span class="n">eaf_xs</span><span class="o">.</span><span class="n">coldescrs</span><span class="p">[</span><span class="s">&#39;xsec&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">cond</span> <span class="o">=</span> <span class="s">&quot;(nuc_zz == {0}) &amp; (rxnum == &#39;{1}&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
-        <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">&#39;xsec&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> \
-                <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">eaf_xs</span><span class="o">.</span><span class="n">eaf_xs</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cond</span><span class="p">)]</span>
-
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="c"># No absportion, return zero-array</span>
-        <span class="k">print</span> <span class="s">&#39;not found&#39;</span>
-        <span class="n">sigma_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
-        <span class="n">sigma_n</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">sigma_n</span>
-
-
-<span class="c"># Make a singleton of the cross-section cache</span></div>
+<span class="c"># Make a singleton of the cross-section cache</span></div></div>
 <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">XSCache</span><span class="p">()</span>
 </pre></div>
 

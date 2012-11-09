@@ -1,0 +1,294 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyNE 0.2 Release Notes &mdash; PyNE 0.2-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="up" title="Previous Versions" href="index.html" />
+    <link rel="next" title="PyNE 0.1 Release Notes" href="0.1_release_notes.html" />
+    <link rel="prev" title="Previous Versions" href="index.html" /> 
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="0.1_release_notes.html" title="PyNE 0.1 Release Notes"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="index.html" title="Previous Versions"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Previous Versions</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pyne-0-2-release-notes">
+<h1>PyNE 0.2 Release Notes<a class="headerlink" href="#pyne-0-2-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>PyNE 0.2 is the second release of Python for Nuclear Engineering project after an
+additional six months effort.  PyNE is a free and open source (BSD licensed) project
+whose goal is to become a necessary package in the computational nuclear engineer&#8217;s
+toolkit.  It is meant to play nicely with existing, industry standard nuclear
+engineering tools.  PyNE is meant to be both fast and useful.</p>
+<p>Release highlights:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Multicomponent enrichment solvers.</li>
+<li>Simple simulation input file generator.</li>
+<li>CMake based build system.</li>
+</ul>
+</div></blockquote>
+<p>Please visit our website for more information: <a class="reference external" href="http://pyne.github.com/">http://pyne.github.com/</a></p>
+<div class="section" id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="basic-nuclear-data-pyne-dbgen">
+<h3>Basic Nuclear Data (<tt class="docutils literal"><span class="pre">pyne.dbgen</span></tt>)<a class="headerlink" href="#basic-nuclear-data-pyne-dbgen" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">nuc_data_make</span></tt> utility has been expanded to now include EAF cross section
+data from the IAEA <a class="reference internal" href="#eaf">[EAF]</a> as well PNNL&#8217;s recent materials compendium <a class="reference internal" href="#matcomp">[MATCOMP]</a>.</p>
+</div>
+<div class="section" id="nuclear-data-pyne-data">
+<h3>Nuclear Data (<tt class="docutils literal"><span class="pre">pyne.data</span></tt>)<a class="headerlink" href="#nuclear-data-pyne-data" title="Permalink to this headline">¶</a></h3>
+<p>Natural isotopic abundance ratio information has been exposed via the natural_abund()
+function.</p>
+</div>
+<div class="section" id="material-pyne-material">
+<h3>Material (<tt class="docutils literal"><span class="pre">pyne.material</span></tt>)<a class="headerlink" href="#material-pyne-material" title="Permalink to this headline">¶</a></h3>
+<p>Materials have been revamped to now include an <tt class="docutils literal"><span class="pre">attrs</span></tt> namespace which can store
+arbitrary metadata.  In light of this, the <tt class="docutils literal"><span class="pre">name</span></tt> field has been removed as
+names may now be stored via <tt class="docutils literal"><span class="pre">mat.attrs['name']</span></tt>.  Materials now follow the
+convention that all extrinsic variables should be stored in the <tt class="docutils literal"><span class="pre">attrs</span></tt> while
+intrinsic (physical) properties may be stored as class-level fields.  Thus
+<tt class="docutils literal"><span class="pre">density</span></tt> has been added as a class-level field.   A skeletal MultiMaterial class
+has also been introduced to handle many materials simultaneously without mixing
+their constituent nuclides.</p>
+</div>
+<div class="section" id="simple-simulation-input-pyne-simplesim">
+<h3>Simple Simulation Input (<tt class="docutils literal"><span class="pre">pyne.simplesim</span></tt>)<a class="headerlink" href="#simple-simulation-input-pyne-simplesim" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">simplesim</span></tt> package provides modules for the definition of a system (its
+geometry and material composition), the definition of simulation parameters,
+and for the generation of input files to codes that can perform such
+simulations (MCNP, Serpent, MCODE, etc.).</p>
+</div>
+<div class="section" id="mulicomponent-enrichment-pyne-enrichment">
+<h3>Mulicomponent Enrichment (<tt class="docutils literal"><span class="pre">pyne.enrichment</span></tt>)<a class="headerlink" href="#mulicomponent-enrichment-pyne-enrichment" title="Permalink to this headline">¶</a></h3>
+<p>The enrichment module contains tools for defining and manipulating enrichment
+cascades. The Cascade class is a simple container for storing parameters which
+define and enrichment setup. These include feed, product, and tail materials,
+target enrichments, and separation factors. The main functions in this modules
+computes the total flow rate and separation factors from an initial cascade.
+Other helper function compute relative flow rates and nuclide-specific separation
+factors.  Both a standard numeric solver and a fast symbolic solver have been
+implemented.</p>
+</div>
+<div class="section" id="cross-section-interface-pyne-xs">
+<h3>Cross Section Interface (<tt class="docutils literal"><span class="pre">pyne.xs</span></tt>)<a class="headerlink" href="#cross-section-interface-pyne-xs" title="Permalink to this headline">¶</a></h3>
+<p>The cross section interface has been refactored to include the concept of data
+sources, which expose information and manipulation routines for all valid reactions.
+To date null, simple, Cinder, and EAF data sources have been implemented.  The cross
+section cache XSCache has been refactored to pull raw data from data source classes.</p>
+</div>
+<div class="section" id="jsoncpp-pyne-jsoncpp">
+<h3>JsonCpp (<tt class="docutils literal"><span class="pre">pyne.jsoncpp</span></tt>)<a class="headerlink" href="#jsoncpp-pyne-jsoncpp" title="Permalink to this headline">¶</a></h3>
+<p>A Cython wrapper around the JsonCpp project, which is automatically included in
+PyNE.  This provides an in-memory, C++ level representation of JSON objects.
+This is mainly used as a Python independent C++ dictionary to store arbitrary metadata.
+Interoperation in both Python and C++ is very natural.  For more information please
+refer to <a class="reference internal" href="#jsoncpp">[JSONCPP]</a>.</p>
+</div>
+<div class="section" id="gui-tools-pyne-gui">
+<h3>GUI Tools (<tt class="docutils literal"><span class="pre">pyne.gui</span></tt>)<a class="headerlink" href="#gui-tools-pyne-gui" title="Permalink to this headline">¶</a></h3>
+<p>The aceviewer tool is now installed as a command line utility, available anywhere
+on the system.</p>
+</div>
+</div>
+<div class="section" id="authors">
+<h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
+<p>This release contains code written by the following people (in alphabetical
+order).  An (*) indicates a first-time contributor to PyNE.</p>
+<ul class="simple">
+<li>Elliott Biondo*</li>
+<li>Christopher Dembia</li>
+<li>Robert Flanagan</li>
+<li>Katy Huff*</li>
+<li>Matt McCormick*</li>
+<li>Eric Relson</li>
+<li>Paul Romano</li>
+<li>Anthony Scopatz</li>
+<li>Paul Wilson</li>
+<li>John Xia*</li>
+</ul>
+<p>Additionally, we would like to thank the following people for their
+inspiration, guidance, and testing:</p>
+<ul class="simple">
+<li>Seth Johnson</li>
+<li>Ronald J. McConn Jr (for help with PNNL Materials Compendium)</li>
+<li>Joshua Peterson</li>
+<li>Rachel Slaybaugh</li>
+<li>Nick Touran</li>
+<li>Morgan White</li>
+</ul>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<table class="docutils citation" frame="void" id="eaf" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[EAF]</a></td><td>A.B. Pashchenko and H. Wienke, &#8220;FENDL2/A-MCNP, FENDL2/A-VITJ_E and
+FENDL2/A-VITJ_FLAT, the processed FENDL-2 neutron activation cross-section
+data files&#8221;, report IAEA-NDS-174, International Atomic Energy Agency,
+March 1997.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="matcomp" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[MATCOMP]</a></td><td><a class="reference external" href="http://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf">http://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="jsoncpp" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[JSONCPP]</a></td><td><a class="reference external" href="http://jsoncpp.sourceforge.net/">http://jsoncpp.sourceforge.net/</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PyNE 0.2 Release Notes</a><ul>
+<li><a class="reference internal" href="#new-features">New Features</a><ul>
+<li><a class="reference internal" href="#basic-nuclear-data-pyne-dbgen">Basic Nuclear Data (<tt class="docutils literal"><span class="pre">pyne.dbgen</span></tt>)</a></li>
+<li><a class="reference internal" href="#nuclear-data-pyne-data">Nuclear Data (<tt class="docutils literal"><span class="pre">pyne.data</span></tt>)</a></li>
+<li><a class="reference internal" href="#material-pyne-material">Material (<tt class="docutils literal"><span class="pre">pyne.material</span></tt>)</a></li>
+<li><a class="reference internal" href="#simple-simulation-input-pyne-simplesim">Simple Simulation Input (<tt class="docutils literal"><span class="pre">pyne.simplesim</span></tt>)</a></li>
+<li><a class="reference internal" href="#mulicomponent-enrichment-pyne-enrichment">Mulicomponent Enrichment (<tt class="docutils literal"><span class="pre">pyne.enrichment</span></tt>)</a></li>
+<li><a class="reference internal" href="#cross-section-interface-pyne-xs">Cross Section Interface (<tt class="docutils literal"><span class="pre">pyne.xs</span></tt>)</a></li>
+<li><a class="reference internal" href="#jsoncpp-pyne-jsoncpp">JsonCpp (<tt class="docutils literal"><span class="pre">pyne.jsoncpp</span></tt>)</a></li>
+<li><a class="reference internal" href="#gui-tools-pyne-gui">GUI Tools (<tt class="docutils literal"><span class="pre">pyne.gui</span></tt>)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#authors">Authors</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Previous Versions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.1_release_notes.html"
+                        title="next chapter">PyNE 0.1 Release Notes</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/previous/0.2_release_notes.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="0.1_release_notes.html" title="PyNE 0.1 Release Notes"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="index.html" title="Previous Versions"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >Previous Versions</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyne.xs.channels &mdash; PyNE 0.1</title>
+    <title>pyne.xs.channels &mdash; PyNE 0.2-dev</title>
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.1',
+        VERSION:     '0.2-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.1" href="../../../index.html" />
+    <link rel="top" title="PyNE 0.2-dev" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body>
@@ -63,39 +63,41 @@
           <div class="body">
             
   <h1>Source code for pyne.xs.channels</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;This module provides an easy interface to very quickly grab multigroup cross </span>
+<span class="sd">sections from the cross section cache and collapse them to the appropriate group </span>
+<span class="sd">structure.  Additionally, it provides interfaces for some higher level functionality, </span>
+<span class="sd">such as computing cross sections for materials, fission energy spectra, metastable</span>
+<span class="sd">ratios, etc.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">collections</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="nb">all</span><span class="o">=</span><span class="s">&#39;ignore&#39;</span><span class="p">)</span>
+
 <span class="kn">import</span> <span class="nn">scipy.integrate</span>
 <span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
 
+<span class="kn">import</span> <span class="nn">pyne</span>
 <span class="kn">import</span> <span class="nn">pyne.data</span>
 <span class="kn">import</span> <span class="nn">pyne.xs.models</span>
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
-<span class="kn">from</span> <span class="nn">pyne.xs.cache</span> <span class="kn">import</span> <span class="n">xs_cache</span>
+<span class="kn">from</span> <span class="nn">pyne.xs</span> <span class="kn">import</span> <span class="n">cache</span>
 <span class="kn">from</span> <span class="nn">pyne.xs.models</span> <span class="kn">import</span> <span class="n">group_collapse</span>
-<span class="kn">from</span> <span class="nn">pyne.pyne_config</span> <span class="kn">import</span> <span class="n">pyne_conf</span>
 <span class="kn">from</span> <span class="nn">pyne.material</span> <span class="kn">import</span> <span class="n">Material</span>
 
-<span class="c"># Hide warnings from numpy</span>
-<span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s">&#39;ignore&#39;</span><span class="p">)</span>
 
-
-<span class="k">def</span> <span class="nf">_prep_cache</span><span class="p">(</span><span class="n">E_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">E_n</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_prep_cache</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">,</span> <span class="n">E_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Ensures that certain values are in the cache safely.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">E_n</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_n&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">E_n</span>
-
-    <span class="c"># needs to follow E_n to calc collapse matrix properly</span>
     <span class="k">if</span> <span class="n">E_g</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">E_g</span>
 
-    <span class="k">if</span> <span class="n">phi_n</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;phi_n&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">phi_n</span>
+    <span class="k">if</span> <span class="n">phi_g</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">phi_g</span>
 
 
 <span class="k">def</span> <span class="nf">_atom_weight_channel</span><span class="p">(</span><span class="n">chanfunc</span><span class="p">,</span> <span class="n">nucspec</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convolves a channel for several nuclides based on atomic weights.&quot;&quot;&quot;</span>
+    <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;xs_cache&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s">&#39;xs_cache&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="n">cache</span><span class="o">.</span><span class="n">xs_cache</span>
     <span class="c"># convert to atom weights</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nucspec</span><span class="p">,</span> <span class="n">Material</span><span class="p">):</span>
         <span class="n">aws</span> <span class="o">=</span> <span class="n">nucspec</span><span class="o">.</span><span class="n">to_atom_frac</span><span class="p">()</span>
@@ -119,86 +121,65 @@
     <span class="k">return</span> <span class="n">chan</span>
 
 
-<div class="viewcode-block" id="sigma_f"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_f">[docs]</a><span class="k">def</span> <span class="nf">sigma_f</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">E_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">E_n</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculates the neutron fission cross-section for a nuclide for a new, </span>
-<span class="sd">    lower resolution group structure using a higher fidelity flux.  Note that </span>
-<span class="sd">    g indexes G, n indexes N, and G &lt; N.  If any of these are None-valued, </span>
-<span class="sd">    values from the cache are used.  The energy groups and fluxes are normally </span>
-<span class="sd">    ordered from highest-to-lowest energy.</span>
+<div class="viewcode-block" id="sigma_f"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_f">[docs]</a><span class="k">def</span> <span class="nf">sigma_f</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">group_struct</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the neutron fission cross section for a nuclide. </span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    nuc : int, str, Material, or dict-like </span>
-<span class="sd">        A nuclide or nuclide-atom fraction mapping for which to calculate the </span>
-<span class="sd">        fission cross-section.</span>
-<span class="sd">    E_g : array-like of floats, optional</span>
-<span class="sd">        New, lower fidelity energy group structure [MeV] that is of length G+1. </span>
-<span class="sd">    E_n : array-like of floats, optional</span>
-<span class="sd">        Higher resolution energy group structure [MeV] that is of length N+1. </span>
-<span class="sd">    phi_n : array-like of floats, optional</span>
-<span class="sd">        The high-fidelity flux [n/cm^2/s] to collapse the fission cross-section over.  </span>
-<span class="sd">        Length N.  </span>
+<span class="sd">        A nuclide or nuclide-atom fraction mapping.</span>
+<span class="sd">    temp : float, optional</span>
+<span class="sd">        Temperature [K] of material, defaults to 300.0.</span>
+<span class="sd">    group_struct : array-like of floats, optional</span>
+<span class="sd">        Energy group structure E_g [MeV] from highest-to-lowest energy, length G+1,</span>
+<span class="sd">        defaults to xs_cache[&#39;E_g&#39;].</span>
+<span class="sd">    phi_g : array-like of floats, optional</span>
+<span class="sd">        Group fluxes [n/cm^2/s] matching group_struct, length G, defaults to </span>
+<span class="sd">        xs_cache[&#39;phi_g&#39;].</span>
+<span class="sd">    xs_cache : XSCache, optional</span>
+<span class="sd">        Cross section cache to use, defaults to pyne.xs.cache.xs_cache. </span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    sigma_f_g : ndarray </span>
-<span class="sd">        An array of the collapsed fission cross-section.</span>
+<span class="sd">        The fission cross-section, length G.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    This always pulls the fission cross-section out of nuc_data library.    </span>
+<span class="sd">    This always pulls the fission cross section out of the cache.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
-
+    <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">xs_cache</span> <span class="k">if</span> <span class="n">xs_cache</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">xs_cache</span>
+    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_f</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
-
-    <span class="c"># Get the fission XS</span>
+        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_f</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">temp</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">)</span>
     <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">sigma_f_n_nuc</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_f_n&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
-    <span class="n">sigma_f_g_nuc</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_f_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
-
-    <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
-    <span class="k">if</span> <span class="n">sigma_f_g_nuc</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">sigma_f_g_nuc</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">sigma_f_n</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">sigma_f_n_nuc</span><span class="p">]</span>
-
-    <span class="c"># Perform the group collapse, knowing that the right data is in the cache</span>
-    <span class="n">sigma_f_g</span> <span class="o">=</span> <span class="n">group_collapse</span><span class="p">(</span><span class="n">sigma_f_n</span><span class="p">,</span> <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;phi_n&#39;</span><span class="p">],</span> <span class="n">phi_g</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">],</span> 
-                               <span class="n">partial_energies</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;partial_energy_matrix&#39;</span><span class="p">])</span>
-
-    <span class="c"># Put this value back into the cache, with the appropriate label</span>
-    <span class="n">xs_cache</span><span class="p">[</span><span class="n">sigma_f_g_nuc</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_f_g</span>
-
-    <span class="k">return</span> <span class="n">sigma_f_g</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="s">&#39;f&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
 </div>
-<div class="viewcode-block" id="sigma_s_gh"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_s_gh">[docs]</a><span class="k">def</span> <span class="nf">sigma_s_gh</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">E_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">E_n</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculates the neutron scattering cross-section kernel for a nuclide for a new, </span>
-<span class="sd">    lower resolution group structure using a higher fidelity flux.  Note that g, h index G, </span>
-<span class="sd">    n indexes N, and G &lt; N.  g is for the incident energy and h is for the exiting energy.</span>
+<div class="viewcode-block" id="sigma_s_gh"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_s_gh">[docs]</a><span class="k">def</span> <span class="nf">sigma_s_gh</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">group_struct</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the neutron scattering kernel for a nuclide.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    nuc : int, str, Material, or dict-like </span>
-<span class="sd">        A nuclide or nuclide-atom fraction mapping for which to calculate the </span>
-<span class="sd">        scattering kernel.</span>
-<span class="sd">    T : float</span>
-<span class="sd">        Tempurature of the target material [kelvin].</span>
-<span class="sd">    E_g : array-like of floats, optional</span>
-<span class="sd">        New, lower fidelity energy group structure [MeV] that is of length G+1. </span>
-<span class="sd">    E_n : array-like of floats, optional</span>
-<span class="sd">        Higher resolution energy group structure [MeV] that is of length N+1. </span>
-<span class="sd">    phi_n : array-like of floats, optional</span>
-<span class="sd">        The high-fidelity flux [n/cm^2/s] to collapse the fission cross-section over.  </span>
-<span class="sd">        Length N.  </span>
+<span class="sd">        A nuclide or nuclide-atom fraction mapping.</span>
+<span class="sd">    temp : float, optional</span>
+<span class="sd">        Temperature [K] of material, defaults to 300.0.</span>
+<span class="sd">    group_struct : array-like of floats, optional</span>
+<span class="sd">        Energy group structure E_g [MeV] from highest-to-lowest energy, length G+1,</span>
+<span class="sd">        defaults to xs_cache[&#39;E_g&#39;].</span>
+<span class="sd">    phi_g : array-like of floats, optional</span>
+<span class="sd">        Group fluxes [n/cm^2/s] matching group_struct, length G, defaults to </span>
+<span class="sd">        xs_cache[&#39;phi_g&#39;].</span>
+<span class="sd">    xs_cache : XSCache, optional</span>
+<span class="sd">        Cross section cache to use, defaults to pyne.xs.cache.xs_cache. </span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    sig_s_gh : ndarray </span>
-<span class="sd">        An array of the scattering kernel.</span>
+<span class="sd">        The scattering kernel, shape GxG.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -214,20 +195,20 @@
 <span class="sd">    the h-index.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
-
+    <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">xs_cache</span> <span class="k">if</span> <span class="n">xs_cache</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">xs_cache</span>
+    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_s_gh</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
-
+        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_s_gh</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">temp</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">)</span>
     <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_s_gh&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="s">&#39;s_gh&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
     <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
     <span class="c"># Get some needed data</span>
-    <span class="n">G</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">E_g</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">]</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">E_g</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">pyne</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">b</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
     <span class="n">aw</span> <span class="o">=</span> <span class="n">pyne</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">atomic_mass</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
 
@@ -254,19 +235,16 @@
     <span class="c">#    sig_s_gh[g, h] = numer / denom</span>
 
     <span class="c"># Temporary stub</span>
-    <span class="n">E_g</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">]</span>
     <span class="n">E_g_centers</span> <span class="o">=</span> <span class="p">(</span><span class="n">E_g</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">E_g</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span>
-    <span class="n">sig_s</span> <span class="o">=</span> <span class="n">pyne</span><span class="o">.</span><span class="n">xs</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">sigma_s</span><span class="p">(</span><span class="n">E_g_centers</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">aw</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">sig_s</span> <span class="o">=</span> <span class="n">pyne</span><span class="o">.</span><span class="n">xs</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">sigma_s</span><span class="p">(</span><span class="n">E_g_centers</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">aw</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
     <span class="n">sig_s_gh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">sig_s</span><span class="p">)</span>
 
-    <span class="c"># Put this value back into the cache, with the appropriate label</span>
     <span class="n">xs_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">sig_s_gh</span>
-
     <span class="k">return</span> <span class="n">sig_s_gh</span>
 
 </div>
-<div class="viewcode-block" id="sigma_s"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_s">[docs]</a><span class="k">def</span> <span class="nf">sigma_s</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">E_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">E_n</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculates the neutron scattering cross-section for a nuclide. </span>
+<div class="viewcode-block" id="sigma_s"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_s">[docs]</a><span class="k">def</span> <span class="nf">sigma_s</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">group_struct</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the neutron scattering cross section for a nuclide. </span>
 
 <span class="sd">    .. math::</span>
 <span class="sd">        \\sigma_{s, g} = \\sum_{h} \\sigma_{s, g\\to h} </span>
@@ -274,32 +252,31 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    nuc : int, str, Material, or dict-like </span>
-<span class="sd">        A nuclide or nuclide-atom fraction mapping for which to calculate the </span>
-<span class="sd">        scattering cross section.</span>
-<span class="sd">    T : float</span>
-<span class="sd">        Tempurature of the target material [kelvin].</span>
-<span class="sd">    E_g : array-like of floats, optional</span>
-<span class="sd">        New, lower fidelity energy group structure [MeV] that is of length G+1. </span>
-<span class="sd">    E_n : array-like of floats, optional</span>
-<span class="sd">        Higher resolution energy group structure [MeV] that is of length N+1. </span>
-<span class="sd">    phi_n : array-like of floats, optional</span>
-<span class="sd">        The high-fidelity flux [n/cm^2/s] to collapse the fission cross-section over.  </span>
-<span class="sd">        Length N.  </span>
+<span class="sd">        A nuclide or nuclide-atom fraction mapping.</span>
+<span class="sd">    temp : float, optional</span>
+<span class="sd">        Temperature [K] of material, defaults to 300.0.</span>
+<span class="sd">    group_struct : array-like of floats, optional</span>
+<span class="sd">        Energy group structure E_g [MeV] from highest-to-lowest energy, length G+1,</span>
+<span class="sd">        defaults to xs_cache[&#39;E_g&#39;].</span>
+<span class="sd">    phi_g : array-like of floats, optional</span>
+<span class="sd">        Group fluxes [n/cm^2/s] matching group_struct, length G, defaults to </span>
+<span class="sd">        xs_cache[&#39;phi_g&#39;].</span>
+<span class="sd">    xs_cache : XSCache, optional</span>
+<span class="sd">        Cross section cache to use, defaults to pyne.xs.cache.xs_cache. </span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    sig_s_g : ndarray </span>
-<span class="sd">        An array of the scattering cross section.</span>
+<span class="sd">        The scattering cross section, length G.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
-
+    <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">xs_cache</span> <span class="k">if</span> <span class="n">xs_cache</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">xs_cache</span>
+    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_s</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
-
+        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_s</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">temp</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">)</span>
     <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key_g</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_s_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
-    <span class="n">key_gh</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_s_gh&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">key_g</span>  <span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="s">&#39;s_g&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
+    <span class="n">key_gh</span> <span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="s">&#39;s_gh&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
     <span class="k">if</span> <span class="n">key_g</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
@@ -307,41 +284,40 @@
 
     <span class="c"># This calculation requires the scattering kernel</span>
     <span class="k">if</span> <span class="n">key_gh</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
-        <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_gh</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_s_gh</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
+        <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_gh</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_s_gh</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">,</span> <span class="n">xs_cache</span><span class="p">)</span>
 
     <span class="c"># Sum over all h</span>
     <span class="n">sig_s_g</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_gh</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c"># Put this value back into the cache, with the appropriate label</span>
     <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_g</span><span class="p">]</span> <span class="o">=</span> <span class="n">sig_s_g</span>
-
     <span class="k">return</span> <span class="n">sig_s_g</span>
 
 </div>
-<div class="viewcode-block" id="sigma_a_reaction"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_a_reaction">[docs]</a><span class="k">def</span> <span class="nf">sigma_a_reaction</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">E_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">E_n</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculates the neutron absorption reaction cross-section for a nuclide for a </span>
-<span class="sd">    new, lower resolution group structure using a higher fidelity flux.  Note that </span>
-<span class="sd">    g indexes G, n indexes N, and G &lt; N.</span>
+<div class="viewcode-block" id="sigma_a_reaction"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_a_reaction">[docs]</a><span class="k">def</span> <span class="nf">sigma_a_reaction</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">group_struct</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the neutron absorption reaction cross section for a nuclide.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    nuc : int, str, Material, or dict-like </span>
-<span class="sd">        A nuclide or nuclide-atom fraction mapping for which to calculate the </span>
-<span class="sd">        absorption reaction cross-section.</span>
+<span class="sd">        A nuclide or nuclide-atom fraction mapping.</span>
 <span class="sd">    rx : str</span>
 <span class="sd">        Reaction key. (&#39;gamma&#39;, &#39;alpha&#39;, &#39;p&#39;, etc.)</span>
-<span class="sd">    E_g : array-like of floats, optional</span>
-<span class="sd">        New, lower fidelity energy group structure [MeV] that is of length G+1. </span>
-<span class="sd">    E_n : array-like of floats, optional</span>
-<span class="sd">        Higher resolution energy group structure [MeV] that is of length N+1. </span>
-<span class="sd">    phi_n : array-like of floats, optional</span>
-<span class="sd">        The high-fidelity flux [n/cm^2/s] to collapse the fission cross-section over.  </span>
-<span class="sd">        Length N.  </span>
+<span class="sd">    temp : float, optional</span>
+<span class="sd">        Temperature [K] of material, defaults to 300.0.</span>
+<span class="sd">    group_struct : array-like of floats, optional</span>
+<span class="sd">        Energy group structure E_g [MeV] from highest-to-lowest energy, length G+1,</span>
+<span class="sd">        defaults to xs_cache[&#39;E_g&#39;].</span>
+<span class="sd">    phi_g : array-like of floats, optional</span>
+<span class="sd">        Group fluxes [n/cm^2/s] matching group_struct, length G, defaults to </span>
+<span class="sd">        xs_cache[&#39;phi_g&#39;].</span>
+<span class="sd">    xs_cache : XSCache, optional</span>
+<span class="sd">        Cross section cache to use, defaults to pyne.xs.cache.xs_cache. </span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    sigma_rx_g : ndarray </span>
-<span class="sd">        An array of the collapsed absorption reaction cross section.</span>
+<span class="sd">        The collapsed absorption reaction cross section, length G.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -349,58 +325,42 @@
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
-<span class="sd">    pyne.xs.cache.ABSORPTION_RX</span>
-<span class="sd">    pyne.xs.cache.ABSORPTION_RX_MAP </span>
+<span class="sd">    pyne.xs.data_source.RX_TYPES</span>
+<span class="sd">    pyne.xs.data_source.RX_TYPES_MAP </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
-
+    <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">xs_cache</span> <span class="k">if</span> <span class="n">xs_cache</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">xs_cache</span>
+    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_a_reaction</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
-
-    <span class="c"># Get the absorption XS</span>
+        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_a_reaction</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">temp</span><span class="p">,</span> 
+                                    <span class="n">xs_cache</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">)</span>
     <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key_n</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_rx_n&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
-    <span class="n">key_g</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_rx_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
-
-    <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
-    <span class="k">if</span> <span class="n">key_g</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_g</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">sigma_rx_n</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_n</span><span class="p">]</span>
-
-    <span class="c"># Perform the group collapse, knowing that the right data is in the cache</span>
-    <span class="n">sigma_rx_g</span> <span class="o">=</span> <span class="n">group_collapse</span><span class="p">(</span><span class="n">sigma_rx_n</span><span class="p">,</span> <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;phi_n&#39;</span><span class="p">],</span> <span class="n">phi_g</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">],</span> 
-                                <span class="n">partial_energies</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;partial_energy_matrix&#39;</span><span class="p">])</span>
-
-    <span class="c"># Put this value back into the cache, with the appropriate label</span>
-    <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_g</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_rx_g</span>
-
-    <span class="k">return</span> <span class="n">sigma_rx_g</span>
+    <span class="n">key</span><span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
 </div>
-<div class="viewcode-block" id="metastable_ratio"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.metastable_ratio">[docs]</a><span class="k">def</span> <span class="nf">metastable_ratio</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">E_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">E_n</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="metastable_ratio"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.metastable_ratio">[docs]</a><span class="k">def</span> <span class="nf">metastable_ratio</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">group_struct</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Calculates the ratio between a reaction that leaves the nuclide in a </span>
 <span class="sd">    metastable state and the equivalent reaction that leaves the nuclide in </span>
 <span class="sd">    the ground state.  This allows the calculation of metastable cross sections </span>
-<span class="sd">    via sigma_ms = ratio * sigma_ground.  Note that g indexes G, n indexes N, </span>
-<span class="sd">    and G &lt; N.</span>
-
-<span class="sd">    Note: This always pulls the absorption reaction cross-sections out of the nuc_data library.    </span>
+<span class="sd">    via sigma_ms = ratio * sigma_ground. </span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    nuc : int, str, Material, or dict-like </span>
-<span class="sd">        A nuclide or nuclide-atom fraction mapping for which to calculate the </span>
-<span class="sd">        metastable ratio.</span>
+<span class="sd">        A nuclide or nuclide-atom fraction mapping.</span>
 <span class="sd">    rx : str</span>
 <span class="sd">        Reaction key. (&#39;gamma&#39;, &#39;alpha&#39;, &#39;p&#39;, etc.)</span>
-<span class="sd">    E_g : array-like of floats, optional</span>
-<span class="sd">        New, lower fidelity energy group structure [MeV] that is of length G+1. </span>
-<span class="sd">    E_n : array-like of floats, optional</span>
-<span class="sd">        Higher resolution energy group structure [MeV] that is of length N+1. </span>
-<span class="sd">    phi_n : array-like of floats, optional</span>
-<span class="sd">        The high-fidelity flux [n/cm^2/s] to collapse the fission cross-section over.  </span>
-<span class="sd">        Length N.  </span>
+<span class="sd">    temp : float, optional</span>
+<span class="sd">        Temperature [K] of material, defaults to 300.0.</span>
+<span class="sd">    group_struct : array-like of floats, optional</span>
+<span class="sd">        Energy group structure E_g [MeV] from highest-to-lowest energy, length G+1,</span>
+<span class="sd">        defaults to xs_cache[&#39;E_g&#39;].</span>
+<span class="sd">    phi_g : array-like of floats, optional</span>
+<span class="sd">        Group fluxes [n/cm^2/s] matching group_struct, length G, defaults to </span>
+<span class="sd">        xs_cache[&#39;phi_g&#39;].</span>
+<span class="sd">    xs_cache : XSCache, optional</span>
+<span class="sd">        Cross section cache to use, defaults to pyne.xs.cache.xs_cache. </span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -410,16 +370,25 @@
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    This always pulls the absorption reaction cross section out of the nuc_data.</span>
+<span class="sd">    This always pulls the absorption reaction cross section out of the cache.</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
-<span class="sd">    pyne.xs.cache.ABSORPTION_RX</span>
-<span class="sd">    pyne.xs.cache.ABSORPTION_RX_MAP </span>
+<span class="sd">    pyne.xs.data_source.RX_TYPES</span>
+<span class="sd">    pyne.xs.data_source.RX_TYPES_MAP </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
+        <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">xs_cache</span> <span class="k">if</span> <span class="n">xs_cache</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">xs_cache</span>
+        <span class="n">_prep_cache</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">)</span>
+        <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span> <span class="o">+</span> <span class="s">&#39;_x_ratio&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
     <span class="c"># Get the cross-sections</span>
-    <span class="n">sigma_rx</span> <span class="o">=</span> <span class="n">sigma_a_reaction</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
-    <span class="n">sigma_rx_x</span> <span class="o">=</span> <span class="n">sigma_a_reaction</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span> <span class="o">+</span> <span class="s">&#39;_x&#39;</span><span class="p">,</span> <span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
+    <span class="n">sigma_rx</span> <span class="o">=</span> <span class="n">sigma_a_reaction</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">,</span> <span class="n">xs_cache</span><span class="p">)</span>
+    <span class="n">sigma_rx_x</span> <span class="o">=</span> <span class="n">sigma_a_reaction</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span> <span class="o">+</span> <span class="s">&#39;_x&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">,</span> <span class="n">xs_cache</span><span class="p">)</span>
 
     <span class="c"># Get the ratio</span>
     <span class="n">ratio_rx_g</span> <span class="o">=</span> <span class="n">sigma_rx_x</span> <span class="o">/</span> <span class="n">sigma_rx</span>
@@ -427,100 +396,84 @@
     <span class="n">ratio_rx_g</span><span class="p">[</span><span class="n">ratio_rx_g</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">ratio_rx_g</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ratio_rx_g</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.0</span>
 
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">xs_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ratio_rx_g</span>
     <span class="k">return</span> <span class="n">ratio_rx_g</span>
 
 </div>
-<div class="viewcode-block" id="sigma_a"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_a">[docs]</a><span class="k">def</span> <span class="nf">sigma_a</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">E_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">E_n</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculates the neutron absorption cross section for a nuclide for a new, </span>
-<span class="sd">    lower resolution group structure using a higher fidelity flux.  Note that </span>
-<span class="sd">    g indexes G, n indexes N, and G &lt; N.</span>
+<div class="viewcode-block" id="sigma_a"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_a">[docs]</a><span class="k">def</span> <span class="nf">sigma_a</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">group_struct</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the neutron absorption cross section for a nuclide.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    nuc : int, str, Material, or dict-like </span>
-<span class="sd">        A nuclide or nuclide-atom fraction mapping for which to calculate the </span>
-<span class="sd">        absorption cross section.</span>
-<span class="sd">    E_g : array-like of floats, optional</span>
-<span class="sd">        New, lower fidelity energy group structure [MeV] that is of length G+1. </span>
-<span class="sd">    E_n : array-like of floats, optional</span>
-<span class="sd">        Higher resolution energy group structure [MeV] that is of length N+1. </span>
-<span class="sd">    phi_n : array-like of floats, optional</span>
-<span class="sd">        The high-fidelity flux [n/cm^2/s] to collapse the fission cross-section over.  </span>
-<span class="sd">        Length N.  </span>
+<span class="sd">        A nuclide or nuclide-atom fraction mapping.</span>
+<span class="sd">    temp : float, optional</span>
+<span class="sd">        Temperature [K] of material, defaults to 300.0.</span>
+<span class="sd">    group_struct : array-like of floats, optional</span>
+<span class="sd">        Energy group structure E_g [MeV] from highest-to-lowest energy, length G+1,</span>
+<span class="sd">        defaults to xs_cache[&#39;E_g&#39;].</span>
+<span class="sd">    phi_g : array-like of floats, optional</span>
+<span class="sd">        Group fluxes [n/cm^2/s] matching group_struct, length G, defaults to </span>
+<span class="sd">        xs_cache[&#39;phi_g&#39;].</span>
+<span class="sd">    xs_cache : XSCache, optional</span>
+<span class="sd">        Cross section cache to use, defaults to pyne.xs.cache.xs_cache. </span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    sigma_a_g : ndarray </span>
-<span class="sd">        An array of the collapsed absorption cross section.</span>
+<span class="sd">        The collapsed absorption cross section, length G.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    This always pulls the absorption cross section out of the nuc_data.    </span>
+<span class="sd">    This always pulls the absorption cross section out of the cache. </span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
-
+    <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">xs_cache</span> <span class="k">if</span> <span class="n">xs_cache</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">xs_cache</span>
+    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_a</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
-
-    <span class="c"># Get the absorption XS</span>
+        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_a</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">temp</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">)</span>
     <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key_n</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_a_n&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key_g</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_a_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
-
-    <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
-    <span class="k">if</span> <span class="n">key_g</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_g</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">sigma_a_n</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_n</span><span class="p">]</span>
-
-    <span class="c"># Perform the group collapse, knowing that the right data is in the cache</span>
-    <span class="n">sigma_a_g</span> <span class="o">=</span> <span class="n">group_collapse</span><span class="p">(</span><span class="n">sigma_a_n</span><span class="p">,</span> <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;phi_n&#39;</span><span class="p">],</span> <span class="n">phi_g</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">],</span> 
-                               <span class="n">partial_energies</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;partial_energy_matrix&#39;</span><span class="p">])</span>
-
-    <span class="c"># Put this value back into the cache, with the appropriate label</span>
-    <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_g</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_a_g</span>
-
-    <span class="k">return</span> <span class="n">sigma_a_g</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
 </div>
-<div class="viewcode-block" id="chi"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.chi">[docs]</a><span class="k">def</span> <span class="nf">chi</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">E_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">E_n</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_n</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">eres</span><span class="o">=</span><span class="mi">101</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculates the neutron fission energy spectrum for an isotope for a new, </span>
-<span class="sd">    lower resolution group structure using a higher fidelity flux.  Note that </span>
-<span class="sd">    g indexes G, n indexes N, and G &lt; N.</span>
+<div class="viewcode-block" id="chi"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.chi">[docs]</a><span class="k">def</span> <span class="nf">chi</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">group_struct</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">eres</span><span class="o">=</span><span class="mi">101</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the neutron fission energy spectrum for a nuclide.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    nuc : int, str, Material, or dict-like </span>
-<span class="sd">        A nuclide or nuclide-atom fraction mapping for which to calculate the </span>
-<span class="sd">        neutron fission energy spectrum.</span>
-<span class="sd">    E_g : array-like of floats, optional</span>
-<span class="sd">        New, lower fidelity energy group structure [MeV] that is of length G+1. </span>
-<span class="sd">    E_n : array-like of floats, optional</span>
-<span class="sd">        Higher resolution energy group structure [MeV] that is of length N+1. </span>
-<span class="sd">    phi_n : array-like of floats, optional</span>
-<span class="sd">        The high-fidelity flux [n/cm^2/s] to collapse the fission cross-section over.  </span>
-<span class="sd">        Length N.</span>
-<span class="sd">    eres : int</span>
+<span class="sd">        A nuclide or nuclide-atom fraction mapping.</span>
+<span class="sd">    temp : float, optional</span>
+<span class="sd">        Temperature [K] of material, defaults to 300.0.</span>
+<span class="sd">    group_struct : array-like of floats, optional</span>
+<span class="sd">        Energy group structure E_g [MeV] from highest-to-lowest energy, length G+1,</span>
+<span class="sd">        defaults to xs_cache[&#39;E_g&#39;].</span>
+<span class="sd">    phi_g : array-like of floats, optional</span>
+<span class="sd">        Group fluxes [n/cm^2/s] matching group_struct, length G, defaults to </span>
+<span class="sd">        xs_cache[&#39;phi_g&#39;].</span>
+<span class="sd">    xs_cache : XSCache, optional</span>
+<span class="sd">        Cross section cache to use, defaults to pyne.xs.cache.xs_cache. </span>
+<span class="sd">    eres : int, optional</span>
 <span class="sd">        Number of energy-points to integrate over per group.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    chi_g : ndarray </span>
-<span class="sd">        An array of the fission energy spectrum.</span>
+<span class="sd">        The fission energy spectrum, length G.</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
 <span class="sd">    pyne.xs.models.chi : used under the covers by this function.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
-
+    <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">xs_cache</span> <span class="k">if</span> <span class="n">xs_cache</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">xs_cache</span>
+    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
-
-    <span class="c"># Get the fission XS</span>
+        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">temp</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">,</span> <span class="n">eres</span><span class="o">=</span><span class="n">eres</span><span class="p">)</span>
     <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;chi_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="s">&#39;chi&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
     <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
@@ -528,39 +481,35 @@
 
     <span class="c"># Get the the set of nuclides we know we need chi for.  </span>
     <span class="k">if</span> <span class="s">&#39;fissionable_nucs&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
-        <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">pyne_conf</span><span class="o">.</span><span class="n">NUC_DATA_PATH</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">fn</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">fission</span><span class="o">.</span><span class="n">cols</span><span class="o">.</span><span class="n">nuc</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">pyne</span><span class="o">.</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s">&#39;/neutron/cinder_xs/fission&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">fn</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="o">.</span><span class="n">cinder_xs</span><span class="o">.</span><span class="n">fission</span><span class="o">.</span><span class="n">cols</span><span class="o">.</span><span class="n">nuc</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fn</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;fissionable_nucs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fn</span>
     <span class="n">fissionable_nucs</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;fissionable_nucs&#39;</span><span class="p">]</span>
-
     <span class="k">if</span> <span class="p">(</span><span class="n">nuc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fissionable_nucs</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">86</span> <span class="o">&lt;=</span> <span class="n">nuc</span><span class="o">/</span><span class="mi">10000</span><span class="p">):</span>
         <span class="n">fissionable_nucs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
 
     <span class="c"># Perform the group collapse on a continuous chi</span>
-    <span class="n">G</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="n">chi_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-
+    <span class="n">E_g</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">]</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">E_g</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">chi_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;f8&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">nuc</span> <span class="ow">in</span> <span class="n">fissionable_nucs</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
-            <span class="n">E_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">][</span><span class="n">g</span><span class="p">]),</span> 
-                                  <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">][</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">]),</span> <span class="n">eres</span><span class="p">)</span>
+            <span class="n">E_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">E_g</span><span class="p">[</span><span class="n">g</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">E_g</span><span class="p">[</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">]),</span> <span class="n">eres</span><span class="p">)</span>
             <span class="n">dnumer</span> <span class="o">=</span> <span class="n">pyne</span><span class="o">.</span><span class="n">xs</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">chi</span><span class="p">(</span><span class="n">E_space</span><span class="p">)</span>
-
             <span class="n">numer</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">dnumer</span><span class="p">,</span> <span class="n">E_space</span><span class="p">)</span>
-            <span class="n">denom</span> <span class="o">=</span> <span class="p">(</span><span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">][</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">xs_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">][</span><span class="n">g</span><span class="p">])</span>
-
+            <span class="n">denom</span> <span class="o">=</span> <span class="p">(</span><span class="n">E_g</span><span class="p">[</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">E_g</span><span class="p">[</span><span class="n">g</span><span class="p">])</span>
             <span class="n">chi_g</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">numer</span> <span class="o">/</span> <span class="n">denom</span><span class="p">)</span>
-
         <span class="c"># renormalize chi</span>
         <span class="n">chi_g</span> <span class="o">=</span> <span class="n">chi_g</span> <span class="o">/</span> <span class="n">chi_g</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-
     <span class="c"># Put this value back into the cache, with the appropriate label</span>
     <span class="n">xs_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">chi_g</span>
     <span class="k">return</span> <span class="n">chi_g</span>
 
-
 </div>
-<div class="viewcode-block" id="sigma_t"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_t">[docs]</a><span class="k">def</span> <span class="nf">sigma_t</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">E_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">E_n</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="sigma_t"><a class="viewcode-back" href="../../../libref/xs/channels.html#pyne.xs.channels.sigma_t">[docs]</a><span class="k">def</span> <span class="nf">sigma_t</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">group_struct</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Calculates the total neutron cross section for a nuclide. </span>
 
 <span class="sd">    .. math::</span>
@@ -569,34 +518,32 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    nuc : int, str, Material, or dict-like </span>
-<span class="sd">        A nuclide or nuclide-atom fraction mapping for which to calculate the </span>
-<span class="sd">        total cross section.</span>
-<span class="sd">    T : float, optional</span>
-<span class="sd">        Tempurature of the target material [kelvin].</span>
-<span class="sd">    E_g : array-like of floats, optional</span>
-<span class="sd">        New, lower fidelity energy group structure [MeV] that is of length G+1. </span>
-<span class="sd">    E_n : array-like of floats, optional</span>
-<span class="sd">        Higher resolution energy group structure [MeV] that is of length N+1. </span>
-<span class="sd">    phi_n : array-like of floats, optional</span>
-<span class="sd">        The high-fidelity flux [n/cm^2/s] to collapse the fission cross-section over.  </span>
-<span class="sd">        Length N.  </span>
+<span class="sd">        A nuclide or nuclide-atom fraction mapping.</span>
+<span class="sd">    temp : float, optional</span>
+<span class="sd">        Temperature [K] of material, defaults to 300.0.</span>
+<span class="sd">    group_struct : array-like of floats, optional</span>
+<span class="sd">        Energy group structure E_g [MeV] from highest-to-lowest energy, length G+1,</span>
+<span class="sd">        defaults to xs_cache[&#39;E_g&#39;].</span>
+<span class="sd">    phi_g : array-like of floats, optional</span>
+<span class="sd">        Group fluxes [n/cm^2/s] matching group_struct, length G, defaults to </span>
+<span class="sd">        xs_cache[&#39;phi_g&#39;].</span>
+<span class="sd">    xs_cache : XSCache, optional</span>
+<span class="sd">        Cross section cache to use, defaults to pyne.xs.cache.xs_cache. </span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    sig_t_g : ndarray </span>
-<span class="sd">        An array of the total cross section.</span>
+<span class="sd">        The total cross section, length G.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
-
+    <span class="n">xs_cache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">xs_cache</span> <span class="k">if</span> <span class="n">xs_cache</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">xs_cache</span>
+    <span class="n">_prep_cache</span><span class="p">(</span><span class="n">xs_cache</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_t</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
-
-    <span class="c"># Get the total XS</span>
+        <span class="k">return</span> <span class="n">_atom_weight_channel</span><span class="p">(</span><span class="n">sigma_t</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">temp</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="n">xs_cache</span><span class="p">)</span>
     <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key_a</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_a_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">)</span>
-    <span class="n">key_s</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_t_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
-    <span class="n">key_t</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;sigma_t_g&#39;</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">key_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
+    <span class="n">key_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="s">&#39;s&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
+    <span class="n">key_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
 
     <span class="c"># Don&#39;t recalculate anything if you don&#39;t have to</span>
     <span class="k">if</span> <span class="n">key_t</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
@@ -604,16 +551,10 @@
 
     <span class="c"># This calculation requires the abosorption cross-section</span>
     <span class="k">if</span> <span class="n">key_a</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
-        <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_a</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_a</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
-
-    <span class="c"># This calculation requires the scattering cross-section</span>
+        <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_a</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_a</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">,</span> <span class="n">xs_cache</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">key_s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">xs_cache</span><span class="p">:</span>
-        <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_s</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">E_g</span><span class="p">,</span> <span class="n">E_n</span><span class="p">,</span> <span class="n">phi_n</span><span class="p">)</span>
-
-    <span class="c"># Sum over all h indeces</span>
+        <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma_s</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">group_struct</span><span class="p">,</span> <span class="n">phi_g</span><span class="p">,</span> <span class="n">xs_cache</span><span class="p">)</span>
     <span class="n">sig_t_g</span> <span class="o">=</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_a</span><span class="p">]</span> <span class="o">+</span> <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_s</span><span class="p">]</span>
-
-    <span class="c"># Put this value back into the cache, with the appropriate label</span>
     <span class="n">xs_cache</span><span class="p">[</span><span class="n">key_t</span><span class="p">]</span> <span class="o">=</span> <span class="n">sig_t_g</span>
     <span class="k">return</span> <span class="n">sig_t_g</span>
 </pre></div></div>

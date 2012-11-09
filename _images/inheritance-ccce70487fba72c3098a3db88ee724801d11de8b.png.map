@@ -1,0 +1,5 @@
+<map id="inheritance232d4749d6" name="inheritance232d4749d6">
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="7,5,204,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="255,5,449,33"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.EnergyGrid" title="pyne.simplesim.cards.EnergyGrid" alt="" coords="499,5,733,33"/>
+</map>

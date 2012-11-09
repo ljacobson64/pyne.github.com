@@ -1,0 +1,223 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>JsonCpp: Python bindings for JsonCpp &mdash; PyNE 0.2-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="up" title="User’s Guide" href="index.html" />
+    <link rel="next" title="Library Reference" href="../libref/index.html" />
+    <link rel="prev" title="C++ Standard Library Wrappers" href="stlconverters.html" /> 
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../libref/index.html" title="Library Reference"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="stlconverters.html" title="C++ Standard Library Wrappers"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">User&#8217;s Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jsoncpp-python-bindings-for-jsoncpp">
+<span id="usersguide-jsoncpp"></span><h1>JsonCpp: Python bindings for JsonCpp<a class="headerlink" href="#jsoncpp-python-bindings-for-jsoncpp" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="http://jsoncpp.sourceforge.net/">JsonCpp project</a> provides an excellent in-memory JSON data structure as well
+as string writers and parsers.  Here are Python bindings for JsonCpp using Cython.
+This module is mirror at the <a class="reference external" href="https://github.com/scopatz/pyjsoncpp">PyJsonCpp project</a>.</p>
+</div>
+<div class="section" id="usage-example">
+<h1>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h1>
+<p>The Value object is the main interface for
+Values may be converted to and from regular Python types.  These have the
+normal behavior for their type.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyne.jsoncpp</span> <span class="kn">import</span> <span class="n">Value</span><span class="p">,</span> <span class="n">Reader</span><span class="p">,</span> <span class="n">FastWriter</span><span class="p">,</span> <span class="n">StyledWriter</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Value</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Terry Jones&#39;</span><span class="p">,</span> <span class="s">&#39;age&#39;</span><span class="p">:</span> <span class="mf">42.0</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="p">[</span><span class="s">&#39;quest&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;To find the grail.&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">[&#39;age&#39;, &#39;name&#39;, &#39;quest&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+<span class="go">&#39;Terry Jones&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Value</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">[2, 5]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">65</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span>
+<span class="go">[1, 42, 65, 3]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Value</span><span class="p">(</span><span class="s">&quot;No one expects the Spanish Inquisition!!!!&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="go">42</span>
+</pre></div>
+</div>
+<p>The Python Value class provides a view into the underlying C++ class.
+This allows you to create several views into the same data.  For example,
+start with the following nested dictionary:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># make a nested dict and a view into a top-level item</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="n">Value</span><span class="p">({</span><span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">}})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">view_a</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">view_a</span>
+<span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">:</span><span class="mi">14</span><span class="p">}</span>
+
+<span class="c"># add an item to the view</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">view_a</span><span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">view_a</span>
+<span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span><span class="s">&quot;c&quot;</span><span class="p">:</span><span class="mi">16</span><span class="p">}</span>
+
+<span class="c"># this item is present in the original value</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">v</span>
+<span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">:{</span><span class="s">&quot;b&quot;</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span><span class="s">&quot;c&quot;</span><span class="p">:</span><span class="mi">16</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>Furthermore, there is a Reader class for converting JSON strings or files into
+Value instances.  There are also two writer classes, FastWriter and StyledWriter,
+for converting Value instances into compact and human-readable strings respectively.
+For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Value</span><span class="p">({</span><span class="s">&#39;hello&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fw</span> <span class="o">=</span> <span class="n">FastWriter</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="go">&#39;{&quot;hello&quot;:1}\n&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sw</span> <span class="o">=</span> <span class="n">StyledWriter</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">sw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="go">{</span>
+<span class="go">   &quot;hello&quot; : 1</span>
+<span class="go">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_v</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;{&quot;hello&quot;:1}</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">new_v</span><span class="p">,</span> <span class="n">Value</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">JsonCpp: Python bindings for JsonCpp</a></li>
+<li><a class="reference internal" href="#usage-example">Usage Example</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stlconverters.html"
+                        title="previous chapter">C++ Standard Library Wrappers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../libref/index.html"
+                        title="next chapter">Library Reference</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usersguide/jsoncpp.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../libref/index.html" title="Library Reference"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="stlconverters.html" title="C++ Standard Library Wrappers"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >User&#8217;s Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>
