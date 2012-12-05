@@ -1,0 +1,194 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simple Simulation Input – pyne.simplesim &mdash; PyNE 0.2-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="up" title="Python API" href="index.html" />
+    <link rel="next" title="Cards Module – pyne.simplesim.cards" href="simplesim_cards.html" />
+    <link rel="prev" title="MCNP Input and Output Interfaces – pyne.mcnp" href="mcnp.html" /> 
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="simplesim_cards.html" title="Cards Module – pyne.simplesim.cards"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="mcnp.html" title="MCNP Input and Output Interfaces – pyne.mcnp"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Python API</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pyne.simplesim">
+<span id="simple-simulation-input-pyne-simplesim"></span><span id="pyne-simplesim"></span><h1>Simple Simulation Input &#8211; <a class="reference internal" href="#module-pyne.simplesim" title="pyne.simplesim"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim</span></tt></a><a class="headerlink" href="#module-pyne.simplesim" title="Permalink to this headline">¶</a></h1>
+<p>The <tt class="docutils literal"><span class="pre">simplesim</span></tt> package provides modules for the definition of a system (its
+geometry and material composition), the definition of simulation parameters,
+and for the generation of input files to codes that can perform such
+simulations (MCNP, Serpent, MCODE, etc.). The package is imported as such:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">simplesim</span>
+</pre></div>
+</div>
+<p>The package is broken up into three modules: <tt class="docutils literal"><span class="pre">cards</span></tt>, <tt class="docutils literal"><span class="pre">definition</span></tt>, and
+<tt class="docutils literal"><span class="pre">inputfile</span></tt>:</p>
+<ul class="simple">
+<li><tt class="xref py py-mod docutils literal"><span class="pre">cards</span></tt>: A <tt class="docutils literal"><span class="pre">card</span></tt> can be considered the basic unit of input; each
+piece of input is represented by a card. The word <tt class="docutils literal"><span class="pre">card</span></tt> is taken from its
+usage with MCNP.  The <tt class="docutils literal"><span class="pre">card</span></tt> classes are defined using the same
+fields/properties used in an MCNPX input, though the definition of a <tt class="docutils literal"><span class="pre">card</span></tt>
+should not require knowledge about the format of MCNP cards (but perhaps
+their content). Each card has a method to generate a string formatted for
+MCNP input. The <tt class="xref py py-mod docutils literal"><span class="pre">nestedgeom</span></tt> module exists to help with cell card
+input.</li>
+<li><tt class="xref py py-mod docutils literal"><span class="pre">definition</span></tt>: The <tt class="docutils literal"><span class="pre">definition</span></tt> module allows a user to create a
+system (reactor) definition through the combination of surface, region,
+material, and cell cards, and simulation definitions using a slew of other
+cards. Essentially, an object of a class in the <tt class="docutils literal"><span class="pre">definition</span></tt> module stores
+all the <tt class="docutils literal"><span class="pre">cards</span></tt> that are needed to define a system and simulation.</li>
+<li><a class="reference internal" href="simplesim_inputfile.html#module-pyne.simplesim.inputfile" title="pyne.simplesim.inputfile"><tt class="xref py py-class docutils literal"><span class="pre">inputfile</span></tt></a>: Generates an input file for a neutronics code given
+a system definition and a options definition, both of which are classes in
+<tt class="docutils literal"><span class="pre">definition</span></tt>.</li>
+</ul>
+<p>The reference for each of the modules described above can be found using the
+links below. Additionally, there is a page that shows an inheritance diagram
+for all the classes in each module.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="simplesim_cards.html">Cards Module &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.cards</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simplesim_nestedgeom.html">Nested Geometry &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.nestedgeom</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simplesim_definition.html">Definition Module &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.definition</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simplesim_inputfile.html">Input File Module &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.inputfile</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simplesim_inheritance.html">Inheritance Diagrams</a></li>
+</ul>
+</div>
+<p>For an explanation of how to use the module, with full examples, visit
+<a class="reference internal" href="../usersguide/simplesim.html#usersguide-simplesim"><em>Simple Simulation Input</em></a>. If you are interested in developing this package
+further or are looking for information about the state of development, visit
+<a class="reference internal" href="../devsguide/simplesim.html#devsguide-simplesim"><em>Simple Simulation Input &#8211; pyne.simplesim</em></a> and/or contact the developers.</p>
+<p>The original author of this package is Chris Dembia, and it was developed in
+consultation with Anthony Scopatz and Paul Wilson. See <a class="reference internal" href="../dev_team.html#dev-team"><em>PyNE Development Team</em></a> for
+contact information.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mcnp.html"
+                        title="previous chapter">MCNP Input and Output Interfaces &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.mcnp</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="simplesim_cards.html"
+                        title="next chapter">Cards Module &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.cards</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/pyapi/simplesim.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="simplesim_cards.html" title="Cards Module – pyne.simplesim.cards"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="mcnp.html" title="MCNP Input and Output Interfaces – pyne.mcnp"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >Python API</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

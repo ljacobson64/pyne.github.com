@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../" type="text/css" />
     
     <script type="text/javascript">
@@ -86,7 +87,7 @@
                     <span class="p">]</span>
 
 
-<div class="viewcode-block" id="sec_to_time_unit"><a class="viewcode-back" href="../../libref/origen22.html#pyne.origen22.sec_to_time_unit">[docs]</a><span class="k">def</span> <span class="nf">sec_to_time_unit</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="sec_to_time_unit"><a class="viewcode-back" href="../../pyapi/origen22.html#pyne.origen22.sec_to_time_unit">[docs]</a><span class="k">def</span> <span class="nf">sec_to_time_unit</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Converts seconds to ORIGEN time and units.</span>
 
 <span class="sd">    Parameters</span>
@@ -136,7 +137,7 @@
 <span class="c">### ORIGEN Input Deck Functions ###</span>
 <span class="c">###################################</span>
 
-<div class="viewcode-block" id="write_tape4"><a class="viewcode-back" href="../../libref/origen22.html#pyne.origen22.write_tape4">[docs]</a><span class="k">def</span> <span class="nf">write_tape4</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s">&quot;TAPE4.INP&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="write_tape4"><a class="viewcode-back" href="../../pyapi/origen22.html#pyne.origen22.write_tape4">[docs]</a><span class="k">def</span> <span class="nf">write_tape4</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s">&quot;TAPE4.INP&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Writes a TAPE4.INP ORIGEN input file for a material.</span>
 
 <span class="sd">    Parameters</span>
@@ -215,7 +216,7 @@
     <span class="k">return</span> <span class="n">s</span>
 
 
-<div class="viewcode-block" id="write_tape5_irradiation"><a class="viewcode-back" href="../../libref/origen22.html#pyne.origen22.write_tape5_irradiation">[docs]</a><span class="k">def</span> <span class="nf">write_tape5_irradiation</span><span class="p">(</span><span class="n">irr_type</span><span class="p">,</span> <span class="n">irr_time</span><span class="p">,</span> <span class="n">irr_value</span><span class="p">,</span> 
+<div class="viewcode-block" id="write_tape5_irradiation"><a class="viewcode-back" href="../../pyapi/origen22.html#pyne.origen22.write_tape5_irradiation">[docs]</a><span class="k">def</span> <span class="nf">write_tape5_irradiation</span><span class="p">(</span><span class="n">irr_type</span><span class="p">,</span> <span class="n">irr_time</span><span class="p">,</span> <span class="n">irr_value</span><span class="p">,</span> 
                             <span class="n">outfile</span><span class="o">=</span><span class="s">&quot;TAPE5.INP&quot;</span><span class="p">,</span>
                             <span class="n">decay_nlb</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> 
                             <span class="n">xsfpy_nlb</span><span class="o">=</span><span class="p">(</span><span class="mi">204</span><span class="p">,</span> <span class="mi">205</span><span class="p">,</span> <span class="mi">206</span><span class="p">),</span> 
@@ -357,7 +358,7 @@
 
 <span class="n">_photon_spec_header_line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&quot;\s+PHOTON SPECTRUM FOR(.*)&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="parse_tape6"><a class="viewcode-back" href="../../libref/origen22.html#pyne.origen22.parse_tape6">[docs]</a><span class="k">def</span> <span class="nf">parse_tape6</span><span class="p">(</span><span class="n">tape6</span><span class="o">=</span><span class="s">&quot;TAPE6.OUT&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_tape6"><a class="viewcode-back" href="../../pyapi/origen22.html#pyne.origen22.parse_tape6">[docs]</a><span class="k">def</span> <span class="nf">parse_tape6</span><span class="p">(</span><span class="n">tape6</span><span class="o">=</span><span class="s">&quot;TAPE6.OUT&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parses an ORIGEN 2.2 TAPE6.OUT file. </span>
 
 <span class="sd">    Parameters</span>
@@ -678,7 +679,7 @@
     <span class="k">return</span> <span class="n">pdeck</span>
 
 
-<div class="viewcode-block" id="parse_tape9"><a class="viewcode-back" href="../../libref/origen22.html#pyne.origen22.parse_tape9">[docs]</a><span class="k">def</span> <span class="nf">parse_tape9</span><span class="p">(</span><span class="n">tape9</span><span class="o">=</span><span class="s">&quot;TAPE9.INP&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_tape9"><a class="viewcode-back" href="../../pyapi/origen22.html#pyne.origen22.parse_tape9">[docs]</a><span class="k">def</span> <span class="nf">parse_tape9</span><span class="p">(</span><span class="n">tape9</span><span class="o">=</span><span class="s">&quot;TAPE9.INP&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parses an ORIGEN 2.2 TAPE9 file and returns the data as a dictionary of nuclide dictionaries.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
@@ -799,7 +800,7 @@
 
 
 </div>
-<div class="viewcode-block" id="merge_tape9"><a class="viewcode-back" href="../../libref/origen22.html#pyne.origen22.merge_tape9">[docs]</a><span class="k">def</span> <span class="nf">merge_tape9</span><span class="p">(</span><span class="n">tape9s</span><span class="p">):</span>
+<div class="viewcode-block" id="merge_tape9"><a class="viewcode-back" href="../../pyapi/origen22.html#pyne.origen22.merge_tape9">[docs]</a><span class="k">def</span> <span class="nf">merge_tape9</span><span class="p">(</span><span class="n">tape9s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Merges a sequence of full or partial TAPE9s into a single tape9 dictionary.</span>
 <span class="sd">    Data from the first tape9 has precednce over the second, the second over the</span>
 <span class="sd">    third, etc.</span>
@@ -960,7 +961,7 @@
     <span class="p">}</span>
 
 
-<div class="viewcode-block" id="write_tape9"><a class="viewcode-back" href="../../libref/origen22.html#pyne.origen22.write_tape9">[docs]</a><span class="k">def</span> <span class="nf">write_tape9</span><span class="p">(</span><span class="n">tape9</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s">&quot;TAPE9.INP&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<div class="viewcode-block" id="write_tape9"><a class="viewcode-back" href="../../pyapi/origen22.html#pyne.origen22.write_tape9">[docs]</a><span class="k">def</span> <span class="nf">write_tape9</span><span class="p">(</span><span class="n">tape9</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s">&quot;TAPE9.INP&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Writes an ORIGEN 2.2 TAPE9.INP file given a tape9 dictionary of values.</span>
 
 <span class="sd">    Parameters</span>

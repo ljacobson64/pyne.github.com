@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -156,7 +157,7 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<div class="viewcode-block" id="IUnit"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.IUnit">[docs]</a><span class="k">class</span> <span class="nc">IUnit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="IUnit"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.IUnit">[docs]</a><span class="k">class</span> <span class="nc">IUnit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Abstract base class for tally units. The user does not use this class</span>
 <span class="sd">    directly.</span>
 <span class="sd">    </span>
@@ -177,7 +178,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">next_level_up</span><span class="p">)</span>
 
-<div class="viewcode-block" id="IUnit.of"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.IUnit.of">[docs]</a>    <span class="k">def</span> <span class="nf">of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">next_level_up</span><span class="p">):</span>
+<div class="viewcode-block" id="IUnit.of"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.IUnit.of">[docs]</a>    <span class="k">def</span> <span class="nf">of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">next_level_up</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a unit where ``self`` must be in ``next_level_up`` to be</span>
 <span class="sd">        tallied. ``self`` must be a cell or surface, or `vector` or `union`</span>
 <span class="sd">        thereof (cell/surf), and</span>
@@ -194,7 +195,7 @@
         <span class="sd">&quot;&quot;&quot;A convenient way to call :py:meth:`union`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
 
-<div class="viewcode-block" id="IUnit.union"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.IUnit.union">[docs]</a>    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+<div class="viewcode-block" id="IUnit.union"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.IUnit.union">[docs]</a>    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a :py:class:`Union` of ``self`` with ``right``.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Union</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">brothers</span> <span class="o">+=</span> <span class="p">[</span><span class="n">right</span><span class="p">]</span>
@@ -206,7 +207,7 @@
         <span class="sd">&quot;&quot;&quot;A convenient way to call :py:meth:`vector`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
 
-<div class="viewcode-block" id="IUnit.vector"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.IUnit.vector">[docs]</a>    <span class="k">def</span> <span class="nf">vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+<div class="viewcode-block" id="IUnit.vector"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.IUnit.vector">[docs]</a>    <span class="k">def</span> <span class="nf">vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a :py:class:`Vec` of ``self`` with ``right``.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Vec</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sisters</span> <span class="o">+=</span> <span class="p">[</span><span class="n">right</span><span class="p">]</span>
@@ -229,7 +230,7 @@
                 <span class="s">&quot;)&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">down</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">up</span> <span class="k">else</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="ICellSurf"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.ICellSurf">[docs]</a><span class="k">class</span> <span class="nc">ICellSurf</span><span class="p">(</span><span class="n">IUnit</span><span class="p">):</span>
+<div class="viewcode-block" id="ICellSurf"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.ICellSurf">[docs]</a><span class="k">class</span> <span class="nc">ICellSurf</span><span class="p">(</span><span class="n">IUnit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Abstract base class for surfaces and cells in the lowest level of the</span>
 <span class="sd">    nested geometry. The user directly uses the subclasses of this class. For</span>
 <span class="sd">    cells in higher levels of nesting (e.g. closer to the real world), see</span>
@@ -250,7 +251,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
 </div>
-<div class="viewcode-block" id="Surf"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Surf">[docs]</a><span class="k">class</span> <span class="nc">Surf</span><span class="p">(</span><span class="n">ICellSurf</span><span class="p">):</span>
+<div class="viewcode-block" id="Surf"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Surf">[docs]</a><span class="k">class</span> <span class="nc">Surf</span><span class="p">(</span><span class="n">ICellSurf</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The user uses this class directly to reference a surface in the system</span>
 <span class="sd">    definition for tallying.</span>
 
@@ -265,7 +266,7 @@
                 <span class="s">&quot; {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">surface_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
 
 </div>
-<div class="viewcode-block" id="Cell"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Cell">[docs]</a><span class="k">class</span> <span class="nc">Cell</span><span class="p">(</span><span class="n">ICellSurf</span><span class="p">):</span>
+<div class="viewcode-block" id="Cell"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Cell">[docs]</a><span class="k">class</span> <span class="nc">Cell</span><span class="p">(</span><span class="n">ICellSurf</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The user uses this class directly to reference a cell in the system</span>
 <span class="sd">    definition for tallying.</span>
 
@@ -282,7 +283,7 @@
                     <span class="n">inner</span> <span class="k">if</span> <span class="n">inner</span> <span class="k">else</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="FCell"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.FCell">[docs]</a><span class="k">class</span> <span class="nc">FCell</span><span class="p">(</span><span class="n">Cell</span><span class="p">):</span>
+<div class="viewcode-block" id="FCell"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.FCell">[docs]</a><span class="k">class</span> <span class="nc">FCell</span><span class="p">(</span><span class="n">Cell</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is subclassed from :py:class:`Cell`. Its name stands for filled</span>
 <span class="sd">    cell. It is to be used for higher-level cells (closer to the real world),</span>
 <span class="sd">    and has an additional attribute to specify specific lattice elements from</span>
@@ -316,7 +317,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">lat_spec</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="n">float_format</span><span class="p">,</span> <span class="n">sim</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lat_spec</span> <span class="k">else</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Univ"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Univ">[docs]</a><span class="k">class</span> <span class="nc">Univ</span><span class="p">(</span><span class="n">IUnit</span><span class="p">):</span>
+<div class="viewcode-block" id="Univ"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Univ">[docs]</a><span class="k">class</span> <span class="nc">Univ</span><span class="p">(</span><span class="n">IUnit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A universe. It is used in higher levels of nesting (closer to the real</span>
 <span class="sd">    world). The class, given the name of a universe in the system, looks up the</span>
 <span class="sd">    appropriate universe number.</span>
@@ -343,7 +344,7 @@
                 <span class="s">&quot; U={0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">universe_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
 
 </div>
-<div class="viewcode-block" id="Union"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Union">[docs]</a><span class="k">class</span> <span class="nc">Union</span><span class="p">(</span><span class="n">IUnit</span><span class="p">):</span>
+<div class="viewcode-block" id="Union"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Union">[docs]</a><span class="k">class</span> <span class="nc">Union</span><span class="p">(</span><span class="n">IUnit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A union of surfaces, cells, or of a single universe.</span>
 
 <span class="sd">    .. inheritance-diagram:: pyne.simplesim.nestedgeom.Union</span>
@@ -377,7 +378,7 @@
                 <span class="s">&quot; ({0})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">string</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="Vec"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Vec">[docs]</a><span class="k">class</span> <span class="nc">Vec</span><span class="p">(</span><span class="n">IUnit</span><span class="p">):</span>
+<div class="viewcode-block" id="Vec"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Vec">[docs]</a><span class="k">class</span> <span class="nc">Vec</span><span class="p">(</span><span class="n">IUnit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A &quot;vector&quot; of surfaces or cells. This class named after the vectorized</span>
 <span class="sd">    notation that can be used in MATLAB, as this class allows the specification</span>
 <span class="sd">    of multiple units of input in a single unit. Typically, a :py:class:`Vec`</span>
@@ -412,7 +413,7 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Vec</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="n">float_format</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="ILatticeSpec"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.ILatticeSpec">[docs]</a><span class="k">class</span> <span class="nc">ILatticeSpec</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ILatticeSpec"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.ILatticeSpec">[docs]</a><span class="k">class</span> <span class="nc">ILatticeSpec</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Abstract base class for lattice element specifiers. The user does not</span>
 <span class="sd">    use this class directly. There are 3 subclasses:</span>
 
@@ -429,7 +430,7 @@
         <span class="k">return</span> <span class="s">&quot;[{0}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inner</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Lin"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Lin">[docs]</a><span class="k">class</span> <span class="nc">Lin</span><span class="p">(</span><span class="n">ILatticeSpec</span><span class="p">):</span>
+<div class="viewcode-block" id="Lin"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Lin">[docs]</a><span class="k">class</span> <span class="nc">Lin</span><span class="p">(</span><span class="n">ILatticeSpec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A single linear index of a lattice element.</span>
 
 <span class="sd">    .. inheritance-diagram:: pyne.simplesim.nestedgeom.Lin</span>
@@ -454,7 +455,7 @@
                 <span class="s">&quot;{0:d}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="Rng"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Rng">[docs]</a><span class="k">class</span> <span class="nc">Rng</span><span class="p">(</span><span class="n">ILatticeSpec</span><span class="p">):</span>
+<div class="viewcode-block" id="Rng"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Rng">[docs]</a><span class="k">class</span> <span class="nc">Rng</span><span class="p">(</span><span class="n">ILatticeSpec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A range of lattice elements.</span>
 
 <span class="sd">    .. inheritance-diagram:: pyne.simplesim.nestedgeom.Rng</span>
@@ -499,7 +500,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_bounds</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="Cor"><a class="viewcode-back" href="../../../libref/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Cor">[docs]</a><span class="k">class</span> <span class="nc">Cor</span><span class="p">(</span><span class="n">ILatticeSpec</span><span class="p">):</span>
+<div class="viewcode-block" id="Cor"><a class="viewcode-back" href="../../../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Cor">[docs]</a><span class="k">class</span> <span class="nc">Cor</span><span class="p">(</span><span class="n">ILatticeSpec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A list of lattice element coordinates (in indices).</span>
 
 <span class="sd">    .. inheritance-diagram:: pyne.simplesim.nestedgeom.Cor</span>

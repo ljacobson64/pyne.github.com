@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -78,7 +79,7 @@
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">ensdf</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
 
-<div class="viewcode-block" id="grab_ensdf_decay"><a class="viewcode-back" href="../../../libref/dbgen/decay.html#pyne.dbgen.decay.grab_ensdf_decay">[docs]</a><span class="k">def</span> <span class="nf">grab_ensdf_decay</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="grab_ensdf_decay"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.grab_ensdf_decay">[docs]</a><span class="k">def</span> <span class="nf">grab_ensdf_decay</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the ENSDF decay data files</span>
 <span class="sd">    if not already present.</span>
 
@@ -133,7 +134,7 @@
     <span class="p">])</span>
     
     
-<div class="viewcode-block" id="parse_decay"><a class="viewcode-back" href="../../../libref/dbgen/decay.html#pyne.dbgen.decay.parse_decay">[docs]</a><span class="k">def</span> <span class="nf">parse_decay</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_decay"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.parse_decay">[docs]</a><span class="k">def</span> <span class="nf">parse_decay</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Builds and returns a list of nuclide decay data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">build_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;ENSDF&#39;</span><span class="p">)</span>
@@ -156,7 +157,7 @@
     <span class="k">return</span> <span class="n">decay_array</span>
     
     </div>
-<div class="viewcode-block" id="make_atomic_decay_table"><a class="viewcode-back" href="../../../libref/dbgen/decay.html#pyne.dbgen.decay.make_atomic_decay_table">[docs]</a><span class="k">def</span> <span class="nf">make_atomic_decay_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_atomic_decay_table"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.make_atomic_decay_table">[docs]</a><span class="k">def</span> <span class="nf">make_atomic_decay_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Makes a decay table in the nuc_data library.</span>
 
 <span class="sd">    Parameters</span>
@@ -188,7 +189,7 @@
 
 
 </div>
-<div class="viewcode-block" id="make_decay"><a class="viewcode-back" href="../../../libref/dbgen/decay.html#pyne.dbgen.decay.make_decay">[docs]</a><span class="k">def</span> <span class="nf">make_decay</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="make_decay"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.make_decay">[docs]</a><span class="k">def</span> <span class="nf">make_decay</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Controller function for adding decay data.&quot;&quot;&quot;</span>
     <span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">build_dir</span>
 

@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -109,7 +110,7 @@
     <span class="k">return</span> <span class="n">rx</span>
 
 
-<div class="viewcode-block" id="DataSource"><a class="viewcode-back" href="../../../libref/xs/data_source.html#pyne.xs.data_source.DataSource">[docs]</a><span class="k">class</span> <span class="nc">DataSource</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="DataSource"><a class="viewcode-back" href="../../../pyapi/xs/data_source.html#pyne.xs.data_source.DataSource">[docs]</a><span class="k">class</span> <span class="nc">DataSource</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base cross section data source.</span>
 
 <span class="sd">    This is an abstract class which provides default functionality when subclassed</span>
@@ -212,7 +213,7 @@
     <span class="k">def</span> <span class="nf">src_to_dst_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_src_to_dst_matrix</span>
 
-<div class="viewcode-block" id="DataSource.reaction"><a class="viewcode-back" href="../../../libref/xs/data_source.html#pyne.xs.data_source.DataSource.reaction">[docs]</a>    <span class="k">def</span> <span class="nf">reaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">):</span>
+<div class="viewcode-block" id="DataSource.reaction"><a class="viewcode-back" href="../../../pyapi/xs/data_source.html#pyne.xs.data_source.DataSource.reaction">[docs]</a>    <span class="k">def</span> <span class="nf">reaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Gets the cross section data for this reaction channel either directly</span>
 <span class="sd">        from the data source or from the rxcache.</span>
 
@@ -236,7 +237,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">rxcache</span><span class="p">[</span><span class="n">rxkey</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_reaction</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rxcache</span><span class="p">[</span><span class="n">rxkey</span><span class="p">]</span>
 </div>
-<div class="viewcode-block" id="DataSource.discretize"><a class="viewcode-back" href="../../../libref/xs/data_source.html#pyne.xs.data_source.DataSource.discretize">[docs]</a>    <span class="k">def</span> <span class="nf">discretize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">src_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dst_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="DataSource.discretize"><a class="viewcode-back" href="../../../pyapi/xs/data_source.html#pyne.xs.data_source.DataSource.discretize">[docs]</a>    <span class="k">def</span> <span class="nf">discretize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">src_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dst_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Discretizes the reaction channel from the source group structure to that </span>
 <span class="sd">        of the destination weighted by the group fluxes.  This implemenation is only</span>
 <span class="sd">        valid for multi-group data sources.  Non-multigroup data source should also</span>
@@ -280,7 +281,7 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 </div>
-<div class="viewcode-block" id="NullDataSource"><a class="viewcode-back" href="../../../libref/xs/data_source.html#pyne.xs.data_source.NullDataSource">[docs]</a><span class="k">class</span> <span class="nc">NullDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
+<div class="viewcode-block" id="NullDataSource"><a class="viewcode-back" href="../../../pyapi/xs/data_source.html#pyne.xs.data_source.NullDataSource">[docs]</a><span class="k">class</span> <span class="nc">NullDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Cross section data source that always exists and always returns zeros.</span>
 
 <span class="sd">    Parameters</span>
@@ -306,7 +307,7 @@
     <span class="k">def</span> <span class="nf">_load_reaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">src_ngroups</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;f8&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="NullDataSource.discretize"><a class="viewcode-back" href="../../../libref/xs/data_source.html#pyne.xs.data_source.NullDataSource.discretize">[docs]</a>    <span class="k">def</span> <span class="nf">discretize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">src_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dst_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="NullDataSource.discretize"><a class="viewcode-back" href="../../../pyapi/xs/data_source.html#pyne.xs.data_source.NullDataSource.discretize">[docs]</a>    <span class="k">def</span> <span class="nf">discretize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">src_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dst_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns zeros.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dst_ngroups</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;f8&#39;</span><span class="p">)</span>
 </div>
@@ -325,7 +326,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_src_to_dst_matrix</span> <span class="o">=</span> <span class="bp">None</span>
 
 </div>
-<div class="viewcode-block" id="SimpleDataSource"><a class="viewcode-back" href="../../../libref/xs/data_source.html#pyne.xs.data_source.SimpleDataSource">[docs]</a><span class="k">class</span> <span class="nc">SimpleDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
+<div class="viewcode-block" id="SimpleDataSource"><a class="viewcode-back" href="../../../pyapi/xs/data_source.html#pyne.xs.data_source.SimpleDataSource">[docs]</a><span class="k">class</span> <span class="nc">SimpleDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Simple cross section data source based off of KAERI data.</span>
 
 <span class="sd">    Parameters</span>
@@ -370,7 +371,7 @@
                 <span class="n">rxdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fteen</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fissn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">therm</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float64&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">rxdata</span>
 
-<div class="viewcode-block" id="SimpleDataSource.discretize"><a class="viewcode-back" href="../../../libref/xs/data_source.html#pyne.xs.data_source.SimpleDataSource.discretize">[docs]</a>    <span class="k">def</span> <span class="nf">discretize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">src_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dst_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SimpleDataSource.discretize"><a class="viewcode-back" href="../../../pyapi/xs/data_source.html#pyne.xs.data_source.SimpleDataSource.discretize">[docs]</a>    <span class="k">def</span> <span class="nf">discretize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span> <span class="n">src_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dst_phi_g</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Discretizes the reaction channel from simple group structure to that </span>
 <span class="sd">        of the destination weighted by the group fluxes.  Since the simple data </span>
 <span class="sd">        source consists of only thermal (2.53E-8 MeV), fission (1 MeV), and 14 MeV</span>
@@ -433,7 +434,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_src_to_dst_matrix</span> <span class="o">=</span> <span class="bp">None</span>
 
 </div>
-<div class="viewcode-block" id="CinderDataSource"><a class="viewcode-back" href="../../../libref/xs/data_source.html#pyne.xs.data_source.CinderDataSource">[docs]</a><span class="k">class</span> <span class="nc">CinderDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
+<div class="viewcode-block" id="CinderDataSource"><a class="viewcode-back" href="../../../pyapi/xs/data_source.html#pyne.xs.data_source.CinderDataSource">[docs]</a><span class="k">class</span> <span class="nc">CinderDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Cinder cross section data source. The relevant cinder cross section data must</span>
 <span class="sd">    be present in the nuc_data for this data source to exist.</span>
 
@@ -551,7 +552,7 @@
                      <span class="s">&#39;320&#39;</span><span class="p">,</span> <span class="s">&#39;321&#39;</span><span class="p">,</span> <span class="s">&#39;322&#39;</span><span class="p">,</span> <span class="s">&#39;330&#39;</span><span class="p">,</span> <span class="s">&#39;331&#39;</span><span class="p">,</span> <span class="s">&#39;332&#39;</span><span class="p">,</span> <span class="s">&#39;340&#39;</span><span class="p">,</span> <span class="s">&#39;341&#39;</span><span class="p">,</span>
                      <span class="s">&#39;342&#39;</span><span class="p">,</span> <span class="s">&#39;370&#39;</span><span class="p">,</span> <span class="s">&#39;371&#39;</span><span class="p">,</span> <span class="s">&#39;40&#39;</span><span class="p">,</span> <span class="s">&#39;41&#39;</span><span class="p">,</span> <span class="s">&#39;42&#39;</span><span class="p">,</span> <span class="s">&#39;420&#39;</span><span class="p">])</span>
 
-<div class="viewcode-block" id="EAFDataSource"><a class="viewcode-back" href="../../../libref/xs/data_source.html#pyne.xs.data_source.EAFDataSource">[docs]</a><span class="k">class</span> <span class="nc">EAFDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
+<div class="viewcode-block" id="EAFDataSource"><a class="viewcode-back" href="../../../pyapi/xs/data_source.html#pyne.xs.data_source.EAFDataSource">[docs]</a><span class="k">class</span> <span class="nc">EAFDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;European Activation File cross section data source.  The relevant EAF</span>
 <span class="sd">    cross section data must be present in the nuc-data for this data source</span>
 <span class="sd">    to exist.</span>

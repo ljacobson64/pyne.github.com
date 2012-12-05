@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -108,7 +109,7 @@
 <span class="kn">from</span> <span class="nn">pyne.simplesim</span> <span class="kn">import</span> <span class="n">definition</span>
 <span class="kn">from</span> <span class="nn">pyne.simplesim</span> <span class="kn">import</span> <span class="n">cards</span>
 
-<div class="viewcode-block" id="IInputFile"><a class="viewcode-back" href="../../../libref/simplesim_inputfile.html#pyne.simplesim.inputfile.IInputFile">[docs]</a><span class="k">class</span> <span class="nc">IInputFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="IInputFile"><a class="viewcode-back" href="../../../pyapi/simplesim_inputfile.html#pyne.simplesim.inputfile.IInputFile">[docs]</a><span class="k">class</span> <span class="nc">IInputFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used directly by the user. Abstract base class for</span>
 <span class="sd">    classes that take system and option definitions to create an input file for</span>
 <span class="sd">    a certain code (e.g. MCNPX, Serpent, MCODE, etc.).</span>
@@ -143,7 +144,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">plug</span> <span class="o">=</span> <span class="n">plug</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">float_format</span> <span class="o">=</span> <span class="n">float_format</span>
 
-<div class="viewcode-block" id="IInputFile.write"><a class="viewcode-back" href="../../../libref/simplesim_inputfile.html#pyne.simplesim.inputfile.IInputFile.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+<div class="viewcode-block" id="IInputFile.write"><a class="viewcode-back" href="../../../pyapi/simplesim_inputfile.html#pyne.simplesim.inputfile.IInputFile.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Writes the input file to an actual file.</span>
 
 <span class="sd">        Parameters</span>
@@ -187,7 +188,7 @@
         <span class="k">return</span> <span class="ne">NotImplementedError</span>
 
 </div>
-<div class="viewcode-block" id="MCNPInput"><a class="viewcode-back" href="../../../libref/simplesim_inputfile.html#pyne.simplesim.inputfile.MCNPInput">[docs]</a><span class="k">class</span> <span class="nc">MCNPInput</span><span class="p">(</span><span class="n">IInputFile</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPInput"><a class="viewcode-back" href="../../../pyapi/simplesim_inputfile.html#pyne.simplesim.inputfile.MCNPInput">[docs]</a><span class="k">class</span> <span class="nc">MCNPInput</span><span class="p">(</span><span class="n">IInputFile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An input file for MCNP. To write the file, call :py:meth:`write`. The</span>
 <span class="sd">    user can modify the format of the input file by subclassing this class and</span>
 <span class="sd">    overloading the undocumented ``_write_*()`` methods.</span>
@@ -255,7 +256,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">user_surface_literal</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user_data_literal</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="MCNPInput.add_user_card"><a class="viewcode-back" href="../../../libref/simplesim_inputfile.html#pyne.simplesim.inputfile.MCNPInput.add_user_card">[docs]</a>    <span class="k">def</span> <span class="nf">add_user_card</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">card</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPInput.add_user_card"><a class="viewcode-back" href="../../../pyapi/simplesim_inputfile.html#pyne.simplesim.inputfile.MCNPInput.add_user_card">[docs]</a>    <span class="k">def</span> <span class="nf">add_user_card</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">card</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;It is possible that the user wants to insert a card for which there</span>
 <span class="sd">        is no :py:class:`ICard`. The user can supply such cards with this</span>
 <span class="sd">        method or with :py:meth:`add_user_literal`. This method allows the user</span>
@@ -295,7 +296,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;The input ``block`` must be &#39;cell&#39;, &#39;surface&#39;, &quot;</span>
                     <span class="s">&quot;or &#39;data&#39;. User provided {0!r}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
 </div>
-<div class="viewcode-block" id="MCNPInput.add_user_literal"><a class="viewcode-back" href="../../../libref/simplesim_inputfile.html#pyne.simplesim.inputfile.MCNPInput.add_user_literal">[docs]</a>    <span class="k">def</span> <span class="nf">add_user_literal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPInput.add_user_literal"><a class="viewcode-back" href="../../../pyapi/simplesim_inputfile.html#pyne.simplesim.inputfile.MCNPInput.add_user_literal">[docs]</a>    <span class="k">def</span> <span class="nf">add_user_literal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This method is used instead of :py:meth:`add_user_card` if line</span>
 <span class="sd">        wrapping is not desired, such as if the user wants to specify a</span>
 <span class="sd">        multi-line card on their own. This can also be used by the user to</span>

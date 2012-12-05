@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -130,7 +131,7 @@
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">material</span>
 <span class="kn">from</span> <span class="nn">pyne.simplesim</span> <span class="kn">import</span> <span class="n">cards</span>
 
-<div class="viewcode-block" id="IDefinition"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.IDefinition">[docs]</a><span class="k">class</span> <span class="nc">IDefinition</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="IDefinition"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.IDefinition">[docs]</a><span class="k">class</span> <span class="nc">IDefinition</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for</span>
 <span class="sd">    system and simulation definitions.</span>
 
@@ -165,7 +166,7 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="IDefinition.save"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.IDefinition.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+<div class="viewcode-block" id="IDefinition.save"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.IDefinition.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Save object data to a JSON file. Unimplemented.&quot;&quot;&quot;</span>
         <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
         <span class="c">#pickle.dump(self, fid)</span>
@@ -237,7 +238,7 @@
     <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="SystemDefinition"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition">[docs]</a><span class="k">class</span> <span class="nc">SystemDefinition</span><span class="p">(</span><span class="n">IDefinition</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition">[docs]</a><span class="k">class</span> <span class="nc">SystemDefinition</span><span class="p">(</span><span class="n">IDefinition</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class creates a system definition as is done in MCNP: homogeneous</span>
 <span class="sd">    regions in space in the reactor, called cells, are defined through the</span>
 <span class="sd">    intersection, union, etc of surfaces and are filled by materials.</span>
@@ -256,7 +257,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_universes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
-<div class="viewcode-block" id="SystemDefinition.add_cell"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_cell">[docs]</a>    <span class="k">def</span> <span class="nf">add_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.add_cell"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_cell">[docs]</a>    <span class="k">def</span> <span class="nf">add_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds a cell to the system, and also adds the materials and surfaces</span>
 <span class="sd">        in those cells to the system. This method can also be used to replace a</span>
 <span class="sd">        cell that has already been given to the system. If this cell is part of</span>
@@ -310,7 +311,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_num</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="SystemDefinition.add_surface"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_surface">[docs]</a>    <span class="k">def</span> <span class="nf">add_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.add_surface"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_surface">[docs]</a>    <span class="k">def</span> <span class="nf">add_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This method is only used by the user for surfaces that are not on a</span>
 <span class="sd">        cell card. Surfaces on a cell card are added automatically. Duplication</span>
 <span class="sd">        is checked by card name, therefore surface names should be unique</span>
@@ -358,7 +359,7 @@
                 <span class="k">print</span> <span class="p">(</span><span class="s">&quot;  Surface {0!r} already exists in the &quot;</span>
                         <span class="s">&quot;definition.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
 
-<div class="viewcode-block" id="SystemDefinition.add_material"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_material">[docs]</a>    <span class="k">def</span> <span class="nf">add_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.add_material"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_material">[docs]</a>    <span class="k">def</span> <span class="nf">add_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This method is only used by the user for materials that are not on a</span>
 <span class="sd">        cell card.  Materials on cell cards are added automatically.</span>
 <span class="sd">        Alternatively, this method can be used to replace an existing material.</span>
@@ -406,7 +407,7 @@
         <span class="k">if</span> <span class="n">univ_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">universes</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_universes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">univ_name</span><span class="p">]</span>
 
-<div class="viewcode-block" id="SystemDefinition.cell_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.cell_num">[docs]</a>    <span class="k">def</span> <span class="nf">cell_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.cell_num"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.cell_num">[docs]</a>    <span class="k">def</span> <span class="nf">cell_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the cell number for the cell name provided. If a cell with</span>
 <span class="sd">        that name is not in the system, an exception is raised.</span>
 
@@ -418,7 +419,7 @@
                     <span class="n">name</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 </div>
-<div class="viewcode-block" id="SystemDefinition.surface_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.surface_num">[docs]</a>    <span class="k">def</span> <span class="nf">surface_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.surface_num"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.surface_num">[docs]</a>    <span class="k">def</span> <span class="nf">surface_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the surface number for the surface name provided. If a</span>
 <span class="sd">        surface with that name is not in the system, an exception is raised.</span>
 
@@ -434,7 +435,7 @@
             <span class="k">return</span> <span class="n">num</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">surfaces</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">number</span> <span class="o">/</span> <span class="mi">10</span>
         <span class="k">return</span> <span class="n">num</span>
 </div>
-<div class="viewcode-block" id="SystemDefinition.material_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.material_num">[docs]</a>    <span class="k">def</span> <span class="nf">material_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.material_num"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.material_num">[docs]</a>    <span class="k">def</span> <span class="nf">material_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the material number for the material name provided. If a</span>
 <span class="sd">        material with that name is not in the system, an exception is raised.</span>
 
@@ -445,7 +446,7 @@
                     <span class="n">name</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 </div>
-<div class="viewcode-block" id="SystemDefinition.universe_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.universe_num">[docs]</a>    <span class="k">def</span> <span class="nf">universe_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.universe_num"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.universe_num">[docs]</a>    <span class="k">def</span> <span class="nf">universe_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the universe number for the universe name provided. If a</span>
 <span class="sd">        universe with that name is not in the system, an exception is raised.</span>
 
@@ -455,7 +456,7 @@
                     <span class="n">name</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">universes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 </div>
-<div class="viewcode-block" id="SystemDefinition.remove_cell"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_cell">[docs]</a>    <span class="k">def</span> <span class="nf">remove_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.remove_cell"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_cell">[docs]</a>    <span class="k">def</span> <span class="nf">remove_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes a cell from the system. No dependency check is performed.</span>
 
 <span class="sd">        Parameters</span>
@@ -472,7 +473,7 @@
         <span class="c"># TODO Perform a dependency check.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="SystemDefinition.remove_surface"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_surface">[docs]</a>    <span class="k">def</span> <span class="nf">remove_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.remove_surface"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_surface">[docs]</a>    <span class="k">def</span> <span class="nf">remove_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes a surface from the system. No dependency check is performed.</span>
 
 <span class="sd">        Parameters</span>
@@ -489,7 +490,7 @@
         <span class="c"># TODO Perform a dependency check.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_surfaces</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="SystemDefinition.remove_material"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_material">[docs]</a>    <span class="k">def</span> <span class="nf">remove_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.remove_material"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_material">[docs]</a>    <span class="k">def</span> <span class="nf">remove_material</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes a material from the system. No dependency check is performed.</span>
 
 <span class="sd">        Parameters</span>
@@ -506,7 +507,7 @@
         <span class="c"># TODO Perform a dependency check.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_materials</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="SystemDefinition.remove_universe"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_universe">[docs]</a>    <span class="k">def</span> <span class="nf">remove_universe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.remove_universe"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.remove_universe">[docs]</a>    <span class="k">def</span> <span class="nf">remove_universe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes a universe from the system. No dependency check is performed.</span>
 
 <span class="sd">        Parameters</span>
@@ -530,12 +531,12 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">SystemDefinition</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SystemDefinition.surfaces"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.surfaces">[docs]</a>    <span class="k">def</span> <span class="nf">surfaces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.surfaces"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.surfaces">[docs]</a>    <span class="k">def</span> <span class="nf">surfaces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ordered dictionary of surfaces (:py:class:`cards.ISurface`).&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_surfaces</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SystemDefinition.materials"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.materials">[docs]</a>    <span class="k">def</span> <span class="nf">materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.materials"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.materials">[docs]</a>    <span class="k">def</span> <span class="nf">materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ordered dictionary of materials</span>
 <span class="sd">        (:py:class:`pyne.simplesim.cards.Material`).</span>
 <span class="sd">        </span>
@@ -543,21 +544,21 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_materials</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SystemDefinition.cells"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.cells">[docs]</a>    <span class="k">def</span> <span class="nf">cells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.cells"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.cells">[docs]</a>    <span class="k">def</span> <span class="nf">cells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ordered dictionary of cells (:py:class:`pyne.simplesim.cards.Cell`).</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SystemDefinition.universes"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.universes">[docs]</a>    <span class="k">def</span> <span class="nf">universes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SystemDefinition.universes"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.universes">[docs]</a>    <span class="k">def</span> <span class="nf">universes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;List of universe names (see :py:class:`cards.Universes`).&quot;&quot;&quot;</span>
         <span class="c"># TODO would become an ordered dictionary when Universes become their</span>
         <span class="c"># own cards.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_universes</span>
 
 </div></div>
-<div class="viewcode-block" id="SimulationDefinition"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition">[docs]</a><span class="k">class</span> <span class="nc">SimulationDefinition</span><span class="p">(</span><span class="n">IDefinition</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition">[docs]</a><span class="k">class</span> <span class="nc">SimulationDefinition</span><span class="p">(</span><span class="n">IDefinition</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This definition contains source, source distribution, tally/detector,</span>
 <span class="sd">    and miscellaneous cards. Code-specific functionality/cards is found in</span>
 <span class="sd">    subclasses of this class.</span>
@@ -592,7 +593,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_misc</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dists</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
 
-<div class="viewcode-block" id="SimulationDefinition.add_source"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_source">[docs]</a>    <span class="k">def</span> <span class="nf">add_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.add_source"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_source">[docs]</a>    <span class="k">def</span> <span class="nf">add_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds source cards to the simulation, or replaces existing ones if</span>
 <span class="sd">        the added card has the same name as a source card in the simulation.</span>
 <span class="sd">        </span>
@@ -619,7 +620,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;source&#39;</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
 </div>
-<div class="viewcode-block" id="SimulationDefinition.add_tally"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_tally">[docs]</a>    <span class="k">def</span> <span class="nf">add_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.add_tally"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_tally">[docs]</a>    <span class="k">def</span> <span class="nf">add_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds tally cards to the simulation, or replaces existing ones if</span>
 <span class="sd">        the added card has the same name as a tally card in the simulation.</span>
 <span class="sd">        </span>
@@ -648,7 +649,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;tally&#39;</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_tally</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
 </div>
-<div class="viewcode-block" id="SimulationDefinition.add_misc"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_misc">[docs]</a>    <span class="k">def</span> <span class="nf">add_misc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.add_misc"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_misc">[docs]</a>    <span class="k">def</span> <span class="nf">add_misc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds miscellaneous cards to the simulation, or replaces existing</span>
 <span class="sd">        ones if the added card has the same name as a misc card in the</span>
 <span class="sd">        simulation.</span>
@@ -681,7 +682,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_assert_unique</span><span class="p">(</span><span class="s">&#39;misc&#39;</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_misc</span><span class="p">[</span><span class="n">card</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">card</span>
 </div>
-<div class="viewcode-block" id="SimulationDefinition.add_dist"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_dist">[docs]</a>    <span class="k">def</span> <span class="nf">add_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.add_dist"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.add_dist">[docs]</a>    <span class="k">def</span> <span class="nf">add_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds distribution cards to the simulation, or replaces existing ones if the added</span>
 <span class="sd">        card has the same name as a distribution card in the simulation.</span>
 
@@ -718,7 +719,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist_num</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="SimulationDefinition.dist_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.dist_num">[docs]</a>    <span class="k">def</span> <span class="nf">dist_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.dist_num"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.dist_num">[docs]</a>    <span class="k">def</span> <span class="nf">dist_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the number of a :py:class:`cards.Distribution` card in</span>
 <span class="sd">        the MCNP input file.</span>
 
@@ -740,7 +741,7 @@
                     <span class="s">&quot;the simulation.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dists</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 </div>
-<div class="viewcode-block" id="SimulationDefinition.remove_source"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_source">[docs]</a>    <span class="k">def</span> <span class="nf">remove_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.remove_source"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_source">[docs]</a>    <span class="k">def</span> <span class="nf">remove_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes a source card from the system. No dependency check is</span>
 <span class="sd">        performed.</span>
 
@@ -758,7 +759,7 @@
         <span class="c"># TODO Perform a dependency check.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="SimulationDefinition.remove_tally"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_tally">[docs]</a>    <span class="k">def</span> <span class="nf">remove_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.remove_tally"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_tally">[docs]</a>    <span class="k">def</span> <span class="nf">remove_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes a tally card from the system. No dependency check is</span>
 <span class="sd">        performed.</span>
 
@@ -776,7 +777,7 @@
         <span class="c"># TODO Perform a dependency check.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="SimulationDefinition.remove_misc"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_misc">[docs]</a>    <span class="k">def</span> <span class="nf">remove_misc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.remove_misc"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_misc">[docs]</a>    <span class="k">def</span> <span class="nf">remove_misc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes a misc card from the system. No dependency check is</span>
 <span class="sd">        performed.</span>
 
@@ -794,7 +795,7 @@
         <span class="c"># TODO Perform a dependency check.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_misc</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="SimulationDefinition.remove_dist"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_dist">[docs]</a>    <span class="k">def</span> <span class="nf">remove_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.remove_dist"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.remove_dist">[docs]</a>    <span class="k">def</span> <span class="nf">remove_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes a distribution card from the system. No dependency check is</span>
 <span class="sd">        performed.</span>
 
@@ -825,24 +826,24 @@
     <span class="k">def</span> <span class="nf">sys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sys</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SimulationDefinition.source"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.source">[docs]</a>    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.source"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.source">[docs]</a>    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ordered dictionary of source cards (from :py:class:`cards.ISource`)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SimulationDefinition.tally"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.tally">[docs]</a>    <span class="k">def</span> <span class="nf">tally</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.tally"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.tally">[docs]</a>    <span class="k">def</span> <span class="nf">tally</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ordered dictionary of tallies (from :py:class:`cards.ITally`).&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tally</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SimulationDefinition.misc"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.misc">[docs]</a>    <span class="k">def</span> <span class="nf">misc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.misc"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.misc">[docs]</a>    <span class="k">def</span> <span class="nf">misc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ordered dictionary of misc. cards (from :py:class:`cards.IMisc`).&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_misc</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SimulationDefinition.dists"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.dists">[docs]</a>    <span class="k">def</span> <span class="nf">dists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SimulationDefinition.dists"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition.dists">[docs]</a>    <span class="k">def</span> <span class="nf">dists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ordered dictionary of distribution cards (from</span>
 <span class="sd">        :py:class:`cards.Distribution`).</span>
 
@@ -850,7 +851,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dists</span>
 
 </div></div>
-<div class="viewcode-block" id="MCNPSimulation"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation">[docs]</a><span class="k">class</span> <span class="nc">MCNPSimulation</span><span class="p">(</span><span class="n">SimulationDefinition</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPSimulation"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation">[docs]</a><span class="k">class</span> <span class="nc">MCNPSimulation</span><span class="p">(</span><span class="n">SimulationDefinition</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Adds transformation and more tally functionality to</span>
 <span class="sd">    :py:class:`SimulationDefinition`. See the constructor there.</span>
 
@@ -867,7 +868,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_tally_pulseheight</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tally_detector</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
 
-<div class="viewcode-block" id="MCNPSimulation.add_tally"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.add_tally">[docs]</a>    <span class="k">def</span> <span class="nf">add_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPSimulation.add_tally"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.add_tally">[docs]</a>    <span class="k">def</span> <span class="nf">add_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds tally cards to the simulation.</span>
 
 <span class="sd">        Parameters</span>
@@ -919,7 +920,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Unrecognized tally card {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">card</span><span class="p">))</span>
 </div>
-<div class="viewcode-block" id="MCNPSimulation.tally_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.tally_num">[docs]</a>    <span class="k">def</span> <span class="nf">tally_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPSimulation.tally_num"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.tally_num">[docs]</a>    <span class="k">def</span> <span class="nf">tally_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the number of a :py:class:`cards.ITally` card in the MCNP</span>
 <span class="sd">        input file. Note that :py:class:`pyne.simplesim.cards.TallyCustom`</span>
 <span class="sd">        cards with :py:attr:`tallyclass` as None do not have a tally number.</span>
@@ -976,7 +977,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Unrecognized tally type. name {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
 </div>
-<div class="viewcode-block" id="MCNPSimulation.remove_tally"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.remove_tally">[docs]</a>    <span class="k">def</span> <span class="nf">remove_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPSimulation.remove_tally"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.remove_tally">[docs]</a>    <span class="k">def</span> <span class="nf">remove_tally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;See :py:meth:`SimulationDefinition.remove_tally`.&quot;&quot;&quot;</span>
         <span class="n">card</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="c"># Must add one because indices start at 0 but card numbers at 1.</span>
@@ -1015,7 +1016,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_tally_detector</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">MCNPSimulation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">remove_tally</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="MCNPSimulation.add_transformation"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.add_transformation">[docs]</a>    <span class="k">def</span> <span class="nf">add_transformation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPSimulation.add_transformation"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.add_transformation">[docs]</a>    <span class="k">def</span> <span class="nf">add_transformation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds transformation cards to the simulation.</span>
 
 <span class="sd">        Parameters</span>
@@ -1042,7 +1043,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformation_num</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="MCNPSimulation.transformation_num"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.transformation_num">[docs]</a>    <span class="k">def</span> <span class="nf">transformation_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPSimulation.transformation_num"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.transformation_num">[docs]</a>    <span class="k">def</span> <span class="nf">transformation_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the number of a :py:class:`cards.Transformation` card in</span>
 <span class="sd">        the MCNP input file.</span>
 
@@ -1063,7 +1064,7 @@
                     <span class="s">&quot;the simulation.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformations</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 </div>
-<div class="viewcode-block" id="MCNPSimulation.remove_transformation"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.remove_transformation">[docs]</a>    <span class="k">def</span> <span class="nf">remove_transformation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPSimulation.remove_transformation"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.remove_transformation">[docs]</a>    <span class="k">def</span> <span class="nf">remove_transformation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes a transformation card from the system. No dependency check is</span>
 <span class="sd">        performed.</span>
 
@@ -1082,7 +1083,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transformations</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="MCNPSimulation.transformations"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.transformations">[docs]</a>    <span class="k">def</span> <span class="nf">transformations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MCNPSimulation.transformations"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation.transformations">[docs]</a>    <span class="k">def</span> <span class="nf">transformations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ordered dictionary of transformation cards (from</span>
 <span class="sd">        :py:class:`cards.Transformation`).</span>
 
@@ -1090,7 +1091,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transformations</span>
 
 </div></div>
-<div class="viewcode-block" id="DefinitionEncoder"><a class="viewcode-back" href="../../../libref/simplesim_definition.html#pyne.simplesim.definition.DefinitionEncoder">[docs]</a><span class="k">class</span> <span class="nc">DefinitionEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+<div class="viewcode-block" id="DefinitionEncoder"><a class="viewcode-back" href="../../../pyapi/simplesim_definition.html#pyne.simplesim.definition.DefinitionEncoder">[docs]</a><span class="k">class</span> <span class="nc">DefinitionEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Used to encode definitions into JSON files. Unimplemented.&quot;&quot;&quot;</span>
     <span class="c"># TODO circular reference issue with Regions.</span>
 

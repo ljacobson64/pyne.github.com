@@ -1,7 +1,0 @@
-<map id="inheritanceb30f74f237" name="inheritanceb30f74f237">
-<area shape="rect" id="node2" href="simplesim_definition.html#pyne.simplesim.definition.DefinitionEncoder" title="pyne.simplesim.definition.DefinitionEncoder" alt="" coords="248,84,484,106"/>
-<area shape="rect" id="node4" href="simplesim_definition.html#pyne.simplesim.definition.SystemDefinition" title="pyne.simplesim.definition.SystemDefinition" alt="" coords="249,4,483,26"/>
-<area shape="rect" id="node5" href="simplesim_definition.html#pyne.simplesim.definition.IDefinition" title="pyne.simplesim.definition.IDefinition" alt="" coords="4,24,203,46"/>
-<area shape="rect" id="node7" href="simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition" alt="" coords="242,44,491,66"/>
-<area shape="rect" id="node9" href="simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation" title="pyne.simplesim.definition.MCNPSimulation" alt="" coords="531,44,763,66"/>
-</map>

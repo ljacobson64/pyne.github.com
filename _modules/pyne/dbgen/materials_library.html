@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -86,7 +87,7 @@
 <span class="n">densities</span> <span class="o">=</span> <span class="p">[]</span>  
 
 <span class="c"># Make a dictionary that represents elements as dicts of their isotopes</span>
-<div class="viewcode-block" id="make_elements"><a class="viewcode-back" href="../../../libref/dbgen/materials_library.html#pyne.dbgen.materials_library.make_elements">[docs]</a><span class="k">def</span> <span class="nf">make_elements</span><span class="p">():</span>
+<div class="viewcode-block" id="make_elements"><a class="viewcode-back" href="../../../pyapi/dbgen/materials_library.html#pyne.dbgen.materials_library.make_elements">[docs]</a><span class="k">def</span> <span class="nf">make_elements</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Makes natural elemental materials based on isotopic abundances.&quot;&quot;&quot;</span>
     <span class="n">habund</span> <span class="o">=</span> <span class="n">natural_abund</span><span class="p">(</span><span class="s">&#39;H&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">zz</span> <span class="ow">in</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name_zz</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -101,7 +102,7 @@
         <span class="n">elemental_mats</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">nuc</span><span class="p">]</span> <span class="o">=</span> <span class="n">abund</span>
     
 <span class="c"># Parses data from .csv</span></div>
-<div class="viewcode-block" id="grab_materials_compendium"><a class="viewcode-back" href="../../../libref/dbgen/materials_library.html#pyne.dbgen.materials_library.grab_materials_compendium">[docs]</a><span class="k">def</span> <span class="nf">grab_materials_compendium</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="s">&#39;materials_compendium.csv&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="grab_materials_compendium"><a class="viewcode-back" href="../../../pyapi/dbgen/materials_library.html#pyne.dbgen.materials_library.grab_materials_compendium">[docs]</a><span class="k">def</span> <span class="nf">grab_materials_compendium</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="s">&#39;materials_compendium.csv&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parses data from a materials compendium csv file.&quot;&quot;&quot;</span>
     <span class="c"># grabs name from starting row, starts a new dictionary for composition</span>
     <span class="k">def</span> <span class="nf">starting_row</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
@@ -148,7 +149,7 @@
             <span class="n">ending_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
 <span class="c"># Writes to file</span></div>
-<div class="viewcode-block" id="make_materials_compendium"><a class="viewcode-back" href="../../../libref/dbgen/materials_library.html#pyne.dbgen.materials_library.make_materials_compendium">[docs]</a><span class="k">def</span> <span class="nf">make_materials_compendium</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">):</span>
+<div class="viewcode-block" id="make_materials_compendium"><a class="viewcode-back" href="../../../pyapi/dbgen/materials_library.html#pyne.dbgen.materials_library.make_materials_compendium">[docs]</a><span class="k">def</span> <span class="nf">make_materials_compendium</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Adds materials compendium to nuc_data.h5.&quot;&quot;&quot;</span>
     <span class="c"># open nuc_data, make nuc_zz an array</span>
     <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r+&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">tb</span><span class="o">.</span><span class="n">Filters</span><span class="p">(</span><span class="n">complevel</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">complib</span><span class="o">=</span><span class="s">&#39;zlib&#39;</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fletcher32</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -168,7 +169,7 @@
         <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]}</span>
         <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">write_hdf5</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">datapath</span><span class="o">=</span><span class="s">&quot;/materials_library/materials&quot;</span><span class="p">,</span> <span class="n">nucpath</span><span class="o">=</span><span class="s">&quot;/materials_library/nuc_zz&quot;</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
     </div>
-<div class="viewcode-block" id="make_materials_library"><a class="viewcode-back" href="../../../libref/dbgen/materials_library.html#pyne.dbgen.materials_library.make_materials_library">[docs]</a><span class="k">def</span> <span class="nf">make_materials_library</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="make_materials_library"><a class="viewcode-back" href="../../../pyapi/dbgen/materials_library.html#pyne.dbgen.materials_library.make_materials_library">[docs]</a><span class="k">def</span> <span class="nf">make_materials_library</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Controller function for adding materials library.&quot;&quot;&quot;</span>
     <span class="n">nuc_data</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">nuc_data</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">):</span>

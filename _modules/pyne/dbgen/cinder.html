@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -76,7 +77,7 @@
 <span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">to_barns</span><span class="p">,</span> <span class="n">failure</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
 
-<div class="viewcode-block" id="grab_cinder_dat"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.grab_cinder_dat">[docs]</a><span class="k">def</span> <span class="nf">grab_cinder_dat</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">datapath</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="grab_cinder_dat"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.grab_cinder_dat">[docs]</a><span class="k">def</span> <span class="nf">grab_cinder_dat</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">datapath</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the cinder.dat file from the DATAPATH directory if not already present.&quot;&quot;&quot;</span>
     <span class="n">build_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;cinder.dat&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">build_filename</span><span class="p">):</span>
@@ -138,7 +139,7 @@
 
 
 
-<div class="viewcode-block" id="get_group_sizes"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.get_group_sizes">[docs]</a><span class="k">def</span> <span class="nf">get_group_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">):</span>
+<div class="viewcode-block" id="get_group_sizes"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.get_group_sizes">[docs]</a><span class="k">def</span> <span class="nf">get_group_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Gets the number of nuclides and groups in this data file.</span>
 
 <span class="sd">    Parameters</span>
@@ -172,7 +173,7 @@
 
 
 </div>
-<div class="viewcode-block" id="make_mg_group_structure"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.make_mg_group_structure">[docs]</a><span class="k">def</span> <span class="nf">make_mg_group_structure</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_mg_group_structure"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.make_mg_group_structure">[docs]</a><span class="k">def</span> <span class="nf">make_mg_group_structure</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Add the energy group bounds arrays to the hdf5 library.</span>
 
 <span class="sd">    Parameters</span>
@@ -225,7 +226,7 @@
     <span class="c"># Extra &#39;xs&#39; entry should be appended with value (&#39;xs&#39;, float, G_n)    </span>
     <span class="p">]</span>
 
-<div class="viewcode-block" id="make_mg_absorption"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.make_mg_absorption">[docs]</a><span class="k">def</span> <span class="nf">make_mg_absorption</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_mg_absorption"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.make_mg_absorption">[docs]</a><span class="k">def</span> <span class="nf">make_mg_absorption</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Adds the absorption reaction rate cross sections to the hdf5 library.</span>
 
 <span class="sd">    Parameters</span>
@@ -313,7 +314,7 @@
     <span class="c"># Extra &#39;xs&#39; entry should be appended with value (&#39;xs&#39;, float, G_n)    </span>
     <span class="p">]</span>
 
-<div class="viewcode-block" id="make_mg_fission"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.make_mg_fission">[docs]</a><span class="k">def</span> <span class="nf">make_mg_fission</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_mg_fission"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.make_mg_fission">[docs]</a><span class="k">def</span> <span class="nf">make_mg_fission</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Adds the fission reaction rate cross sections to the hdf5 library.</span>
 
 <span class="sd">    Parameters</span>
@@ -400,7 +401,7 @@
     <span class="c"># Extra &#39;spectrum&#39; entry should be appended with value (&#39;spectrum&#39;, float, G_g)</span>
     <span class="p">]</span>
 
-<div class="viewcode-block" id="make_mg_gamma_decay"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.make_mg_gamma_decay">[docs]</a><span class="k">def</span> <span class="nf">make_mg_gamma_decay</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_mg_gamma_decay"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.make_mg_gamma_decay">[docs]</a><span class="k">def</span> <span class="nf">make_mg_gamma_decay</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Adds the gamma decay spectrum information to the hdf5 library.</span>
 
 <span class="sd">    Parameters</span>
@@ -476,7 +477,7 @@
 
 
 </div>
-<div class="viewcode-block" id="get_fp_sizes"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.get_fp_sizes">[docs]</a><span class="k">def</span> <span class="nf">get_fp_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">):</span>
+<div class="viewcode-block" id="get_fp_sizes"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.get_fp_sizes">[docs]</a><span class="k">def</span> <span class="nf">get_fp_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Gets the number of fission product yield data sets in this file.</span>
 
 <span class="sd">    Parameters</span>
@@ -523,7 +524,7 @@
 
 <span class="n">nfp_info_pattern</span> <span class="o">=</span> <span class="s">&quot;Fission Yield Data.*?fission products&quot;</span>
 
-<div class="viewcode-block" id="parse_neutron_fp_info"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.parse_neutron_fp_info">[docs]</a><span class="k">def</span> <span class="nf">parse_neutron_fp_info</span><span class="p">(</span><span class="n">raw_data</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_neutron_fp_info"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.parse_neutron_fp_info">[docs]</a><span class="k">def</span> <span class="nf">parse_neutron_fp_info</span><span class="p">(</span><span class="n">raw_data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the neutron fission product info.</span>
 
 <span class="sd">    Parameters</span>
@@ -575,7 +576,7 @@
     <span class="k">return</span> <span class="n">info_table</span>
 
 </div>
-<div class="viewcode-block" id="make_neutron_fp_info"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.make_neutron_fp_info">[docs]</a><span class="k">def</span> <span class="nf">make_neutron_fp_info</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_neutron_fp_info"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.make_neutron_fp_info">[docs]</a><span class="k">def</span> <span class="nf">make_neutron_fp_info</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Adds the neutron fission product yield info to the hdf5 library.</span>
 
 <span class="sd">    Parameters</span>
@@ -613,7 +614,7 @@
 </div>
 <span class="n">gfp_info_pattern</span> <span class="o">=</span> <span class="s">&quot;Photofission Yield Data.*?fission products&quot;</span>
 
-<div class="viewcode-block" id="grab_photon_fp_info"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.grab_photon_fp_info">[docs]</a><span class="k">def</span> <span class="nf">grab_photon_fp_info</span><span class="p">(</span><span class="n">raw_data</span><span class="p">):</span>
+<div class="viewcode-block" id="grab_photon_fp_info"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.grab_photon_fp_info">[docs]</a><span class="k">def</span> <span class="nf">grab_photon_fp_info</span><span class="p">(</span><span class="n">raw_data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the photon fission product info.</span>
 
 <span class="sd">    Parameters</span>
@@ -664,7 +665,7 @@
 
     <span class="k">return</span> <span class="n">info_table</span>
 </div>
-<div class="viewcode-block" id="make_photon_fp_info"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.make_photon_fp_info">[docs]</a><span class="k">def</span> <span class="nf">make_photon_fp_info</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_photon_fp_info"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.make_photon_fp_info">[docs]</a><span class="k">def</span> <span class="nf">make_photon_fp_info</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Adds the photofission product yield info to the hdf5 library.</span>
 
 <span class="sd">    Parameters</span>
@@ -711,7 +712,7 @@
 
 <span class="n">nfp_yields_pattern</span> <span class="o">=</span> <span class="s">&quot;Fission Yield Data.*Photofission Yield Data&quot;</span>
 
-<div class="viewcode-block" id="make_neutron_fp_yields"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.make_neutron_fp_yields">[docs]</a><span class="k">def</span> <span class="nf">make_neutron_fp_yields</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_neutron_fp_yields"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.make_neutron_fp_yields">[docs]</a><span class="k">def</span> <span class="nf">make_neutron_fp_yields</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Adds the neutron fission product yields to the hdf5 library.</span>
 
 <span class="sd">    Parameters</span>
@@ -780,7 +781,7 @@
 </div>
 <span class="n">gfp_yields_pattern</span> <span class="o">=</span> <span class="s">&quot;Photofission Yield Data.*&quot;</span>
 
-<div class="viewcode-block" id="make_photon_fp_yields"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.make_photon_fp_yields">[docs]</a><span class="k">def</span> <span class="nf">make_photon_fp_yields</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">):</span>
+<div class="viewcode-block" id="make_photon_fp_yields"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.make_photon_fp_yields">[docs]</a><span class="k">def</span> <span class="nf">make_photon_fp_yields</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Adds the photofission product yields to the hdf5 library.</span>
 
 <span class="sd">    Parameters</span>
@@ -847,7 +848,7 @@
     <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 </div>
-<div class="viewcode-block" id="make_cinder"><a class="viewcode-back" href="../../../libref/dbgen/cinder.html#pyne.dbgen.cinder.make_cinder">[docs]</a><span class="k">def</span> <span class="nf">make_cinder</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="make_cinder"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.make_cinder">[docs]</a><span class="k">def</span> <span class="nf">make_cinder</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Controller function for adding cinder data.&quot;&quot;&quot;</span>
     <span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">,</span> <span class="n">datapath</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">datapath</span>
 

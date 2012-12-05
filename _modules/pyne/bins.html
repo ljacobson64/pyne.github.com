@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../" type="text/css" />
     
     <script type="text/javascript">
@@ -69,7 +70,7 @@
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">logspace</span>
 
 
-<div class="viewcode-block" id="ninespace"><a class="viewcode-back" href="../../libref/bins.html#pyne.bins.ninespace">[docs]</a><span class="k">def</span> <span class="nf">ninespace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="ninespace"><a class="viewcode-back" href="../../pyapi/bins.html#pyne.bins.ninespace">[docs]</a><span class="k">def</span> <span class="nf">ninespace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Splits the range into one-minus-log-uniform bins defined by num points.</span>
 <span class="sd">    In the vernacular, the space is &#39;split in the nines&#39;.  Note that this assumes</span>
 <span class="sd">    base = 10.0.</span>
@@ -105,7 +106,7 @@
     <span class="k">return</span> <span class="n">samples</span>
 
 </div>
-<div class="viewcode-block" id="stair_step"><a class="viewcode-back" href="../../libref/bins.html#pyne.bins.stair_step">[docs]</a><span class="k">def</span> <span class="nf">stair_step</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="stair_step"><a class="viewcode-back" href="../../pyapi/bins.html#pyne.bins.stair_step">[docs]</a><span class="k">def</span> <span class="nf">stair_step</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Makes a 1d data set of boundaries (x) and cell-centered values (y) </span>
 <span class="sd">    into stair step arrays of the same length.  The returned arrays are </span>
 <span class="sd">    suitable for graphing.  This is especially useful in energy vs. spectrum</span>

@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../" type="text/css" />
     
     <script type="text/javascript">
@@ -97,7 +98,7 @@
 
 <span class="kn">from</span> <span class="nn">binaryreader</span> <span class="kn">import</span> <span class="n">_BinaryReader</span><span class="p">,</span> <span class="n">_FortranRecord</span>
 
-<div class="viewcode-block" id="Isotxs"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Isotxs">[docs]</a><span class="k">class</span> <span class="nc">Isotxs</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
+<div class="viewcode-block" id="Isotxs"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Isotxs">[docs]</a><span class="k">class</span> <span class="nc">Isotxs</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An Isotxs object represents a binary ISOTXS file written according to the</span>
 <span class="sd">    CCCC specifications.</span>
 
@@ -140,7 +141,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="p">{}</span>       <span class="c"># file control info</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nuclides</span> <span class="o">=</span> <span class="p">[]</span> <span class="c">#: List of nuclides in ISOTXS file.</span>
 
-<div class="viewcode-block" id="Isotxs.read"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Isotxs.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Isotxs.read"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Isotxs.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Read through and parse the ISOTXS file.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_read_file_ID</span><span class="p">()</span>
@@ -425,7 +426,7 @@
                     <span class="n">fromG</span> <span class="o">=</span> <span class="n">k</span><span class="o">-</span><span class="mi">1</span>
                     <span class="n">nuc</span><span class="o">.</span><span class="n">micros</span><span class="p">[</span><span class="s">&#39;scat&#39;</span><span class="p">,</span><span class="n">block</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">fromG</span><span class="p">,</span><span class="n">order</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get_float</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Isotxs.find_nuclide"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Isotxs.find_nuclide">[docs]</a>    <span class="k">def</span> <span class="nf">find_nuclide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="Isotxs.find_nuclide"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Isotxs.find_nuclide">[docs]</a>    <span class="k">def</span> <span class="nf">find_nuclide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a nuclide with a given name.</span>
 
 <span class="sd">        Parameters</span>
@@ -453,7 +454,7 @@
         <span class="k">return</span> <span class="s">&quot;&lt;ISOTXS File: {0}&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
                 </div>
-<div class="viewcode-block" id="Dlayxs"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Dlayxs">[docs]</a><span class="k">class</span> <span class="nc">Dlayxs</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
+<div class="viewcode-block" id="Dlayxs"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Dlayxs">[docs]</a><span class="k">class</span> <span class="nc">Dlayxs</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A Dlayxs object represents the data stored in a CCCC-format DLAYXS</span>
 <span class="sd">    file. This file contains delayed neutron precursor yields, emission spectra,</span>
 <span class="sd">    and decay constants reduced to multigroup form. Typically, the data in a</span>
@@ -499,7 +500,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">spectrum</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nu</span> <span class="o">=</span> <span class="p">{}</span>
     
-<div class="viewcode-block" id="Dlayxs.read"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Dlayxs.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Dlayxs.read"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Dlayxs.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Read through and parse data in the DLAYXS file.&quot;&quot;&quot;</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">_read_file_ID</span><span class="p">()</span>
@@ -572,7 +573,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">[</span><span class="n">isotope</span><span class="p">][</span><span class="n">gDelay</span><span class="p">]</span> <span class="o">=</span> <span class="n">yieldData</span><span class="o">.</span><span class="n">get_float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nGroups</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">isotopeFamily</span><span class="p">[</span><span class="n">isotope</span><span class="p">]</span> <span class="o">=</span> <span class="n">yieldData</span><span class="o">.</span><span class="n">get_int</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Brkoxs"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Brkoxs">[docs]</a><span class="k">class</span> <span class="nc">Brkoxs</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
+<div class="viewcode-block" id="Brkoxs"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Brkoxs">[docs]</a><span class="k">class</span> <span class="nc">Brkoxs</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A Brkoxs object represents data stored in a BRKOXS file from the CCCC</span>
 <span class="sd">    format specification. This file is given in conjunction with an ISOTXS (or</span>
 <span class="sd">    GRUPXS) file when the Bondarenko self-shielding method is to be used.</span>
@@ -587,7 +588,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Brkoxs</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Rtflux"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Rtflux">[docs]</a><span class="k">class</span> <span class="nc">Rtflux</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
+<div class="viewcode-block" id="Rtflux"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Rtflux">[docs]</a><span class="k">class</span> <span class="nc">Rtflux</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A Rtflux object represents data stored in a RTFLUX file from the CCCC</span>
 <span class="sd">    format specification. This file contains regular total fluxes.</span>
 
@@ -602,7 +603,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Rtflux</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Atflux"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Atflux">[docs]</a><span class="k">class</span> <span class="nc">Atflux</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
+<div class="viewcode-block" id="Atflux"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Atflux">[docs]</a><span class="k">class</span> <span class="nc">Atflux</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A Atflux object represents data stored in a ATFLUX file from the CCCC</span>
 <span class="sd">    format specification. This file contains adjoint total fluxes.</span>
 
@@ -617,7 +618,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Atflux</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Rzflux"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Rzflux">[docs]</a><span class="k">class</span> <span class="nc">Rzflux</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
+<div class="viewcode-block" id="Rzflux"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Rzflux">[docs]</a><span class="k">class</span> <span class="nc">Rzflux</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A Rzflux object represents data stored in a RZFLUX file from the CCCC</span>
 <span class="sd">    format specification. This file contains volumetric averages of fluxes by</span>
 <span class="sd">    broad energy groups for different geometric zones.</span>
@@ -633,7 +634,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Rzflux</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Matxs"><a class="viewcode-back" href="../../libref/cccc.html#pyne.cccc.Matxs">[docs]</a><span class="k">class</span> <span class="nc">Matxs</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
+<div class="viewcode-block" id="Matxs"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Matxs">[docs]</a><span class="k">class</span> <span class="nc">Matxs</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A Matxs object represents data stored in a MATXS file. This file contains</span>
 <span class="sd">    generalized cross-sections.</span>
 

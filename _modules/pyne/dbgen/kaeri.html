@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -70,7 +71,7 @@
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 
 
-<div class="viewcode-block" id="grab_kaeri_nuclide"><a class="viewcode-back" href="../../../libref/dbgen/kaeri.html#pyne.dbgen.kaeri.grab_kaeri_nuclide">[docs]</a><span class="k">def</span> <span class="nf">grab_kaeri_nuclide</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="grab_kaeri_nuclide"><a class="viewcode-back" href="../../../pyapi/dbgen/kaeri.html#pyne.dbgen.kaeri.grab_kaeri_nuclide">[docs]</a><span class="k">def</span> <span class="nf">grab_kaeri_nuclide</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs a nuclide file from KAERI from the web and places </span>
 <span class="sd">    it a {nuc}.html file in the build directory.</span>
 
@@ -118,7 +119,7 @@
 </div>
 <span class="n">nat_iso_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;.*?/cgi-bin/nuclide[?]nuc=([A-Za-z]{1,2}\d{1,3}).*?[(].*?[)]&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="parse_for_natural_isotopes"><a class="viewcode-back" href="../../../libref/dbgen/kaeri.html#pyne.dbgen.kaeri.parse_for_natural_isotopes">[docs]</a><span class="k">def</span> <span class="nf">parse_for_natural_isotopes</span><span class="p">(</span><span class="n">htmlfile</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_for_natural_isotopes"><a class="viewcode-back" href="../../../pyapi/dbgen/kaeri.html#pyne.dbgen.kaeri.parse_for_natural_isotopes">[docs]</a><span class="k">def</span> <span class="nf">parse_for_natural_isotopes</span><span class="p">(</span><span class="n">htmlfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parses an elemental html file, returning a set of naturally occuring isotopes.&quot;&quot;&quot;</span>
     <span class="n">nat_isos</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">htmlfile</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -131,7 +132,7 @@
 </div>
 <span class="n">all_iso_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;.*?/cgi-bin/nuclide[?]nuc=([A-Za-z]{1,2}\d{1,3})&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="parse_for_all_isotopes"><a class="viewcode-back" href="../../../libref/dbgen/kaeri.html#pyne.dbgen.kaeri.parse_for_all_isotopes">[docs]</a><span class="k">def</span> <span class="nf">parse_for_all_isotopes</span><span class="p">(</span><span class="n">htmlfile</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_for_all_isotopes"><a class="viewcode-back" href="../../../pyapi/dbgen/kaeri.html#pyne.dbgen.kaeri.parse_for_all_isotopes">[docs]</a><span class="k">def</span> <span class="nf">parse_for_all_isotopes</span><span class="p">(</span><span class="n">htmlfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parses an elemental html file, returning a set of all occuring isotopes.&quot;&quot;&quot;</span>
     <span class="n">isos</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">htmlfile</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>

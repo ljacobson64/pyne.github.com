@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -81,7 +82,7 @@
 <span class="kn">from</span> <span class="nn">pyne.dbgen.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
 
 
-<div class="viewcode-block" id="grab_eaf_data"><a class="viewcode-back" href="../../../libref/dbgen/eaf.html#pyne.dbgen.eaf.grab_eaf_data">[docs]</a><span class="k">def</span> <span class="nf">grab_eaf_data</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="grab_eaf_data"><a class="viewcode-back" href="../../../pyapi/dbgen/eaf.html#pyne.dbgen.eaf.grab_eaf_data">[docs]</a><span class="k">def</span> <span class="nf">grab_eaf_data</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the EAF activation data files</span>
 <span class="sd">    if not already present.</span>
 
@@ -144,7 +145,7 @@
     <span class="o">+</span> <span class="s">&quot;(?P&lt;rxstr&gt;\(N,[\w\s]{3}\))(?P&lt;daugh&gt;[a-zA-Z.]{1,2}\s{0,3}\d{1,3})(.*?)&quot;</span>
 <span class="n">eaf_bin_pattern</span> <span class="o">=</span> <span class="s">&quot;(?P&lt;xs&gt;(\d\.\d{5}E[-+]\d{2}\s*){1,175})&quot;</span>
 
-<div class="viewcode-block" id="parse_eaf_xs"><a class="viewcode-back" href="../../../libref/dbgen/eaf.html#pyne.dbgen.eaf.parse_eaf_xs">[docs]</a><span class="k">def</span> <span class="nf">parse_eaf_xs</span><span class="p">(</span><span class="n">build_file</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_eaf_xs"><a class="viewcode-back" href="../../../pyapi/dbgen/eaf.html#pyne.dbgen.eaf.parse_eaf_xs">[docs]</a><span class="k">def</span> <span class="nf">parse_eaf_xs</span><span class="p">(</span><span class="n">build_file</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create numpy array by parsing EAF data</span>
 <span class="sd">    using regular expressions</span>
 
@@ -192,7 +193,7 @@
     <span class="k">return</span> <span class="n">eaf_array</span>
 
 </div>
-<div class="viewcode-block" id="make_eaf_table"><a class="viewcode-back" href="../../../libref/dbgen/eaf.html#pyne.dbgen.eaf.make_eaf_table">[docs]</a><span class="k">def</span> <span class="nf">make_eaf_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_path</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_eaf_table"><a class="viewcode-back" href="../../../pyapi/dbgen/eaf.html#pyne.dbgen.eaf.make_eaf_table">[docs]</a><span class="k">def</span> <span class="nf">make_eaf_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_path</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Function for adding EAF group and table to HDF5 storage.</span>
 
 <span class="sd">    Parameters</span>
@@ -297,7 +298,7 @@
     <span class="k">return</span> <span class="n">eaf_E_g_array</span>
 
 
-<div class="viewcode-block" id="make_eaf"><a class="viewcode-back" href="../../../libref/dbgen/eaf.html#pyne.dbgen.eaf.make_eaf">[docs]</a><span class="k">def</span> <span class="nf">make_eaf</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="make_eaf"><a class="viewcode-back" href="../../../pyapi/dbgen/eaf.html#pyne.dbgen.eaf.make_eaf">[docs]</a><span class="k">def</span> <span class="nf">make_eaf</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Controller function for adding cross section data from EAF format file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">,</span> <span class="n">datapath</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">datapath</span>

@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -96,7 +97,7 @@
 <span class="c">### Set up a cross-section cache so the same data isn&#39;t loaded repetitively ###</span>
 <span class="c">###############################################################################</span>
 
-<div class="viewcode-block" id="XSCache"><a class="viewcode-back" href="../../../libref/xs/cache.html#pyne.xs.cache.XSCache">[docs]</a><span class="k">class</span> <span class="nc">XSCache</span><span class="p">(</span><span class="n">MutableMapping</span><span class="p">):</span>
+<div class="viewcode-block" id="XSCache"><a class="viewcode-back" href="../../../pyapi/xs/cache.html#pyne.xs.cache.XSCache">[docs]</a><span class="k">class</span> <span class="nc">XSCache</span><span class="p">(</span><span class="n">MutableMapping</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A lightweight multigroup cross section cache based off of python </span>
 <span class="sd">    dictionaries. This relies on a list of cross section data source from which</span>
 <span class="sd">    discretized group constants may be computed from raw, underlying data.  </span>
@@ -197,7 +198,7 @@
         <span class="c"># Set the value normally</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="XSCache.clear"><a class="viewcode-back" href="../../../libref/xs/cache.html#pyne.xs.cache.XSCache.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="XSCache.clear"><a class="viewcode-back" href="../../../pyapi/xs/cache.html#pyne.xs.cache.XSCache.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Clears the cache, retaining E_g and phi_g.&quot;&quot;&quot;</span>
         <span class="n">E_g</span><span class="p">,</span> <span class="n">phi_g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;E_g&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">]</span> 
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>

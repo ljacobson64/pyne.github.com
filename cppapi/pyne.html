@@ -1,0 +1,519 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyNE Globals – libpyne &mdash; PyNE 0.2-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="up" title="C++ API" href="index.html" />
+    <link rel="next" title="Nuclide Naming – libpyne_nucname" href="nucname.html" />
+    <link rel="prev" title="C++ API" href="index.html" /> 
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="nucname.html" title="Nuclide Naming – libpyne_nucname"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="index.html" title="C++ API"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">C++ API</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pyne-globals-libpyne">
+<h1>PyNE Globals &#8211; <tt class="docutils literal"><span class="pre">libpyne</span></tt><a class="headerlink" href="#pyne-globals-libpyne" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line" id=""><span id="pyneclasspyne_1_1_file_not_found"></span><em>class</em> <strong>pyne::FileNotFound</strong></div>
+<div class="line"><em>#include &lt;pyne.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p></p>
+<p>Custom exception to be thrown in the event that a required file is not able to be found. </p>
+<em>Public Functions</em><blockquote>
+<div><p id="pyne::FileNotFound::FileNotFound"><span id="pyneclasspyne_1_1_file_not_found_1aaae1bdf04df2b68377ae453929c8eb56"></span><div class="line-block">
+<div class="line"> <strong>FileNotFound</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default constructor </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::FileNotFound::~FileNotFound"><span id="pyneclasspyne_1_1_file_not_found_1abc00e9c8711bb1b1bb2dc1dfd3a98745"></span><div class="line-block">
+<div class="line"> <strong>~FileNotFound</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default destructor </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::FileNotFound::FileNotFound__ss"><span id="pyneclasspyne_1_1_file_not_found_1a4d766115c01634b77aebe42269f9aead"></span><div class="line-block">
+<div class="line"> <strong>FileNotFound</strong>(std::string fname)</div>
+</div>
+</p>
+<blockquote>
+<div><p>constructor with the filename <em>fname</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::FileNotFound::whatC"><span id="pyneclasspyne_1_1_file_not_found_1a55d410139d5853e8988d073637845cbd"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Creates a helpful error message. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Private Members</em><blockquote>
+<div><p id=""><span id="pyneclasspyne_1_1_file_not_found_1a1ad773adc461c96a539865717cab5d92"></span>std::string <strong>filename</strong></p>
+<blockquote>
+<div><p>unfindable filename. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line" id=""><span id="pynenamespacepyne"></span><em>namespace</em> <strong>pyne</strong></div>
+</div>
+<blockquote>
+<div><p>The &#8216;pyne&#8217; namespace all PyNE functionality is included in. </p>
+<p></p>
+<em>String Conversion Functions</em><blockquote>
+<div><p>Converts the variables of various types to their C++ string representation. </p>
+<p id="pyne::to_str__i"><span id="pynenamespacepyne_1a06170a309dd11535e158b0beed373b15"></span><div class="line-block">
+<div class="line">std::string <strong>to_str</strong>(int t)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p id="pyne::to_str__unsigned-i"><span id="pynenamespacepyne_1a44e69084a0b84a3c9b811daebdaa2a61"></span><div class="line-block">
+<div class="line">std::string <strong>to_str</strong>(unsigned int t)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p id="pyne::to_str__double"><span id="pynenamespacepyne_1a5011c13958373a872f4de2acfbc2e128"></span><div class="line-block">
+<div class="line">std::string <strong>to_str</strong>(double t)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p id="pyne::to_str__b"><span id="pynenamespacepyne_1afbfb8eabf2452faf4e2a5176fec6ebe8"></span><div class="line-block">
+<div class="line">std::string <strong>to_str</strong>(bool t)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Mathematical and Physical Constants</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1a3b91aba14e56f740dc75b78b9eba037a"></span>const double <strong>pi</strong></p>
+<blockquote>
+<div><p>pi = 3.14159265359 </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1a44461c2367af5fc9b6bb0988aac2429b"></span>const double <strong>N_A</strong></p>
+<blockquote>
+<div><p>Avagardo&#8217;s Number. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad475cf6f124859f735f6d93ec206ec0d"></span>const double <strong>barns_per_cm2</strong></p>
+<blockquote>
+<div><p>barns per cm^2 </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1a0706fc6ba35f0c6f85cea550344c1815"></span>const double <strong>cm2_per_barn</strong></p>
+<blockquote>
+<div><p>cm^2 per barn </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1a3a54f183e7323b4d62c12f309c3af081"></span>const double <strong>sec_per_day</strong></p>
+<blockquote>
+<div><p></p>
+<p>seconds per day </p>
+</div></blockquote>
+</div></blockquote>
+<em>Functions</em><blockquote>
+<div><p id="pyne::pyne_start"><span id="pynenamespacepyne_1a3b5ffed8eb26b84ae2a5af20aa205623"></span><div class="line-block">
+<div class="line">void <strong>pyne_start</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Initializes PyNE based on environment. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::to_int__ss"><span id="pynenamespacepyne_1ac3037fd5c966b2b515bbbcb0ee56e97a"></span><div class="line-block">
+<div class="line">int <strong>to_int</strong>(std::string s)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Converts a string of digits to an int using atoi(). </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::to_dbl__ss"><span id="pynenamespacepyne_1a621b34e474bc505d63aa5c4d7b0ea568"></span><div class="line-block">
+<div class="line">double <strong>to_dbl</strong>(std::string s)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Converts a valid string to a float usinf atof(). </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::to_upper__ss"><span id="pynenamespacepyne_1aa02f7d3ceda305d11379f2f778e4d645"></span><div class="line-block">
+<div class="line">std::string <strong>to_upper</strong>(std::string s)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns an all upper case copy of the string. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::to_lower__ss"><span id="pynenamespacepyne_1ad694bbfebcefbdb2839ed156ab216abc"></span><div class="line-block">
+<div class="line">std::string <strong>to_lower</strong>(std::string s)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns an all lower case copy of the string. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::get_flag__cA.i"><span id="pynenamespacepyne_1ab883f7c602f63e87fae5c2f48cfed0f8"></span><div class="line-block">
+<div class="line">std::string <strong>get_flag</strong>(char line, int max_l)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Finds and returns the first white-space delimited token of a line. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>a the flag as a string </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">line</span></tt> - <p>a character array to take the first token from. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">max_l</span></tt> - <p>an upper bound to the length of the token. Must be 11 or less. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p id="pyne::remove_substring__ss.ss"><span id="pynenamespacepyne_1adf03d1957dc2420ef99554c6fe4c4ec0"></span><div class="line-block">
+<div class="line">std::string <strong>remove_substring</strong>(std::string s, std::string substr)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Creates a copy of <em>s</em> with all instances of <em>substr</em> taken out. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::remove_characters__ss.ss"><span id="pynenamespacepyne_1ae6154cc77d52eaeb50b1e35f043c1070"></span><div class="line-block">
+<div class="line">std::string <strong>remove_characters</strong>(std::string s, std::string chars)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Removes all characters in the string <em>chars</em> from <em>s</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::replace_all_substrings__ss.ss.ss"><span id="pynenamespacepyne_1a181f9781cb5da2ca18b1946792996268"></span><div class="line-block">
+<div class="line">std::string <strong>replace_all_substrings</strong>(std::string s, std::string substr, std::string repstr)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Replaces all instance of <em>substr</em> in <em>s</em> with <em>repstr</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::last_char__ss"><span id="pynenamespacepyne_1a97495e780a8fd91e4604e5a7b2f84f3e"></span><div class="line-block">
+<div class="line">std::string <strong>last_char</strong>(std::string s)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the last character in a string. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::slice_from_end__ss.i.i"><span id="pynenamespacepyne_1abe1c85ef0d36e8e3eeb02076db773c88"></span><div class="line-block">
+<div class="line">std::string <strong>slice_from_end</strong>(std::string s, int n = -1, int l = 1)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Returns the slice of a string <em>s</em> using the negative index <em>n</em> and the length of the slice <em>l</em>. </p>
+</div></blockquote>
+<p id="pyne::ternary_ge__i.i.i"><span id="pynenamespacepyne_1a5bf23fa851054a44f872c65f5592db8c"></span><div class="line-block">
+<div class="line">bool <strong>ternary_ge</strong>(int a, int b, int c)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns true if <em>a</em> &lt;= <em>b</em> &lt;= <em>c</em> and flase otherwise. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::contains_substring__ss.ss"><span id="pynenamespacepyne_1aacdc15f9fd3df02a25971257b3f83b47"></span><div class="line-block">
+<div class="line">bool <strong>contains_substring</strong>(std::string s, std::string substr)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns true if <em>substr</em> is in <em>s</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::natural_naming__ss"><span id="pynenamespacepyne_1aa136c046c495673c1167472b96901e33"></span><div class="line-block">
+<div class="line">std::string <strong>natural_naming</strong>(std::string name)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Calculates a version of the string <em>name</em> that is also a valid variable name. That is to say that the return value uses only word characters. </p>
+</div></blockquote>
+<p id="pyne::slope__double.double.double.double"><span id="pynenamespacepyne_1a98db52b7243a761ad6f2819478eeda30"></span><div class="line-block">
+<div class="line">double <strong>slope</strong>(double x2, double y2, double x1, double y1)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the slope of a line from the points (<em>x1</em>, <em>y1</em>) and (<em>x2</em>, <em>y2</em>). </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::solve_line__double.double.double.double.double"><span id="pynenamespacepyne_1a943fe41cf25ff550684aabffe5971e1e"></span><div class="line-block">
+<div class="line">double <strong>solve_line</strong>(double x, double x2, double y2, double x1, double y1)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Solves the equation for the line y = mx + b, given <em>x</em> and the points that form the line: (<em>x1</em>, <em>y1</em>) and (<em>x2</em>, <em>y2</em>). </p>
+</div></blockquote>
+<p id="pyne::tanh__double"><span id="pynenamespacepyne_1a598ae3065c54502a23495eaf06865d1d"></span><div class="line-block">
+<div class="line">double <strong>tanh</strong>(double x)</div>
+</div>
+</p>
+<blockquote>
+<div><p>The hyperbolic tangent function. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::coth__double"><span id="pynenamespacepyne_1a03cad3093b97f2f6a5dcb5cdc4cb562e"></span><div class="line-block">
+<div class="line">double <strong>coth</strong>(double x)</div>
+</div>
+</p>
+<blockquote>
+<div><p>The hyperbolic cotangent function. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::file_exists__ss"><span id="pynenamespacepyne_1ad514c252885b18fb9c6ef3ac5f0ac680"></span><div class="line-block">
+<div class="line">bool <strong>file_exists</strong>(std::string strfilename)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns true if the file can be found. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Variables</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1a7927bda45ba222dccef6e43a373b76a6"></span>std::string <strong>PYNE_DATA</strong></p>
+<blockquote>
+<div><p>Path to the driectory containing the PyNE data. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ac4b3b3dcf295d033b906bf921d820ae2"></span>std::string <strong>NUC_DATA_PATH</strong></p>
+<blockquote>
+<div><p>Path to the nuc_data.h5 file. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1a4d15a39b2c15aba9f4b614d2f1c70001"></span>std::string <strong>digits</strong></p>
+<blockquote>
+<div><p>string of digit characters </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1a5587c6a620988c2f3b1af46266f6bf88"></span>std::string <strong>alphabet</strong></p>
+<blockquote>
+<div><p>uppercase alphabetical characters </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1a9146685470ddc29012cf3940089e6dff"></span>std::string <strong>words</strong></p>
+<blockquote>
+<div><p>string of all valid word characters for variable names in programing languages. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line" id=""><span id="pynepyne_8h"></span><em>file</em> <strong>pyne.h</strong></div>
+<div class="line"><em>#include &lt;string&gt;</em></div>
+<div class="line"><em>#include &lt;string.h&gt;</em></div>
+<div class="line"><em>#include &lt;sstream&gt;</em></div>
+<div class="line"><em>#include &lt;cctype&gt;</em></div>
+<div class="line"><em>#include &lt;stdlib.h&gt;</em></div>
+<div class="line"><em>#include &lt;iostream&gt;</em></div>
+<div class="line"><em>#include &lt;cmath&gt;</em></div>
+<div class="line"><em>#include &lt;exception&gt;</em></div>
+<div class="line"><em>#include &lt;sys/stat.h&gt;</em></div>
+<div class="line"><em>#include &lt;sys/types.h&gt;</em></div>
+<div class="line"><em>#include &lt;cstdlib&gt;</em></div>
+<div class="line"><em>#include &lt;vector&gt;</em></div>
+<div class="line"><em>#include &lt;algorithm&gt;</em></div>
+</div>
+<blockquote>
+<div><p>This is the base PyNE library. </p>
+<p>
+It contains a lot of utility functions and constants that are globaly useful through out the rest of the PyNE infrastructure. <dl class="docutils">
+<dt><strong>Author</strong></dt>
+<dd>Anthony Scopatz (scopatz&#64;gmail.com)</dd>
+</dl>
+</p>
+<em>Defines</em><blockquote>
+<div><p id=""><span id="pynepyne_8h_1a6974d9d460dc605073ba4f14d96e783f"></span><strong>length_array</strong>(a)</p>
+<blockquote>
+<div><p>Determines the length of an array using sizeof(). </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line" id=""><span id="pynedir_16f816c94a95b6c656b1681aa0e1f00c"></span><em>dir</em> <strong>/home/scopatz/pyne/cpp/</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<div class="line-block">
+<div class="line" id=""><span id="pynedir_75b82e7e4a5feb05200b9ad7adf06257"></span><em>dir</em> <strong>/home/</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<div class="line-block">
+<div class="line" id=""><span id="pynedir_eb6f41395e501d521b60e4bcc322f5b5"></span><em>dir</em> <strong>/home/scopatz/pyne/</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<div class="line-block">
+<div class="line" id=""><span id="pynedir_fd36fd30001b5b61e932a47c7a98e725"></span><em>dir</em> <strong>/home/scopatz/</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">C++ API</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="nucname.html"
+                        title="next chapter">Nuclide Naming &#8211; <tt class="docutils literal docutils literal"><span class="pre">libpyne_nucname</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/cppapi/pyne.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="nucname.html" title="Nuclide Naming – libpyne_nucname"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="index.html" title="C++ API"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >C++ API</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

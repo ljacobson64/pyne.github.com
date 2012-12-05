@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -78,8 +79,10 @@
 <span class="c"># Note that since ground state and meta-stable isotopes are of the same atomic weight, </span>
 <span class="c"># the meta-stables have been discluded from the following data sets.</span>
 
+<span class="n">MASS_FILE</span> <span class="o">=</span> <span class="s">&#39;mass.mas12&#39;</span>
 
-<div class="viewcode-block" id="grab_kaeri_atomic_abund"><a class="viewcode-back" href="../../../libref/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.grab_kaeri_atomic_abund">[docs]</a><span class="k">def</span> <span class="nf">grab_kaeri_atomic_abund</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="grab_kaeri_atomic_abund"><a class="viewcode-back" href="../../../pyapi/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.grab_kaeri_atomic_abund">[docs]</a><span class="k">def</span> <span class="nf">grab_kaeri_atomic_abund</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the KAERI files needed for the atomic abundance calculation, </span>
 <span class="sd">    if not already present.</span>
 
@@ -116,7 +119,7 @@
 </div>
 <span class="n">atomic_abund_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;&lt;li&gt;Atomic Percent Abundance: (\d+[.]?\d*?)%&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="parse_atomic_abund"><a class="viewcode-back" href="../../../libref/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.parse_atomic_abund">[docs]</a><span class="k">def</span> <span class="nf">parse_atomic_abund</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_atomic_abund"><a class="viewcode-back" href="../../../pyapi/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.parse_atomic_abund">[docs]</a><span class="k">def</span> <span class="nf">parse_atomic_abund</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Builds and returns a dictionary from nuclides to atomic abundence fractions.&quot;&quot;&quot;</span>
     <span class="n">build_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;KAERI&#39;</span><span class="p">)</span>
 
@@ -142,19 +145,16 @@
 
     <span class="k">return</span> <span class="n">atomic_abund</span>
 
-
 </div>
-<div class="viewcode-block" id="grab_atmoic_mass_adjustment"><a class="viewcode-back" href="../../../libref/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.grab_atmoic_mass_adjustment">[docs]</a><span class="k">def</span> <span class="nf">grab_atmoic_mass_adjustment</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="grab_atmoic_mass_adjustment"><a class="viewcode-back" href="../../../pyapi/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.grab_atmoic_mass_adjustment">[docs]</a><span class="k">def</span> <span class="nf">grab_atmoic_mass_adjustment</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the current atomic mass adjustment from the Atomic</span>
 <span class="sd">    Mass Data Center.  These are courtesy of Georges Audi and </span>
-<span class="sd">    Wang Meng via a private communication, April 2011.&quot;&quot;&quot;</span>
-    <span class="n">mass_file</span> <span class="o">=</span> <span class="s">&#39;mass.mas114&#39;</span>
-    <span class="n">bd_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">mass_file</span> <span class="ow">in</span> <span class="n">bd_files</span><span class="p">:</span>
+<span class="sd">    Wang Meng via a private communication, November 2012.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">MASS_FILE</span><span class="p">)):</span>
         <span class="k">return</span> 
 
-    <span class="n">mass</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://amdc.in2p3.fr/masstables/Ame2011int/mass.mas114&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">mass_file</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://amdc.in2p3.fr/masstables/Ame2012/mass.mas12&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">MASS_FILE</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">mass</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
 
@@ -162,11 +162,10 @@
 <span class="c">#amdc_regex = re.compile(&#39;[ \d-]*? (\d{1,3})[ ]{1,4}(\d{1,3}) [A-Z][a-z]? .*? (\d{1,3}) ([ #.\d]{10,11}) ([ #.\d]{1,10})[ ]*?$&#39;)</span></div>
 <span class="n">amdc_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;[ \d-]*? (\d{1,3})[ ]{1,4}(\d{1,3}) [A-Z][a-z]? .*? (\d{1,3}) ([ #.\d]{5,12}) ([ #.\d]+)[ ]*?$&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="parse_atmoic_mass_adjustment"><a class="viewcode-back" href="../../../libref/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.parse_atmoic_mass_adjustment">[docs]</a><span class="k">def</span> <span class="nf">parse_atmoic_mass_adjustment</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_atmoic_mass_adjustment"><a class="viewcode-back" href="../../../pyapi/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.parse_atmoic_mass_adjustment">[docs]</a><span class="k">def</span> <span class="nf">parse_atmoic_mass_adjustment</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parses the atomic mass adjustment data into a list of tuples of </span>
 <span class="sd">    the nuclide, atomic mass, and error.&quot;&quot;&quot;</span>
-    <span class="n">mass_file</span> <span class="o">=</span> <span class="s">&#39;mass.mas114&#39;</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">mass_file</span><span class="p">),</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">MASS_FILE</span><span class="p">),</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
 
     <span class="n">atomic_masses</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -202,7 +201,7 @@
     <span class="p">(</span><span class="s">&#39;abund&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> 
     <span class="p">])</span>
 
-<div class="viewcode-block" id="make_atomic_weight_table"><a class="viewcode-back" href="../../../libref/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.make_atomic_weight_table">[docs]</a><span class="k">def</span> <span class="nf">make_atomic_weight_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_atomic_weight_table"><a class="viewcode-back" href="../../../pyapi/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.make_atomic_weight_table">[docs]</a><span class="k">def</span> <span class="nf">make_atomic_weight_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Makes an atomic weight table in the nuc_data library.</span>
 
 <span class="sd">    Parameters</span>
@@ -228,7 +227,7 @@
     <span class="c"># Add naturally occuring elements</span>
     <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name_zz</span><span class="p">:</span>
         <span class="n">nuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-        <span class="n">A</span><span class="p">[</span><span class="n">nuc</span><span class="p">]</span> <span class="o">=</span> <span class="n">nuc</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">nuc</span><span class="p">]</span> <span class="o">=</span> <span class="n">nuc</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
         
     <span class="k">for</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">abund</span> <span class="ow">in</span> <span class="n">atomic_abund</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">zz</span> <span class="o">=</span> <span class="n">nuc</span> <span class="o">/</span> <span class="mi">10000</span>
@@ -239,7 +238,7 @@
         <span class="n">elem_zz</span><span class="p">,</span> <span class="n">elem_mass</span><span class="p">,</span> <span class="n">_error</span><span class="p">,</span> <span class="n">_abund</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">element_zz</span><span class="p">]</span>
 
         <span class="n">new_elem_mass</span> <span class="o">=</span> <span class="n">elem_mass</span> <span class="o">+</span> <span class="p">(</span><span class="n">nuc_mass</span> <span class="o">*</span> <span class="n">abund</span><span class="p">)</span>
-        <span class="n">A</span><span class="p">[</span><span class="n">element_zz</span><span class="p">]</span> <span class="o">=</span> <span class="n">element_zz</span><span class="p">,</span> <span class="n">new_elem_mass</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">element_zz</span><span class="p">]</span> <span class="o">=</span> <span class="n">element_zz</span><span class="p">,</span> <span class="n">new_elem_mass</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="mf">0.0</span> <span class="o">&lt;</span> <span class="n">new_elem_mass</span><span class="p">)</span>
 
 
     <span class="n">A</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -261,7 +260,7 @@
 
 
 </div>
-<div class="viewcode-block" id="make_atomic_weight"><a class="viewcode-back" href="../../../libref/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.make_atomic_weight">[docs]</a><span class="k">def</span> <span class="nf">make_atomic_weight</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="make_atomic_weight"><a class="viewcode-back" href="../../../pyapi/dbgen/atomic_weight.html#pyne.dbgen.atomic_weight.make_atomic_weight">[docs]</a><span class="k">def</span> <span class="nf">make_atomic_weight</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Controller function for adding atomic_weights.&quot;&quot;&quot;</span>
     <span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">build_dir</span>
 

@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../../../" type="text/css" />
     
     <script type="text/javascript">
@@ -80,7 +81,7 @@
 <span class="kn">from</span> <span class="nn">pyne.dbgen.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
 
 
-<div class="viewcode-block" id="grab_scattering_lengths"><a class="viewcode-back" href="../../../libref/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.grab_scattering_lengths">[docs]</a><span class="k">def</span> <span class="nf">grab_scattering_lengths</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s">&#39;scattering_lengths.html&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="grab_scattering_lengths"><a class="viewcode-back" href="../../../pyapi/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.grab_scattering_lengths">[docs]</a><span class="k">def</span> <span class="nf">grab_scattering_lengths</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s">&#39;scattering_lengths.html&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the scattering cross-section lengths for neutrons from the NIST website</span>
 <span class="sd">    or locally from this module.&quot;&quot;&quot;</span>
     <span class="n">build_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">file_out</span><span class="p">)</span>
@@ -97,7 +98,7 @@
 
 
 </div>
-<div class="viewcode-block" id="nist_num"><a class="viewcode-back" href="../../../libref/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.nist_num">[docs]</a><span class="k">def</span> <span class="nf">nist_num</span><span class="p">(</span><span class="n">nist_data</span><span class="p">):</span>
+<div class="viewcode-block" id="nist_num"><a class="viewcode-back" href="../../../pyapi/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.nist_num">[docs]</a><span class="k">def</span> <span class="nf">nist_num</span><span class="p">(</span><span class="n">nist_data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Converts a NIST style data point to a point.</span>
 
 <span class="sd">    Parameters</span>
@@ -137,7 +138,7 @@
 <span class="n">scat_len_space</span> <span class="o">=</span> <span class="s">&quot;[ </span><span class="se">\t</span><span class="s">]+&quot;</span>
 <span class="n">scat_len_pattern</span> <span class="o">=</span> <span class="s">&quot;&lt;td&gt;{space}(?P&lt;iso&gt;[A-Za-z\d]+){space}&lt;td&gt;{space}(?P&lt;conc&gt;{data}){space}&lt;td&gt;{space}(?P&lt;b_coherent&gt;{data}){space}&lt;td&gt;{space}(?P&lt;b_incoherent&gt;{data}){space}&lt;td&gt;{space}(?P&lt;xs_coherent&gt;{data}){space}&lt;td&gt;{space}(?P&lt;xs_incoherent&gt;{data}){space}&lt;td&gt;{space}(?P&lt;xs&gt;{data}){space}&lt;td&gt;{space}(?P&lt;xs_a&gt;{data}){space}&lt;tr&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">scat_len_data</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">scat_len_space</span><span class="p">)</span>
 
-<div class="viewcode-block" id="parse_scattering_lengths"><a class="viewcode-back" href="../../../libref/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.parse_scattering_lengths">[docs]</a><span class="k">def</span> <span class="nf">parse_scattering_lengths</span><span class="p">(</span><span class="n">build_dir</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_scattering_lengths"><a class="viewcode-back" href="../../../pyapi/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.parse_scattering_lengths">[docs]</a><span class="k">def</span> <span class="nf">parse_scattering_lengths</span><span class="p">(</span><span class="n">build_dir</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Converts to scattering lenth data to a numpy array.&quot;&quot;&quot;</span>
     <span class="n">build_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&quot;scattering_lengths.html&quot;</span><span class="p">)</span>
     
@@ -165,7 +166,7 @@
 
 
 </div>
-<div class="viewcode-block" id="make_scattering_lengths_table"><a class="viewcode-back" href="../../../libref/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.make_scattering_lengths_table">[docs]</a><span class="k">def</span> <span class="nf">make_scattering_lengths_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="make_scattering_lengths_table"><a class="viewcode-back" href="../../../pyapi/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.make_scattering_lengths_table">[docs]</a><span class="k">def</span> <span class="nf">make_scattering_lengths_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Adds the neutron sacttering lengths to the nuc_data library.</span>
 
 <span class="sd">    Parameters</span>
@@ -200,7 +201,7 @@
 
 
 </div>
-<div class="viewcode-block" id="make_scattering_lengths"><a class="viewcode-back" href="../../../libref/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.make_scattering_lengths">[docs]</a><span class="k">def</span> <span class="nf">make_scattering_lengths</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="make_scattering_lengths"><a class="viewcode-back" href="../../../pyapi/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.make_scattering_lengths">[docs]</a><span class="k">def</span> <span class="nf">make_scattering_lengths</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Controller function for adding scattering lengths.&quot;&quot;&quot;</span>
     <span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">build_dir</span>
 

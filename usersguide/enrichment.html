@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../" type="text/css" />
     
     <script type="text/javascript">
@@ -118,11 +119,11 @@ factor between the jth and kth key components for a sample uranium cascade.</em>
 <a class="reference download internal" href="../_downloads/mstar_vs_flowrate.ipynb"><tt class="xref download docutils literal"><span class="pre">[ipython</span> <span class="pre">notebook]</span></tt></a></p>
 </div>
 <p>It is easy to see how the flow rate is minimized near the center of this bucket-shape in
-Figure 1.  Finding this minimum point is what the <a class="reference internal" href="../libref/enrichment.html#pyne.enrichment.multicomponent" title="pyne.enrichment.multicomponent"><tt class="xref py py-func docutils literal"><span class="pre">multicomponent()</span></tt></a>
+Figure 1.  Finding this minimum point is what the <a class="reference internal" href="../pyapi/enrichment.html#pyne.enrichment.multicomponent" title="pyne.enrichment.multicomponent"><tt class="xref py py-func docutils literal"><span class="pre">multicomponent()</span></tt></a>
 function does.  This optimization is the main function of the enrichment module.</p>
 <div class="section" id="example-of-use">
 <h2>Example of Use<a class="headerlink" href="#example-of-use" title="Permalink to this headline">¶</a></h2>
-<p>The fundamental data structure of enrichment is the <a class="reference internal" href="../libref/enrichment.html#pyne.enrichment.Cascade" title="pyne.enrichment.Cascade"><tt class="xref py py-class docutils literal"><span class="pre">Cascade</span></tt></a>.
+<p>The fundamental data structure of enrichment is the <a class="reference internal" href="../pyapi/enrichment.html#pyne.enrichment.Cascade" title="pyne.enrichment.Cascade"><tt class="xref py py-class docutils literal"><span class="pre">Cascade</span></tt></a>.
 Cascades are containers for attributes which define a technology-agnostic cascade.
 You may set up a cascade either by passing keyword arguments into the constructor
 or as attributes on the instance:</p>
@@ -147,7 +148,7 @@ Cascade instance, which you may modify later:</p>
 <span class="n">orig_casc</span><span class="o">.</span><span class="n">mat_feed</span> <span class="o">=</span> <span class="n">feed</span>
 </pre></div>
 </div>
-<p>This may then be fed into the <a class="reference internal" href="../libref/enrichment.html#pyne.enrichment.multicomponent" title="pyne.enrichment.multicomponent"><tt class="xref py py-func docutils literal"><span class="pre">multicomponent()</span></tt></a> function to produce an optimized
+<p>This may then be fed into the <a class="reference internal" href="../pyapi/enrichment.html#pyne.enrichment.multicomponent" title="pyne.enrichment.multicomponent"><tt class="xref py py-func docutils literal"><span class="pre">multicomponent()</span></tt></a> function to produce an optimized
 version of the original cascade.  The product and tails material streams have been
 computed on the optimized version:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">opt_casc</span> <span class="o">=</span> <span class="n">enr</span><span class="o">.</span><span class="n">multicomponent</span><span class="p">(</span><span class="n">orig_casc</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1E-11</span><span class="p">)</span>
@@ -164,7 +165,7 @@ computed on the optimized version:</p>
 </pre></div>
 </div>
 <p>Further information on the enrichment module may be seen in the library reference
-<a class="reference internal" href="../libref/enrichment.html#pyne-enrichment"><em>Enrichment &#8211; pyne.enrichment</em></a>.</p>
+<a class="reference internal" href="../pyapi/enrichment.html#pyne-enrichment"><em>Enrichment &#8211; pyne.enrichment</em></a>.</p>
 <table class="docutils citation" frame="void" id="wood" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
