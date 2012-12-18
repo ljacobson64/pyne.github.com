@@ -1,0 +1,6 @@
+<map id="inheritancedbb3524312" name="inheritancedbb3524312">
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.TallyCustom" title="pyne.simplesim.cards.TallyCustom" alt="" coords="519,30,759,58"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="255,5,468,33"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="264,55,459,83"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="7,30,204,58"/>
+</map>

@@ -50,6 +50,7 @@
         <li class="right" >
           <a href="../../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../gallery/index.html">Gallery</a> | </li>
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
@@ -193,6 +194,21 @@
     <span class="k">if</span> <span class="n">opened_here</span><span class="p">:</span>
         <span class="n">ensdf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
+    <span class="c"># Hack to calculate metastable state number, make sure it doesn&#39;t go over 10,</span>
+    <span class="c"># and then change the from_nuc value, and remove all other states</span>
+    <span class="c"># FIXME: while the renaming bases on level should still happen, the limit</span>
+    <span class="c"># of the 10 lowest levels should be removed when zzaaam is removed.</span>
+    <span class="n">nuclvl</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">from_nuc</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">to_nuc</span><span class="p">,</span> <span class="n">half_life</span><span class="p">,</span> <span class="n">br</span> <span class="o">=</span> <span class="n">row</span>
+        <span class="k">if</span> <span class="n">from_nuc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nuclvl</span><span class="p">:</span>
+            <span class="n">nuclvl</span><span class="p">[</span><span class="n">from_nuc</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">nuclvl</span><span class="p">[</span><span class="n">from_nuc</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">nuc</span> <span class="ow">in</span> <span class="n">nuclvl</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">nuclvl</span><span class="p">[</span><span class="n">nuc</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">lvl</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">lvl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">nuclvl</span><span class="p">[</span><span class="n">nuc</span><span class="p">])[:</span><span class="mi">10</span><span class="p">])])</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">nuclvl</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]],)</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span> \
+                <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">nuclvl</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">nuclvl</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]])]</span>
+
     <span class="k">return</span> <span class="n">data</span></div>
 </pre></div>
 
@@ -235,6 +251,7 @@
         <li class="right" >
           <a href="../../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../gallery/index.html">Gallery</a> | </li>
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../index.html" >Module code</a> &raquo;</li> 

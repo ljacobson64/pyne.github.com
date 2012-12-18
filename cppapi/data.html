@@ -58,6 +58,7 @@
         <li class="right" >
           <a href="rxname.html" title="Reaction Naming – libpyne_rxname"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="index.html" accesskey="U">C++ API</a> &raquo;</li> 
@@ -351,6 +352,21 @@
 <div><p>Mapping from nuclides in zzaaam form to their decay constants [1/s]. </p>
 <p></p>
 </div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad251f22662766748f9cbff3a45da7666"></span>std::map&lt; std::pair&lt; int, int &gt;, double &gt; <strong>branch_ratio_map</strong></p>
+<blockquote>
+<div><p></p>
+<p>Mapping from parent/child nuclide pairs in zzaaam form to their branch ratio [fraction]. </p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad1fac0dd892e4c4b513de09124944cfe"></span>std::map&lt; int, double &gt; <strong>state_energy_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in zzaaam form to their excitation energy [MeV]. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1a4d81748f381ddee0d680a01dc70bad39"></span>std::map&lt; int, std::set&lt; int &gt; &gt; <strong>decay_children_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in zzaaam form to its decay children, if any. </p>
+<p></p>
+</div></blockquote>
 <p id="pyne::_load_atomic_decay"><span id="pynenamespacepyne_1a13a4091f442960197f54b5a41d70d333"></span><div class="line-block">
 <div class="line">void <strong>_load_atomic_decay</strong>()</div>
 </div>
@@ -407,6 +423,86 @@
 <div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
+<p id="pyne::branch_ratio__std::pair:i.i:"><span id="pynenamespacepyne_1af619eaa83237b583dd7f3b5c6b41a618"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(std::pair&lt; int, int &gt; from_to)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
+<p>This function works by first checking the branch_ratio_map. If this is empty it loads the data from disk. If the parent/child nuclide pair is still not found, then the decay is assumed to be impossible and 0.0 is returned. </p>
+</div></blockquote>
+<p id="pyne::branch_ratio__i.i"><span id="pynenamespacepyne_1af2ac244d00d6a8fab26e646eb53fd172"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(int from_nuc, int to_nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::branch_ratio__cP.cP"><span id="pynenamespacepyne_1abef13981249047d7678dc448db101ef4"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(char * from_nuc, char * to_nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::branch_ratio__ss.ss"><span id="pynenamespacepyne_1a5a77a005a47c8c2a421484f17acdec0d"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(std::string from_nuc, std::string to_nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::state_energy__i"><span id="pynenamespacepyne_1ada1a23281a3a62267fbd355bd48da2e6"></span><div class="line-block">
+<div class="line">double <strong>state_energy</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
+<p>This function works by first checking the state_energy_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be in a ground state and 0.0 is returned. </p>
+</div></blockquote>
+<p id="pyne::state_energy__cP"><span id="pynenamespacepyne_1afbe96cec07719bac2b5fe3ad299b1dd1"></span><div class="line-block">
+<div class="line">double <strong>state_energy</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::state_energy__ss"><span id="pynenamespacepyne_1a1e1a4d494979a9aedce584c054474ae0"></span><div class="line-block">
+<div class="line">double <strong>state_energy</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::decay_children__i"><span id="pynenamespacepyne_1a8a2c5bdf0f2008c850662d015ab1b7de"></span><div class="line-block">
+<div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns a set of decay children of a <em>nuc</em>. </p>
+<p>This function works by first checking decay_chidlren_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be stable and an empty set is returned. </p>
+</div></blockquote>
+<p id="pyne::decay_children__cP"><span id="pynenamespacepyne_1ab7ae40853e11f0350ff134d1b8c00250"></span><div class="line-block">
+<div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::decay_children__ss"><span id="pynenamespacepyne_1a30686798fdf9dc0fe0494df134a3a6e9"></span><div class="line-block">
+<div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
 </div></blockquote>
 <em>Natural Abundance Data</em><blockquote>
 <div><p id=""><span id="pynenamespacepyne_1a8ef2ad6dcdf2555b626a5214916cbb9c"></span>std::map&lt; int, double &gt; <strong>natural_abund_map</strong></p>
@@ -451,6 +547,7 @@
 <div class="line" id=""><span id="pynedata_8h"></span><em>file</em> <strong>data.h</strong></div>
 <div class="line"><em>#include &lt;iostream&gt;</em></div>
 <div class="line"><em>#include &lt;string&gt;</em></div>
+<div class="line"><em>#include &lt;utility&gt;</em></div>
 <div class="line"><em>#include &lt;map&gt;</em></div>
 <div class="line"><em>#include &lt;set&gt;</em></div>
 <div class="line"><em>#include &lt;exception&gt;</em></div>
@@ -558,6 +655,7 @@
         <li class="right" >
           <a href="rxname.html" title="Reaction Naming – libpyne_rxname"
              >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="index.html" >C++ API</a> &raquo;</li> 

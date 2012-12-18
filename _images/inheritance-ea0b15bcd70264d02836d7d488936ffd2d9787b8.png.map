@@ -1,6 +1,0 @@
-<map id="inheritancec2252f18a7" name="inheritancec2252f18a7">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,3,142,23"/>
-<area shape="rect" id="node3" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="177,3,313,23"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="347,3,527,23"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.WeightWindowTimes" title="pyne.simplesim.cards.WeightWindowTimes" alt="" coords="561,3,763,23"/>
-</map>

@@ -50,6 +50,7 @@
         <li class="right" >
           <a href="../../../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../../gallery/index.html">Gallery</a> | </li>
     <li><a href="../../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
@@ -467,7 +468,7 @@
 
         <span class="c"># Set query condition</span>
         <span class="k">if</span> <span class="n">rx</span> <span class="o">==</span> <span class="s">&#39;f&#39;</span><span class="p">:</span>
-            <span class="n">cond</span> <span class="o">=</span> <span class="s">&#39;nuc == {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
+            <span class="n">cond</span> <span class="o">=</span> <span class="s">&#39;from_nuc == {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">rx</span> <span class="ow">in</span> <span class="n">RX_TYPES</span><span class="p">:</span>
             <span class="n">cond</span> <span class="o">=</span> <span class="s">&quot;(from_nuc == {0}) &amp; (reaction_type == &#39;{1}&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -591,9 +592,9 @@
 <span class="sd">        ----------</span>
 <span class="sd">        nuc : int</span>
 <span class="sd">            Nuclide in zzaaam form.</span>
-<span class="sd">        rx : str </span>
+<span class="sd">        rx : int or str </span>
 <span class="sd">            Reaction MT # in nnnm form.</span>
-<span class="sd">            OR: (eventually)</span>
+<span class="sd">            OR:</span>
 <span class="sd">            Reaction key: &#39;gamma&#39;, &#39;alpha&#39;, &#39;p&#39;, etc.</span>
 
 <span class="sd">        See Also</span>
@@ -678,6 +679,7 @@
         <li class="right" >
           <a href="../../../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../../gallery/index.html">Gallery</a> | </li>
     <li><a href="../../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
