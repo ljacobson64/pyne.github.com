@@ -1,0 +1,6 @@
+<map id="inheritanceb6881019b2" name="inheritanceb6881019b2">
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.DXTRANSpheres" title="pyne.simplesim.cards.DXTRANSpheres" alt="" coords="573,3,764,23"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="355,3,539,23"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="181,3,320,23"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,3,145,23"/>
+</map>
