@@ -35,7 +35,6 @@
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="Binning Functions – pyne.bins" href="bins.html" />
     <link rel="prev" title="Basic Nuclear Data – pyne.data" href="data.html" /> 
   </head>
   <body>
@@ -53,9 +52,6 @@
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="bins.html" title="Binning Functions – pyne.bins"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="data.html" title="Basic Nuclear Data – pyne.data"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
@@ -142,6 +138,123 @@ object, and thus determines whether or not to deallocate it on wrapper
 destruction.</p>
 </div></blockquote>
 </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.del_mat" title="pyne.material.Material.del_mat"><tt class="xref py py-obj docutils literal"><span class="pre">del_mat</span></tt></a>(nuc_sequence)</td>
+<td>Removes a subset of the material and returns a new material comprised of only the non-specified nuclides.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.del_range" title="pyne.material.Material.del_range"><tt class="xref py py-obj docutils literal"><span class="pre">del_range</span></tt></a>([lower,&nbsp;upper])</td>
+<td>Remove a range [lower, upper) of nuclides from this material and returns a submaterial.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.expand_elements" title="pyne.material.Material.expand_elements"><tt class="xref py py-obj docutils literal"><span class="pre">expand_elements</span></tt></a>(self)</td>
+<td>Exapnds the elements (&#8216;U&#8217;, &#8216;C&#8217;, etc) in the material by replacing them</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.from_atom_frac" title="pyne.material.Material.from_atom_frac"><tt class="xref py py-obj docutils literal"><span class="pre">from_atom_frac</span></tt></a>(atom_fracs)</td>
+<td>Loads the material composition based on a mapping of atom fractions.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.from_hdf5" title="pyne.material.Material.from_hdf5"><tt class="xref py py-obj docutils literal"><span class="pre">from_hdf5</span></tt></a>(char&nbsp;*&nbsp;filename,&nbsp;char&nbsp;*&nbsp;datapath,&nbsp;...)</td>
+<td>Initialize a Material object from an HDF5 file.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.from_text" title="pyne.material.Material.from_text"><tt class="xref py py-obj docutils literal"><span class="pre">from_text</span></tt></a>(char&nbsp;*&nbsp;filename)</td>
+<td>Initialize a Material object from a simple text file.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get</span></tt>(key[,&nbsp;default])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">items</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">iteritems</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">iterkeys</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">itervalues</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">keys</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.molecular_weight" title="pyne.material.Material.molecular_weight"><tt class="xref py py-obj docutils literal"><span class="pre">molecular_weight</span></tt></a>([atoms_per_mol])</td>
+<td>This method returns the molecular weight of the comp of this material.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.mult_by_mass" title="pyne.material.Material.mult_by_mass"><tt class="xref py py-obj docutils literal"><span class="pre">mult_by_mass</span></tt></a></td>
+<td>This multiplies multiplies comp by mass and returns the resultant nuctopic vector.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.norm_comp" title="pyne.material.Material.norm_comp"><tt class="xref py py-obj docutils literal"><span class="pre">norm_comp</span></tt></a></td>
+<td>Normalizes the composition, preserving the mass of the nuclide</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.normalize" title="pyne.material.Material.normalize"><tt class="xref py py-obj docutils literal"><span class="pre">normalize</span></tt></a></td>
+<td>This convenience method normalizes the mass stream by setting its</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">pop</span></tt>(key[,&nbsp;default])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">popitem</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.set_mat" title="pyne.material.Material.set_mat"><tt class="xref py py-obj docutils literal"><span class="pre">set_mat</span></tt></a>(nuc_sequence,&nbsp;value)</td>
+<td>Sets a subset of the material to a new value and returns a new material.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.set_range" title="pyne.material.Material.set_range"><tt class="xref py py-obj docutils literal"><span class="pre">set_range</span></tt></a>([lower,&nbsp;upper,&nbsp;value])</td>
+<td>Sets a sub-material from this mat based on a range [lower, upper) to a new mass weight value.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">setdefault</span></tt>(key[,&nbsp;default])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.sub_act" title="pyne.material.Material.sub_act"><tt class="xref py py-obj docutils literal"><span class="pre">sub_act</span></tt></a>()</td>
+<td>Convenience method that gets the Actinide portion of a mass stream.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.sub_fp" title="pyne.material.Material.sub_fp"><tt class="xref py py-obj docutils literal"><span class="pre">sub_fp</span></tt></a>()</td>
+<td>Convenience method that gets the Fission Product portion of a mass</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.sub_lan" title="pyne.material.Material.sub_lan"><tt class="xref py py-obj docutils literal"><span class="pre">sub_lan</span></tt></a>()</td>
+<td>Convenience method that gets the Lanthanide portion of a mass stream.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.sub_ma" title="pyne.material.Material.sub_ma"><tt class="xref py py-obj docutils literal"><span class="pre">sub_ma</span></tt></a>()</td>
+<td>Convenience method that gets the Minor Actinide portion of a mass</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.sub_mat" title="pyne.material.Material.sub_mat"><tt class="xref py py-obj docutils literal"><span class="pre">sub_mat</span></tt></a>(nuc_sequence)</td>
+<td>Grabs a subset of the material and returns a new material comprised of only the specified nuclides.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.sub_pu" title="pyne.material.Material.sub_pu"><tt class="xref py py-obj docutils literal"><span class="pre">sub_pu</span></tt></a>()</td>
+<td>Convenience method that gets the Plutonium portion of a mass stream.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.sub_range" title="pyne.material.Material.sub_range"><tt class="xref py py-obj docutils literal"><span class="pre">sub_range</span></tt></a>([lower,&nbsp;upper])</td>
+<td>Grabs a sub-material from this mat based on a range [lower, upper) of values.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.sub_tru" title="pyne.material.Material.sub_tru"><tt class="xref py py-obj docutils literal"><span class="pre">sub_tru</span></tt></a>()</td>
+<td>Convenience method that gets the Transuranic portion of a mass</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.sub_u" title="pyne.material.Material.sub_u"><tt class="xref py py-obj docutils literal"><span class="pre">sub_u</span></tt></a>()</td>
+<td>Convenience method that gets the Uranium portion of a mass stream.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.to_atom_frac" title="pyne.material.Material.to_atom_frac"><tt class="xref py py-obj docutils literal"><span class="pre">to_atom_frac</span></tt></a></td>
+<td>Converts the material to a map of nuclides to atom fractions.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">update</span></tt>(*args,&nbsp;**kwds)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">values</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.material.Material.write_hdf5" title="pyne.material.Material.write_hdf5"><tt class="xref py py-obj docutils literal"><span class="pre">write_hdf5</span></tt></a>(filename[,&nbsp;datapath,&nbsp;nucpath,&nbsp;...])</td>
+<td>Writes the material to an HDF5 file, using Protocol 1 (see the</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.material.Material.write_text" title="pyne.material.Material.write_text"><tt class="xref py py-obj docutils literal"><span class="pre">write_text</span></tt></a>(filename)</td>
+<td>Writes the material to a plain text file.</td>
 </tr>
 </tbody>
 </table>
@@ -1013,7 +1126,9 @@ arbitrary metadata about the material.</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Materials &#8211; <tt class="docutils literal"><span class="pre">pyne.material</span></tt></a><ul>
-<li><a class="reference internal" href="#material-class">Material Class</a></li>
+<li><a class="reference internal" href="#material-class">Material Class</a><ul>
+</ul>
+</li>
 <li><a class="reference internal" href="#material-generation-functions">Material Generation Functions</a></li>
 </ul>
 </li>
@@ -1022,9 +1137,6 @@ arbitrary metadata about the material.</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="data.html"
                         title="previous chapter">Basic Nuclear Data &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.data</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="bins.html"
-                        title="next chapter">Binning Functions &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.bins</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/material.txt"
@@ -1061,9 +1173,6 @@ arbitrary metadata about the material.</p>
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="bins.html" title="Binning Functions – pyne.bins"
-             >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="data.html" title="Basic Nuclear Data – pyne.data"
              >previous</a> &nbsp; &nbsp;</li>

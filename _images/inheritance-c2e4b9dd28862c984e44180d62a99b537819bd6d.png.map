@@ -1,6 +1,0 @@
-<map id="inheritance783dc089e2" name="inheritance783dc089e2">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.TransformationCustom" title="pyne.simplesim.cards.TransformationCustom" alt="" coords="492,26,762,51"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="242,4,428,29"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.Transformation" title="pyne.simplesim.cards.Transformation" alt="" coords="222,48,448,73"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="6,26,178,51"/>
-</map>

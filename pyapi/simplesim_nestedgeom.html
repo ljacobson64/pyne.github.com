@@ -34,9 +34,7 @@
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
-    <link rel="up" title="Simple Simulation Input – pyne.simplesim" href="simplesim.html" />
-    <link rel="next" title="Definition Module – pyne.simplesim.definition" href="simplesim_definition.html" />
-    <link rel="prev" title="Cards Module – pyne.simplesim.cards" href="simplesim_cards.html" /> 
+    <link rel="up" title="Simple Simulation Input – pyne.simplesim" href="simplesim.html" /> 
   </head>
   <body>
     <div class="relbar-top">
@@ -53,12 +51,6 @@
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_definition.html" title="Definition Module – pyne.simplesim.definition"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_cards.html" title="Cards Module – pyne.simplesim.cards"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 
@@ -215,13 +207,37 @@ tally.</p>
 <dd><p>The user uses this class directly to reference a cell in the system
 definition for tallying.</p>
 <p class="graphviz">
-<img src="../_images/inheritance-26fde98429e4d0b34a35d0ee8891839691e48776.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Cell" usemap="#inheritancecf5e6fb593" class="inheritance"/>
+<img src="../_images/inheritance-e84bdd237af76363d02cac10cf9103f843a804bd.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Cell" usemap="#inheritancecf5e6fb593" class="inheritance"/>
 <map id="inheritancecf5e6fb593" name="inheritancecf5e6fb593">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="268,4,505,30"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.nestedgeom.Cell" title="pyne.simplesim.nestedgeom.Cell" alt="" coords="550,4,763,30"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,4,223,30"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,4,223,30"/>
+<area shape="rect" id="node3" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="268,4,505,30"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Cell" title="pyne.simplesim.nestedgeom.Cell" alt="" coords="550,4,763,30"/>
 </map>
 </p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>([inner])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim[,&nbsp;inner])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -236,6 +252,30 @@ surface or cell number.</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>([inner])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim[,&nbsp;inner])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -243,12 +283,27 @@ surface or cell number.</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.nestedgeom.</tt><tt class="descname">Cor</tt><big>(</big><em>points=[0, 0, 0]</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/nestedgeom.html#Cor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.nestedgeom.Cor" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of lattice element coordinates (in indices).</p>
 <p class="graphviz">
-<img src="../_images/inheritance-b0c53739e86fb550e6c4deb2c6fdcebcf1331f02.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Cor" usemap="#inheritance92898e8fa6" class="inheritance"/>
+<img src="../_images/inheritance-ed20bed6bc6f824e234d37e960b8e6eb19717e82.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Cor" usemap="#inheritance92898e8fa6" class="inheritance"/>
 <map id="inheritance92898e8fa6" name="inheritance92898e8fa6">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.Cor" title="pyne.simplesim.nestedgeom.Cor" alt="" coords="345,5,577,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Cor" title="pyne.simplesim.nestedgeom.Cor" alt="" coords="345,5,577,33"/>
 </map>
 </p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -268,6 +323,21 @@ surface or cell number.</p>
 <span class="n">latspec</span> <span class="o">=</span> <span class="n">Cor</span><span class="p">([</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]])</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -278,14 +348,41 @@ cell. It is to be used for higher-level cells (closer to the real world),
 and has an additional attribute to specify specific lattice elements from
 this cell if it is a lattice cell.</p>
 <p class="graphviz">
-<img src="../_images/inheritance-09f0c560677aaa3aa57f76570172d5d073e1109f.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.FCell" usemap="#inheritance28471834f8" class="inheritance"/>
+<img src="../_images/inheritance-976ab5bab06db6b561f45954cb19c9b71b2db62b.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.FCell" usemap="#inheritance28471834f8" class="inheritance"/>
 <map id="inheritance28471834f8" name="inheritance28471834f8">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="199,3,376,22"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.nestedgeom.Cell" title="pyne.simplesim.nestedgeom.Cell" alt="" coords="409,3,568,22"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="4,3,166,22"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.nestedgeom.FCell" title="pyne.simplesim.nestedgeom.FCell" alt="" coords="601,3,763,22"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.FCell" title="pyne.simplesim.nestedgeom.FCell" alt="" coords="601,3,763,22"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Cell" title="pyne.simplesim.nestedgeom.Cell" alt="" coords="409,3,568,22"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="4,3,166,22"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="199,3,376,22"/>
 </map>
 </p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">lat</span></tt>(lat_spec)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -299,6 +396,33 @@ this cell if it is a lattice cell.</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">lat</span></tt>(lat_spec)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -308,6 +432,30 @@ this cell if it is a lattice cell.</p>
 nested geometry. The user directly uses the subclasses of this class. For
 cells in higher levels of nesting (e.g. closer to the real world), see
 <a class="reference internal" href="#pyne.simplesim.nestedgeom.FCell" title="pyne.simplesim.nestedgeom.FCell"><tt class="xref py py-class docutils literal"><span class="pre">FCell</span></tt></a>.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>(inner)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim,&nbsp;inner)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -319,6 +467,30 @@ looked up appropriately in the system definition to obtain the
 surface or cell number.</p>
 </div></blockquote>
 </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>(inner)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim,&nbsp;inner)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
 </tr>
 </tbody>
 </table>
@@ -334,6 +506,21 @@ use this class directly. There are 3 subclasses:</p>
 <li><a class="reference internal" href="#pyne.simplesim.nestedgeom.Rng" title="pyne.simplesim.nestedgeom.Rng"><tt class="xref py py-class docutils literal"><span class="pre">Rng</span></tt></a> : x, y, and z index range of lattice elements.</li>
 <li><a class="reference internal" href="#pyne.simplesim.nestedgeom.Cor" title="pyne.simplesim.nestedgeom.Cor"><tt class="xref py py-class docutils literal"><span class="pre">Cor</span></tt></a> : list coordinates of lattice elments.</li>
 </ul>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>(inner)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim,&nbsp;inner)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -341,8 +528,56 @@ use this class directly. There are 3 subclasses:</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.nestedgeom.</tt><tt class="descname">IUnit</tt><big>(</big><em>up=None</em>, <em>down=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/nestedgeom.html#IUnit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.nestedgeom.IUnit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract base class for tally units. The user does not use this class
 directly.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>(inner)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim,&nbsp;inner)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.nestedgeom.IUnit.of" title="pyne.simplesim.nestedgeom.IUnit.of"><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt></a>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.nestedgeom.IUnit.union" title="pyne.simplesim.nestedgeom.IUnit.union"><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt></a>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.nestedgeom.IUnit.vector" title="pyne.simplesim.nestedgeom.IUnit.vector"><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt></a>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 <p>Currently, the two keyword arguments are not actually used, but are
 sometimes set directly, after initialization.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>(inner)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim,&nbsp;inner)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.nestedgeom.IUnit.of" title="pyne.simplesim.nestedgeom.IUnit.of"><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt></a>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.nestedgeom.IUnit.union" title="pyne.simplesim.nestedgeom.IUnit.union"><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt></a>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.nestedgeom.IUnit.vector" title="pyne.simplesim.nestedgeom.IUnit.vector"><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt></a>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pyne.simplesim.nestedgeom.IUnit.of">
 <tt class="descname">of</tt><big>(</big><em>next_level_up</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/nestedgeom.html#IUnit.of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.nestedgeom.IUnit.of" title="Permalink to this definition">¶</a></dt>
@@ -372,12 +607,27 @@ thereof (cell/surf), and
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.nestedgeom.</tt><tt class="descname">Lin</tt><big>(</big><em>linear_index</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/nestedgeom.html#Lin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.nestedgeom.Lin" title="Permalink to this definition">¶</a></dt>
 <dd><p>A single linear index of a lattice element.</p>
 <p class="graphviz">
-<img src="../_images/inheritance-b6136dab5290b51912590f6d5955222642a5e0d5.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Lin" usemap="#inheritance2960a922e9" class="inheritance"/>
+<img src="../_images/inheritance-19094d4bf2bfa8080b1a0fbc6cfe71a7987854ad.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Lin" usemap="#inheritance2960a922e9" class="inheritance"/>
 <map id="inheritance2960a922e9" name="inheritance2960a922e9">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.Lin" title="pyne.simplesim.nestedgeom.Lin" alt="" coords="344,5,573,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Lin" title="pyne.simplesim.nestedgeom.Lin" alt="" coords="344,5,573,33"/>
 </map>
 </p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -388,6 +638,21 @@ thereof (cell/surf), and
 specifier becomes a part of.</p>
 </div></blockquote>
 </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -404,6 +669,21 @@ specifier becomes a part of.</p>
 <area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
 </map>
 </p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -433,6 +713,21 @@ leave as [0, 0].</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">myrange</span> <span class="o">=</span> <span class="n">Rng</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">z_bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -441,13 +736,37 @@ leave as [0, 0].</p>
 <dd><p>The user uses this class directly to reference a surface in the system
 definition for tallying.</p>
 <p class="graphviz">
-<img src="../_images/inheritance-8b51a73d10546c9820ee103e61069203b1633b1a.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Surf" usemap="#inheritanced3320664c6" class="inheritance"/>
+<img src="../_images/inheritance-8d8c0c1fb44d9dbcbde3075f70efef1a5f148edd.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Surf" usemap="#inheritanced3320664c6" class="inheritance"/>
 <map id="inheritanced3320664c6" name="inheritanced3320664c6">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.Surf" title="pyne.simplesim.nestedgeom.Surf" alt="" coords="548,4,763,30"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,4,222,30"/>
 <area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="267,4,504,30"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,4,222,30"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.nestedgeom.Surf" title="pyne.simplesim.nestedgeom.Surf" alt="" coords="548,4,763,30"/>
 </map>
 </p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -462,6 +781,30 @@ surface or cell number.</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -469,17 +812,65 @@ surface or cell number.</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.nestedgeom.</tt><tt class="descname">Union</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/nestedgeom.html#Union"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.nestedgeom.Union" title="Permalink to this definition">¶</a></dt>
 <dd><p>A union of surfaces, cells, or of a single universe.</p>
 <p class="graphviz">
-<img src="../_images/inheritance-99e0ea940c2a16fe3d05d17be61f09639faf8fff.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Union" usemap="#inheritancebb5bccecbc" class="inheritance"/>
+<img src="../_images/inheritance-ddd2de8ccf588bea20c3f353c2847735aa974693.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Union" usemap="#inheritancebb5bccecbc" class="inheritance"/>
 <map id="inheritancebb5bccecbc" name="inheritancebb5bccecbc">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union" alt="" coords="293,5,541,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,5,245,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,5,245,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union" alt="" coords="293,5,541,33"/>
 </map>
 </p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><strong>*args</strong> : list of instances of <a class="reference internal" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit"><tt class="xref py py-class docutils literal"><span class="pre">IUnit</span></tt></a> subclasses.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
 </tr>
 </tbody>
 </table>
@@ -498,6 +889,30 @@ appropriate universe number.</p>
 <area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,5,245,33"/>
 </map>
 </p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -507,6 +922,30 @@ appropriate universe number.</p>
 <div><p>Name of the universe in the system definition.</p>
 </div></blockquote>
 </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
 </tr>
 </tbody>
 </table>
@@ -527,6 +966,30 @@ separate units:</p>
 <span class="n">Surf</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Vec</span><span class="p">(</span><span class="n">FCell</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">),</span> <span class="n">FCell</span><span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">comment</span></tt>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">mcnp</span></tt>(float_format,&nbsp;sim)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">of</span></tt>(next_level_up)</td>
+<td>Returns a unit where <tt class="docutils literal"><span class="pre">self</span></tt> must be in <tt class="docutils literal"><span class="pre">next_level_up</span></tt> to be tallied.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">union</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union"><tt class="xref py py-class docutils literal"><span class="pre">Union</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vector</span></tt>(right)</td>
+<td>Returns a <a class="reference internal" href="#pyne.simplesim.nestedgeom.Vec" title="pyne.simplesim.nestedgeom.Vec"><tt class="xref py py-class docutils literal"><span class="pre">Vec</span></tt></a> of <tt class="docutils literal"><span class="pre">self</span></tt> with <tt class="docutils literal"><span class="pre">right</span></tt>.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -544,17 +1007,13 @@ separate units:</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Nested Geometry &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.nestedgeom</span></tt></a><ul>
-<li><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
+<li><a class="reference internal" href="#usage-examples">Usage Examples</a><ul>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="simplesim_cards.html"
-                        title="previous chapter">Cards Module &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.simplesim.cards</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="simplesim_definition.html"
-                        title="next chapter">Definition Module &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.simplesim.definition</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/simplesim_nestedgeom.txt"
@@ -591,12 +1050,6 @@ separate units:</p>
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_definition.html" title="Definition Module – pyne.simplesim.definition"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_cards.html" title="Cards Module – pyne.simplesim.cards"
-             >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 

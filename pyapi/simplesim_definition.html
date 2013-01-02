@@ -34,9 +34,7 @@
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
-    <link rel="up" title="Simple Simulation Input – pyne.simplesim" href="simplesim.html" />
-    <link rel="next" title="Input File Module – pyne.simplesim.inputfile" href="simplesim_inputfile.html" />
-    <link rel="prev" title="Nested Geometry – pyne.simplesim.nestedgeom" href="simplesim_nestedgeom.html" /> 
+    <link rel="up" title="Simple Simulation Input – pyne.simplesim" href="simplesim.html" /> 
   </head>
   <body>
     <div class="relbar-top">
@@ -53,12 +51,6 @@
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_inputfile.html" title="Input File Module – pyne.simplesim.inputfile"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_nestedgeom.html" title="Nested Geometry – pyne.simplesim.nestedgeom"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 
@@ -121,6 +113,42 @@ reading/writing of simulations.</li>
 <dt id="pyne.simplesim.definition.DefinitionEncoder">
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">DefinitionEncoder</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#DefinitionEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.DefinitionEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to encode definitions into JSON files. Unimplemented.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">default</span></tt>(obj)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">encode</span></tt>(o)</td>
+<td>Return a JSON string representation of a Python data structure.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">iterencode</span></tt>(o[,&nbsp;_one_shot])</td>
+<td>Encode the given object and yield each string representation as available.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">default</span></tt>(obj)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">encode</span></tt>(o)</td>
+<td>Return a JSON string representation of a Python data structure.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">iterencode</span></tt>(o[,&nbsp;_one_shot])</td>
+<td>Encode the given object and yield each string representation as available.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -128,6 +156,18 @@ reading/writing of simulations.</li>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">IDefinition</tt><big>(</big><em>fname=None</em>, <em>verbose=True</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#IDefinition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.IDefinition" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is not used by the user. Abstract base class for
 system and simulation definitions.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.IDefinition.save" title="pyne.simplesim.definition.IDefinition.save"><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt></a>(fname)</td>
+<td>Save object data to a JSON file. Unimplemented.</td>
+</tr>
+</tbody>
+</table>
 <p>Creates a new definition or loads one from <tt class="docutils literal"><span class="pre">fname</span></tt>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -146,6 +186,18 @@ existing definition is loaded from file <tt class="docutils literal"><span class
 </tr>
 </tbody>
 </table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.IDefinition.save" title="pyne.simplesim.definition.IDefinition.save"><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt></a>(fname)</td>
+<td>Save object data to a JSON file. Unimplemented.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pyne.simplesim.definition.IDefinition.save">
 <tt class="descname">save</tt><big>(</big><em>fname</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#IDefinition.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.IDefinition.save" title="Permalink to this definition">¶</a></dt>
@@ -159,6 +211,57 @@ existing definition is loaded from file <tt class="docutils literal"><span class
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">MCNPSimulation</tt><big>(</big><em>systemdef</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#MCNPSimulation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds transformation and more tally functionality to
 <a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">SimulationDefinition</span></tt></a>. See the constructor there.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_dist</span></tt>(*args)</td>
+<td>Adds distribution cards to the simulation, or replaces existing ones if the added card has the same name as a distribution card in the simulation.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_misc</span></tt>(*args)</td>
+<td>Adds miscellaneous cards to the simulation, or replaces existing ones if the added card has the same name as a misc card in the simulation.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_source</span></tt>(*args)</td>
+<td>Adds source cards to the simulation, or replaces existing ones if the added card has the same name as a source card in the simulation.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.add_tally" title="pyne.simplesim.definition.MCNPSimulation.add_tally"><tt class="xref py py-obj docutils literal"><span class="pre">add_tally</span></tt></a>(*args)</td>
+<td>Adds tally cards to the simulation.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.add_transformation" title="pyne.simplesim.definition.MCNPSimulation.add_transformation"><tt class="xref py py-obj docutils literal"><span class="pre">add_transformation</span></tt></a>(*args)</td>
+<td>Adds transformation cards to the simulation.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">dist_num</span></tt>(name)</td>
+<td>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.Distribution</span></tt> card in</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">remove_dist</span></tt>(name)</td>
+<td>Removes a distribution card from the system.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">remove_misc</span></tt>(name)</td>
+<td>Removes a misc card from the system.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">remove_source</span></tt>(name)</td>
+<td>Removes a source card from the system.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.remove_tally" title="pyne.simplesim.definition.MCNPSimulation.remove_tally"><tt class="xref py py-obj docutils literal"><span class="pre">remove_tally</span></tt></a>(name)</td>
+<td>See <a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_tally" title="pyne.simplesim.definition.SimulationDefinition.remove_tally"><tt class="xref py py-meth docutils literal"><span class="pre">SimulationDefinition.remove_tally()</span></tt></a>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.remove_transformation" title="pyne.simplesim.definition.MCNPSimulation.remove_transformation"><tt class="xref py py-obj docutils literal"><span class="pre">remove_transformation</span></tt></a>(name)</td>
+<td>Removes a transformation card from the system.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt>(fname)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.tally_num" title="pyne.simplesim.definition.MCNPSimulation.tally_num"><tt class="xref py py-obj docutils literal"><span class="pre">tally_num</span></tt></a>(name)</td>
+<td>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.ITally</span></tt> card in the MCNP</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.transformation_num" title="pyne.simplesim.definition.MCNPSimulation.transformation_num"><tt class="xref py py-obj docutils literal"><span class="pre">transformation_num</span></tt></a>(name)</td>
+<td>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.Transformation</span></tt> card in</td>
+</tr>
+</tbody>
+</table>
 <p>Creates a new definition or loads one from a file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -179,6 +282,57 @@ modified.</p>
 <div><p>See <a class="reference internal" href="#pyne.simplesim.definition.IDefinition" title="pyne.simplesim.definition.IDefinition"><tt class="xref py py-class docutils literal"><span class="pre">IDefinition</span></tt></a>.</p>
 </div></blockquote>
 </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_dist</span></tt>(*args)</td>
+<td>Adds distribution cards to the simulation, or replaces existing ones if the added card has the same name as a distribution card in the simulation.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_misc</span></tt>(*args)</td>
+<td>Adds miscellaneous cards to the simulation, or replaces existing ones if the added card has the same name as a misc card in the simulation.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_source</span></tt>(*args)</td>
+<td>Adds source cards to the simulation, or replaces existing ones if the added card has the same name as a source card in the simulation.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.add_tally" title="pyne.simplesim.definition.MCNPSimulation.add_tally"><tt class="xref py py-obj docutils literal"><span class="pre">add_tally</span></tt></a>(*args)</td>
+<td>Adds tally cards to the simulation.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.add_transformation" title="pyne.simplesim.definition.MCNPSimulation.add_transformation"><tt class="xref py py-obj docutils literal"><span class="pre">add_transformation</span></tt></a>(*args)</td>
+<td>Adds transformation cards to the simulation.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">dist_num</span></tt>(name)</td>
+<td>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.Distribution</span></tt> card in</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">remove_dist</span></tt>(name)</td>
+<td>Removes a distribution card from the system.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">remove_misc</span></tt>(name)</td>
+<td>Removes a misc card from the system.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">remove_source</span></tt>(name)</td>
+<td>Removes a source card from the system.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.remove_tally" title="pyne.simplesim.definition.MCNPSimulation.remove_tally"><tt class="xref py py-obj docutils literal"><span class="pre">remove_tally</span></tt></a>(name)</td>
+<td>See <a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_tally" title="pyne.simplesim.definition.SimulationDefinition.remove_tally"><tt class="xref py py-meth docutils literal"><span class="pre">SimulationDefinition.remove_tally()</span></tt></a>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.remove_transformation" title="pyne.simplesim.definition.MCNPSimulation.remove_transformation"><tt class="xref py py-obj docutils literal"><span class="pre">remove_transformation</span></tt></a>(name)</td>
+<td>Removes a transformation card from the system.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt>(fname)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.tally_num" title="pyne.simplesim.definition.MCNPSimulation.tally_num"><tt class="xref py py-obj docutils literal"><span class="pre">tally_num</span></tt></a>(name)</td>
+<td>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.ITally</span></tt> card in the MCNP</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.MCNPSimulation.transformation_num" title="pyne.simplesim.definition.MCNPSimulation.transformation_num"><tt class="xref py py-obj docutils literal"><span class="pre">transformation_num</span></tt></a>(name)</td>
+<td>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.Transformation</span></tt> card in</td>
 </tr>
 </tbody>
 </table>
@@ -333,6 +487,45 @@ across all transformations.</p>
 <dd><p>This definition contains source, source distribution, tally/detector,
 and miscellaneous cards. Code-specific functionality/cards is found in
 subclasses of this class.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.add_dist" title="pyne.simplesim.definition.SimulationDefinition.add_dist"><tt class="xref py py-obj docutils literal"><span class="pre">add_dist</span></tt></a>(*args)</td>
+<td>Adds distribution cards to the simulation, or replaces existing ones if the added card has the same name as a distribution card in the simulation.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.add_misc" title="pyne.simplesim.definition.SimulationDefinition.add_misc"><tt class="xref py py-obj docutils literal"><span class="pre">add_misc</span></tt></a>(*args)</td>
+<td>Adds miscellaneous cards to the simulation, or replaces existing ones if the added card has the same name as a misc card in the simulation.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.add_source" title="pyne.simplesim.definition.SimulationDefinition.add_source"><tt class="xref py py-obj docutils literal"><span class="pre">add_source</span></tt></a>(*args)</td>
+<td>Adds source cards to the simulation, or replaces existing ones if the added card has the same name as a source card in the simulation.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.add_tally" title="pyne.simplesim.definition.SimulationDefinition.add_tally"><tt class="xref py py-obj docutils literal"><span class="pre">add_tally</span></tt></a>(*args)</td>
+<td>Adds tally cards to the simulation, or replaces existing ones if the added card has the same name as a tally card in the simulation.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.dist_num" title="pyne.simplesim.definition.SimulationDefinition.dist_num"><tt class="xref py py-obj docutils literal"><span class="pre">dist_num</span></tt></a>(name)</td>
+<td>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.Distribution</span></tt> card in</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_dist" title="pyne.simplesim.definition.SimulationDefinition.remove_dist"><tt class="xref py py-obj docutils literal"><span class="pre">remove_dist</span></tt></a>(name)</td>
+<td>Removes a distribution card from the system.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_misc" title="pyne.simplesim.definition.SimulationDefinition.remove_misc"><tt class="xref py py-obj docutils literal"><span class="pre">remove_misc</span></tt></a>(name)</td>
+<td>Removes a misc card from the system.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_source" title="pyne.simplesim.definition.SimulationDefinition.remove_source"><tt class="xref py py-obj docutils literal"><span class="pre">remove_source</span></tt></a>(name)</td>
+<td>Removes a source card from the system.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_tally" title="pyne.simplesim.definition.SimulationDefinition.remove_tally"><tt class="xref py py-obj docutils literal"><span class="pre">remove_tally</span></tt></a>(name)</td>
+<td>Removes a tally card from the system.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt>(fname)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>Creates a new definition or loads one from a file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -353,6 +546,45 @@ modified.</p>
 <div><p>See <a class="reference internal" href="#pyne.simplesim.definition.IDefinition" title="pyne.simplesim.definition.IDefinition"><tt class="xref py py-class docutils literal"><span class="pre">IDefinition</span></tt></a>.</p>
 </div></blockquote>
 </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.add_dist" title="pyne.simplesim.definition.SimulationDefinition.add_dist"><tt class="xref py py-obj docutils literal"><span class="pre">add_dist</span></tt></a>(*args)</td>
+<td>Adds distribution cards to the simulation, or replaces existing ones if the added card has the same name as a distribution card in the simulation.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.add_misc" title="pyne.simplesim.definition.SimulationDefinition.add_misc"><tt class="xref py py-obj docutils literal"><span class="pre">add_misc</span></tt></a>(*args)</td>
+<td>Adds miscellaneous cards to the simulation, or replaces existing ones if the added card has the same name as a misc card in the simulation.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.add_source" title="pyne.simplesim.definition.SimulationDefinition.add_source"><tt class="xref py py-obj docutils literal"><span class="pre">add_source</span></tt></a>(*args)</td>
+<td>Adds source cards to the simulation, or replaces existing ones if the added card has the same name as a source card in the simulation.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.add_tally" title="pyne.simplesim.definition.SimulationDefinition.add_tally"><tt class="xref py py-obj docutils literal"><span class="pre">add_tally</span></tt></a>(*args)</td>
+<td>Adds tally cards to the simulation, or replaces existing ones if the added card has the same name as a tally card in the simulation.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.dist_num" title="pyne.simplesim.definition.SimulationDefinition.dist_num"><tt class="xref py py-obj docutils literal"><span class="pre">dist_num</span></tt></a>(name)</td>
+<td>Retrieve the number of a <tt class="xref py py-class docutils literal"><span class="pre">cards.Distribution</span></tt> card in</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_dist" title="pyne.simplesim.definition.SimulationDefinition.remove_dist"><tt class="xref py py-obj docutils literal"><span class="pre">remove_dist</span></tt></a>(name)</td>
+<td>Removes a distribution card from the system.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_misc" title="pyne.simplesim.definition.SimulationDefinition.remove_misc"><tt class="xref py py-obj docutils literal"><span class="pre">remove_misc</span></tt></a>(name)</td>
+<td>Removes a misc card from the system.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_source" title="pyne.simplesim.definition.SimulationDefinition.remove_source"><tt class="xref py py-obj docutils literal"><span class="pre">remove_source</span></tt></a>(name)</td>
+<td>Removes a source card from the system.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition.remove_tally" title="pyne.simplesim.definition.SimulationDefinition.remove_tally"><tt class="xref py py-obj docutils literal"><span class="pre">remove_tally</span></tt></a>(name)</td>
+<td>Removes a tally card from the system.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt>(fname)</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -640,8 +872,98 @@ performed.</p>
 <dd><p>This class creates a system definition as is done in MCNP: homogeneous
 regions in space in the reactor, called cells, are defined through the
 intersection, union, etc of surfaces and are filled by materials.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.add_cell" title="pyne.simplesim.definition.SystemDefinition.add_cell"><tt class="xref py py-obj docutils literal"><span class="pre">add_cell</span></tt></a>(*args)</td>
+<td>Adds a cell to the system, and also adds the materials and surfaces in those cells to the system.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.add_material" title="pyne.simplesim.definition.SystemDefinition.add_material"><tt class="xref py py-obj docutils literal"><span class="pre">add_material</span></tt></a>(*args)</td>
+<td>This method is only used by the user for materials that are not on a cell card.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.add_surface" title="pyne.simplesim.definition.SystemDefinition.add_surface"><tt class="xref py py-obj docutils literal"><span class="pre">add_surface</span></tt></a>(*args)</td>
+<td>This method is only used by the user for surfaces that are not on a cell card.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.cell_num" title="pyne.simplesim.definition.SystemDefinition.cell_num"><tt class="xref py py-obj docutils literal"><span class="pre">cell_num</span></tt></a>(name)</td>
+<td>Returns the cell number for the cell name provided.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.material_num" title="pyne.simplesim.definition.SystemDefinition.material_num"><tt class="xref py py-obj docutils literal"><span class="pre">material_num</span></tt></a>(name)</td>
+<td>Returns the material number for the material name provided.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.remove_cell" title="pyne.simplesim.definition.SystemDefinition.remove_cell"><tt class="xref py py-obj docutils literal"><span class="pre">remove_cell</span></tt></a>(name)</td>
+<td>Removes a cell from the system.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.remove_material" title="pyne.simplesim.definition.SystemDefinition.remove_material"><tt class="xref py py-obj docutils literal"><span class="pre">remove_material</span></tt></a>(name)</td>
+<td>Removes a material from the system.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.remove_surface" title="pyne.simplesim.definition.SystemDefinition.remove_surface"><tt class="xref py py-obj docutils literal"><span class="pre">remove_surface</span></tt></a>(name)</td>
+<td>Removes a surface from the system.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.remove_universe" title="pyne.simplesim.definition.SystemDefinition.remove_universe"><tt class="xref py py-obj docutils literal"><span class="pre">remove_universe</span></tt></a>(name)</td>
+<td>Removes a universe from the system.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt>(fname)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.surface_num" title="pyne.simplesim.definition.SystemDefinition.surface_num"><tt class="xref py py-obj docutils literal"><span class="pre">surface_num</span></tt></a>(name)</td>
+<td>Returns the surface number for the surface name provided.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.universe_num" title="pyne.simplesim.definition.SystemDefinition.universe_num"><tt class="xref py py-obj docutils literal"><span class="pre">universe_num</span></tt></a>(name)</td>
+<td>Returns the universe number for the universe name provided.</td>
+</tr>
+</tbody>
+</table>
 <p>Creates a new reactor definition or loads one from a JSON file. See
 <a class="reference internal" href="#pyne.simplesim.definition.IDefinition" title="pyne.simplesim.definition.IDefinition"><tt class="xref py py-class docutils literal"><span class="pre">IDefinition</span></tt></a>.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.add_cell" title="pyne.simplesim.definition.SystemDefinition.add_cell"><tt class="xref py py-obj docutils literal"><span class="pre">add_cell</span></tt></a>(*args)</td>
+<td>Adds a cell to the system, and also adds the materials and surfaces in those cells to the system.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.add_material" title="pyne.simplesim.definition.SystemDefinition.add_material"><tt class="xref py py-obj docutils literal"><span class="pre">add_material</span></tt></a>(*args)</td>
+<td>This method is only used by the user for materials that are not on a cell card.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.add_surface" title="pyne.simplesim.definition.SystemDefinition.add_surface"><tt class="xref py py-obj docutils literal"><span class="pre">add_surface</span></tt></a>(*args)</td>
+<td>This method is only used by the user for surfaces that are not on a cell card.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.cell_num" title="pyne.simplesim.definition.SystemDefinition.cell_num"><tt class="xref py py-obj docutils literal"><span class="pre">cell_num</span></tt></a>(name)</td>
+<td>Returns the cell number for the cell name provided.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.material_num" title="pyne.simplesim.definition.SystemDefinition.material_num"><tt class="xref py py-obj docutils literal"><span class="pre">material_num</span></tt></a>(name)</td>
+<td>Returns the material number for the material name provided.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.remove_cell" title="pyne.simplesim.definition.SystemDefinition.remove_cell"><tt class="xref py py-obj docutils literal"><span class="pre">remove_cell</span></tt></a>(name)</td>
+<td>Removes a cell from the system.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.remove_material" title="pyne.simplesim.definition.SystemDefinition.remove_material"><tt class="xref py py-obj docutils literal"><span class="pre">remove_material</span></tt></a>(name)</td>
+<td>Removes a material from the system.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.remove_surface" title="pyne.simplesim.definition.SystemDefinition.remove_surface"><tt class="xref py py-obj docutils literal"><span class="pre">remove_surface</span></tt></a>(name)</td>
+<td>Removes a surface from the system.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.remove_universe" title="pyne.simplesim.definition.SystemDefinition.remove_universe"><tt class="xref py py-obj docutils literal"><span class="pre">remove_universe</span></tt></a>(name)</td>
+<td>Removes a universe from the system.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt>(fname)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.surface_num" title="pyne.simplesim.definition.SystemDefinition.surface_num"><tt class="xref py py-obj docutils literal"><span class="pre">surface_num</span></tt></a>(name)</td>
+<td>Returns the surface number for the surface name provided.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.definition.SystemDefinition.universe_num" title="pyne.simplesim.definition.SystemDefinition.universe_num"><tt class="xref py py-obj docutils literal"><span class="pre">universe_num</span></tt></a>(name)</td>
+<td>Returns the universe number for the universe name provided.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pyne.simplesim.definition.SystemDefinition.add_cell">
 <tt class="descname">add_cell</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/definition.html#SystemDefinition.add_cell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.add_cell" title="Permalink to this definition">¶</a></dt>
@@ -922,17 +1244,13 @@ universe with that name is not in the system, an exception is raised.</p>
 <li><a class="reference internal" href="#">Definition Module &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.definition</span></tt></a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
 <li><a class="reference internal" href="#limitations">Limitations</a></li>
-<li><a class="reference internal" href="#reference">Reference</a></li>
+<li><a class="reference internal" href="#reference">Reference</a><ul>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="simplesim_nestedgeom.html"
-                        title="previous chapter">Nested Geometry &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.simplesim.nestedgeom</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="simplesim_inputfile.html"
-                        title="next chapter">Input File Module &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.inputfile</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/simplesim_definition.txt"
@@ -969,12 +1287,6 @@ universe with that name is not in the system, an exception is raised.</p>
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_inputfile.html" title="Input File Module – pyne.simplesim.inputfile"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_nestedgeom.html" title="Nested Geometry – pyne.simplesim.nestedgeom"
-             >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 

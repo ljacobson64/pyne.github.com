@@ -1,0 +1,7 @@
+<map id="inheritance7f79a1511d" name="inheritance7f79a1511d">
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="293,3,436,19"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="465,3,610,19"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="150,3,264,19"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.CellFlux" title="pyne.simplesim.cards.CellFlux" alt="" coords="639,3,765,19"/>
+<area shape="rect" id="node8" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,120,19"/>
+</map>

@@ -34,9 +34,7 @@
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
-    <link rel="up" title="Simple Simulation Input – pyne.simplesim" href="simplesim.html" />
-    <link rel="next" title="Inheritance Diagrams" href="simplesim_inheritance.html" />
-    <link rel="prev" title="Definition Module – pyne.simplesim.definition" href="simplesim_definition.html" /> 
+    <link rel="up" title="Simple Simulation Input – pyne.simplesim" href="simplesim.html" /> 
   </head>
   <body>
     <div class="relbar-top">
@@ -53,12 +51,6 @@
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_inheritance.html" title="Inheritance Diagrams"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_definition.html" title="Definition Module – pyne.simplesim.definition"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 
@@ -97,6 +89,24 @@ subclass of <a class="reference internal" href="#pyne.simplesim.inputfile.IInput
 <dd><p>This class is not used directly by the user. Abstract base class for
 classes that take system and option definitions to create an input file for
 a certain code (e.g. MCNPX, Serpent, MCODE, etc.).</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_user_card</span></tt>(*args)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_user_literal</span></tt>(*args)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.inputfile.IInputFile.write" title="pyne.simplesim.inputfile.IInputFile.write"><tt class="xref py py-obj docutils literal"><span class="pre">write</span></tt></a>(fname)</td>
+<td>Writes the input file to an actual file.</td>
+</tr>
+</tbody>
+</table>
 <p>Creates an input file, given a simulation definition.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -128,6 +138,24 @@ common in many languages.</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_user_card</span></tt>(*args)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_user_literal</span></tt>(*args)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.inputfile.IInputFile.write" title="pyne.simplesim.inputfile.IInputFile.write"><tt class="xref py py-obj docutils literal"><span class="pre">write</span></tt></a>(fname)</td>
+<td>Writes the input file to an actual file.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pyne.simplesim.inputfile.IInputFile.write">
 <tt class="descname">write</tt><big>(</big><em>fname</em><big>)</big><a class="reference internal" href="../_modules/pyne/simplesim/inputfile.html#IInputFile.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.inputfile.IInputFile.write" title="Permalink to this definition">¶</a></dt>
@@ -154,6 +182,24 @@ common in many languages.</p>
 <dd><p>An input file for MCNP. To write the file, call <tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt>. The
 user can modify the format of the input file by subclassing this class and
 overloading the undocumented <tt class="docutils literal"><span class="pre">_write_*()</span></tt> methods.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.inputfile.MCNPInput.add_user_card" title="pyne.simplesim.inputfile.MCNPInput.add_user_card"><tt class="xref py py-obj docutils literal"><span class="pre">add_user_card</span></tt></a>(block,&nbsp;card[,&nbsp;comment])</td>
+<td>It is possible that the user wants to insert a card for which there</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.inputfile.MCNPInput.add_user_literal" title="pyne.simplesim.inputfile.MCNPInput.add_user_literal"><tt class="xref py py-obj docutils literal"><span class="pre">add_user_literal</span></tt></a>(block,&nbsp;string)</td>
+<td>This method is used instead of <a class="reference internal" href="#pyne.simplesim.inputfile.MCNPInput.add_user_card" title="pyne.simplesim.inputfile.MCNPInput.add_user_card"><tt class="xref py py-meth docutils literal"><span class="pre">add_user_card()</span></tt></a> if line wrapping is not desired, such as if the user wants to specify a multi-line card on their own.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">write</span></tt>(fname)</td>
+<td>Writes the input file to an actual file.</td>
+</tr>
+</tbody>
+</table>
 <p>Creates an input file, given a simulation definition.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -193,6 +239,24 @@ a datetime string.</p>
 <div><p>See <a class="reference internal" href="#pyne.simplesim.inputfile.IInputFile" title="pyne.simplesim.inputfile.IInputFile"><tt class="xref py py-class docutils literal"><span class="pre">IInputFile</span></tt></a>.</p>
 </div></blockquote>
 </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.simplesim.inputfile.MCNPInput.add_user_card" title="pyne.simplesim.inputfile.MCNPInput.add_user_card"><tt class="xref py py-obj docutils literal"><span class="pre">add_user_card</span></tt></a>(block,&nbsp;card[,&nbsp;comment])</td>
+<td>It is possible that the user wants to insert a card for which there</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.simplesim.inputfile.MCNPInput.add_user_literal" title="pyne.simplesim.inputfile.MCNPInput.add_user_literal"><tt class="xref py py-obj docutils literal"><span class="pre">add_user_literal</span></tt></a>(block,&nbsp;string)</td>
+<td>This method is used instead of <a class="reference internal" href="#pyne.simplesim.inputfile.MCNPInput.add_user_card" title="pyne.simplesim.inputfile.MCNPInput.add_user_card"><tt class="xref py py-meth docutils literal"><span class="pre">add_user_card()</span></tt></a> if line wrapping is not desired, such as if the user wants to specify a multi-line card on their own.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">write</span></tt>(fname)</td>
+<td>Writes the input file to an actual file.</td>
 </tr>
 </tbody>
 </table>
@@ -287,17 +351,13 @@ the order they are added.</p>
   <ul>
 <li><a class="reference internal" href="#">Input File Module &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim.inputfile</span></tt></a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
-<li><a class="reference internal" href="#reference">Reference</a></li>
+<li><a class="reference internal" href="#reference">Reference</a><ul>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="simplesim_definition.html"
-                        title="previous chapter">Definition Module &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.simplesim.definition</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="simplesim_inheritance.html"
-                        title="next chapter">Inheritance Diagrams</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/simplesim_inputfile.txt"
@@ -334,12 +394,6 @@ the order they are added.</p>
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_inheritance.html" title="Inheritance Diagrams"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simplesim_definition.html" title="Definition Module – pyne.simplesim.definition"
-             >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 

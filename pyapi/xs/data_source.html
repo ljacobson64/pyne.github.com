@@ -35,7 +35,6 @@
     <link rel="shortcut icon" href="../../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.2-dev" href="../../index.html" />
     <link rel="up" title="Cross Section Interface – pyne.xs" href="index.html" />
-    <link rel="next" title="Cross Section Cache – pyne.xs.cache" href="cache.html" />
     <link rel="prev" title="Cross Section Models – pyne.xs.models" href="models.html" /> 
   </head>
   <body>
@@ -53,9 +52,6 @@
         <li class="right" >
           <a href="../../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="cache.html" title="Cross Section Cache – pyne.xs.cache"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="models.html" title="Cross Section Models – pyne.xs.models"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
@@ -129,6 +125,21 @@ section cache instance.</p>
 discretizing cross sections from this source.</p>
 </div></blockquote>
 </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.xs.data_source.DataSource.discretize" title="pyne.xs.data_source.DataSource.discretize"><tt class="xref py py-obj docutils literal"><span class="pre">discretize</span></tt></a>(nuc,&nbsp;rx[,&nbsp;temp,&nbsp;src_phi_g,&nbsp;dst_phi_g])</td>
+<td>Discretizes the reaction channel from the source group structure to that  of the destination weighted by the group fluxes.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyne.xs.data_source.DataSource.reaction" title="pyne.xs.data_source.DataSource.reaction"><tt class="xref py py-obj docutils literal"><span class="pre">reaction</span></tt></a>(nuc,&nbsp;rx[,&nbsp;temp])</td>
+<td>Gets the cross section data for this reaction channel either directly from the data source or from the rxcache.</td>
 </tr>
 </tbody>
 </table>
@@ -226,6 +237,21 @@ override this method.</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.xs.data_source.NullDataSource.discretize" title="pyne.xs.data_source.NullDataSource.discretize"><tt class="xref py py-obj docutils literal"><span class="pre">discretize</span></tt></a>(nuc,&nbsp;rx[,&nbsp;temp,&nbsp;src_phi_g,&nbsp;dst_phi_g])</td>
+<td>Returns zeros.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">reaction</span></tt>(nuc,&nbsp;rx[,&nbsp;temp])</td>
+<td>Gets the cross section data for this reaction channel either directly from the data source or from the rxcache.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pyne.xs.data_source.NullDataSource.discretize">
 <tt class="descname">discretize</tt><big>(</big><em>nuc</em>, <em>rx</em>, <em>temp=300.0</em>, <em>src_phi_g=None</em>, <em>dst_phi_g=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#NullDataSource.discretize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.NullDataSource.discretize" title="Permalink to this definition">¶</a></dt>
@@ -247,6 +273,21 @@ override this method.</p>
 <div><p>Keyword arguments to be sent to base class.</p>
 </div></blockquote>
 </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyne.xs.data_source.SimpleDataSource.discretize" title="pyne.xs.data_source.SimpleDataSource.discretize"><tt class="xref py py-obj docutils literal"><span class="pre">discretize</span></tt></a>(nuc,&nbsp;rx[,&nbsp;temp,&nbsp;src_phi_g,&nbsp;dst_phi_g])</td>
+<td>Discretizes the reaction channel from simple group structure to that  of the destination weighted by the group fluxes.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">reaction</span></tt>(nuc,&nbsp;rx[,&nbsp;temp])</td>
+<td>Gets the cross section data for this reaction channel either directly from the data source or from the rxcache.</td>
 </tr>
 </tbody>
 </table>
@@ -315,6 +356,21 @@ be present in the nuc_data for this data source to exist.</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">discretize</span></tt>(nuc,&nbsp;rx[,&nbsp;temp,&nbsp;src_phi_g,&nbsp;dst_phi_g])</td>
+<td>Discretizes the reaction channel from the source group structure to that  of the destination weighted by the group fluxes.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">reaction</span></tt>(nuc,&nbsp;rx[,&nbsp;temp])</td>
+<td>Gets the cross section data for this reaction channel either directly from the data source or from the rxcache.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -337,6 +393,21 @@ to exist.</p>
 </table>
 <p class="rubric">Notes</p>
 <p>EAF data does not use temperature information.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">discretize</span></tt>(nuc,&nbsp;rx[,&nbsp;temp,&nbsp;src_phi_g,&nbsp;dst_phi_g])</td>
+<td>Discretizes the reaction channel from the source group structure to that  of the destination weighted by the group fluxes.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">reaction</span></tt>(nuc,&nbsp;rx[,&nbsp;temp])</td>
+<td>Gets the cross section data for this reaction channel either directly from the data source or from the rxcache.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -353,9 +424,6 @@ to exist.</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="models.html"
                         title="previous chapter">Cross Section Models &#8211; <tt class="docutils literal"><span class="pre">pyne.xs.models</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="cache.html"
-                        title="next chapter">Cross Section Cache &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.xs.cache</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/pyapi/xs/data_source.txt"
@@ -392,9 +460,6 @@ to exist.</p>
         <li class="right" >
           <a href="../../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="cache.html" title="Cross Section Cache – pyne.xs.cache"
-             >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="models.html" title="Cross Section Models – pyne.xs.models"
              >previous</a> &nbsp; &nbsp;</li>
