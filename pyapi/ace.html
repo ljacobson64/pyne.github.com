@@ -34,7 +34,23 @@
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
-    <link rel="up" title="Python API" href="index.html" /> 
+    <link rel="up" title="Python API" href="index.html" />
+    <link rel="next" title="ENSDF File Support – pyne.ensdf" href="ensdf.html" />
+    <link rel="prev" title="CCCC Formats – pyne.cccc" href="cccc.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
   </head>
   <body>
     <div class="relbar-top">
@@ -51,6 +67,12 @@
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="ensdf.html" title="ENSDF File Support – pyne.ensdf"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="cccc.html" title="CCCC Formats – pyne.cccc"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 
@@ -119,20 +141,6 @@ Library</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.ace.Library.find_table" title="pyne.ace.Library.find_table"><tt class="xref py py-obj docutils literal"><span class="pre">find_table</span></tt></a>(name)</td>
-<td>Returns a cross-section table with a given name.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.ace.Library.read" title="pyne.ace.Library.read"><tt class="xref py py-obj docutils literal"><span class="pre">read</span></tt></a>([table_names])</td>
-<td>Read through and parse the ACE-format library.</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyne.ace.Library.find_table">
 <tt class="descname">find_table</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyne.ace.Library.find_table" title="Permalink to this definition">¶</a></dt>
@@ -262,17 +270,6 @@ grid.</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">find_reaction</span></tt></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="class">
@@ -408,20 +405,6 @@ be preformed in the laboratory system.</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">broaden</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.ace.Reaction.threshold" title="pyne.ace.Reaction.threshold"><tt class="xref py py-obj docutils literal"><span class="pre">threshold</span></tt></a>()</td>
-<td>Return energy threshold for this reaction.</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyne.ace.Reaction.threshold">
 <tt class="descname">threshold</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.ace.Reaction.threshold" title="Permalink to this definition">¶</a></dt>
@@ -445,13 +428,17 @@ be preformed in the laboratory system.</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">ACE Cross Sections &#8211; <tt class="docutils literal"><span class="pre">pyne.ace</span></tt></a><ul>
-<li><a class="reference internal" href="#library-class">Library Class</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#library-class">Library Class</a></li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="cccc.html"
+                        title="previous chapter">CCCC Formats &#8211; <tt class="docutils literal"><span class="pre">pyne.cccc</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ensdf.html"
+                        title="next chapter">ENSDF File Support &#8211; <tt class="docutils literal"><span class="pre">pyne.ensdf</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/ace.txt"
@@ -488,6 +475,12 @@ be preformed in the laboratory system.</p>
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="ensdf.html" title="ENSDF File Support – pyne.ensdf"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="cccc.html" title="CCCC Formats – pyne.cccc"
+             >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 
@@ -499,7 +492,16 @@ be preformed in the laboratory system.</p>
     <div class="footer">
         &copy; Copyright 2011-2012, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
     <!-- cloud_sptheme 1.3 -->
   </body>
 </html>

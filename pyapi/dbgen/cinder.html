@@ -36,7 +36,21 @@
     <link rel="top" title="PyNE 0.2-dev" href="../../index.html" />
     <link rel="up" title="Nuclear Data Generation – pyne.dbgen" href="index.html" />
     <link rel="next" title="EAF – pyne.dbgen.eaf" href="eaf.html" />
-    <link rel="prev" title="Simple Cross Sections – pyne.dbgen.simple_xs" href="simple_xs.html" /> 
+    <link rel="prev" title="Simple Cross Sections – pyne.dbgen.simple_xs" href="simple_xs.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
   </head>
   <body>
     <div class="relbar-top">
@@ -467,7 +481,16 @@ This often requires that MCNPX is installed.</p>
     <div class="footer">
         &copy; Copyright 2011-2012, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
     <!-- cloud_sptheme 1.3 -->
   </body>
 </html>

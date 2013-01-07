@@ -36,7 +36,21 @@
     <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
     <link rel="up" title="Developer’s Guide" href="index.html" />
     <link rel="next" title="References &amp; Publications" href="../pubs.html" />
-    <link rel="prev" title="Developer’s Guide" href="index.html" /> 
+    <link rel="prev" title="Developer’s Guide" href="index.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
   </head>
   <body>
     <div class="relbar-top">
@@ -74,9 +88,9 @@
           <div class="body">
             
   <div class="section" id="module-pyne.simplesim">
-<span id="simple-simulation-input-pyne-simplesim"></span><span id="devsguide-simplesim"></span><h1>Simple Simulation Input &#8211; <a class="reference internal" href="../pyapi/simplesim.html#module-pyne.simplesim" title="pyne.simplesim"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim</span></tt></a><a class="headerlink" href="#module-pyne.simplesim" title="Permalink to this headline">¶</a></h1>
+<span id="simple-simulation-input-pyne-simplesim"></span><span id="devsguide-simplesim"></span><h1>Simple Simulation Input &#8211; <a class="reference internal" href="../pyapi/simplesim/index.html#module-pyne.simplesim" title="pyne.simplesim"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim</span></tt></a><a class="headerlink" href="#module-pyne.simplesim" title="Permalink to this headline">¶</a></h1>
 <p>This guide is intended to be the friend of anyone who wants to develop
-<a class="reference internal" href="../pyapi/simplesim.html#module-pyne.simplesim" title="pyne.simplesim"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim</span></tt></a> further, or is disgusted by its currently limited
+<a class="reference internal" href="../pyapi/simplesim/index.html#module-pyne.simplesim" title="pyne.simplesim"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim</span></tt></a> further, or is disgusted by its currently limited
 support. The guide is not comprehensive, and any prospective developer should
 feel comfortable contacting Chris Dembia with any questions.</p>
 <div class="section" id="how-it-works">
@@ -100,11 +114,11 @@ simulation.</dd>
 </div>
 <div class="section" id="adding-a-card">
 <h2>Adding a card<a class="headerlink" href="#adding-a-card" title="Permalink to this headline">¶</a></h2>
-<p>When adding a card to <a class="reference internal" href="../pyapi/simplesim_cards.html#module-pyne.simplesim.cards" title="pyne.simplesim.cards"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.cards</span></tt></a>, the following tasks need
+<p>When adding a card to <a class="reference internal" href="../pyapi/simplesim/cards.html#module-pyne.simplesim.cards" title="pyne.simplesim.cards"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.cards</span></tt></a>, the following tasks need
 to be completed:</p>
 <ul class="simple">
 <li>Choose the appropriate base class (most likely
-<a class="reference internal" href="../pyapi/simplesim_cards.html#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc"><tt class="xref py py-class docutils literal"><span class="pre">cards.IMisc</span></tt></a>), and subclass from this.</li>
+<a class="reference internal" href="../pyapi/simplesim/cards.html#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc"><tt class="xref py py-class docutils literal"><span class="pre">cards.IMisc</span></tt></a>), and subclass from this.</li>
 <li>If the card is <cite>unique</cite>, such as the Criticality card, then make sure to pass
 the unique name to the base class constructor, and to pass the
 <tt class="docutils literal"><span class="pre">unique=True</span></tt> keyword argument.</li>
@@ -127,7 +141,7 @@ docstring.</li>
 <div class="section" id="adding-a-new-abstract-base-class">
 <h3>Adding a new abstract base class<a class="headerlink" href="#adding-a-new-abstract-base-class" title="Permalink to this headline">¶</a></h3>
 <p>If introducing a new abstract base class or card category (i.e.
-<a class="reference internal" href="../pyapi/simplesim_cards.html#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc"><tt class="xref py py-class docutils literal"><span class="pre">cards.IMisc</span></tt></a>):</p>
+<a class="reference internal" href="../pyapi/simplesim/cards.html#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc"><tt class="xref py py-class docutils literal"><span class="pre">cards.IMisc</span></tt></a>):</p>
 <ul class="simple">
 <li>Make sure to prepend the name of the class with <cite>I</cite>, a notation which stands
 for interface in Java.</li>
@@ -136,7 +150,7 @@ clear to the user that they do not interact with the class on their own.</li>
 <li>The constructor takes <tt class="docutils literal"><span class="pre">*args</span></tt> and <tt class="docutils literal"><span class="pre">**kwargs</span></tt>, and passes <tt class="docutils literal"><span class="pre">*args</span></tt> and
 <tt class="docutils literal"><span class="pre">**kwargs</span></tt> to the next constructor in the MRO (method resolution order)
 through the call to <tt class="xref py py-meth docutils literal"><span class="pre">super()</span></tt>. One reason for this is that
-<a class="reference internal" href="../pyapi/simplesim_cards.html#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard"><tt class="xref py py-class docutils literal"><span class="pre">cards.ICard</span></tt></a> takes a <tt class="docutils literal"><span class="pre">unique</span></tt> keyword and it is
+<a class="reference internal" href="../pyapi/simplesim/cards.html#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard"><tt class="xref py py-class docutils literal"><span class="pre">cards.ICard</span></tt></a> takes a <tt class="docutils literal"><span class="pre">unique</span></tt> keyword and it is
 not enjoyable to carry this keyword through all subclass constructors.</li>
 </ul>
 </div>
@@ -159,7 +173,7 @@ and will ultimately result in sloppy attempts to match the general
 definition to specific codes or will hamper the functionality of the general
 definition. Thus, I think MCNP should be the &#8220;first child&#8221;/&#8221;first class
 citizen&#8221; (incorrect usage) of this package.  Classes can be written in</cite>
-<a class="reference internal" href="../pyapi/simplesim_inputfile.html#module-pyne.simplesim.inputfile" title="pyne.simplesim.inputfile"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.inputfile</span></tt></a> <cite>allowing the system and option
+<a class="reference internal" href="../pyapi/simplesim/inputfile.html#module-pyne.simplesim.inputfile" title="pyne.simplesim.inputfile"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.inputfile</span></tt></a> <cite>allowing the system and option
 definitions to be used to generate input files for other codes, but will
 require special consideration. Two cases to consider are that densities and
 reflecting boundary conditions are specified in different places between
@@ -177,16 +191,16 @@ falls short for all codes (including MCNP).</cite></p>
 <dd>It was initially advised that the MCNP card functionality would be separated
 from the card classes. It seemed preferable to place all code-specific
 functionality in one class (i.e.
-<a class="reference internal" href="../pyapi/simplesim_inputfile.html#pyne.simplesim.inputfile.MCNPInput" title="pyne.simplesim.inputfile.MCNPInput"><tt class="xref py py-class docutils literal"><span class="pre">inputfile.MCNPInput</span></tt></a> for MCNP). Given time
+<a class="reference internal" href="../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.MCNPInput" title="pyne.simplesim.inputfile.MCNPInput"><tt class="xref py py-class docutils literal"><span class="pre">inputfile.MCNPInput</span></tt></a> for MCNP). Given time
 constraints, it was not possible to do this.  Furthermore, it seems that the
 structure as it is now, where each card has a <tt class="xref py py-meth docutils literal"><span class="pre">mcnp()</span></tt> method, makes
 a lot of sense: it allows us to take advantange of inheritance and similar
 structure between cards in the same category.</dd>
-<dt>Separation of <a class="reference internal" href="../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">definition.SimulationDefinition</span></tt></a> and <a class="reference internal" href="../pyapi/simplesim_inputfile.html#pyne.simplesim.inputfile.IInputFile" title="pyne.simplesim.inputfile.IInputFile"><tt class="xref py py-class docutils literal"><span class="pre">inputfile.IInputFile</span></tt></a></dt>
+<dt>Separation of <a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">definition.SimulationDefinition</span></tt></a> and <a class="reference internal" href="../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.IInputFile" title="pyne.simplesim.inputfile.IInputFile"><tt class="xref py py-class docutils literal"><span class="pre">inputfile.IInputFile</span></tt></a></dt>
 <dd>At first glance it may not make sense to separate the defintion from the
 input file object.
-Since <a class="reference internal" href="../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">definition.SimulationDefinition</span></tt></a> is
-subclassed to create <a class="reference internal" href="../pyapi/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation" title="pyne.simplesim.definition.MCNPSimulation"><tt class="xref py py-class docutils literal"><span class="pre">definition.MCNPSimulation</span></tt></a>,
+Since <a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">definition.SimulationDefinition</span></tt></a> is
+subclassed to create <a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.MCNPSimulation" title="pyne.simplesim.definition.MCNPSimulation"><tt class="xref py py-class docutils literal"><span class="pre">definition.MCNPSimulation</span></tt></a>,
 there is MCNP-related information in more than one place, and it may seem
 that all the code-specific information could be contained in one class.
 However, there should be code-independent simulation definition parameters
@@ -219,10 +233,10 @@ universe. If providing a name only, then the code does not know whether the
 string is the name of a cell or universe. If providing the objects
 themselves, the object contains the knowledge of its type.</p>
 <p class="last">This issue has been managed for tallies by creating the
-<a class="reference internal" href="../pyapi/simplesim_nestedgeom.html#module-pyne.simplesim.nestedgeom" title="pyne.simplesim.nestedgeom"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.nestedgeom</span></tt></a> module. In this module, there are
-classes such as <a class="reference internal" href="../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Cell" title="pyne.simplesim.nestedgeom.Cell"><tt class="xref py py-class docutils literal"><span class="pre">nestedgeom.Cell</span></tt></a>,
-<a class="reference internal" href="../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Surf" title="pyne.simplesim.nestedgeom.Surf"><tt class="xref py py-class docutils literal"><span class="pre">nestedgeom.Surf</span></tt></a>,
-<a class="reference internal" href="../pyapi/simplesim_nestedgeom.html#pyne.simplesim.nestedgeom.Univ" title="pyne.simplesim.nestedgeom.Univ"><tt class="xref py py-class docutils literal"><span class="pre">nestedgeom.Univ</span></tt></a> that only hold a string name of
+<a class="reference internal" href="../pyapi/simplesim/nestedgeom.html#module-pyne.simplesim.nestedgeom" title="pyne.simplesim.nestedgeom"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.nestedgeom</span></tt></a> module. In this module, there are
+classes such as <a class="reference internal" href="../pyapi/simplesim/nestedgeom.html#pyne.simplesim.nestedgeom.Cell" title="pyne.simplesim.nestedgeom.Cell"><tt class="xref py py-class docutils literal"><span class="pre">nestedgeom.Cell</span></tt></a>,
+<a class="reference internal" href="../pyapi/simplesim/nestedgeom.html#pyne.simplesim.nestedgeom.Surf" title="pyne.simplesim.nestedgeom.Surf"><tt class="xref py py-class docutils literal"><span class="pre">nestedgeom.Surf</span></tt></a>,
+<a class="reference internal" href="../pyapi/simplesim/nestedgeom.html#pyne.simplesim.nestedgeom.Univ" title="pyne.simplesim.nestedgeom.Univ"><tt class="xref py py-class docutils literal"><span class="pre">nestedgeom.Univ</span></tt></a> that only hold a string name of
 a cell/surface/universe (they are not cells/surfaces/universes themselves),
 but make it clear thta the string name represents a cell/surface/universe.
 The problem here is that the notation becomes quite verbose.</p>
@@ -255,7 +269,7 @@ omit that input from the input file. This may not be true for all cards.</dd>
 <dd>This is the biggest limitation, that definitions and cards cannot be saved
 in a persistent manner. Work has been done on this front, however. A
 subclass of the JSONEncoder can be found in
-<a class="reference internal" href="../pyapi/simplesim_definition.html#module-pyne.simplesim.definition" title="pyne.simplesim.definition"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.definition</span></tt></a>. A crude way to allow for this saving
+<a class="reference internal" href="../pyapi/simplesim/definition.html#module-pyne.simplesim.definition" title="pyne.simplesim.definition"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.definition</span></tt></a>. A crude way to allow for this saving
 and loading would be to define a <tt class="docutils literal"><span class="pre">__repr__</span></tt> method for all cards.</dd>
 <dt>Surfaces</dt>
 <dd>Only a few surfaces are implemented right now; there needs to be many more.</dd>
@@ -293,7 +307,7 @@ of <cite>PyNE</cite>. Furthermore, such a module could contain a method to perfo
 parameter study simply with one method call (something like <tt class="docutils literal"><span class="pre">keff_vector</span> <span class="pre">=</span>
 <span class="pre">run.parameter_study(param_name,</span> <span class="pre">param_values</span></tt>).</li>
 <li>Universes, lattices, and fill are done either using IMisc cards or on the
-<a class="reference internal" href="../pyapi/simplesim_cards.html#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell"><tt class="xref py py-class docutils literal"><span class="pre">cards.Cell</span></tt></a> card. However, it is preferable that
+<a class="reference internal" href="../pyapi/simplesim/cards.html#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell"><tt class="xref py py-class docutils literal"><span class="pre">cards.Cell</span></tt></a> card. However, it is preferable that
 there are actual Universe and Lattice cards/objects (this is not the same
 thing as the current Universes and Lattice cards, that are just an
 implementation of MCNP&#8217;s U and LAT cards) that can be used to fill cells
@@ -404,7 +418,16 @@ that has a list of some ideas for future development.</li>
     <div class="footer">
         &copy; Copyright 2011-2012, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
     <!-- cloud_sptheme 1.3 -->
   </body>
 </html>

@@ -36,7 +36,21 @@
     <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
     <link rel="up" title="User’s Guide" href="index.html" />
     <link rel="next" title="Infinite lattice example" href="simplesim_ex_inflattice.html" />
-    <link rel="prev" title="Enrichment" href="enrichment.html" /> 
+    <link rel="prev" title="Enrichment" href="enrichment.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
   </head>
   <body>
     <div class="relbar-top">
@@ -83,7 +97,7 @@ discussion of why it was made, how it is used, and some examples. This guide is
 not intended by any means to be a replacmenet for a specific code&#8217;s own
 documentation.</p>
 <p>It is expected that when using this package, the user has the library
-reference, at <a class="reference internal" href="../pyapi/simplesim.html#pyne-simplesim"><em>Simple Simulation Input &#8211; pyne.simplesim</em></a>, open. The reference contains descriptions
+reference, at <a class="reference internal" href="../pyapi/simplesim/index.html#pyne-simplesim"><em>Simple Simulation Input &#8211; pyne.simplesim</em></a>, open. The reference contains descriptions
 and examples of every card that is implemented.</p>
 <p>If you are interested in developing this package
 further or are looking for information about the state of development, visit
@@ -112,9 +126,9 @@ supported.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>The structure of the package, showing key methods, is illustrated in the
-following diagram (the <a class="reference internal" href="../pyapi/simplesim_nestedgeom.html#module-pyne.simplesim.nestedgeom" title="pyne.simplesim.nestedgeom"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.nestedgeom</span></tt></a> module is omitted).
+following diagram (the <a class="reference internal" href="../pyapi/simplesim/nestedgeom.html#module-pyne.simplesim.nestedgeom" title="pyne.simplesim.nestedgeom"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.nestedgeom</span></tt></a> module is omitted).
 The basic unit of input for a simulation is a card, and there is a slew of
-cards in the <a class="reference internal" href="../pyapi/simplesim_cards.html#module-pyne.simplesim.cards" title="pyne.simplesim.cards"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.cards</span></tt></a> module. The cards are added to
+cards in the <a class="reference internal" href="../pyapi/simplesim/cards.html#module-pyne.simplesim.cards" title="pyne.simplesim.cards"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.cards</span></tt></a> module. The cards are added to
 defintions, and the definition is handed over to an input file object which
 actually creates the input file.</p>
 <a class="reference internal image-reference" href="../_images/simplesimdiagram.svg"><div align="center" class="align-center"><img src="../_images/simplesimdiagram.svg" /></div>
@@ -124,19 +138,19 @@ actually creates the input file.</p>
 <li>System-related cards are created directly.<ol class="loweralpha">
 <li>Material cards.</li>
 <li>Surface cards.</li>
-<li>Regions are formed from the surfaces using <a class="reference internal" href="../pyapi/simplesim_cards.html#pyne.simplesim.cards.ISurface.neg" title="pyne.simplesim.cards.ISurface.neg"><tt class="xref py py-attr docutils literal"><span class="pre">cards.ISurface.neg</span></tt></a>,
-<a class="reference internal" href="../pyapi/simplesim_cards.html#pyne.simplesim.cards.ISurface.pos" title="pyne.simplesim.cards.ISurface.pos"><tt class="xref py py-attr docutils literal"><span class="pre">cards.ISurface.pos</span></tt></a>, and the overloaded operators <tt class="docutils literal"><span class="pre">&amp;</span></tt> (the
+<li>Regions are formed from the surfaces using <a class="reference internal" href="../pyapi/simplesim/cards.html#pyne.simplesim.cards.ISurface.neg" title="pyne.simplesim.cards.ISurface.neg"><tt class="xref py py-attr docutils literal"><span class="pre">cards.ISurface.neg</span></tt></a>,
+<a class="reference internal" href="../pyapi/simplesim/cards.html#pyne.simplesim.cards.ISurface.pos" title="pyne.simplesim.cards.ISurface.pos"><tt class="xref py py-attr docutils literal"><span class="pre">cards.ISurface.pos</span></tt></a>, and the overloaded operators <tt class="docutils literal"><span class="pre">&amp;</span></tt> (the
 magic method <tt class="docutils literal"><span class="pre">__and__</span></tt>) and <tt class="docutils literal"><span class="pre">|</span></tt> (the magic method <tt class="docutils literal"><span class="pre">__or__</span></tt>).</li>
 <li>The regions (surface combinations) and materials are combined into cells.</li>
 </ol>
 </li>
-<li>The cell cards are added to a <a class="reference internal" href="../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition" title="pyne.simplesim.definition.SystemDefinition"><tt class="xref py py-class docutils literal"><span class="pre">definition.SystemDefinition</span></tt></a> using
-<a class="reference internal" href="../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_cell" title="pyne.simplesim.definition.SystemDefinition.add_cell"><tt class="xref py py-meth docutils literal"><span class="pre">definition.SystemDefinition.add_cell()</span></tt></a>. This automatically adds the
+<li>The cell cards are added to a <a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.SystemDefinition" title="pyne.simplesim.definition.SystemDefinition"><tt class="xref py py-class docutils literal"><span class="pre">definition.SystemDefinition</span></tt></a> using
+<a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.SystemDefinition.add_cell" title="pyne.simplesim.definition.SystemDefinition.add_cell"><tt class="xref py py-meth docutils literal"><span class="pre">definition.SystemDefinition.add_cell()</span></tt></a>. This automatically adds the
 necessary materials and surfaces to the system.<ol class="loweralpha">
 <li>If the user wants to provide materials or surfaces in the system that
 are not used in cells, they can do so manually using
-<a class="reference internal" href="../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_material" title="pyne.simplesim.definition.SystemDefinition.add_material"><tt class="xref py py-meth docutils literal"><span class="pre">definition.SystemDefinition.add_material()</span></tt></a> and
-<a class="reference internal" href="../pyapi/simplesim_definition.html#pyne.simplesim.definition.SystemDefinition.add_surface" title="pyne.simplesim.definition.SystemDefinition.add_surface"><tt class="xref py py-meth docutils literal"><span class="pre">definition.SystemDefinition.add_surface()</span></tt></a>.</li>
+<a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.SystemDefinition.add_material" title="pyne.simplesim.definition.SystemDefinition.add_material"><tt class="xref py py-meth docutils literal"><span class="pre">definition.SystemDefinition.add_material()</span></tt></a> and
+<a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.SystemDefinition.add_surface" title="pyne.simplesim.definition.SystemDefinition.add_surface"><tt class="xref py py-meth docutils literal"><span class="pre">definition.SystemDefinition.add_surface()</span></tt></a>.</li>
 </ol>
 </li>
 <li>Simulation cards are created directly. If looking for a card for which you
@@ -148,12 +162,12 @@ the specific codes.<ol class="loweralpha">
 <li>Other cards.</li>
 </ol>
 </li>
-<li>Add the simulation cards to a <a class="reference internal" href="../pyapi/simplesim_definition.html#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">definition.SimulationDefinition</span></tt></a>,
+<li>Add the simulation cards to a <a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">definition.SimulationDefinition</span></tt></a>,
 passing to this the system definition.  If writing an MCNP input,
-<a class="reference internal" href="../pyapi/simplesim_definition.html#pyne.simplesim.definition.MCNPSimulation" title="pyne.simplesim.definition.MCNPSimulation"><tt class="xref py py-class docutils literal"><span class="pre">definition.MCNPSimulation</span></tt></a> should be used.</li>
-<li>Create an object of a <a class="reference internal" href="../pyapi/simplesim_inputfile.html#pyne.simplesim.inputfile.IInputFile" title="pyne.simplesim.inputfile.IInputFile"><tt class="xref py py-class docutils literal"><span class="pre">inputfile.IInputFile</span></tt></a>, passing a simulation
+<a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.MCNPSimulation" title="pyne.simplesim.definition.MCNPSimulation"><tt class="xref py py-class docutils literal"><span class="pre">definition.MCNPSimulation</span></tt></a> should be used.</li>
+<li>Create an object of a <a class="reference internal" href="../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.IInputFile" title="pyne.simplesim.inputfile.IInputFile"><tt class="xref py py-class docutils literal"><span class="pre">inputfile.IInputFile</span></tt></a>, passing a simulation
 definition.</li>
-<li>Call the <a class="reference internal" href="../pyapi/simplesim_inputfile.html#pyne.simplesim.inputfile.IInputFile.write" title="pyne.simplesim.inputfile.IInputFile.write"><tt class="xref py py-meth docutils literal"><span class="pre">inputfile.IInputFile.write()</span></tt></a> method.</li>
+<li>Call the <a class="reference internal" href="../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.IInputFile.write" title="pyne.simplesim.inputfile.IInputFile.write"><tt class="xref py py-meth docutils literal"><span class="pre">inputfile.IInputFile.write()</span></tt></a> method.</li>
 <li>Modify the input (i.e. for parameter studies) by simply modifying the
 attributes of the cards.</li>
 </ol>
@@ -286,7 +300,16 @@ examples all come from  <cite>pyne/examples/simplesim.py</cite>.</p>
     <div class="footer">
         &copy; Copyright 2011-2012, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
     <!-- cloud_sptheme 1.3 -->
   </body>
 </html>

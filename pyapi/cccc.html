@@ -34,7 +34,23 @@
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
-    <link rel="up" title="Python API" href="index.html" /> 
+    <link rel="up" title="Python API" href="index.html" />
+    <link rel="next" title="ACE Cross Sections – pyne.ace" href="ace.html" />
+    <link rel="prev" title="NJOY Automation – pyne.njoy" href="njoy.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
   </head>
   <body>
     <div class="relbar-top">
@@ -51,6 +67,12 @@
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="ace.html" title="ACE Cross Sections – pyne.ace"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="njoy.html" title="NJOY Automation – pyne.njoy"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 
@@ -133,35 +155,6 @@ CCCC specifications.</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">close</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.cccc.Isotxs.find_nuclide" title="pyne.cccc.Isotxs.find_nuclide"><tt class="xref py py-obj docutils literal"><span class="pre">find_nuclide</span></tt></a>(name)</td>
-<td>Returns a nuclide with a given name.</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_fortran_record</span></tt>()</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_int</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_fortran_record</span></tt>(record)</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_int</span></tt>(data)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.cccc.Isotxs.read" title="pyne.cccc.Isotxs.read"><tt class="xref py py-obj docutils literal"><span class="pre">read</span></tt></a>()</td>
-<td>Read through and parse the ISOTXS file.</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyne.cccc.Isotxs.find_nuclide">
 <tt class="descname">find_nuclide</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Isotxs.find_nuclide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Isotxs.find_nuclide" title="Permalink to this definition">¶</a></dt>
@@ -250,32 +243,6 @@ constants for each delayed neutron family.</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">close</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_fortran_record</span></tt>()</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_int</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_fortran_record</span></tt>(record)</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_int</span></tt>(data)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.cccc.Dlayxs.read" title="pyne.cccc.Dlayxs.read"><tt class="xref py py-obj docutils literal"><span class="pre">read</span></tt></a>()</td>
-<td>Read through and parse data in the DLAYXS file.</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyne.cccc.Dlayxs.read">
 <tt class="descname">read</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Dlayxs.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Dlayxs.read" title="Permalink to this definition">¶</a></dt>
@@ -306,29 +273,6 @@ GRUPXS) file when the Bondarenko self-shielding method is to be used.</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">close</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_fortran_record</span></tt>()</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_int</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_fortran_record</span></tt>(record)</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_int</span></tt>(data)</td>
-<td></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
@@ -352,29 +296,6 @@ format specification. This file contains regular total fluxes.</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">close</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_fortran_record</span></tt>()</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_int</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_fortran_record</span></tt>(record)</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_int</span></tt>(data)</td>
-<td></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
@@ -398,29 +319,6 @@ format specification. This file contains adjoint total fluxes.</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">close</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_fortran_record</span></tt>()</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_int</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_fortran_record</span></tt>(record)</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_int</span></tt>(data)</td>
-<td></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
@@ -445,29 +343,6 @@ broad energy groups for different geometric zones.</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">close</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_fortran_record</span></tt>()</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_int</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_fortran_record</span></tt>(record)</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_int</span></tt>(data)</td>
-<td></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
@@ -491,29 +366,6 @@ generalized cross-sections.</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">close</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_fortran_record</span></tt>()</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_int</span></tt>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_fortran_record</span></tt>(record)</td>
-<td>Fortran formatted records start with an integer and end with the same</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">put_int</span></tt>(data)</td>
-<td></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
@@ -531,31 +383,23 @@ generalized cross-sections.</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">CCCC Formats &#8211; <tt class="docutils literal"><span class="pre">pyne.cccc</span></tt></a><ul>
-<li><a class="reference internal" href="#isotxs-class">Isotxs Class</a><ul>
-</ul>
-</li>
-<li><a class="reference internal" href="#dlayxs-class">Dlayxs Class</a><ul>
-</ul>
-</li>
-<li><a class="reference internal" href="#brkoxs-class">Brkoxs Class</a><ul>
-</ul>
-</li>
-<li><a class="reference internal" href="#rtflux-class">Rtflux Class</a><ul>
-</ul>
-</li>
-<li><a class="reference internal" href="#atflux-class">Atflux Class</a><ul>
-</ul>
-</li>
-<li><a class="reference internal" href="#rzflux-class">Rzflux Class</a><ul>
-</ul>
-</li>
-<li><a class="reference internal" href="#matxs-class">Matxs Class</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#isotxs-class">Isotxs Class</a></li>
+<li><a class="reference internal" href="#dlayxs-class">Dlayxs Class</a></li>
+<li><a class="reference internal" href="#brkoxs-class">Brkoxs Class</a></li>
+<li><a class="reference internal" href="#rtflux-class">Rtflux Class</a></li>
+<li><a class="reference internal" href="#atflux-class">Atflux Class</a></li>
+<li><a class="reference internal" href="#rzflux-class">Rzflux Class</a></li>
+<li><a class="reference internal" href="#matxs-class">Matxs Class</a></li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="njoy.html"
+                        title="previous chapter">NJOY Automation &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.njoy</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ace.html"
+                        title="next chapter">ACE Cross Sections &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.ace</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/cccc.txt"
@@ -592,6 +436,12 @@ generalized cross-sections.</p>
         <li class="right" >
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="ace.html" title="ACE Cross Sections – pyne.ace"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="njoy.html" title="NJOY Automation – pyne.njoy"
+             >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
 
@@ -603,7 +453,16 @@ generalized cross-sections.</p>
     <div class="footer">
         &copy; Copyright 2011-2012, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
     <!-- cloud_sptheme 1.3 -->
   </body>
 </html>

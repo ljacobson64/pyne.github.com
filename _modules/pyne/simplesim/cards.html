@@ -34,7 +34,21 @@
     <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.2-dev" href="../../../index.html" />
-    <link rel="up" title="Module code" href="../../index.html" /> 
+    <link rel="up" title="Module code" href="../../index.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
   </head>
   <body>
     <div class="relbar-top">
@@ -375,7 +389,7 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;The ``name`` property of the cannot be empty.&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ICard"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ICard">[docs]</a><span class="k">class</span> <span class="nc">ICard</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ICard"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ICard">[docs]</a><span class="k">class</span> <span class="nc">ICard</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for all cards.</span>
 <span class="sd">    All cards have a name property and a comment() method.</span>
 
@@ -417,7 +431,7 @@
 
     <span class="c"># All subclasses must define a comment() method.</span>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="ICard.comment"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ICard.comment">[docs]</a>    <span class="k">def</span> <span class="nf">comment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ICard.comment"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ICard.comment">[docs]</a>    <span class="k">def</span> <span class="nf">comment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;All cards define a comment describing the content of the card.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 </div>
@@ -426,7 +440,7 @@
         <span class="c"># :py:class:`pyne.simplesim.definition.SimulationDefinition`.</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&quot;Card {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 
-<div class="viewcode-block" id="ICard.json"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ICard.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ICard.json"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ICard.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns something that can be used to encode this class in a JSON</span>
 <span class="sd">        file.</span>
 
@@ -444,7 +458,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Cell"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Cell">[docs]</a><span class="k">class</span> <span class="nc">Cell</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="Cell"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Cell">[docs]</a><span class="k">class</span> <span class="nc">Cell</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A cell is a region of space filled with a material. If requesting a void</span>
 <span class="sd">    cell, the ``material``, ``density``, and ``density_units`` attributes are</span>
 <span class="sd">    all set to None (as by default).</span>
@@ -738,7 +752,7 @@
     <span class="k">def</span> <span class="nf">lattice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lattice</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="CellMCNP"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.CellMCNP">[docs]</a><span class="k">class</span> <span class="nc">CellMCNP</span><span class="p">(</span><span class="n">Cell</span><span class="p">):</span>
+<div class="viewcode-block" id="CellMCNP"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.CellMCNP">[docs]</a><span class="k">class</span> <span class="nc">CellMCNP</span><span class="p">(</span><span class="n">Cell</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A cell card with keyword options that are available in MCNP.</span>
 <span class="sd">    Thus, it</span>
 <span class="sd">    only makes sense to use this card if writing an input for MCNP. A number of</span>
@@ -1270,7 +1284,7 @@
     <span class="k">def</span> <span class="nf">user_custom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_custom</span> <span class="o">=</span> <span class="n">value</span>
     
 </div>
-<div class="viewcode-block" id="IUniverse"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IUniverse">[docs]</a><span class="k">class</span> <span class="nc">IUniverse</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="IUniverse"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IUniverse">[docs]</a><span class="k">class</span> <span class="nc">IUniverse</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for all</span>
 <span class="sd">    universe cards.</span>
 
@@ -1283,14 +1297,14 @@
         <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="UniverseByRegion"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.UniverseByRegion">[docs]</a><span class="k">class</span> <span class="nc">UniverseByRegion</span><span class="p">(</span><span class="n">IUniverse</span><span class="p">):</span>
+<div class="viewcode-block" id="UniverseByRegion"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.UniverseByRegion">[docs]</a><span class="k">class</span> <span class="nc">UniverseByRegion</span><span class="p">(</span><span class="n">IUniverse</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented. Use cell card keywords.&quot;&quot;&quot;</span>
     <span class="c"># TODO</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">region</span><span class="p">):</span>
         <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="UniverseByLattice"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.UniverseByLattice">[docs]</a><span class="k">class</span> <span class="nc">UniverseByLattice</span><span class="p">(</span><span class="n">IUniverse</span><span class="p">):</span>
+<div class="viewcode-block" id="UniverseByLattice"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.UniverseByLattice">[docs]</a><span class="k">class</span> <span class="nc">UniverseByLattice</span><span class="p">(</span><span class="n">IUniverse</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented. Use cell card keywords.&quot;&quot;&quot;</span>
     <span class="c"># TODO</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">lattice</span><span class="p">):</span>
@@ -1304,7 +1318,7 @@
         <span class="k">pass</span>
 
 
-<div class="viewcode-block" id="LatticeByArray"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.LatticeByArray">[docs]</a><span class="k">class</span> <span class="nc">LatticeByArray</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="LatticeByArray"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.LatticeByArray">[docs]</a><span class="k">class</span> <span class="nc">LatticeByArray</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented. Use cell card keywords.&quot;&quot;&quot;</span>
     <span class="c"># TODO</span>
     <span class="c"># TODO support of 3D arrays.</span>
@@ -1313,7 +1327,7 @@
         <span class="k">pass</span>
         
 </div>
-<div class="viewcode-block" id="Material"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Material">[docs]</a><span class="k">class</span> <span class="nc">Material</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="Material"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Material">[docs]</a><span class="k">class</span> <span class="nc">Material</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;In MCNP, this is the **M** card.</span>
 <span class="sd">    Adds the attributes</span>
 <span class="sd">    :py:attr:`description`, :py:attr:`tables` and the methods</span>
@@ -1453,13 +1467,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_max_table_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
 
 </div>
-<div class="viewcode-block" id="MaterialMCNP"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.MaterialMCNP">[docs]</a><span class="k">class</span> <span class="nc">MaterialMCNP</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
+<div class="viewcode-block" id="MaterialMCNP"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.MaterialMCNP">[docs]</a><span class="k">class</span> <span class="nc">MaterialMCNP</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented; would automate the selection of table identifiers. &quot;&quot;&quot;</span>
     <span class="c"># TODO</span>
     <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="ISurface"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ISurface">[docs]</a><span class="k">class</span> <span class="nc">ISurface</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="ISurface"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ISurface">[docs]</a><span class="k">class</span> <span class="nc">ISurface</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for all</span>
 <span class="sd">    surface cards.</span>
 
@@ -1516,7 +1530,7 @@
                 <span class="n">keystring</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">formatstr</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">surface_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 
-<div class="viewcode-block" id="ISurface.shift"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ISurface.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="ISurface.shift"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ISurface.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Translates the surface. This is an abstract method, and must be</span>
 <span class="sd">        defined by each surface card. Shifts may not be permitted for all</span>
 <span class="sd">        surfaces in all directions, and in such cases an exception is raised.</span>
@@ -1538,7 +1552,7 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&quot;Shifting not implemented for &quot;</span>
                 <span class="s">&quot;{0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 </div>
-<div class="viewcode-block" id="ISurface.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ISurface.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="ISurface.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ISurface.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Stretches (scales) the surface from the origin. This is an abstract</span>
 <span class="sd">        method, and must be defined by each surface card. Stretches may not be</span>
 <span class="sd">        permitted for all surfaces in all directions, and in such cases an</span>
@@ -1565,7 +1579,7 @@
                 <span class="s">&quot;{0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ISurface.neg"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ISurface.neg">[docs]</a>    <span class="k">def</span> <span class="nf">neg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ISurface.neg"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ISurface.neg">[docs]</a>    <span class="k">def</span> <span class="nf">neg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;A property that creates and returns a</span>
 <span class="sd">        :py:class:`RegionLeaf` that can then be used in</span>
 <span class="sd">        boolean arithmetic with subclasses of</span>
@@ -1592,7 +1606,7 @@
         <span class="k">return</span> <span class="n">RegionLeaf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ISurface.pos"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ISurface.pos">[docs]</a>    <span class="k">def</span> <span class="nf">pos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ISurface.pos"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ISurface.pos">[docs]</a>    <span class="k">def</span> <span class="nf">pos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Similar to :py:attr:`neg`, except the resulting</span>
 <span class="sd">        :py:class:`RegionLeaf` is on the side of the surface with a positive</span>
 <span class="sd">        sense.</span>
@@ -1631,7 +1645,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_white</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="IAxisSurface"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IAxisSurface">[docs]</a><span class="k">class</span> <span class="nc">IAxisSurface</span><span class="p">(</span><span class="n">ISurface</span><span class="p">):</span>
+<div class="viewcode-block" id="IAxisSurface"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IAxisSurface">[docs]</a><span class="k">class</span> <span class="nc">IAxisSurface</span><span class="p">(</span><span class="n">ISurface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for all simple</span>
 <span class="sd">    axis-aligned surfaces. Accordingly, such classes share the cartesian_axis</span>
 <span class="sd">    property.</span>
@@ -1668,12 +1682,12 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">IAxisSurface</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
     
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="IAxisSurface.shift"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IAxisSurface.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="IAxisSurface.shift"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IAxisSurface.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;See :py:meth:`ISurface.shift`.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="IAxisSurface.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IAxisSurface.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="IAxisSurface.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IAxisSurface.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;See :py:meth:`ISurface.stretch`.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 </div>
@@ -1693,7 +1707,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cartesian_axis</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
 </div>
-<div class="viewcode-block" id="AxisCylinder"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.AxisCylinder">[docs]</a><span class="k">class</span> <span class="nc">AxisCylinder</span><span class="p">(</span><span class="n">IAxisSurface</span><span class="p">):</span>
+<div class="viewcode-block" id="AxisCylinder"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.AxisCylinder">[docs]</a><span class="k">class</span> <span class="nc">AxisCylinder</span><span class="p">(</span><span class="n">IAxisSurface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Cylinder aligned with and centered on one of the Cartesian axes.</span>
 <span class="sd">    </span>
 <span class="sd">    .. inheritance-diagram:: pyne.simplesim.cards.AxisCylinder</span>
@@ -1740,7 +1754,7 @@
         <span class="n">string</span> <span class="o">+=</span> <span class="n">float_format</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span>
         <span class="k">return</span> <span class="n">string</span>
     
-<div class="viewcode-block" id="AxisCylinder.shift"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.AxisCylinder.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="AxisCylinder.shift"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.AxisCylinder.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;See :py:meth:`ISurface.shift`. Axis cylinders can only be shifted along</span>
 <span class="sd">        their axis, and even in such cases the shift has no effect. However,</span>
 <span class="sd">        such a shift must be permitted in case this surface is part of a region</span>
@@ -1777,7 +1791,7 @@
                     <span class="s">&quot;be shifted in the {0[1]} or {0[2]} directions.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">dirs</span><span class="p">))</span>
 </div>
-<div class="viewcode-block" id="AxisCylinder.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.AxisCylinder.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="AxisCylinder.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.AxisCylinder.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;See :py:meth:`ISurface:stretch`. Axis cylinders can be stretched in</span>
 <span class="sd">        the direction of their axis, which has no effect (permitted in case</span>
 <span class="sd">        this surface is part of a region that is being stretched), or can be</span>
@@ -1841,7 +1855,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="AxisPlane"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.AxisPlane">[docs]</a><span class="k">class</span> <span class="nc">AxisPlane</span><span class="p">(</span><span class="n">IAxisSurface</span><span class="p">):</span>
+<div class="viewcode-block" id="AxisPlane"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.AxisPlane">[docs]</a><span class="k">class</span> <span class="nc">AxisPlane</span><span class="p">(</span><span class="n">IAxisSurface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Plane perpendicular to one of the Cartesian axes.</span>
 
 <span class="sd">    .. inheritance-diagram:: pyne.simplesim.cards.AxisPlane</span>
@@ -1886,7 +1900,7 @@
         <span class="n">string</span> <span class="o">+=</span> <span class="n">float_format</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
         <span class="k">return</span> <span class="n">string</span>
 
-<div class="viewcode-block" id="AxisPlane.shift"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.AxisPlane.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="AxisPlane.shift"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.AxisPlane.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;See :py:meth:`ISurface.shift`. Axis planes can be shifted in any</span>
 <span class="sd">        direction, but only shifts along their axis have an effect.</span>
 
@@ -1907,7 +1921,7 @@
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">cartesian_axis</span> <span class="o">==</span> <span class="s">&#39;y&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">+=</span> <span class="n">vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">cartesian_axis</span> <span class="o">==</span> <span class="s">&#39;z&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">+=</span> <span class="n">vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 </div>
-<div class="viewcode-block" id="AxisPlane.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.AxisPlane.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="AxisPlane.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.AxisPlane.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;See :py:meth:`ISurface.stretch`. Axis planes can be stretched in any</span>
 <span class="sd">        direction, but only stretches along their axis have an effect. The</span>
 <span class="sd">        position of the plane is scaled by the stretch factor.</span>
@@ -1938,7 +1952,7 @@
     <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="IMacrobody"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IMacrobody">[docs]</a><span class="k">class</span> <span class="nc">IMacrobody</span><span class="p">(</span><span class="n">ISurface</span><span class="p">):</span>
+<div class="viewcode-block" id="IMacrobody"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IMacrobody">[docs]</a><span class="k">class</span> <span class="nc">IMacrobody</span><span class="p">(</span><span class="n">ISurface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for all</span>
 <span class="sd">    macrobody cards. Macrobodies are an MCNP concept. The classes here account</span>
 <span class="sd">    for the notion of facets.</span>
@@ -1965,7 +1979,7 @@
     <span class="k">def</span> <span class="nf">mcnp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">IMacrobody</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="IMacrobody.facet"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IMacrobody.facet">[docs]</a>    <span class="k">def</span> <span class="nf">facet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">descriptor</span><span class="p">):</span>
+<div class="viewcode-block" id="IMacrobody.facet"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IMacrobody.facet">[docs]</a>    <span class="k">def</span> <span class="nf">facet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">descriptor</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1979,7 +1993,7 @@
             <span class="bp">self</span><span class="p">))</span>
 
 </div></div>
-<div class="viewcode-block" id="Facet"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Facet">[docs]</a><span class="k">class</span> <span class="nc">Facet</span><span class="p">(</span><span class="n">ISurface</span><span class="p">):</span>
+<div class="viewcode-block" id="Facet"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Facet">[docs]</a><span class="k">class</span> <span class="nc">Facet</span><span class="p">(</span><span class="n">ISurface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Used in conjunction with macrobodies. See</span>
 <span class="sd">    :py:meth:`pyne.simplesim.definition.SystemDefinition.surface_num` to see</span>
 <span class="sd">    how the appropriate surface number is obtained. The name of the surface is</span>
@@ -2015,7 +2029,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">macrobody</span><span class="o">.</span><span class="n">stretch</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Parallelepiped"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Parallelepiped">[docs]</a><span class="k">class</span> <span class="nc">Parallelepiped</span><span class="p">(</span><span class="n">IMacrobody</span><span class="p">):</span>
+<div class="viewcode-block" id="Parallelepiped"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Parallelepiped">[docs]</a><span class="k">class</span> <span class="nc">Parallelepiped</span><span class="p">(</span><span class="n">IMacrobody</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Rectangular parallelepiped in which all surfaces are parallel to the</span>
 <span class="sd">    cartesian axes.</span>
 
@@ -2069,7 +2083,7 @@
         <span class="k">return</span> <span class="n">string</span> <span class="o">+</span> <span class="n">formatstr</span> <span class="o">%</span> <span class="p">(</span>
                 <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xlims</span><span class="p">)</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ylims</span><span class="p">)</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zlims</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Parallelepiped.facet"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Parallelepiped.facet">[docs]</a>    <span class="k">def</span> <span class="nf">facet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">descriptor</span><span class="p">):</span>
+<div class="viewcode-block" id="Parallelepiped.facet"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Parallelepiped.facet">[docs]</a>    <span class="k">def</span> <span class="nf">facet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">descriptor</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;See :py:meth:`IMacrobody.facet`.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
@@ -2096,7 +2110,7 @@
                 <span class="n">descriptor</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">Facet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">descriptor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">facets</span><span class="p">[</span><span class="n">descriptor</span><span class="p">])</span>
 </div>
-<div class="viewcode-block" id="Parallelepiped.shift"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Parallelepiped.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="Parallelepiped.shift"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Parallelepiped.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;See :py:meth:`ISurface.shift`.</span>
 <span class="sd">        </span>
 <span class="sd">        Examples</span>
@@ -2113,7 +2127,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ylims</span> <span class="o">+=</span> <span class="n">vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zlims</span> <span class="o">+=</span> <span class="n">vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 </div>
-<div class="viewcode-block" id="Parallelepiped.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Parallelepiped.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="Parallelepiped.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Parallelepiped.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;See :py:meth:`ISurface.stretch`. Handling reflections (negative</span>
 <span class="sd">        stretch factors) requires additional consideration for this surface,</span>
 <span class="sd">        but is implemented.</span>
@@ -2177,7 +2191,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_zlims</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Cuboid"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Cuboid">[docs]</a><span class="k">class</span> <span class="nc">Cuboid</span><span class="p">(</span><span class="n">Parallelepiped</span><span class="p">):</span>
+<div class="viewcode-block" id="Cuboid"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Cuboid">[docs]</a><span class="k">class</span> <span class="nc">Cuboid</span><span class="p">(</span><span class="n">Parallelepiped</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Same exact thing as a :py:class:`Parallelepiped`. This class is provided</span>
 <span class="sd">    because the name is shorter, and thus may be preferred by those who fancy</span>
 <span class="sd">    brevity.</span>
@@ -2187,7 +2201,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Cuboid</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="IRegion"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IRegion">[docs]</a><span class="k">class</span> <span class="nc">IRegion</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="IRegion"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IRegion">[docs]</a><span class="k">class</span> <span class="nc">IRegion</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for</span>
 <span class="sd">    all regions. Represents a volume (space) confined by unions and</span>
 <span class="sd">    intersections of surfaces.</span>
@@ -2223,7 +2237,7 @@
         <span class="sd">&quot;&quot;&quot;Calls :py:meth:`union`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
 
-<div class="viewcode-block" id="IRegion.intersect"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IRegion.intersect">[docs]</a>    <span class="k">def</span> <span class="nf">intersect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+<div class="viewcode-block" id="IRegion.intersect"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IRegion.intersect">[docs]</a>    <span class="k">def</span> <span class="nf">intersect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2238,7 +2252,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">RegionAnd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="IRegion.union"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IRegion.union">[docs]</a>    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+<div class="viewcode-block" id="IRegion.union"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IRegion.union">[docs]</a>    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2253,7 +2267,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">RegionOr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="IRegion.shift"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IRegion.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="IRegion.shift"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IRegion.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Shifts all the surfaces that this region is composed of. Note that</span>
 <span class="sd">        the surfaces themselves are modified, and are not copied, so the</span>
 <span class="sd">        dimensions of the surfaces in other regions is also modified.</span>
@@ -2269,7 +2283,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">right_child</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="IRegion.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IRegion.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="IRegion.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IRegion.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Stretches all the surfaces that this region is composed of. Note that</span>
 <span class="sd">        the surfaces themselves are modified, and are not copied, so the</span>
 <span class="sd">        dimensions of the surfaces in other regions is also modified.</span>
@@ -2284,7 +2298,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">left_child</span><span class="o">.</span><span class="n">stretch</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">right_child</span><span class="o">.</span><span class="n">stretch</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="IRegion.walk"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IRegion.walk">[docs]</a>    <span class="k">def</span> <span class="nf">walk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">leaf_func</span><span class="p">,</span> <span class="n">and_func</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">or_func</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="IRegion.walk"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IRegion.walk">[docs]</a>    <span class="k">def</span> <span class="nf">walk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">leaf_func</span><span class="p">,</span> <span class="n">and_func</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">or_func</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Walks the Region tree, calling ``leaf_func`` if the Region is a</span>
 <span class="sd">        ``RegionLeaf``, ``and_func`` if the Region is a ``RegionAnd``, and</span>
 <span class="sd">        ``or_func`` if the Region is a ``RegionOr``. This is used in</span>
@@ -2302,7 +2316,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">right_child</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">leaf_func</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="IRegionBool"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IRegionBool">[docs]</a><span class="k">class</span> <span class="nc">IRegionBool</span><span class="p">(</span><span class="n">IRegion</span><span class="p">):</span>
+<div class="viewcode-block" id="IRegionBool"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IRegionBool">[docs]</a><span class="k">class</span> <span class="nc">IRegionBool</span><span class="p">(</span><span class="n">IRegion</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for</span>
 <span class="sd">    :py:class:`RegionAnd` and :py:class:`RegionOr`.</span>
 
@@ -2330,7 +2344,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_left_child</span>
 
     <span class="nd">@left_child.setter</span>
-<div class="viewcode-block" id="IRegionBool.left_child"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IRegionBool.left_child">[docs]</a>    <span class="k">def</span> <span class="nf">left_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="IRegionBool.left_child"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IRegionBool.left_child">[docs]</a>    <span class="k">def</span> <span class="nf">left_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_left_child</span> <span class="o">=</span> <span class="n">value</span>
 </div>
     <span class="nd">@property</span>
@@ -2339,11 +2353,11 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right_child</span>
 
     <span class="nd">@right_child.setter</span>
-<div class="viewcode-block" id="IRegionBool.right_child"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IRegionBool.right_child">[docs]</a>    <span class="k">def</span> <span class="nf">right_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="IRegionBool.right_child"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IRegionBool.right_child">[docs]</a>    <span class="k">def</span> <span class="nf">right_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_right_child</span> <span class="o">=</span> <span class="n">value</span>
 
 </div></div>
-<div class="viewcode-block" id="RegionAnd"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.RegionAnd">[docs]</a><span class="k">class</span> <span class="nc">RegionAnd</span><span class="p">(</span><span class="n">IRegionBool</span><span class="p">):</span>
+<div class="viewcode-block" id="RegionAnd"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.RegionAnd">[docs]</a><span class="k">class</span> <span class="nc">RegionAnd</span><span class="p">(</span><span class="n">IRegionBool</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The intersection of two regions, held in :py:attr:`left_child` and</span>
 <span class="sd">    :py:attr:`right_child`.</span>
 
@@ -2355,7 +2369,7 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">RegionAnd</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="RegionOr"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.RegionOr">[docs]</a><span class="k">class</span> <span class="nc">RegionOr</span><span class="p">(</span><span class="n">IRegionBool</span><span class="p">):</span>
+<div class="viewcode-block" id="RegionOr"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.RegionOr">[docs]</a><span class="k">class</span> <span class="nc">RegionOr</span><span class="p">(</span><span class="n">IRegionBool</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The union of two regions, held in :py:attr:`left_child` and</span>
 <span class="sd">    :py:attr:`right_child`.</span>
 
@@ -2367,7 +2381,7 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">RegionOr</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="RegionLeaf"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.RegionLeaf">[docs]</a><span class="k">class</span> <span class="nc">RegionLeaf</span><span class="p">(</span><span class="n">IRegion</span><span class="p">):</span>
+<div class="viewcode-block" id="RegionLeaf"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.RegionLeaf">[docs]</a><span class="k">class</span> <span class="nc">RegionLeaf</span><span class="p">(</span><span class="n">IRegion</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The region of space to one side of a surface (constructed by calling</span>
 <span class="sd">    :py:attr:`ISurface.neg` or :py:attr:`ISurface.pos`).</span>
 
@@ -2399,11 +2413,11 @@
         <span class="k">else</span><span class="p">:</span>               <span class="n">prefix</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span>
         <span class="k">return</span> <span class="s">&quot;{0}{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">surface_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 
-<div class="viewcode-block" id="RegionLeaf.shift"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.RegionLeaf.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="RegionLeaf.shift"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.RegionLeaf.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Calls the shift method of the surface.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="RegionLeaf.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.RegionLeaf.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="RegionLeaf.stretch"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.RegionLeaf.stretch">[docs]</a>    <span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Calls the stretch method of the surface.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">stretch</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
 </div>
@@ -2428,7 +2442,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_pos_sense</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="IMisc"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IMisc">[docs]</a><span class="k">class</span> <span class="nc">IMisc</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="IMisc"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IMisc">[docs]</a><span class="k">class</span> <span class="nc">IMisc</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for unnumbered</span>
 <span class="sd">    cards that do not fit in other categories.</span>
 
@@ -2443,7 +2457,7 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 </div>
-<div class="viewcode-block" id="ScatteringLaw"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ScatteringLaw">[docs]</a><span class="k">class</span> <span class="nc">ScatteringLaw</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="ScatteringLaw"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ScatteringLaw">[docs]</a><span class="k">class</span> <span class="nc">ScatteringLaw</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Scattering law for a material. Unique card for a given material, with</span>
 <span class="sd">    name `scatlaw-&lt;matname&gt;`. In MCNP, this is the **MT** card.</span>
 
@@ -2495,7 +2509,7 @@
     <span class="k">def</span> <span class="nf">libraries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_libraries</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="ISource"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ISource">[docs]</a><span class="k">class</span> <span class="nc">ISource</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="ISource"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ISource">[docs]</a><span class="k">class</span> <span class="nc">ISource</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for all source</span>
 <span class="sd">    cards.</span>
 
@@ -2510,7 +2524,7 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 </div>
-<div class="viewcode-block" id="GeneralSource"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.GeneralSource">[docs]</a><span class="k">class</span> <span class="nc">GeneralSource</span><span class="p">(</span><span class="n">ISource</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneralSource"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.GeneralSource">[docs]</a><span class="k">class</span> <span class="nc">GeneralSource</span><span class="p">(</span><span class="n">ISource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A general source. Unique with name `gensource`. In MCNP, this is the</span>
 <span class="sd">    **SDEF** card. See the respective code (e.g. MCNP) for the default behavior</span>
 <span class="sd">    of the arguments. Note that the x, y, and z coordinates of the</span>
@@ -3045,7 +3059,7 @@
     <span class="k">def</span> <span class="nf">user_custom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_custom</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Distribution"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Distribution">[docs]</a><span class="k">class</span> <span class="nc">Distribution</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="Distribution"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Distribution">[docs]</a><span class="k">class</span> <span class="nc">Distribution</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A distribution used in conjunction with source variables on the</span>
 <span class="sd">    :py:class:`GeneralSource` card. The value of a</span>
 <span class="sd">    source variable can be sampled from a distribution, described by this</span>
@@ -3319,7 +3333,7 @@
     <span class="k">def</span> <span class="nf">vals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Criticality"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Criticality">[docs]</a><span class="k">class</span> <span class="nc">Criticality</span><span class="p">(</span><span class="n">ISource</span><span class="p">):</span>
+<div class="viewcode-block" id="Criticality"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Criticality">[docs]</a><span class="k">class</span> <span class="nc">Criticality</span><span class="p">(</span><span class="n">ISource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A criticality source of neutrons. Unique card with name `criticality`.</span>
 <span class="sd">    In MCNP, this is the **KCODE** card.</span>
 <span class="sd">    </span>
@@ -3420,7 +3434,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_cycles</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="CriticalityPoints"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.CriticalityPoints">[docs]</a><span class="k">class</span> <span class="nc">CriticalityPoints</span><span class="p">(</span><span class="n">ISource</span><span class="p">):</span>
+<div class="viewcode-block" id="CriticalityPoints"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.CriticalityPoints">[docs]</a><span class="k">class</span> <span class="nc">CriticalityPoints</span><span class="p">(</span><span class="n">ISource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initial source points for neutrons generated by a criticality source.</span>
 <span class="sd">    Unique card with name &#39;criticalitypoints&#39;. In MCNP, this is the **KSRC**</span>
 <span class="sd">    card.</span>
@@ -3481,7 +3495,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_points</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="ITally"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ITally">[docs]</a><span class="k">class</span> <span class="nc">ITally</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="ITally"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ITally">[docs]</a><span class="k">class</span> <span class="nc">ITally</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for</span>
 <span class="sd">    tallies (MCNP) or detectors (Serpent).</span>
 
@@ -3561,7 +3575,7 @@
     <span class="k">def</span> <span class="nf">alt_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_alt_units</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="ICellSurfTally"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ICellSurfTally">[docs]</a><span class="k">class</span> <span class="nc">ICellSurfTally</span><span class="p">(</span><span class="n">ITally</span><span class="p">):</span>
+<div class="viewcode-block" id="ICellSurfTally"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ICellSurfTally">[docs]</a><span class="k">class</span> <span class="nc">ICellSurfTally</span><span class="p">(</span><span class="n">ITally</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for</span>
 <span class="sd">    tallies over cells and surfaces, as opposed to detector tallies. In MCNP,</span>
 <span class="sd">    these are the **F1**, **F2**, **F4**, **F6**, **F7** and **F8** tallies.</span>
@@ -3750,7 +3764,7 @@
     <span class="k">def</span> <span class="nf">alt_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_alt_units</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="SurfaceCurrent"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.SurfaceCurrent">[docs]</a><span class="k">class</span> <span class="nc">SurfaceCurrent</span><span class="p">(</span><span class="n">ICellSurfTally</span><span class="p">):</span>
+<div class="viewcode-block" id="SurfaceCurrent"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.SurfaceCurrent">[docs]</a><span class="k">class</span> <span class="nc">SurfaceCurrent</span><span class="p">(</span><span class="n">ICellSurfTally</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Surface current tally. In MCNP, this is the **F1** card.</span>
 
 <span class="sd">    .. inheritance-diagram:: pyne.simplesim.cards.SurfaceCurrent</span>
@@ -3808,7 +3822,7 @@
         <span class="k">return</span> <span class="n">string</span>
 
 </div>
-<div class="viewcode-block" id="IAverageTally"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IAverageTally">[docs]</a><span class="k">class</span> <span class="nc">IAverageTally</span><span class="p">(</span><span class="n">ICellSurfTally</span><span class="p">):</span>
+<div class="viewcode-block" id="IAverageTally"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IAverageTally">[docs]</a><span class="k">class</span> <span class="nc">IAverageTally</span><span class="p">(</span><span class="n">ICellSurfTally</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for</span>
 <span class="sd">    tallies of averaged quantities. In MCNP, these are the **F2**, **F4**,</span>
 <span class="sd">    **F6**, **F7** and **F8** tallies. Some of these are for cells, and some</span>
@@ -3868,7 +3882,7 @@
     <span class="k">def</span> <span class="nf">average</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_average</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="SurfaceFlux"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.SurfaceFlux">[docs]</a><span class="k">class</span> <span class="nc">SurfaceFlux</span><span class="p">(</span><span class="n">IAverageTally</span><span class="p">):</span>
+<div class="viewcode-block" id="SurfaceFlux"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.SurfaceFlux">[docs]</a><span class="k">class</span> <span class="nc">SurfaceFlux</span><span class="p">(</span><span class="n">IAverageTally</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Surface flux tally. In MCNP, this is the **F2** card.</span>
 
 <span class="sd">    .. inheritance-diagram:: pyne.simplesim.cards.SurfaceFlux</span>
@@ -3924,7 +3938,7 @@
     <span class="k">def</span> <span class="nf">total</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="CellFlux"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.CellFlux">[docs]</a><span class="k">class</span> <span class="nc">CellFlux</span><span class="p">(</span><span class="n">IAverageTally</span><span class="p">):</span>
+<div class="viewcode-block" id="CellFlux"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.CellFlux">[docs]</a><span class="k">class</span> <span class="nc">CellFlux</span><span class="p">(</span><span class="n">IAverageTally</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Cell flux tally. In MCNP, this is the **F4** card.</span>
 
 <span class="sd">    .. inheritance-diagram:: pyne.simplesim.cards.CellFlux</span>
@@ -3974,7 +3988,7 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">CellFlux</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="n">float_format</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcnp_num</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="CellEnergyDeposition"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.CellEnergyDeposition">[docs]</a><span class="k">class</span> <span class="nc">CellEnergyDeposition</span><span class="p">(</span><span class="n">IAverageTally</span><span class="p">):</span>
+<div class="viewcode-block" id="CellEnergyDeposition"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.CellEnergyDeposition">[docs]</a><span class="k">class</span> <span class="nc">CellEnergyDeposition</span><span class="p">(</span><span class="n">IAverageTally</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Energy deposition tally. In MCNP, this is the **F6** card. In MCNP, it</span>
 <span class="sd">    is not permitted to use a particle &#39;all&#39; and also to use alternative units.</span>
 
@@ -4066,7 +4080,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_particle</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="CellFissionEnergyDeposition"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.CellFissionEnergyDeposition">[docs]</a><span class="k">class</span> <span class="nc">CellFissionEnergyDeposition</span><span class="p">(</span><span class="n">IAverageTally</span><span class="p">):</span>        
+<div class="viewcode-block" id="CellFissionEnergyDeposition"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.CellFissionEnergyDeposition">[docs]</a><span class="k">class</span> <span class="nc">CellFissionEnergyDeposition</span><span class="p">(</span><span class="n">IAverageTally</span><span class="p">):</span>        
     <span class="sd">&quot;&quot;&quot;Fission energy deposition tally. In MCNP, this is the **F7** card. The</span>
 <span class="sd">    particle is necessarily neutron.</span>
 
@@ -4118,7 +4132,7 @@
                 <span class="n">float_format</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcnp_num</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="CellPulseHeight"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.CellPulseHeight">[docs]</a><span class="k">class</span> <span class="nc">CellPulseHeight</span><span class="p">(</span><span class="n">IAverageTally</span><span class="p">):</span>
+<div class="viewcode-block" id="CellPulseHeight"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.CellPulseHeight">[docs]</a><span class="k">class</span> <span class="nc">CellPulseHeight</span><span class="p">(</span><span class="n">IAverageTally</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Pulse height tally in cells. In MCNP, this is the **F8** card. For a</span>
 <span class="sd">    charge deposition tally, see :py:class:`CellChargeDeposition`.</span>
 
@@ -4177,7 +4191,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_particle</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="CellChargeDeposition"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.CellChargeDeposition">[docs]</a><span class="k">class</span> <span class="nc">CellChargeDeposition</span><span class="p">(</span><span class="n">CellPulseHeight</span><span class="p">):</span>
+<div class="viewcode-block" id="CellChargeDeposition"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.CellChargeDeposition">[docs]</a><span class="k">class</span> <span class="nc">CellChargeDeposition</span><span class="p">(</span><span class="n">CellPulseHeight</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Charge deposition tally in cells. In MCNP, this is the **+F8** card. No</span>
 <span class="sd">    alternative units are available.</span>
 
@@ -4223,7 +4237,7 @@
                                                       <span class="n">pre</span><span class="o">=</span><span class="s">&#39;+&#39;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="IDetector"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IDetector">[docs]</a><span class="k">class</span> <span class="nc">IDetector</span><span class="p">(</span><span class="n">ITally</span><span class="p">):</span>
+<div class="viewcode-block" id="IDetector"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IDetector">[docs]</a><span class="k">class</span> <span class="nc">IDetector</span><span class="p">(</span><span class="n">ITally</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the detector. Abstract base class for detector</span>
 <span class="sd">    tallies.</span>
 <span class="sd">    </span>
@@ -4294,7 +4308,7 @@
     <span class="k">def</span> <span class="nf">sep_direct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep_direct</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="PointDetector"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.PointDetector">[docs]</a><span class="k">class</span> <span class="nc">PointDetector</span><span class="p">(</span><span class="n">IDetector</span><span class="p">):</span>
+<div class="viewcode-block" id="PointDetector"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.PointDetector">[docs]</a><span class="k">class</span> <span class="nc">PointDetector</span><span class="p">(</span><span class="n">IDetector</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A point detector tally. In MCNP, this is the **F5** card. This is not to</span>
 <span class="sd">    be confused with the more general use of the term `Detector` in Serpent.</span>
 
@@ -4364,7 +4378,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">PointDetector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">particles</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
                                             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PointDetector.add"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.PointDetector.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">soe_radius</span><span class="p">,</span> <span class="n">soe_units</span><span class="p">):</span>
+<div class="viewcode-block" id="PointDetector.add"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.PointDetector.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">soe_radius</span><span class="p">,</span> <span class="n">soe_units</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -4403,7 +4417,7 @@
             <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">det</span><span class="o">.</span><span class="n">soe_units</span> <span class="o">==</span> <span class="s">&#39;mfp&#39;</span> <span class="k">else</span> <span class="mi">1</span><span class="p">),))</span>
 
 </div>
-<div class="viewcode-block" id="RingDetector"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.RingDetector">[docs]</a><span class="k">class</span> <span class="nc">RingDetector</span><span class="p">(</span><span class="n">IDetector</span><span class="p">):</span>
+<div class="viewcode-block" id="RingDetector"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.RingDetector">[docs]</a><span class="k">class</span> <span class="nc">RingDetector</span><span class="p">(</span><span class="n">IDetector</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A ring detector tally. In MCNP, this is the **F5a** card. This is not to</span>
 <span class="sd">    be confused with the more general use of the term `Detector` in Serpent.</span>
 
@@ -4471,7 +4485,7 @@
                                            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cartesian_axis</span> <span class="o">=</span> <span class="n">cartesian_axis</span>
 
-<div class="viewcode-block" id="RingDetector.add"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.RingDetector.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">soe_radius</span><span class="p">,</span> <span class="n">soe_units</span><span class="p">):</span>
+<div class="viewcode-block" id="RingDetector.add"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.RingDetector.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">soe_radius</span><span class="p">,</span> <span class="n">soe_units</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;\</span>
 
 <span class="sd">        Parameters</span>
@@ -4521,7 +4535,7 @@
     <span class="k">def</span> <span class="nf">cartesian_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cartesian_axis</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="EnergyGrid"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.EnergyGrid">[docs]</a><span class="k">class</span> <span class="nc">EnergyGrid</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="EnergyGrid"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.EnergyGrid">[docs]</a><span class="k">class</span> <span class="nc">EnergyGrid</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Energy grid for tallies. In MCNP, this is the **E** card.</span>
 
 <span class="sd">    .. inheritance-diagram:: pyne.simplesim.cards.EnergyGrid</span>
@@ -4578,37 +4592,37 @@
     <span class="k">def</span> <span class="nf">energies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_energies</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Comment"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Comment">[docs]</a><span class="k">class</span> <span class="nc">Comment</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="Comment"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Comment">[docs]</a><span class="k">class</span> <span class="nc">Comment</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="Mode"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Mode">[docs]</a><span class="k">class</span> <span class="nc">Mode</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="Mode"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Mode">[docs]</a><span class="k">class</span> <span class="nc">Mode</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="NeutronPhysics"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.NeutronPhysics">[docs]</a><span class="k">class</span> <span class="nc">NeutronPhysics</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="NeutronPhysics"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.NeutronPhysics">[docs]</a><span class="k">class</span> <span class="nc">NeutronPhysics</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="PhotonPhysics"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.PhotonPhysics">[docs]</a><span class="k">class</span> <span class="nc">PhotonPhysics</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="PhotonPhysics"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.PhotonPhysics">[docs]</a><span class="k">class</span> <span class="nc">PhotonPhysics</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="ElectronPhysics"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ElectronPhysics">[docs]</a><span class="k">class</span> <span class="nc">ElectronPhysics</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="ElectronPhysics"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ElectronPhysics">[docs]</a><span class="k">class</span> <span class="nc">ElectronPhysics</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="ProtonPhysics"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ProtonPhysics">[docs]</a><span class="k">class</span> <span class="nc">ProtonPhysics</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="ProtonPhysics"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ProtonPhysics">[docs]</a><span class="k">class</span> <span class="nc">ProtonPhysics</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="Transformation"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Transformation">[docs]</a><span class="k">class</span> <span class="nc">Transformation</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="Transformation"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Transformation">[docs]</a><span class="k">class</span> <span class="nc">Transformation</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A coordinate transformation. In MCNP, this is the **TR** card. MCNP</span>
 <span class="sd">    allows the specification of less than 9 values in the rotation matrix; this</span>
 <span class="sd">    is not supported here. Note that if generating an input for MCNP, this card</span>
@@ -4720,7 +4734,7 @@
     <span class="k">def</span> <span class="nf">aux_in_main</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aux_in_main</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="ICellMod"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ICellMod">[docs]</a><span class="k">class</span> <span class="nc">ICellMod</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="ICellMod"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ICellMod">[docs]</a><span class="k">class</span> <span class="nc">ICellMod</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for cards that</span>
 <span class="sd">    can be specified in MCNP on both the cell card or in the data block.  All</span>
 <span class="sd">    subclasses are unique, have a ``cell`` property, and have a similar form.</span>
@@ -4756,7 +4770,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="n">i_start</span><span class="p">:</span><span class="n">i_start</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_args_per_cell</span><span class="p">])</span>
 
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="ICellMod.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ICellMod.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+<div class="viewcode-block" id="ICellMod.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ICellMod.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one. See subclasses.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">cell</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span> <span class="o">+=</span> <span class="p">[</span><span class="n">cell</span><span class="p">]</span>
@@ -4812,7 +4826,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Universes"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Universes">[docs]</a><span class="k">class</span> <span class="nc">Universes</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
+<div class="viewcode-block" id="Universes"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Universes">[docs]</a><span class="k">class</span> <span class="nc">Universes</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Universe names for each cell. Unique card with name `universes`. In</span>
 <span class="sd">    MCNP, this is the **U** card. The user can initialize this card without</span>
 <span class="sd">    providing any universe names.</span>
@@ -4851,7 +4865,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">truncates</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Universes.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Universes.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">univ_name</span><span class="p">,</span> <span class="n">truncate</span><span class="p">):</span>
+<div class="viewcode-block" id="Universes.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Universes.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">univ_name</span><span class="p">,</span> <span class="n">truncate</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -4902,7 +4916,7 @@
     <span class="k">def</span> <span class="nf">truncates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_truncates</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Fill"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Fill">[docs]</a><span class="k">class</span> <span class="nc">Fill</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
+<div class="viewcode-block" id="Fill"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Fill">[docs]</a><span class="k">class</span> <span class="nc">Fill</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Allows the user to fill certain cells with a universe or lattice. Unique</span>
 <span class="sd">    card with name `fill`. In MCNP, this is the **FILL** card. The user can</span>
 <span class="sd">    initialize this card without providing any inputs. </span>
@@ -4945,7 +4959,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">univ_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Fill.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Fill.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">univ_name</span><span class="p">):</span>
+<div class="viewcode-block" id="Fill.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Fill.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">univ_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -4984,7 +4998,7 @@
     <span class="k">def</span> <span class="nf">univ_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_univ_names</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Lattice"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Lattice">[docs]</a><span class="k">class</span> <span class="nc">Lattice</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
+<div class="viewcode-block" id="Lattice"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Lattice">[docs]</a><span class="k">class</span> <span class="nc">Lattice</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Sets cells to be lattice cells. Unique card with name `lattice`. In MCNP,</span>
 <span class="sd">    this is the **LAT** card. The user can initialize this card without</span>
 <span class="sd">    providing any inputs.</span>
@@ -5030,7 +5044,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Lattice.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Lattice.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">setting</span><span class="p">):</span>
+<div class="viewcode-block" id="Lattice.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Lattice.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">setting</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -5074,7 +5088,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Volume"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Volume">[docs]</a><span class="k">class</span> <span class="nc">Volume</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
+<div class="viewcode-block" id="Volume"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Volume">[docs]</a><span class="k">class</span> <span class="nc">Volume</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Cell volumes. Unique card with name `volume`. In MCNP, this is the</span>
 <span class="sd">    **VOL** card. The user can initialize this card without providing any cell</span>
 <span class="sd">    volumes.</span>
@@ -5111,7 +5125,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">vols</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Volume.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Volume.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">vol</span><span class="p">):</span>
+<div class="viewcode-block" id="Volume.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Volume.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">vol</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -5164,7 +5178,7 @@
     <span class="k">def</span> <span class="nf">vols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vols</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Area"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Area">[docs]</a><span class="k">class</span> <span class="nc">Area</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
+<div class="viewcode-block" id="Area"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Area">[docs]</a><span class="k">class</span> <span class="nc">Area</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Cell surface areas. Unique card with name `area`. In MCNP, this is the</span>
 <span class="sd">    **AREA** card. The user can initialize this card without providing any cell</span>
 <span class="sd">    areas.</span>
@@ -5197,7 +5211,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">areas</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Area.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Area.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
+<div class="viewcode-block" id="Area.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Area.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -5240,7 +5254,7 @@
     <span class="k">def</span> <span class="nf">areas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_areas</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="FissionTurnoff"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.FissionTurnoff">[docs]</a><span class="k">class</span> <span class="nc">FissionTurnoff</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
+<div class="viewcode-block" id="FissionTurnoff"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.FissionTurnoff">[docs]</a><span class="k">class</span> <span class="nc">FissionTurnoff</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fission turnoff options. Unique card with name `fissionturnoff`. In</span>
 <span class="sd">    MCNP, this is the **NONU** card. If no arguments are provided, then the</span>
 <span class="sd">    setting of &#39;capture-gamma&#39; is applied to all cells.</span>
@@ -5281,7 +5295,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FissionTurnoff.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.FissionTurnoff.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">setting</span><span class="p">):</span>
+<div class="viewcode-block" id="FissionTurnoff.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.FissionTurnoff.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">setting</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -5336,7 +5350,7 @@
     <span class="k">def</span> <span class="nf">settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="PhotonWeight"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.PhotonWeight">[docs]</a><span class="k">class</span> <span class="nc">PhotonWeight</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
+<div class="viewcode-block" id="PhotonWeight"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.PhotonWeight">[docs]</a><span class="k">class</span> <span class="nc">PhotonWeight</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Controls production of neutron-induced photons through particle weight.</span>
 <span class="sd">    Unique card with name `photonweight`. In MCNP, this is the **PWT** card.</span>
 <span class="sd">    Unlike with other subclasses of :py:class:`ICellMod` and</span>
@@ -5356,7 +5370,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">PhotonWeight</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="s">&#39;photonweight&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-<div class="viewcode-block" id="PhotonWeight.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.PhotonWeight.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">setting</span><span class="p">,</span> <span class="n">pre_weight</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="PhotonWeight.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.PhotonWeight.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">setting</span><span class="p">,</span> <span class="n">pre_weight</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -5437,7 +5451,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="DetectorContribution"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.DetectorContribution">[docs]</a><span class="k">class</span> <span class="nc">DetectorContribution</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
+<div class="viewcode-block" id="DetectorContribution"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.DetectorContribution">[docs]</a><span class="k">class</span> <span class="nc">DetectorContribution</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Probability of contribution of cell to a detector. Unique card with name</span>
 <span class="sd">    `detcontrib-&lt;detname&gt;`. In MCNP, this is the **PD** card.</span>
 
@@ -5480,7 +5494,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">probs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="DetectorContribution.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.DetectorContribution.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">prob</span><span class="p">):</span>
+<div class="viewcode-block" id="DetectorContribution.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.DetectorContribution.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">prob</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -5527,7 +5541,7 @@
     <span class="k">def</span> <span class="nf">probs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probs</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="IUniqueParticle"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.IUniqueParticle">[docs]</a><span class="k">class</span> <span class="nc">IUniqueParticle</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="IUniqueParticle"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.IUniqueParticle">[docs]</a><span class="k">class</span> <span class="nc">IUniqueParticle</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for cards that</span>
 <span class="sd">    are unique for a given particle.</span>
 
@@ -5558,7 +5572,7 @@
     <span class="k">def</span> <span class="nf">particle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_particle</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Temperature"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Temperature">[docs]</a><span class="k">class</span> <span class="nc">Temperature</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
+<div class="viewcode-block" id="Temperature"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Temperature">[docs]</a><span class="k">class</span> <span class="nc">Temperature</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Temperature of cells. Unique card with name `temperature`. If a time</span>
 <span class="sd">    index is provided, the unique name is `temperature-idx&lt;index&gt;`. In MCNP, this</span>
 <span class="sd">    is the **TMP** card and is used for the free gas thermal treatment. This</span>
@@ -5602,7 +5616,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">temps</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Temperature.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Temperature.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">temp</span><span class="p">):</span>
+<div class="viewcode-block" id="Temperature.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Temperature.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">temp</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -5664,7 +5678,7 @@
     <span class="k">def</span> <span class="nf">temps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> 
         <span class="bp">self</span><span class="o">.</span><span class="n">_temps</span> <span class="o">=</span> <span class="n">value</span>
 </div>
-<div class="viewcode-block" id="TemperatureTimes"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.TemperatureTimes">[docs]</a><span class="k">class</span> <span class="nc">TemperatureTimes</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="TemperatureTimes"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.TemperatureTimes">[docs]</a><span class="k">class</span> <span class="nc">TemperatureTimes</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Times at which temperatuers are specified on the :py:class:`Temperature`</span>
 <span class="sd">    card. Unique card with name `temptimes`. In MCNP, this is the **THTME**</span>
 <span class="sd">    card.</span>
@@ -5710,7 +5724,7 @@
     <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="ICellModParticle"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ICellModParticle">[docs]</a><span class="k">class</span> <span class="nc">ICellModParticle</span><span class="p">(</span><span class="n">IUniqueParticle</span><span class="p">):</span>
+<div class="viewcode-block" id="ICellModParticle"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ICellModParticle">[docs]</a><span class="k">class</span> <span class="nc">ICellModParticle</span><span class="p">(</span><span class="n">IUniqueParticle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used by the user. Abstract base class for cards that</span>
 <span class="sd">    can be specified in MCNP on both the cell card or in the data block, and</span>
 <span class="sd">    are unique by particle.  All subclasses have a ``particle`` and ``cell``</span>
@@ -5749,7 +5763,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="n">i_start</span><span class="p">:</span><span class="n">i_start</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_args_per_cell</span><span class="p">])</span>
 
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="ICellModParticle.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ICellModParticle.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+<div class="viewcode-block" id="ICellModParticle.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ICellModParticle.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one. See subclasses.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">cell</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span> <span class="o">+=</span> <span class="p">[</span><span class="n">cell</span><span class="p">]</span>
 </div>
@@ -5796,7 +5810,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Importance"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Importance">[docs]</a><span class="k">class</span> <span class="nc">Importance</span><span class="p">(</span><span class="n">ICellModParticle</span><span class="p">):</span>
+<div class="viewcode-block" id="Importance"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Importance">[docs]</a><span class="k">class</span> <span class="nc">Importance</span><span class="p">(</span><span class="n">ICellModParticle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Particle importance. Unique card for a given particle type, with name</span>
 <span class="sd">    `importance-&lt;particle&gt;`. In MCNP, this is the **IMP** card. The user can</span>
 <span class="sd">    initialize this card without providing any cell importances.  The typical</span>
@@ -5838,7 +5852,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">imps</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Importance.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Importance.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">imp</span><span class="p">):</span>
+<div class="viewcode-block" id="Importance.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Importance.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">imp</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -5881,7 +5895,7 @@
     <span class="k">def</span> <span class="nf">imps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imps</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="ExponentialTransform"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ExponentialTransform">[docs]</a><span class="k">class</span> <span class="nc">ExponentialTransform</span><span class="p">(</span><span class="n">ICellModParticle</span><span class="p">):</span>
+<div class="viewcode-block" id="ExponentialTransform"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ExponentialTransform">[docs]</a><span class="k">class</span> <span class="nc">ExponentialTransform</span><span class="p">(</span><span class="n">ICellModParticle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An exponential transform that adjusts the total cross section by a given</span>
 <span class="sd">    factor in a given direction. Unique card for a given particle type, with</span>
 <span class="sd">    name `exptransform-&lt;particle&gt;`. In MCNP, this is the **EXT** card.  The</span>
@@ -5967,7 +5981,7 @@
         <span class="c"># If information for multiple cells has been provided...</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ExponentialTransform.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ExponentialTransform.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">stretch</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">sign</span><span class="p">):</span>
+<div class="viewcode-block" id="ExponentialTransform.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ExponentialTransform.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">stretch</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">sign</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;The user can add additional transforms, for additional cells, or</span>
 <span class="sd">        modify existing values using this method. See above for a description</span>
 <span class="sd">        of the input.</span>
@@ -6061,7 +6075,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="ForcedCollision"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ForcedCollision">[docs]</a><span class="k">class</span> <span class="nc">ForcedCollision</span><span class="p">(</span><span class="n">ICellModParticle</span><span class="p">):</span>
+<div class="viewcode-block" id="ForcedCollision"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ForcedCollision">[docs]</a><span class="k">class</span> <span class="nc">ForcedCollision</span><span class="p">(</span><span class="n">ICellModParticle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A forced collision setting. Unique card for a given particle type, with</span>
 <span class="sd">    name `forcedcoll-&lt;particle&gt;`. In MCNP, this is the **FCL** card. The user</span>
 <span class="sd">    can initialize this card without requesting forced collisions.</span>
@@ -6111,7 +6125,7 @@
         <span class="c"># If information for multiple cells has been provided...</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ForcedCollision.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.ForcedCollision.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">only_entering</span><span class="p">):</span>
+<div class="viewcode-block" id="ForcedCollision.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.ForcedCollision.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">only_entering</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;The user can add additional forced collision probabilities, for</span>
 <span class="sd">        additional cells, or modify existing data, using this method. See above</span>
 <span class="sd">        for a description of the input.</span>
@@ -6167,7 +6181,7 @@
     <span class="k">def</span> <span class="nf">only_enterings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_only_enterings</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="WeightWindowBound"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.WeightWindowBound">[docs]</a><span class="k">class</span> <span class="nc">WeightWindowBound</span><span class="p">(</span><span class="n">ICellModParticle</span><span class="p">):</span>
+<div class="viewcode-block" id="WeightWindowBound"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.WeightWindowBound">[docs]</a><span class="k">class</span> <span class="nc">WeightWindowBound</span><span class="p">(</span><span class="n">ICellModParticle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Cell-based weight window lower bounds. Unique card for a given particle</span>
 <span class="sd">    type, with name `weightwinbound-&lt;particle&gt;`. In MCNP, this is the **WWN**</span>
 <span class="sd">    card. In MCNP, these are typically generated automatically using its weight</span>
@@ -6235,7 +6249,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multi_dict</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="WeightWindowBound.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.WeightWindowBound.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx_energy</span><span class="p">,</span> <span class="n">idx_time</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">bound</span><span class="p">):</span>
+<div class="viewcode-block" id="WeightWindowBound.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.WeightWindowBound.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx_energy</span><span class="p">,</span> <span class="n">idx_time</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">bound</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -6370,7 +6384,7 @@
     <span class="k">def</span> <span class="nf">bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bounds</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="WeightWindowEnergies"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.WeightWindowEnergies">[docs]</a><span class="k">class</span> <span class="nc">WeightWindowEnergies</span><span class="p">(</span><span class="n">IUniqueParticle</span><span class="p">):</span>
+<div class="viewcode-block" id="WeightWindowEnergies"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.WeightWindowEnergies">[docs]</a><span class="k">class</span> <span class="nc">WeightWindowEnergies</span><span class="p">(</span><span class="n">IUniqueParticle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Upper energy bounds for weight windows. Unique card for a given particle</span>
 <span class="sd">    type, with name `weightwinenergy-&lt;particle&gt;` or</span>
 <span class="sd">    `weightwingenenergy-&lt;particle&gt;`. In MCNP, this is the **WWE**</span>
@@ -6460,7 +6474,7 @@
     <span class="k">def</span> <span class="nf">for_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_for_gen</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="WeightWindowTimes"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.WeightWindowTimes">[docs]</a><span class="k">class</span> <span class="nc">WeightWindowTimes</span><span class="p">(</span><span class="n">IUniqueParticle</span><span class="p">):</span>
+<div class="viewcode-block" id="WeightWindowTimes"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.WeightWindowTimes">[docs]</a><span class="k">class</span> <span class="nc">WeightWindowTimes</span><span class="p">(</span><span class="n">IUniqueParticle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Upper time bounds for weight windows. Unique card for a given particle</span>
 <span class="sd">    type, with name `weightwintime-&lt;particle&gt;` or `weightwingentime-&lt;particle`.</span>
 <span class="sd">    In MCNP this is the **WWT** or **WWGT** card.</span>
@@ -6541,7 +6555,7 @@
     <span class="k">def</span> <span class="nf">for_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_for_gen</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="DXTRANContribution"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.DXTRANContribution">[docs]</a><span class="k">class</span> <span class="nc">DXTRANContribution</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
+<div class="viewcode-block" id="DXTRANContribution"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.DXTRANContribution">[docs]</a><span class="k">class</span> <span class="nc">DXTRANContribution</span><span class="p">(</span><span class="n">ICellMod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Contribution probabilities to DXTRAN sphere by cells. Unique card for a</span>
 <span class="sd">    given particle type and DXTRAN sphere, with name</span>
 <span class="sd">    `dxtrancont-&lt;sph_name&gt;-&lt;particle&gt;` (or more simply `dxtrancont-&lt;particle&gt;`</span>
@@ -6593,7 +6607,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">probs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_varargs</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="DXTRANContribution.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.DXTRANContribution.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">prob</span><span class="p">):</span>
+<div class="viewcode-block" id="DXTRANContribution.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.DXTRANContribution.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">prob</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -6662,7 +6676,7 @@
     <span class="k">def</span> <span class="nf">probs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probs</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="DXTRANSpheres"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.DXTRANSpheres">[docs]</a><span class="k">class</span> <span class="nc">DXTRANSpheres</span><span class="p">(</span><span class="n">IUniqueParticle</span><span class="p">):</span>
+<div class="viewcode-block" id="DXTRANSpheres"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.DXTRANSpheres">[docs]</a><span class="k">class</span> <span class="nc">DXTRANSpheres</span><span class="p">(</span><span class="n">IUniqueParticle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;DXTRAN spheres. Unique card for a given particle type, with name</span>
 <span class="sd">    `dixtranspheres-&lt;particle&gt;`. In MCNP, this is the **DXT** card. See the</span>
 <span class="sd">    code&#39;s (e.g. MCNP&#39;s) manual for default values. All the spheres added to</span>
@@ -6727,7 +6741,7 @@
             <span class="n">i_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_args_per_set</span> <span class="o">*</span> <span class="n">i_set</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="n">i_start</span><span class="p">:</span><span class="n">i_start</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_args_per_set</span><span class="p">])</span>
 
-<div class="viewcode-block" id="DXTRANSpheres.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.DXTRANSpheres.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sph_name</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">inner_radius</span><span class="p">,</span> <span class="n">outer_radius</span><span class="p">):</span>
+<div class="viewcode-block" id="DXTRANSpheres.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.DXTRANSpheres.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sph_name</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">inner_radius</span><span class="p">,</span> <span class="n">outer_radius</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an entry or modify an existing one.</span>
 
 <span class="sd">        Parameters</span>
@@ -6830,7 +6844,7 @@
     <span class="k">def</span> <span class="nf">spheres</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spheres</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
-<div class="viewcode-block" id="Vector"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Vector">[docs]</a><span class="k">class</span> <span class="nc">Vector</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Vector">[docs]</a><span class="k">class</span> <span class="nc">Vector</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Position vector. In MCNP, this is the **VECT** card. Unique card with name</span>
 <span class="sd">    `vector`. Vector are added to the card via the :py:meth:`add`. The card is</span>
 <span class="sd">    used with the :py:class:`ExponentialTransform` card in MCNP.</span>
@@ -6844,7 +6858,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="s">&#39;vector&#39;</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vectors</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Vector.set"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Vector.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vecname</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+<div class="viewcode-block" id="Vector.set"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Vector.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vecname</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds a vector with name ``vecname`` to the card. If a vector with that</span>
 <span class="sd">        vecname has already been added, that vector is then changed to the new</span>
 <span class="sd">        value. Returns the index</span>
@@ -6906,7 +6920,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vectors</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">vecname</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Burnup"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Burnup">[docs]</a><span class="k">class</span> <span class="nc">Burnup</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="Burnup"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Burnup">[docs]</a><span class="k">class</span> <span class="nc">Burnup</span><span class="p">(</span><span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unimplemented.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -6931,7 +6945,7 @@
     <span class="c">#        volume=None, conc_change=None)</span>
 
 </div>
-<div class="viewcode-block" id="Custom"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Custom">[docs]</a><span class="k">class</span> <span class="nc">Custom</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
+<div class="viewcode-block" id="Custom"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Custom">[docs]</a><span class="k">class</span> <span class="nc">Custom</span><span class="p">(</span><span class="n">ICard</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Allows the user to specify a custom card. It is logical for this class,</span>
 <span class="sd">    in the future, to have attributes like ``serpent``.</span>
 <span class="sd">    </span>
@@ -6968,7 +6982,7 @@
             <span class="k">return</span> <span class="s">&quot;Custom card.&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">comment_string</span>
 
-<div class="viewcode-block" id="Custom.mcnp"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Custom.mcnp">[docs]</a>    <span class="k">def</span> <span class="nf">mcnp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">float_format</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Custom.mcnp"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Custom.mcnp">[docs]</a>    <span class="k">def</span> <span class="nf">mcnp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">float_format</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Raises an exception if the ``mcnp`` attribute is not defined.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcnp_string</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;mcnp not defined on custom {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -6979,7 +6993,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">mcnp_string</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="CellCustom"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.CellCustom">[docs]</a><span class="k">class</span> <span class="nc">CellCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">Cell</span><span class="p">):</span>
+<div class="viewcode-block" id="CellCustom"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.CellCustom">[docs]</a><span class="k">class</span> <span class="nc">CellCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">Cell</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Custom :py:class:`Cell` card.</span>
 <span class="sd">    </span>
 <span class="sd">    .. inheritance-diagram:: CellCustom</span>
@@ -6992,7 +7006,7 @@
                 <span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">cell_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="SurfaceCustom"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.SurfaceCustom">[docs]</a><span class="k">class</span> <span class="nc">SurfaceCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">ISurface</span><span class="p">):</span>
+<div class="viewcode-block" id="SurfaceCustom"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.SurfaceCustom">[docs]</a><span class="k">class</span> <span class="nc">SurfaceCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">ISurface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Custom :py:class:`ISurface` card.</span>
 <span class="sd">    </span>
 <span class="sd">    .. inheritance-diagram:: SurfaceCustom</span>
@@ -7005,7 +7019,7 @@
                 <span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">surface_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="MaterialCustom"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.MaterialCustom">[docs]</a><span class="k">class</span> <span class="nc">MaterialCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">Material</span><span class="p">):</span>
+<div class="viewcode-block" id="MaterialCustom"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.MaterialCustom">[docs]</a><span class="k">class</span> <span class="nc">MaterialCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">Material</span><span class="p">):</span>
 <span class="c">#class MaterialCustom(Material, Custom):</span>
     <span class="sd">&quot;&quot;&quot;Custom :py:class:`Material` card.</span>
 
@@ -7029,7 +7043,7 @@
                 <span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">material_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">),</span> <span class="n">pre</span><span class="o">=</span><span class="s">&quot;M&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="SourceCustom"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.SourceCustom">[docs]</a><span class="k">class</span> <span class="nc">SourceCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">ISource</span><span class="p">):</span>
+<div class="viewcode-block" id="SourceCustom"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.SourceCustom">[docs]</a><span class="k">class</span> <span class="nc">SourceCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">ISource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Custom :py:class:`ISource` card.</span>
 <span class="sd">    </span>
 <span class="sd">    .. inheritance-diagram:: SourceCustom</span>
@@ -7038,7 +7052,7 @@
     <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="DistributionCustom"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.DistributionCustom">[docs]</a><span class="k">class</span> <span class="nc">DistributionCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">Distribution</span><span class="p">):</span>
+<div class="viewcode-block" id="DistributionCustom"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.DistributionCustom">[docs]</a><span class="k">class</span> <span class="nc">DistributionCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">Distribution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Custom :py:class:`Distribution` card.</span>
 <span class="sd">    </span>
 <span class="sd">    .. inheritance-diagram:: DistributionCustom</span>
@@ -7086,7 +7100,7 @@
         <span class="k">return</span> <span class="n">string</span>
 
 </div>
-<div class="viewcode-block" id="TallyCustom"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.TallyCustom">[docs]</a><span class="k">class</span> <span class="nc">TallyCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">ITally</span><span class="p">):</span>
+<div class="viewcode-block" id="TallyCustom"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.TallyCustom">[docs]</a><span class="k">class</span> <span class="nc">TallyCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">ITally</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Custom :py:class:`ITally` card.</span>
 <span class="sd">    The card is printed in the order that it</span>
 <span class="sd">    is added, but unlike with the other custom cards the user must provide</span>
@@ -7148,7 +7162,7 @@
                     <span class="n">pre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mcnp_pre</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="MiscCustom"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.MiscCustom">[docs]</a><span class="k">class</span> <span class="nc">MiscCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">IMisc</span><span class="p">):</span>
+<div class="viewcode-block" id="MiscCustom"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.MiscCustom">[docs]</a><span class="k">class</span> <span class="nc">MiscCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">IMisc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Custom :py:class:`IMisc` card.</span>
 <span class="sd">    </span>
 <span class="sd">    .. inheritance-diagram:: MiscCustom</span>
@@ -7157,7 +7171,7 @@
     <span class="k">pass</span>
 
 </div>
-<div class="viewcode-block" id="TransformationCustom"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.TransformationCustom">[docs]</a><span class="k">class</span> <span class="nc">TransformationCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">Transformation</span><span class="p">):</span>
+<div class="viewcode-block" id="TransformationCustom"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.TransformationCustom">[docs]</a><span class="k">class</span> <span class="nc">TransformationCustom</span><span class="p">(</span><span class="n">Custom</span><span class="p">,</span> <span class="n">Transformation</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Custom :py:class:`Transformation` card.</span>
 
 <span class="sd">    .. inheritance-diagram:: TransformationCustom</span>
@@ -7170,7 +7184,7 @@
                 <span class="n">sim</span><span class="o">.</span><span class="n">transformation_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">),</span> <span class="n">pre</span><span class="o">=</span><span class="s">&quot;TR&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Particle"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Particle">[docs]</a><span class="k">class</span> <span class="nc">Particle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Particle"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Particle">[docs]</a><span class="k">class</span> <span class="nc">Particle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Facilitates the use of particle abbreviations, and is an attribute in</span>
 <span class="sd">    various cards (:py:class:`ITally` cards, and other :py:class:`IMisc` cards.)</span>
 <span class="sd">    </span>
@@ -7237,7 +7251,7 @@
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
-<div class="viewcode-block" id="Particle.mcnp"><a class="viewcode-back" href="../../../pyapi/simplesim_cards.html#pyne.simplesim.cards.Particle.mcnp">[docs]</a>    <span class="k">def</span> <span class="nf">mcnp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Particle.mcnp"><a class="viewcode-back" href="../../../pyapi/simplesim/cards.html#pyne.simplesim.cards.Particle.mcnp">[docs]</a>    <span class="k">def</span> <span class="nf">mcnp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -7301,7 +7315,16 @@
     <div class="footer">
         &copy; Copyright 2011-2012, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
     <!-- cloud_sptheme 1.3 -->
   </body>
 </html>

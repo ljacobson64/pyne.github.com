@@ -35,7 +35,22 @@
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
-    <link rel="prev" title="Inheritance Diagrams" href="simplesim_inheritance.html" /> 
+    <link rel="next" title="C++ API" href="../cppapi/index.html" />
+    <link rel="prev" title="Inheritance Diagrams" href="simplesim/inheritance.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
   </head>
   <body>
     <div class="relbar-top">
@@ -53,7 +68,10 @@
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="simplesim_inheritance.html" title="Inheritance Diagrams"
+          <a href="../cppapi/index.html" title="C++ API"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="simplesim/inheritance.html" title="Inheritance Diagrams"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
@@ -99,89 +117,6 @@ for <a class="reference internal" href="../usersguide/jsoncpp.html#usersguide-js
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.append" title="pyne.jsoncpp.Value.append"><tt class="xref py py-obj docutils literal"><span class="pre">append</span></tt></a></td>
-<td>Adds the value to the end of the array.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.Value.clear" title="pyne.jsoncpp.Value.clear"><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></a></td>
-<td>Removes all elements of JSON value.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.count" title="pyne.jsoncpp.Value.count"><tt class="xref py py-obj docutils literal"><span class="pre">count</span></tt></a></td>
-<td>Counts the number of instances of value.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.Value.extend" title="pyne.jsoncpp.Value.extend"><tt class="xref py py-obj docutils literal"><span class="pre">extend</span></tt></a></td>
-<td>Exetend the array by adding elements from the iterable to the end.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.get" title="pyne.jsoncpp.Value.get"><tt class="xref py py-obj docutils literal"><span class="pre">get</span></tt></a></td>
-<td>Returns key if present, or default otherwise.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.Value.index" title="pyne.jsoncpp.Value.index"><tt class="xref py py-obj docutils literal"><span class="pre">index</span></tt></a></td>
-<td>Finds the first index of value on range from start to stop.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.insert" title="pyne.jsoncpp.Value.insert"><tt class="xref py py-obj docutils literal"><span class="pre">insert</span></tt></a></td>
-<td>Inserts the value at position ind.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.Value.isarray" title="pyne.jsoncpp.Value.isarray"><tt class="xref py py-obj docutils literal"><span class="pre">isarray</span></tt></a></td>
-<td>True if JSON array or null, False otherwise.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.isbool" title="pyne.jsoncpp.Value.isbool"><tt class="xref py py-obj docutils literal"><span class="pre">isbool</span></tt></a></td>
-<td>True if JSON boolean, False otherwise.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.Value.isfloat" title="pyne.jsoncpp.Value.isfloat"><tt class="xref py py-obj docutils literal"><span class="pre">isfloat</span></tt></a></td>
-<td>True if is any JSON float or double type, False otherwise.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.isint" title="pyne.jsoncpp.Value.isint"><tt class="xref py py-obj docutils literal"><span class="pre">isint</span></tt></a></td>
-<td>True if is any JSON integer type, False otherwise.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.Value.isnull" title="pyne.jsoncpp.Value.isnull"><tt class="xref py py-obj docutils literal"><span class="pre">isnull</span></tt></a></td>
-<td>True if JSON null, False otherwise.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.isobject" title="pyne.jsoncpp.Value.isobject"><tt class="xref py py-obj docutils literal"><span class="pre">isobject</span></tt></a></td>
-<td>True if JSON object or null, False otherwise.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.Value.isstring" title="pyne.jsoncpp.Value.isstring"><tt class="xref py py-obj docutils literal"><span class="pre">isstring</span></tt></a></td>
-<td>True if JSON string, False otherwise.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.items" title="pyne.jsoncpp.Value.items"><tt class="xref py py-obj docutils literal"><span class="pre">items</span></tt></a></td>
-<td>Returns a list of items in JSON object.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.Value.keys" title="pyne.jsoncpp.Value.keys"><tt class="xref py py-obj docutils literal"><span class="pre">keys</span></tt></a></td>
-<td>Returns a list of keys in JSON object.</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">pop</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">popitem</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.remove" title="pyne.jsoncpp.Value.remove"><tt class="xref py py-obj docutils literal"><span class="pre">remove</span></tt></a></td>
-<td>Removes the first instance of value from the array.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.Value.reverse" title="pyne.jsoncpp.Value.reverse"><tt class="xref py py-obj docutils literal"><span class="pre">reverse</span></tt></a></td>
-<td>Reverses the array in place.</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">setdefault</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.Value.type" title="pyne.jsoncpp.Value.type"><tt class="xref py py-obj docutils literal"><span class="pre">type</span></tt></a></td>
-<td>The type number of this JSON value.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.type_name" title="pyne.jsoncpp.Value.type_name"><tt class="xref py py-obj docutils literal"><span class="pre">type_name</span></tt></a></td>
-<td>The type name of this JSON value.</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">update</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Value.values" title="pyne.jsoncpp.Value.values"><tt class="xref py py-obj docutils literal"><span class="pre">values</span></tt></a></td>
-<td>Returns a list of values in JSON object.</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyne.jsoncpp.Value.append">
 <tt class="descname">append</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.jsoncpp.Value.append" title="Permalink to this definition">¶</a></dt>
@@ -315,17 +250,6 @@ for <a class="reference internal" href="../usersguide/jsoncpp.html#usersguide-js
 <em class="property">class </em><tt class="descclassname">pyne.jsoncpp.</tt><tt class="descname">Reader</tt><a class="headerlink" href="#pyne.jsoncpp.Reader" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class to convert strings and files to values in memory.</p>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.Reader.parse" title="pyne.jsoncpp.Reader.parse"><tt class="xref py py-obj docutils literal"><span class="pre">parse</span></tt></a></td>
-<td>Read a Value from a JSON document.</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyne.jsoncpp.Reader.parse">
 <tt class="descname">parse</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.jsoncpp.Reader.parse" title="Permalink to this definition">¶</a></dt>
@@ -362,20 +286,6 @@ serialization, and False to discard comments.</p>
 <em class="property">class </em><tt class="descclassname">pyne.jsoncpp.</tt><tt class="descname">FastWriter</tt><a class="headerlink" href="#pyne.jsoncpp.FastWriter" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class to convert values in memory to minified strings.</p>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.FastWriter.enable_yaml_compatibility" title="pyne.jsoncpp.FastWriter.enable_yaml_compatibility"><tt class="xref py py-obj docutils literal"><span class="pre">enable_yaml_compatibility</span></tt></a></td>
-<td>Enables YAML compatability for output.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pyne.jsoncpp.FastWriter.write" title="pyne.jsoncpp.FastWriter.write"><tt class="xref py py-obj docutils literal"><span class="pre">write</span></tt></a></td>
-<td>Writes a value out to a compact, not human-readable JSON string.</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyne.jsoncpp.FastWriter.enable_yaml_compatibility">
 <tt class="descname">enable_yaml_compatibility</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.jsoncpp.FastWriter.enable_yaml_compatibility" title="Permalink to this definition">¶</a></dt>
@@ -405,17 +315,6 @@ serialization, and False to discard comments.</p>
 <em class="property">class </em><tt class="descclassname">pyne.jsoncpp.</tt><tt class="descname">StyledWriter</tt><a class="headerlink" href="#pyne.jsoncpp.StyledWriter" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class to convert values in memory to expanded strings.</p>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pyne.jsoncpp.StyledWriter.write" title="pyne.jsoncpp.StyledWriter.write"><tt class="xref py py-obj docutils literal"><span class="pre">write</span></tt></a></td>
-<td>Writes a value out to a human-readable JSON string.</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyne.jsoncpp.StyledWriter.write">
 <tt class="descname">write</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.jsoncpp.StyledWriter.write" title="Permalink to this definition">¶</a></dt>
@@ -446,8 +345,11 @@ serialization, and False to discard comments.</p>
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
         </a></p>
   <h4>Previous topic</h4>
-  <p class="topless"><a href="simplesim_inheritance.html"
+  <p class="topless"><a href="simplesim/inheritance.html"
                         title="previous chapter">Inheritance Diagrams</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../cppapi/index.html"
+                        title="next chapter">C++ API</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/jsoncpp.txt"
@@ -485,7 +387,10 @@ serialization, and False to discard comments.</p>
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="simplesim_inheritance.html" title="Inheritance Diagrams"
+          <a href="../cppapi/index.html" title="C++ API"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="simplesim/inheritance.html" title="Inheritance Diagrams"
              >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
@@ -498,7 +403,16 @@ serialization, and False to discard comments.</p>
     <div class="footer">
         &copy; Copyright 2011-2012, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
     <!-- cloud_sptheme 1.3 -->
   </body>
 </html>
