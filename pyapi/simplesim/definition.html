@@ -135,8 +135,6 @@ reading/writing of simulations.</li>
 <dt id="pyne.simplesim.definition.DefinitionEncoder">
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">DefinitionEncoder</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/definition.html#DefinitionEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.DefinitionEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to encode definitions into JSON files. Unimplemented.</p>
-<p class="rubric">Methods</p>
-<p class="rubric">Methods</p>
 </dd></dl>
 
 <dl class="class">
@@ -144,7 +142,6 @@ reading/writing of simulations.</li>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">IDefinition</tt><big>(</big><em>fname=None</em>, <em>verbose=True</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/definition.html#IDefinition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.IDefinition" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is not used by the user. Abstract base class for
 system and simulation definitions.</p>
-<p class="rubric">Methods</p>
 <p>Creates a new definition or loads one from <tt class="docutils literal"><span class="pre">fname</span></tt>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -163,7 +160,6 @@ existing definition is loaded from file <tt class="docutils literal"><span class
 </tr>
 </tbody>
 </table>
-<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyne.simplesim.definition.IDefinition.save">
 <tt class="descname">save</tt><big>(</big><em>fname</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/definition.html#IDefinition.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.IDefinition.save" title="Permalink to this definition">¶</a></dt>
@@ -177,7 +173,6 @@ existing definition is loaded from file <tt class="docutils literal"><span class
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.definition.</tt><tt class="descname">MCNPSimulation</tt><big>(</big><em>systemdef</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/definition.html#MCNPSimulation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds transformation and more tally functionality to
 <a class="reference internal" href="#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">SimulationDefinition</span></tt></a>. See the constructor there.</p>
-<p class="rubric">Methods</p>
 <p>Creates a new definition or loads one from a file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -201,7 +196,6 @@ modified.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyne.simplesim.definition.MCNPSimulation.add_tally">
 <tt class="descname">add_tally</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/definition.html#MCNPSimulation.add_tally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.MCNPSimulation.add_tally" title="Permalink to this definition">¶</a></dt>
@@ -353,7 +347,6 @@ across all transformations.</p>
 <dd><p>This definition contains source, source distribution, tally/detector,
 and miscellaneous cards. Code-specific functionality/cards is found in
 subclasses of this class.</p>
-<p class="rubric">Methods</p>
 <p>Creates a new definition or loads one from a file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -377,7 +370,6 @@ modified.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyne.simplesim.definition.SimulationDefinition.add_dist">
 <tt class="descname">add_dist</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/definition.html#SimulationDefinition.add_dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SimulationDefinition.add_dist" title="Permalink to this definition">¶</a></dt>
@@ -662,10 +654,8 @@ performed.</p>
 <dd><p>This class creates a system definition as is done in MCNP: homogeneous
 regions in space in the reactor, called cells, are defined through the
 intersection, union, etc of surfaces and are filled by materials.</p>
-<p class="rubric">Methods</p>
 <p>Creates a new reactor definition or loads one from a JSON file. See
 <a class="reference internal" href="#pyne.simplesim.definition.IDefinition" title="pyne.simplesim.definition.IDefinition"><tt class="xref py py-class docutils literal"><span class="pre">IDefinition</span></tt></a>.</p>
-<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyne.simplesim.definition.SystemDefinition.add_cell">
 <tt class="descname">add_cell</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/definition.html#SystemDefinition.add_cell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.definition.SystemDefinition.add_cell" title="Permalink to this definition">¶</a></dt>

@@ -1,7 +1,0 @@
-<map id="inheritancec8db63b664" name="inheritancec8db63b664">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellModParticle" title="pyne.simplesim.cards.ICellModParticle" alt="" coords="447,3,593,18"/>
-<area shape="rect" id="node8" href="#pyne.simplesim.cards.ForcedCollision" title="pyne.simplesim.cards.ForcedCollision" alt="" coords="621,3,764,18"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="277,3,420,18"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,113,18"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="141,3,249,18"/>
-</map>

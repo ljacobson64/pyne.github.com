@@ -111,7 +111,6 @@ subclass of <a class="reference internal" href="#pyne.simplesim.inputfile.IInput
 <dd><p>This class is not used directly by the user. Abstract base class for
 classes that take system and option definitions to create an input file for
 a certain code (e.g. MCNPX, Serpent, MCODE, etc.).</p>
-<p class="rubric">Methods</p>
 <p>Creates an input file, given a simulation definition.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -143,7 +142,6 @@ common in many languages.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyne.simplesim.inputfile.IInputFile.write">
 <tt class="descname">write</tt><big>(</big><em>fname</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/inputfile.html#IInputFile.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.inputfile.IInputFile.write" title="Permalink to this definition">¶</a></dt>
@@ -170,7 +168,6 @@ common in many languages.</p>
 <dd><p>An input file for MCNP. To write the file, call <tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt>. The
 user can modify the format of the input file by subclassing this class and
 overloading the undocumented <tt class="docutils literal"><span class="pre">_write_*()</span></tt> methods.</p>
-<p class="rubric">Methods</p>
 <p>Creates an input file, given a simulation definition.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -213,7 +210,6 @@ a datetime string.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyne.simplesim.inputfile.MCNPInput.add_user_card">
 <tt class="descname">add_user_card</tt><big>(</big><em>block</em>, <em>card</em>, <em>comment=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/inputfile.html#MCNPInput.add_user_card"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.inputfile.MCNPInput.add_user_card" title="Permalink to this definition">¶</a></dt>

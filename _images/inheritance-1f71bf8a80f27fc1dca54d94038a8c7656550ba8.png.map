@@ -1,7 +1,0 @@
-<map id="inheritance4d6ebf7a85" name="inheritance4d6ebf7a85">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellModParticle" title="pyne.simplesim.cards.ICellModParticle" alt="" coords="434,3,576,18"/>
-<area shape="rect" id="node8" href="#pyne.simplesim.cards.ExponentialTransform" title="pyne.simplesim.cards.ExponentialTransform" alt="" coords="602,3,764,18"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="268,3,408,18"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="137,3,242,18"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,110,18"/>
-</map>
