@@ -1,0 +1,542 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyne.simplesim.inputfile &mdash; PyNE 0.2-dev</title>
+    
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../../../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.2-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.2-dev" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pyne.simplesim.inputfile</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/env python</span>
+
+<span class="sd">&quot;&quot;&quot;The ``inputfile`` module can be imported as such::</span>
+
+<span class="sd">    from pyne.simplesim import inputfile</span>
+
+
+<span class="sd">********</span>
+<span class="sd">Overview</span>
+<span class="sd">********</span>
+
+<span class="sd">The classes in this module are used to create an input file for various codes,</span>
+<span class="sd">such as MCNP.  The input file class needs a simulation definition from</span>
+<span class="sd">:py:mod:`pyne.simplesim.definition`.  For each code, there is a different</span>
+<span class="sd">subclass of :py:class:`IInputFile`. Right now, only MCNP is supported.</span>
+
+<span class="sd">An inheritance diagram of all the classes in this module can be found at</span>
+<span class="sd">:ref:`pyne_simplesim_inheritance`.</span>
+
+<span class="sd">.. moduleauthor:: Chris Dembia &lt;cld72@cornell.edu&gt;</span>
+
+<span class="sd">*********</span>
+<span class="sd">Reference</span>
+<span class="sd">*********</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c"># TODO manage print order of cell cards, this may just be given by the ordered</span>
+<span class="c"># dict.</span>
+<span class="c"># TODO let users enter cell or surface cards to a certain location or number;</span>
+<span class="c"># describe how the remaining cards are modified.</span>
+<span class="c"># TODO let user specify number format for different types of floats, not just</span>
+<span class="c"># one</span>
+<span class="c"># TODO improve how the $ nucname.name is printed on material cards: alignment!</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">pyne.simplesim</span> <span class="kn">import</span> <span class="n">definition</span>
+<span class="kn">from</span> <span class="nn">pyne.simplesim</span> <span class="kn">import</span> <span class="n">cards</span>
+
+<div class="viewcode-block" id="IInputFile"><a class="viewcode-back" href="../../../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.IInputFile">[docs]</a><span class="k">class</span> <span class="nc">IInputFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This class is not used directly by the user. Abstract base class for</span>
+<span class="sd">    classes that take system and option definitions to create an input file for</span>
+<span class="sd">    a certain code (e.g. MCNPX, Serpent, MCODE, etc.).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simdef</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">plug</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                 <span class="n">float_format</span><span class="o">=</span><span class="s">&quot;</span><span class="si">% .5g</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an input file, given a simulation definition.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        simdef : :py:class:`definition.SimulationDefinition` or subclass.</span>
+<span class="sd">            The simulation for which the user desires an input file.</span>
+<span class="sd">        comments : bool, optional</span>
+<span class="sd">            Display comments along with cards. The comments are rather long.</span>
+<span class="sd">        title : str, optional</span>
+<span class="sd">            A short (one line) title for the input.</span>
+<span class="sd">        plug : bool, optional</span>
+<span class="sd">            Prints a plug for PyNE somewhere in the input file =p. </span>
+<span class="sd">        float_format : str, optional</span>
+<span class="sd">            The format with which floating point numbers should be printed.</span>
+<span class="sd">            Uses familiar ``sprintf`` style format specifications that is</span>
+<span class="sd">            common in many languages.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IInputFile</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sim</span> <span class="o">=</span> <span class="n">simdef</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="n">comments</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plug</span> <span class="o">=</span> <span class="n">plug</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">float_format</span> <span class="o">=</span> <span class="n">float_format</span>
+
+<div class="viewcode-block" id="IInputFile.write"><a class="viewcode-back" href="../../../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.IInputFile.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Writes the input file to an actual file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fname : str</span>
+<span class="sd">            Filename/path at which to create the input file.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fname</span> <span class="o">=</span> <span class="n">fname</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_up</span><span class="p">()</span>
+        <span class="c"># Should write the plug in the appropriate place.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_subclass</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clean_up</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fname</span> <span class="o">=</span> <span class="bp">None</span>
+</div>
+    <span class="k">def</span> <span class="nf">_set_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_clean_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_write_subclass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">_write_plug</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plug</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_plug_subclass</span><span class="p">(</span>
+                    <span class="s">&quot;Generated with the Python package PyNE (pyne.github.com).&quot;</span><span class="p">)</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_write_plug_subclass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_user_card</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_user_literal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ne">NotImplementedError</span>
+
+</div>
+<div class="viewcode-block" id="MCNPInput"><a class="viewcode-back" href="../../../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.MCNPInput">[docs]</a><span class="k">class</span> <span class="nc">MCNPInput</span><span class="p">(</span><span class="n">IInputFile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An input file for MCNP. To write the file, call :py:meth:`write`. The</span>
+<span class="sd">    user can modify the format of the input file by subclassing this class and</span>
+<span class="sd">    overloading the undocumented ``_write_*()`` methods.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simdef</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cont_by_amp</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an input file, given a simulation definition.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        simdef : :py:class:`definition.MCNPSimulation`</span>
+<span class="sd">            See :py:class:`IInputFile`. This cannot be a</span>
+<span class="sd">            :py:class:`definition.SimulationDefinition`.</span>
+<span class="sd">        description : str, optional</span>
+<span class="sd">            An arbitrarily long commented description placed after the title</span>
+<span class="sd">            but before any cards.</span>
+<span class="sd">        cont_by_amp : bool, optional</span>
+<span class="sd">            In MCNP, line continuation for lines with more than 80 characters</span>
+<span class="sd">            can be achieved via 5 or more spaces on subsequent lines or by</span>
+<span class="sd">            appending an ampersand (&amp;) before the continued line.</span>
+<span class="sd">        comments : bool, optional</span>
+<span class="sd">            See :py:class:`IInputFile`.</span>
+<span class="sd">        title : str, optional</span>
+<span class="sd">            See :py:class:`IInputFile`. If not provided, the title defaults to</span>
+<span class="sd">            a datetime string.</span>
+<span class="sd">        plug : bool, optional</span>
+<span class="sd">            See :py:class:`IInputFile`.</span>
+<span class="sd">        float_format : str, optional</span>
+<span class="sd">            See :py:class:`IInputFile`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MCNPInput</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">simdef</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cont_by_amp</span> <span class="o">=</span> <span class="n">cont_by_amp</span>
+        <span class="c"># Comment wrapping.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">commentwrap</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">TextWrapper</span><span class="p">(</span>
+                <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+                <span class="n">initial_indent</span><span class="o">=</span>   <span class="s">&#39;  C &#39;</span><span class="p">,</span>
+                <span class="n">subsequent_indent</span><span class="o">=</span><span class="s">&#39;  c     &#39;</span><span class="p">,</span>
+                <span class="n">break_long_words</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="c"># Card wrapping.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cont_by_amp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cardwrap</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">TextWrapper</span><span class="p">(</span>
+                    <span class="n">width</span><span class="o">=</span><span class="mi">78</span><span class="p">,</span>
+                    <span class="c">#initial_indent=2 * &#39; &#39;,</span>
+                    <span class="c">#subsequent_indent=2 * &#39; &#39;</span>
+                    <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_card_end_line</span> <span class="o">=</span> <span class="s">&#39; &amp;</span><span class="se">\n</span><span class="s">&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cardwrap</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">TextWrapper</span><span class="p">(</span>
+                    <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+                    <span class="c">#initial_indent=2 * &#39; &#39;,</span>
+                    <span class="n">subsequent_indent</span><span class="o">=</span><span class="mi">5</span> <span class="o">*</span> <span class="s">&#39; &#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_card_end_line</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+        <span class="c"># User cards. comments:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_cell_comm</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_surface_comm</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_data_comm</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c"># cards:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_cell_cards</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_surface_cards</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_data_cards</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c"># literal:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_cell_literal</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_surface_literal</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_data_literal</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="MCNPInput.add_user_card"><a class="viewcode-back" href="../../../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.MCNPInput.add_user_card">[docs]</a>    <span class="k">def</span> <span class="nf">add_user_card</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">card</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;It is possible that the user wants to insert a card for which there</span>
+<span class="sd">        is no :py:class:`ICard`. The user can supply such cards with this</span>
+<span class="sd">        method or with :py:meth:`add_user_literal`. This method allows the user</span>
+<span class="sd">        to supply a comment along with the card, and automatically wraps the</span>
+<span class="sd">        card if it is longer than 80 characters. Any number of cards can be</span>
+<span class="sd">        added to a block, and they are placed at the end of the block, but</span>
+<span class="sd">        before text added by :py:class:`add_user_literal`. Cards are printed in</span>
+<span class="sd">        the order they are added.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        block : str</span>
+<span class="sd">            The block to which the user desires to add a card. Either &#39;cell&#39;,</span>
+<span class="sd">            &#39;surface&#39;, or &#39;data&#39;.</span>
+<span class="sd">        card : str</span>
+<span class="sd">            The card, including the card number.</span>
+<span class="sd">        comment : str, optional</span>
+<span class="sd">            A comment placed before the card.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        The following shows how the user can provide a cell card::</span>
+
+<span class="sd">            inp.add_user_card(&#39;cell&#39;, &#39;11 0 -5 IMP:N=0&#39;, comment=&#39;Graveyard.&#39;)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">block</span> <span class="o">==</span> <span class="s">&#39;cell&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_cell_comm</span> <span class="o">+=</span> <span class="p">[</span><span class="n">comment</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_cell_cards</span> <span class="o">+=</span> <span class="p">[</span><span class="n">card</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">block</span> <span class="o">==</span> <span class="s">&#39;surface&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_surface_comm</span> <span class="o">+=</span> <span class="p">[</span><span class="n">comment</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_surface_cards</span> <span class="o">+=</span> <span class="p">[</span><span class="n">card</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">block</span> <span class="o">==</span> <span class="s">&#39;data&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_data_comm</span> <span class="o">+=</span> <span class="p">[</span><span class="n">comment</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_data_cards</span> <span class="o">+=</span> <span class="p">[</span><span class="n">card</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;The input ``block`` must be &#39;cell&#39;, &#39;surface&#39;, &quot;</span>
+                    <span class="s">&quot;or &#39;data&#39;. User provided {0!r}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="MCNPInput.add_user_literal"><a class="viewcode-back" href="../../../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.MCNPInput.add_user_literal">[docs]</a>    <span class="k">def</span> <span class="nf">add_user_literal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method is used instead of :py:meth:`add_user_card` if line</span>
+<span class="sd">        wrapping is not desired, such as if the user wants to specify a</span>
+<span class="sd">        multi-line card on their own. This can also be used by the user to</span>
+<span class="sd">        provide comments. A newline is appended to the end of the</span>
+<span class="sd">        string. Any number of cards can be added to a block, and they are</span>
+<span class="sd">        placed after :py:class:`add_user_card` cards. Cards are printed in</span>
+<span class="sd">        the order they are added.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        block : str</span>
+<span class="sd">            The block to which the user desires to add a card. Either &#39;cell&#39;,</span>
+<span class="sd">            &#39;surface&#39;, or &#39;data&#39;.</span>
+<span class="sd">        string : str</span>
+<span class="sd">            The card, possibly including newlines.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        In this case, line wrapping is `not` automatically performed::</span>
+
+<span class="sd">            inp.add_user_literal(&#39;data&#39;, &#39;M1 1001 1\\n     8016 2&#39;)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">block</span> <span class="o">==</span> <span class="s">&#39;cell&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_cell_literal</span> <span class="o">+=</span> <span class="p">[</span><span class="n">string</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">block</span> <span class="o">==</span> <span class="s">&#39;surface&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_surface_literal</span> <span class="o">+=</span> <span class="p">[</span><span class="n">string</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">block</span> <span class="o">==</span> <span class="s">&#39;data&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_data_literal</span> <span class="o">+=</span> <span class="p">[</span><span class="n">string</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;The input ``block`` must be &#39;cell&#39;, &#39;surface&#39;, &quot;</span>
+                    <span class="s">&quot;or &#39;data&#39;. User provided {0!r}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
+</div>
+    <span class="k">def</span> <span class="nf">_write_subclass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Header</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">80</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;MCNP titles must be less than 80 chars.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># MCNP files need a first &#39;comment&#39; line.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;datetime: </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_plug</span><span class="p">()</span>
+
+        <span class="c"># Write cell cards.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_deck_heading</span><span class="p">(</span><span class="s">&quot;Cell&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">cells</span><span class="p">)</span>
+        <span class="c"># User cards.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_user</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_cell_comm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_cell_cards</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_user_literal</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_cell_literal</span><span class="p">)</span>
+
+        <span class="c"># Write surface cards.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_new_line</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_deck_heading</span><span class="p">(</span><span class="s">&quot;Surface&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">surfaces</span><span class="p">)</span>
+        <span class="c"># User cards.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_user</span><span class="p">(</span><span class="s">&quot;surface&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_surface_comm</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">user_surface_cards</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_user_literal</span><span class="p">(</span><span class="s">&quot;surface&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_surface_literal</span><span class="p">)</span>
+
+        <span class="c"># Write data cards.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_new_line</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_deck_heading</span><span class="p">(</span><span class="s">&quot;Data&quot;</span><span class="p">)</span>
+        <span class="c"># Material cards.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">materials</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_data_heading</span><span class="p">(</span><span class="s">&quot;Material&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">materials</span><span class="p">)</span>
+        <span class="c"># Source cards.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">source</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_data_heading</span><span class="p">(</span><span class="s">&quot;Source&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+        <span class="c"># Distribution cards.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">dists</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_data_heading</span><span class="p">(</span><span class="s">&quot;Distribution&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">dists</span><span class="p">)</span>
+        <span class="c"># Tally cards.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">tally</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_data_heading</span><span class="p">(</span><span class="s">&quot;Tally&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">tally</span><span class="p">)</span>
+        <span class="c"># Transformation cards.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">transformations</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_data_heading</span><span class="p">(</span><span class="s">&quot;Transformation&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">transformations</span><span class="p">)</span>
+        <span class="c"># Misc cards.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">misc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_data_heading</span><span class="p">(</span><span class="s">&quot;Miscellaneous&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">misc</span><span class="p">)</span>
+        <span class="c"># User cards.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_user</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_data_comm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_data_cards</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_user_literal</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_data_literal</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_write_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">comment</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_card</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_write_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">cards</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">comm</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="s">&quot;User {0} cards.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">comm</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">comm</span><span class="p">[</span><span class="n">idx</span><span class="p">]:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="n">comm</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_write_cardwrap</span><span class="p">(</span><span class="n">cards</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_new_line</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_write_user_literal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">lit</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lit</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="s">&quot;User literal {0} cards.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">lit</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">string</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_write_plug_subclass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_write_deck_heading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heading</span><span class="p">):</span>
+        <span class="n">heading</span> <span class="o">=</span> <span class="s">&quot;{0} Cards&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span>
+        <span class="n">n_chars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="n">n_chars</span> <span class="o">*</span> <span class="s">&quot;=&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="n">n_chars</span> <span class="o">*</span> <span class="s">&quot;=&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_write_data_heading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heading</span><span class="p">):</span>
+        <span class="n">heading</span> <span class="o">=</span> <span class="s">&quot;{0} Cards&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span>
+        <span class="n">n_chars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="n">n_chars</span> <span class="o">*</span> <span class="s">&quot;*&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="n">n_chars</span> <span class="o">*</span> <span class="s">&quot;*&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_write_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">comment</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span><span class="p">:</span> <span class="n">strlist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">commentwrap</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>             <span class="n">strlist</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;  C&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">strlist</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">entry</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_write_card</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">card</span><span class="p">):</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">card</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">float_format</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="p">)</span>
+        <span class="c"># Wrap the parts between newlines, but still place in newlines where</span>
+        <span class="c"># they are requested. str.partition(&#39;\n&#39;)[0] is left of &#39;\n&#39;, and</span>
+        <span class="c"># str.partition(&#39;\n&#39;)[2] is right of &#39;\n&#39;.</span>
+        <span class="n">cont</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">while</span> <span class="n">cont</span><span class="p">:</span>
+            <span class="n">currstr</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_cardwrap</span><span class="p">(</span><span class="n">currstr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_new_line</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">currstr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span> <span class="n">cont</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">else</span><span class="p">:</span> <span class="n">string</span> <span class="o">=</span> <span class="n">currstr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_write_cardwrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">strlist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cardwrap</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">strlist</span><span class="p">:</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">strlist</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_card_end_line</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_new_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../../../index.html">
+          <img class="logo" src="../../../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

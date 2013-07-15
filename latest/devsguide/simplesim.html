@@ -1,0 +1,433 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simple Simulation Input – pyne.simplesim &mdash; PyNE 0.2-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="up" title="Developer’s Guide" href="index.html" />
+    <link rel="next" title="ENDF Tokenization" href="endf.html" />
+    <link rel="prev" title="Developer’s Guide" href="index.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="endf.html" title="ENDF Tokenization"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="index.html" title="Developer’s Guide"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Developer&#8217;s Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pyne.simplesim">
+<span id="simple-simulation-input-pyne-simplesim"></span><span id="devsguide-simplesim"></span><h1>Simple Simulation Input &#8211; <a class="reference internal" href="../pyapi/simplesim/index.html#module-pyne.simplesim" title="pyne.simplesim"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim</span></tt></a><a class="headerlink" href="#module-pyne.simplesim" title="Permalink to this headline">¶</a></h1>
+<p>This guide is intended to be the friend of anyone who wants to develop
+<a class="reference internal" href="../pyapi/simplesim/index.html#module-pyne.simplesim" title="pyne.simplesim"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim</span></tt></a> further, or is disgusted by its currently limited
+support. The guide is not comprehensive, and any prospective developer should
+feel comfortable contacting Chris Dembia with any questions.</p>
+<div class="section" id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Referencing a card</dt>
+<dd>Nowhere does a user ever need to specify a card number, which at sight has
+little meaning, provides no insight to what it represents, and can make
+modification a real pain. So, as is done in LaTeX, cards are given names
+(labels), and when that card number is needed on another card, the user
+references the other card by its name (or with the card object itself).
+Now, the cards themselves live in the definition. The definition stores
+cards in ordered dictionaries, and right now the card numbers are the
+card&#8217;s index in the dictionary (+ 1 because of zero-indexing). That means
+that at the time a card is written, it needs access to access the
+simulation, which knows the card numbers. Therefore, the
+<tt class="xref py py-meth docutils literal"><span class="pre">cards.ICard.mcnp()</span></tt> method takes in the simulation.
+These methods are called by the input file object, which has the
+simulation.</dd>
+</dl>
+</div>
+<div class="section" id="adding-a-card">
+<h2>Adding a card<a class="headerlink" href="#adding-a-card" title="Permalink to this headline">¶</a></h2>
+<p>When adding a card to <a class="reference internal" href="../pyapi/simplesim/cards.html#module-pyne.simplesim.cards" title="pyne.simplesim.cards"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.cards</span></tt></a>, the following tasks need
+to be completed:</p>
+<ul class="simple">
+<li>Choose the appropriate base class (most likely
+<a class="reference internal" href="../pyapi/simplesim/cards.html#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc"><tt class="xref py py-class docutils literal"><span class="pre">cards.IMisc</span></tt></a>), and subclass from this.</li>
+<li>If the card is <cite>unique</cite>, such as the Criticality card, then make sure to pass
+the unique name to the base class constructor, and to pass the
+<tt class="docutils literal"><span class="pre">unique=True</span></tt> keyword argument.</li>
+<li>Make sure that the base class constructor is called using <tt class="xref py py-meth docutils literal"><span class="pre">super()</span></tt>.
+If this is not done, future functionality may break the functionality you
+contribute.</li>
+<li>Be sure to give complete docstrings for at least the class and <tt class="docutils literal"><span class="pre">__init__</span></tt>.
+Be sure to give at least one example for each method the user is expected to
+use.</li>
+<li>Place a <tt class="docutils literal"><span class="pre">..</span> <span class="pre">inheritance-diagram::</span></tt> directive in the class docstring. See
+other classes for a guide.</li>
+<li>Each card has a <tt class="xref py py-meth docutils literal"><span class="pre">comment()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">mcnp()</span></tt> method. The comment
+should be defined for each card, but the mcnp card only needs to be defined
+for cards that MCNP supports. To support a different code, i.e. Serpent,
+define a <tt class="xref py py-meth docutils literal"><span class="pre">serpent()</span></tt> method.</li>
+<li>Place the card under the appropriate category in the index in the module&#8217;s
+docstring.</li>
+<li>Add tests in <cite>pyne/tests/test_simplesim.py</cite>.</li>
+</ul>
+<div class="section" id="adding-a-new-abstract-base-class">
+<h3>Adding a new abstract base class<a class="headerlink" href="#adding-a-new-abstract-base-class" title="Permalink to this headline">¶</a></h3>
+<p>If introducing a new abstract base class or card category (i.e.
+<a class="reference internal" href="../pyapi/simplesim/cards.html#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc"><tt class="xref py py-class docutils literal"><span class="pre">cards.IMisc</span></tt></a>):</p>
+<ul class="simple">
+<li>Make sure to prepend the name of the class with <cite>I</cite>, a notation which stands
+for interface in Java.</li>
+<li>Following the model set by other abstract base class&#8217;s docstrings, make it
+clear to the user that they do not interact with the class on their own.</li>
+<li>The constructor takes <tt class="docutils literal"><span class="pre">*args</span></tt> and <tt class="docutils literal"><span class="pre">**kwargs</span></tt>, and passes <tt class="docutils literal"><span class="pre">*args</span></tt> and
+<tt class="docutils literal"><span class="pre">**kwargs</span></tt> to the next constructor in the MRO (method resolution order)
+through the call to <tt class="xref py py-meth docutils literal"><span class="pre">super()</span></tt>. One reason for this is that
+<a class="reference internal" href="../pyapi/simplesim/cards.html#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard"><tt class="xref py py-class docutils literal"><span class="pre">cards.ICard</span></tt></a> takes a <tt class="docutils literal"><span class="pre">unique</span></tt> keyword and it is
+not enjoyable to carry this keyword through all subclass constructors.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="design-decisions">
+<h2>Design decisions<a class="headerlink" href="#design-decisions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>MCNP</dt>
+<dd><p class="first">The most important thing to the initial developer was to have something that
+worked for MCNP, given his limited development time. Therefore, the content
+of the cards is very similar to that which is found in MCNP. Ideally, the
+cards would be created independently from a specific code. However, doing so
+would likely lead to making sacrifices for all codes, including MCNP. The
+way the code is written now, it surely works well for MCNP, though
+sacrifices may need to be made for other codes.</p>
+<p class="last">The following paragraph was written before development of the module:
+<cite>Perhaps it is ideal to create some very general definition that could be
+used for any code, but I think that is a little ambitious and idealistic,
+and will ultimately result in sloppy attempts to match the general
+definition to specific codes or will hamper the functionality of the general
+definition. Thus, I think MCNP should be the &#8220;first child&#8221;/&#8221;first class
+citizen&#8221; (incorrect usage) of this package.  Classes can be written in</cite>
+<a class="reference internal" href="../pyapi/simplesim/inputfile.html#module-pyne.simplesim.inputfile" title="pyne.simplesim.inputfile"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.inputfile</span></tt></a> <cite>allowing the system and option
+definitions to be used to generate input files for other codes, but will
+require special consideration. Two cases to consider are that densities and
+reflecting boundary conditions are specified in different places between
+MCNP and Serpent. The code will be written so that these settings are placed
+in the proper place for the MCNP input, and the Serpent inputfile class will
+have to pick that information from its place in the MCNP cards and place it
+in the right place for a Serpent input. The Serpent inputfile class will
+likely need to contain many exceptions for inputs to MCNP that Serpent
+cannot handle (e.g.  importances on cell cards). MCNP is a widely used code,
+and a product taht can cleanly generate MCNP input but that cannot generate
+input to other codes as well is more valuable, I think, than a product that
+falls short for all codes (including MCNP).</cite></p>
+</dd>
+<dt><tt class="xref py py-meth docutils literal"><span class="pre">cards.ICard.mcnp()</span></tt></dt>
+<dd>It was initially advised that the MCNP card functionality would be separated
+from the card classes. It seemed preferable to place all code-specific
+functionality in one class (i.e.
+<a class="reference internal" href="../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.MCNPInput" title="pyne.simplesim.inputfile.MCNPInput"><tt class="xref py py-class docutils literal"><span class="pre">inputfile.MCNPInput</span></tt></a> for MCNP). Given time
+constraints, it was not possible to do this.  Furthermore, it seems that the
+structure as it is now, where each card has a <tt class="xref py py-meth docutils literal"><span class="pre">mcnp()</span></tt> method, makes
+a lot of sense: it allows us to take advantange of inheritance and similar
+structure between cards in the same category.</dd>
+<dt>Separation of <a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">definition.SimulationDefinition</span></tt></a> and <a class="reference internal" href="../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.IInputFile" title="pyne.simplesim.inputfile.IInputFile"><tt class="xref py py-class docutils literal"><span class="pre">inputfile.IInputFile</span></tt></a></dt>
+<dd>At first glance it may not make sense to separate the defintion from the
+input file object.
+Since <a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.SimulationDefinition" title="pyne.simplesim.definition.SimulationDefinition"><tt class="xref py py-class docutils literal"><span class="pre">definition.SimulationDefinition</span></tt></a> is
+subclassed to create <a class="reference internal" href="../pyapi/simplesim/definition.html#pyne.simplesim.definition.MCNPSimulation" title="pyne.simplesim.definition.MCNPSimulation"><tt class="xref py py-class docutils literal"><span class="pre">definition.MCNPSimulation</span></tt></a>,
+there is MCNP-related information in more than one place, and it may seem
+that all the code-specific information could be contained in one class.
+However, there should be code-independent simulation definition parameters
+that belong in <cite>definition.SimulationDefintion</cite>. It is
+possible that it becomes clear that the input file task can be roped into
+the simulation definition, but the additional modularization should be easy
+to &#8216;undo&#8217;. Also, it was thought that the input file classes would eventually
+have the ability to parse in an input file, and so it might make sense to
+have a separate class.</dd>
+<dt>Referencing other cards using strings or the objects themselves</dt>
+<dd><p class="first">Many cards need information about other cards. For example, tallies need to
+know the card number of the surfaces or cells being tallied. There are at
+least two ways to provide this information to the tally card: give the
+actual card object, or just give the string name of the card to be tallied.
+In both cases, the card looks up the surface or cell number in the system
+defintion, using the <tt class="docutils literal"><span class="pre">sim</span></tt> input of the <tt class="xref py py-meth docutils literal"><span class="pre">mcnp()</span></tt> method. Right
+now, the cell card takes in the actual cards, not just card names, but all
+simulation-related cards take in card names, not hte actual cards. The
+reason for using card names only is that it makes it easier for the user to
+modify an input they&#8217;ve already created, after the user no longer has the
+original cards they created. Rather than doing something like
+<tt class="docutils literal"><span class="pre">Tally(sys.cells['cA'])</span></tt> to create a tally, the user can just do
+<tt class="docutils literal"><span class="pre">Tally('cA')</span></tt>.</p>
+<p>This further has the advantage that the user can define
+the tally before the cell &#8216;cA&#8217; is even created, putting less restrictions
+on how the user defines the system. The disadvantage here is that passing
+the actual object allows for type checking, and puts less restriction on
+the names used for cards. For example, some cards accept either a cell or
+universe. If providing a name only, then the code does not know whether the
+string is the name of a cell or universe. If providing the objects
+themselves, the object contains the knowledge of its type.</p>
+<p class="last">This issue has been managed for tallies by creating the
+<a class="reference internal" href="../pyapi/simplesim/nestedgeom.html#module-pyne.simplesim.nestedgeom" title="pyne.simplesim.nestedgeom"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.nestedgeom</span></tt></a> module. In this module, there are
+classes such as <a class="reference internal" href="../pyapi/simplesim/nestedgeom.html#pyne.simplesim.nestedgeom.Cell" title="pyne.simplesim.nestedgeom.Cell"><tt class="xref py py-class docutils literal"><span class="pre">nestedgeom.Cell</span></tt></a>,
+<a class="reference internal" href="../pyapi/simplesim/nestedgeom.html#pyne.simplesim.nestedgeom.Surf" title="pyne.simplesim.nestedgeom.Surf"><tt class="xref py py-class docutils literal"><span class="pre">nestedgeom.Surf</span></tt></a>,
+<a class="reference internal" href="../pyapi/simplesim/nestedgeom.html#pyne.simplesim.nestedgeom.Univ" title="pyne.simplesim.nestedgeom.Univ"><tt class="xref py py-class docutils literal"><span class="pre">nestedgeom.Univ</span></tt></a> that only hold a string name of
+a cell/surface/universe (they are not cells/surfaces/universes themselves),
+but make it clear thta the string name represents a cell/surface/universe.
+The problem here is that the notation becomes quite verbose.</p>
+</dd>
+<dt>Float formatting</dt>
+<dd>The author did not want to presume how detailed the user wanted to be about
+the floats that appear in the input file. Therefore, the user can set the
+<tt class="docutils literal"><span class="pre">float_format</span></tt> in the input file. The syntax used for specifying the
+float format is what is typically found in C++ and MATLAB (i.e. &#8216;%.5g&#8217;).
+Python now expects users to use their own syntax (i.e. &#8216;{:.5g}&#8217;. Here, the
+former has been used to make it easier for people who are new to Python to
+use this package. This does cause code to be more verbose, as for
+everything except these floats, string formatting is done with
+<tt class="xref py py-meth docutils literal"><span class="pre">str.format()</span></tt>.  It is possible that there are different categories
+of floats, and that the user would want each of these types of floats to be
+formatted differently.  This is not supported currently.</dd>
+<dt>Default arguments</dt>
+<dd>Since codes like MCNP have default arguments themselves when arguments are
+left out, those arguments are left out the cards in this package. That is,
+the default values that a particular code uses are not stored in the
+package, as the defaults may change or may be different across different
+codes. Instead, default arguments are set to None, which usually means to
+omit that input from the input file. This may not be true for all cards.</dd>
+</dl>
+</div>
+<div class="section" id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Saving and loading definitions</dt>
+<dd>This is the biggest limitation, that definitions and cards cannot be saved
+in a persistent manner. Work has been done on this front, however. A
+subclass of the JSONEncoder can be found in
+<a class="reference internal" href="../pyapi/simplesim/definition.html#module-pyne.simplesim.definition" title="pyne.simplesim.definition"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.definition</span></tt></a>. A crude way to allow for this saving
+and loading would be to define a <tt class="docutils literal"><span class="pre">__repr__</span></tt> method for all cards.</dd>
+<dt>Surfaces</dt>
+<dd>Only a few surfaces are implemented right now; there needs to be many more.</dd>
+<dt>MCNP card order</dt>
+<dd>In MCNP, data cards that refer to cell cards by the order of cell cards
+(i.e.  Volume) actually depend on the order in which the cell cards are
+listed, and not at all on the cell card numbers. In the current
+implementation, cells (well, all cards) are always printed in order of
+increasing card number, so this is not an issue. However, if the user
+supplies custom cards with card numbers out of order, then this would
+present an issue.</dd>
+<dt>Card numbers</dt>
+<dd>It is assumed for the most part in the definitions that cards are numbered
+as they are in MCNP. This is fine for the simulations, since those are
+expected to be subclassed for a specific code. However, the system supposed
+to be completely code-independent.</dd>
+<dt>MCNP Macrobody facets</dt>
+<dd>In MCNP, the user is able to specify a facet of a macrobody surface on a
+cell card (i.e. 3.2 is facet 2 of surface 3). Preliminary work has been done
+to implement this, but this is not functional.</dd>
+</dl>
+</div>
+<div class="section" id="further-development">
+<h2>Further Development<a class="headerlink" href="#further-development" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Initial discussions about this package set forth a much larger task: creating
+an abstract syntax that  is truly abstracted from a specific code (i.e.
+MCNP). This is certainly possible for the cards associated with the system
+definition, but doing so with the simulation definition seems very difficult
+and likely not possible.</li>
+<li>An additional module, <tt class="docutils literal"><span class="pre">run</span></tt>, may provide the
+much-desired functionality of executing the correct program (MCNP, etc.) and
+connecting the run to the appropriate input parsers provided in other modules
+of <cite>PyNE</cite>. Furthermore, such a module could contain a method to perform a
+parameter study simply with one method call (something like <tt class="docutils literal"><span class="pre">keff_vector</span> <span class="pre">=</span>
+<span class="pre">run.parameter_study(param_name,</span> <span class="pre">param_values</span></tt>).</li>
+<li>Universes, lattices, and fill are done either using IMisc cards or on the
+<a class="reference internal" href="../pyapi/simplesim/cards.html#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell"><tt class="xref py py-class docutils literal"><span class="pre">cards.Cell</span></tt></a> card. However, it is preferable that
+there are actual Universe and Lattice cards/objects (this is not the same
+thing as the current Universes and Lattice cards, that are just an
+implementation of MCNP&#8217;s U and LAT cards) that can be used to fill cells
+instead of regions.</li>
+<li>Geometry transformations. Right now, a crude form of geometry transformations
+are allowed; the user can shift and stretch surfaces or regions, so long as
+the surface supports it. Rotation is not yet supported. The surfaces are
+still tied to how they are defined in MCNP, and so for most surfaces rotation
+is not supported.</li>
+<li>Serpent provides a few macros, like the pin macro, that makes the
+specification of surfaces and cells a lot easier. These can be implemented
+here using static Region methods that create a region, and the required
+surfaces.</li>
+<li>It would be nice, for MCNP materials, if this package could automatically
+pick the correct nuclide library table identifiers for a given temperature
+(e.g. .71c for 600 K), though this would change over time. A manual override
+should also be allowed.</li>
+<li>MCNP cards are mostly printed in a sloppy way (except material cards); it
+would be nice to exploit the automated card string generation in order to
+have the strings print in a pretty way.</li>
+<li><strong>TODO</strong> nodes for small items can be found scattered among the code.</li>
+<li>There is a <a class="reference external" href="https://github.com/fitze/pyne/wiki/simplesim">github wiki</a> page
+that has a list of some ideas for future development.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Simple Simulation Input &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim</span></tt></a><ul>
+<li><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li><a class="reference internal" href="#adding-a-card">Adding a card</a><ul>
+<li><a class="reference internal" href="#adding-a-new-abstract-base-class">Adding a new abstract base class</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#design-decisions">Design decisions</a></li>
+<li><a class="reference internal" href="#limitations">Limitations</a></li>
+<li><a class="reference internal" href="#further-development">Further Development</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Developer&#8217;s Guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="endf.html"
+                        title="next chapter">ENDF Tokenization</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/devsguide/simplesim.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="endf.html" title="ENDF Tokenization"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="index.html" title="Developer’s Guide"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >Developer&#8217;s Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

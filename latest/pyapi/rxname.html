@@ -1,0 +1,512 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Reaction Names – pyne.rxname &mdash; PyNE 0.2-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="up" title="Python API" href="index.html" />
+    <link rel="next" title="Basic Nuclear Data – pyne.data" href="data.html" />
+    <link rel="prev" title="Nuclide Naming Module – pyne.nucname" href="nucname.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="data.html" title="Basic Nuclear Data – pyne.data"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="nucname.html" title="Nuclide Naming Module – pyne.nucname"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Python API</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pyne.rxname">
+<span id="reaction-names-pyne-rxname"></span><span id="pyne-rxname"></span><h1>Reaction Names &#8211; <a class="reference internal" href="#module-pyne.rxname" title="pyne.rxname"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.rxname</span></tt></a><a class="headerlink" href="#module-pyne.rxname" title="Permalink to this headline">¶</a></h1>
+<p>Python wrapper for rxname library.</p>
+<p>The rxname module provides a string-based canonical form for reaction
+channel names, an integer identifier, labeling and documentation, and
+conversion to/from other conventions for these names.</p>
+<blockquote>
+<div><p><strong>Reaction Names:</strong> The names themselves are strings chosen such
+that they are valid variable names in most programming languages
+(including Python and C/C++).  This strategy is known as <em>natural
+naming</em> and enables a <em>namespace</em> of reactions.  Therefore, all
+names must match the regular expression <tt class="docutils literal"><span class="pre">[A-Za-z_][A-Za-z0-9_]*</span></tt>.
+For example, the elastic scattering cross section is simply
+&#8220;elastic&#8221; while the pair production reaction is given by
+&#8220;pair_prod&#8221;.</p>
+<p>A number of patterns dictate how a reaction should be named.
+Foremost among these are particle names.  Where required, &#8220;z&#8221; is a
+variable for any incident particle.  The following table displays
+particle types and their names:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">particle</th>
+<th class="head">name (z)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>neutron</td>
+<td>n</td>
+</tr>
+<tr class="row-odd"><td>proton</td>
+<td>p</td>
+</tr>
+<tr class="row-even"><td>deuterium</td>
+<td>d</td>
+</tr>
+<tr class="row-odd"><td>tritium</td>
+<td>t</td>
+</tr>
+<tr class="row-even"><td>Helium-3</td>
+<td>He3</td>
+</tr>
+<tr class="row-odd"><td>alpha</td>
+<td>a</td>
+</tr>
+<tr class="row-even"><td>gamma</td>
+<td>gamma</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>From this we can see that a reaction which produces a neutron and a
+proton is called &#8220;np&#8221;.  If multiple particles of the same type are
+produced, then the number precedes the particle type.  Thus, one
+neutron and two protons are given by &#8220;n2p&#8221;.  However if this would
+result in the name starting with a number, then the name is
+prepended with <tt class="docutils literal"><span class="pre">z_</span></tt> to indicate any incident particle.  For
+example, the reaction which yields two neutrons is &#8220;z_2n&#8221; (because
+&#8220;2n&#8221; is not a valid variable name in most programming languages).</p>
+<p>Furthermore, if a reaction name ends in <tt class="docutils literal"><span class="pre">_[0-9]+</span></tt> (underscore plus
+digits), then this means that the nucleus is left in the nth excited
+state after the interaction.  For example, &#8220;n_0&#8221; produces a neutron
+and leaves the nucleus in the ground state, &#8220;n_1&#8221; produces a neutron
+and the nucleus is in the first excited state, and so on.  However,
+&#8220;_continuum&#8221; means that the nucleus in an energy state in the
+continuum.</p>
+<p>If a reaction name begins with <tt class="docutils literal"><span class="pre">erel_</span></tt>, then this channel is for
+the energy release from the reaction by the name without <tt class="docutils literal"><span class="pre">erel_</span></tt>.
+E.g. &#8220;erel_p&#8221; is the energy release from proton emission.</p>
+<p><strong>Reaction IDs:</strong> While the reaction names are sufficient for
+defining all possible reactions in a partially physically meaningful
+way, they do so using a variable length format (strings).  It is
+often advantageous to have a fixed-width format, namely for storage.
+To this end, unique unsigned 32-bit integers are given to each name.
+These identifiers are computed based on a custom hash of the
+reaction name.  This hash function reserves space for MT numbers by
+not producing values below 1000.  It is recommended that the
+reaction identifiers be used for most performance critical tasks,
+rather than the names that they are calculated from.</p>
+<p><strong>Reaction Labels:</strong> Reaction labels are short, human-readable
+strings.  These do not follow the naming convention restrictions
+that the names themselves are subject to.  Additionally, labels need
+not be unique.  The labels are provided as a convenience for
+building user interfaces with.</p>
+<p><strong>Reaction Docstrings:</strong> Similar to labels, reactions also come with
+a documentation string which gives a description of the reaction in
+a sentence or two. These provide more help and information for a
+reaction.  This may be useful in a tool tip context for user
+interfaces.</p>
+<p><strong>Other Canonical Forms:</strong> This module provides mappings between
+other reaction canonical forms and the naming conventions and IDs
+used here.  The most widespread of these are arguably the MT
+numbers.  MT numbers are a strict subset of the reactions used here.
+Further information may be found at <a class="reference internal" href="#nndc">[NNDC]</a>, <a class="reference internal" href="#nea">[NEA]</a>, <a class="reference internal" href="#t2">[T2]</a>, and
+<a class="reference internal" href="#jaea">[JAEA]</a>.</p>
+</div></blockquote>
+<p>The rxname module implements a suite of functions for computing or
+retrieving reaction names and their associated data described above.
+These functions have a variety of interfaces. Lookup may occur either by
+name, ID, MT number, a string of ID, or a string of MT number.</p>
+<p>However, lookup may also occur via alternate names or abbreviations.
+For example, &#8220;tot&#8221; and &#8220;abs&#8221; will give the names &#8220;total&#8221; and
+&#8220;absorption&#8221;.  Spelling out particles will also work; &#8220;alpha&#8221; and &#8220;duet&#8221;
+will give &#8220;a&#8221; and &#8220;d&#8221;.  For a listing of all alternative names see the
+<tt class="docutils literal"><span class="pre">altnames</span></tt> variable.</p>
+<p>Furthermore, certain reactions may be inferred from the nuclide prior
+and post reaction.  For example, if an incident neutron hit U-235 and
+Th-232 was produced then an alpha production reaction is assumed to have
+occurred. Thus most of the functions in rxname will take a from nuclide,
+a to nuclide, and z &#8211; the incident particle type (which defaults to &#8220;n&#8221;
+neutron).  Note that z may also be &#8220;decay&#8221;, indicating a radioactive
+decay occurrence.</p>
+<div class="section" id="adding-new-reaction-names">
+<h2>Adding New Reaction Names<a class="headerlink" href="#adding-new-reaction-names" title="Permalink to this headline">¶</a></h2>
+<p>If for some reason the existing reaction names are insufficient, the
+following procedure will add a new reaction to the suite provided.</p>
+<ol class="arabic simple">
+<li>Increment <tt class="docutils literal"><span class="pre">NUM_RX_NAMES</span></tt> in &#8220;rxname.h&#8221;.</li>
+<li>Add the name to the <tt class="docutils literal"><span class="pre">_names</span></tt> array at the top of &#8220;rxname.cpp&#8221;.
+Note the location in this array that the new name was added.</li>
+<li>In the <tt class="docutils literal"><span class="pre">_fill_maps()</span></tt> function in &#8220;rxname.cpp&#8221;, add the MT number
+to the <tt class="docutils literal"><span class="pre">_mts</span></tt> array at the same index the name was added in step 2.
+If the reaction does not have a corresponding MT number, add a zero
+(0) at this location instead.</li>
+<li>In the <tt class="docutils literal"><span class="pre">_fill_maps()</span></tt> function in &#8220;rxname.cpp&#8221;, add a short label
+to the <tt class="docutils literal"><span class="pre">_labels</span></tt> array at the same index the name was added in step
+2.</li>
+<li>In the <tt class="docutils literal"><span class="pre">_fill_maps()</span></tt> function in &#8220;rxname.cpp&#8221;, add a docstring to
+the <tt class="docutils literal"><span class="pre">_docs</span></tt> array at the same index the name was added in step 2.</li>
+</ol>
+<p>Repeat this procedure as necessary.</p>
+<hr class="docutils" />
+<table class="docutils citation" frame="void" id="nndc" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[NNDC]</a></td><td><a class="reference external" href="http://www.nndc.bnl.gov/endfdocs/ENDF-102-2001.pdf">http://www.nndc.bnl.gov/endfdocs/ENDF-102-2001.pdf</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="nea" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[NEA]</a></td><td><a class="reference external" href="http://www.oecd-nea.org/dbdata/data/manual-endf/endf102_MT.pdf">http://www.oecd-nea.org/dbdata/data/manual-endf/endf102_MT.pdf</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="t2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[T2]</a></td><td><a class="reference external" href="http://t2.lanl.gov/endf/mts.html">http://t2.lanl.gov/endf/mts.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="jaea" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[JAEA]</a></td><td><a class="reference external" href="http://wwwndc.jaea.go.jp/form/ENDF6/mt.html">http://wwwndc.jaea.go.jp/form/ENDF6/mt.html</a></td></tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<dl class="function">
+<dt id="pyne.rxname.doc">
+<tt class="descclassname">pyne.rxname.</tt><tt class="descname">doc</tt><big>(</big><em>x</em>, <em>y=None</em>, <em>z=&quot;n&quot;</em><big>)</big><a class="headerlink" href="#pyne.rxname.doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives documentation string for the reaction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
+<blockquote>
+<div><p>name, abbreviation, id, MT number, or from nuclide.</p>
+</div></blockquote>
+<p><strong>y</strong> : str, int, or None, optional</p>
+<blockquote>
+<div><p>to nuclide.</p>
+</div></blockquote>
+<p><strong>z</strong> : str, optional</p>
+<blockquote>
+<div><p>incident particle type (&#8220;n&#8221;, &#8220;p&#8221;, ...) when x and y are nuclides.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>d</strong> : str</p>
+<blockquote class="last">
+<div><p>a reaction docstring.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.rxname.hash">
+<tt class="descclassname">pyne.rxname.</tt><tt class="descname">hash</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#pyne.rxname.hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hashes a string to be used as a reaction id.  This hash specifically reserves
+the h &lt; 1000 for MT numbers.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.rxname.id">
+<tt class="descclassname">pyne.rxname.</tt><tt class="descname">id</tt><big>(</big><em>x</em>, <em>y=None</em>, <em>z=&quot;n&quot;</em><big>)</big><a class="headerlink" href="#pyne.rxname.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives the unique reaction id.  This is originally calculated as the hash of the
+name.  This id may not be less than 1000, since these integers are reserved for
+MT numbers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
+<blockquote>
+<div><p>name, abbreviation, id, MT number, or from nuclide.</p>
+</div></blockquote>
+<p><strong>y</strong> : str, int, or None, optional</p>
+<blockquote>
+<div><p>to nuclide.</p>
+</div></blockquote>
+<p><strong>z</strong> : str, optional</p>
+<blockquote>
+<div><p>incident particle type (&#8220;n&#8221;, &#8220;p&#8221;, ...) when x and y are nuclides.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>rxid</strong> : int or long</p>
+<blockquote class="last">
+<div><p>a unique reaction identifier.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.rxname.label">
+<tt class="descclassname">pyne.rxname.</tt><tt class="descname">label</tt><big>(</big><em>x</em>, <em>y=None</em>, <em>z=&quot;n&quot;</em><big>)</big><a class="headerlink" href="#pyne.rxname.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives a short reaction label, useful for user interfaces.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
+<blockquote>
+<div><p>name, abbreviation, id, MT number, or from nuclide.</p>
+</div></blockquote>
+<p><strong>y</strong> : str, int, or None, optional</p>
+<blockquote>
+<div><p>to nuclide.</p>
+</div></blockquote>
+<p><strong>z</strong> : str, optional</p>
+<blockquote>
+<div><p>incident particle type (&#8220;n&#8221;, &#8220;p&#8221;, ...) when x and y are nuclides.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>lab</strong> : str</p>
+<blockquote class="last">
+<div><p>a reaction label.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.rxname.mt">
+<tt class="descclassname">pyne.rxname.</tt><tt class="descname">mt</tt><big>(</big><em>x</em>, <em>y=None</em>, <em>z=&quot;n&quot;</em><big>)</big><a class="headerlink" href="#pyne.rxname.mt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives the reaction MT number. This may not be greater than 1000.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
+<blockquote>
+<div><p>name, abbreviation, id, MT number, or from nuclide.</p>
+</div></blockquote>
+<p><strong>y</strong> : str, int, or None, optional</p>
+<blockquote>
+<div><p>to nuclide.</p>
+</div></blockquote>
+<p><strong>z</strong> : str, optional</p>
+<blockquote>
+<div><p>incident particle type (&#8220;n&#8221;, &#8220;p&#8221;, ...) when x and y are nuclides.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mtnum</strong> : int or long</p>
+<blockquote class="last">
+<div><p>a unique MT number.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.rxname.name">
+<tt class="descclassname">pyne.rxname.</tt><tt class="descname">name</tt><big>(</big><em>x</em>, <em>y=None</em>, <em>z=&quot;n&quot;</em><big>)</big><a class="headerlink" href="#pyne.rxname.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives the unique reaction name.  Note that this name follows the &#8216;natural naming&#8217; 
+convention and may be used as a variable in most languages.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
+<blockquote>
+<div><p>name, abbreviation, id, MT number, or from nuclide.</p>
+</div></blockquote>
+<p><strong>y</strong> : str, int, or None, optional</p>
+<blockquote>
+<div><p>to nuclide.</p>
+</div></blockquote>
+<p><strong>z</strong> : str, optional</p>
+<blockquote>
+<div><p>incident particle type (&#8220;n&#8221;, &#8220;p&#8221;, ...) when x and y are nuclides.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>n</strong> : str</p>
+<blockquote class="last">
+<div><p>a unique reaction name.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Reaction Names &#8211; <tt class="docutils literal"><span class="pre">pyne.rxname</span></tt></a><ul>
+<li><a class="reference internal" href="#adding-new-reaction-names">Adding New Reaction Names</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="nucname.html"
+                        title="previous chapter">Nuclide Naming Module &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.nucname</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="data.html"
+                        title="next chapter">Basic Nuclear Data &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.data</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/pyapi/rxname.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="data.html" title="Basic Nuclear Data – pyne.data"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="nucname.html" title="Nuclide Naming Module – pyne.nucname"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >Python API</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

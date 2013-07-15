@@ -1,0 +1,264 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>C++ API &mdash; PyNE 0.2-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="next" title="PyNE Globals – libpyne" href="pyne.html" />
+    <link rel="prev" title="JsonCpp – pyne.jsoncpp" href="../pyapi/jsoncpp.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="pyne.html" title="PyNE Globals – libpyne"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../pyapi/jsoncpp.html" title="JsonCpp – pyne.jsoncpp"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+ 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="c-api">
+<span id="cppapi"></span><h1>C++ API<a class="headerlink" href="#c-api" title="Permalink to this headline">¶</a></h1>
+<p>The following files and libraries are part of the PyNE C++ interface:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pyne.html">PyNE Globals &#8211; <tt class="docutils literal"><span class="pre">libpyne</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="nucname.html">Nuclide Naming &#8211; <tt class="docutils literal"><span class="pre">libpyne_nucname</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="rxname.html">Reaction Naming &#8211; <tt class="docutils literal"><span class="pre">libpyne_rxname</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Nuclear Data &#8211; <tt class="docutils literal"><span class="pre">libpyne_data</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="material.html">Materials &#8211; <tt class="docutils literal"><span class="pre">libpyne_material</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="enrichment.html">Enrichement &#8211; <tt class="docutils literal"><span class="pre">libpyne_enrichment</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="extra_types.html">Extra Data Types (header only)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h5wrap.html">h5wrap: An HDF5 Wrapper (header only)</a></li>
+</ul>
+</div>
+<div class="section" id="using-the-c-api">
+<h2>Using the C++ API<a class="headerlink" href="#using-the-c-api" title="Permalink to this headline">¶</a></h2>
+<p>While PyNE is a Python package, much of its core functionality exists purely in C/C++.
+The python wrappers that expose these C-level utilities exist independently of the the
+C-code.  Therefore it is possible to use, compile, and link directly to PyNE core
+libraries from lower-level languages without having to touch Python at all.
+Additionally, this enables PyNE to be used from <em>within</em> other Python extension
+modules!</p>
+<p>The API for PyNE functions on the C++ level is very similar to that which is exposed
+to Python.  The differences lie largely in that C functions are strongly typed,
+whereas PyNE&#8217;s wrappers take heavy advantage of Python&#8217;s duck typing.  For most use
+cases, the <a class="reference internal" href="../usersguide/index.html#usersguide"><em>User&#8217;s Guide</em></a>, the <a class="reference internal" href="../pyapi/index.html#pyapi"><em>Python API</em></a>, and the header files should be
+sufficient to describe the C++ API.</p>
+<p>All PyNE shared objects are installed into the <tt class="file docutils literal"><span class="pre">pyne/lib/</span></tt> directory.  The
+headers for both C/C++ and Cython are always installed into the
+<tt class="file docutils literal"><span class="pre">pyne/includes/</span></tt> directory. Unfortunately, where <tt class="file docutils literal"><span class="pre">pyne/</span></tt> is located
+often changes from one system to another. However, these locations may be found from
+the <tt class="docutils literal"><span class="pre">pyne_config</span></tt> module.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">pyne_config</span>
+
+<span class="gp">In [2]: </span><span class="n">pyne_config</span><span class="o">.</span><span class="n">lib</span>
+<span class="gr">Out[2]: </span><span class="s">&#39;/usr/lib64/python2.7/site-packages/site-packages/pyne/lib&#39;</span>
+
+<span class="gp">In [3]: </span><span class="n">pyne_config</span><span class="o">.</span><span class="n">includes</span>
+<span class="gr">Out[3]: </span><span class="s">&#39;/usr/lib64/python2.7/site-packages/site-packages/pyne/include&#39;</span>
+</pre></div>
+</div>
+<p>The following table displays the C++ shared objects that are currently built (in Linux)
+and which names to use when dynamically linking to them.  For an example of how to
+link please refer to PyNE&#8217;s own <a class="reference external" href="https://github.com/pyne/pyne/blob/staging/setup.py">setup.py</a> file.  Additionally, feel free to contact
+the authors if you require additional assistance.</p>
+<table border="1" class="docutils">
+<caption>Pure C++ Shared Object Libraries</caption>
+<colgroup>
+<col width="21%" />
+<col width="44%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Module</th>
+<th class="head">Filename</th>
+<th class="head">Link With</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>pyne</td>
+<td>libpyne.so</td>
+<td>&#8216;pyne&#8217;</td>
+</tr>
+<tr class="row-odd"><td>nucname</td>
+<td>libpyne_nucname.so</td>
+<td>&#8216;pyne_nucname&#8217;</td>
+</tr>
+<tr class="row-even"><td>data</td>
+<td>libpyne_data.so</td>
+<td>&#8216;pyne_data&#8217;</td>
+</tr>
+<tr class="row-odd"><td>rxname</td>
+<td>libpyne_rxname.so</td>
+<td>&#8216;pyne_rxname&#8217;</td>
+</tr>
+<tr class="row-even"><td>material</td>
+<td>libpyne_material.so</td>
+<td>&#8216;pyne_material&#8217;</td>
+</tr>
+<tr class="row-odd"><td>enrichment</td>
+<td>libpyne_enrichment.so</td>
+<td>&#8216;pyne_enrichment&#8217;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">C++ API</a><ul>
+<li><a class="reference internal" href="#using-the-c-api">Using the C++ API</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../pyapi/jsoncpp.html"
+                        title="previous chapter">JsonCpp &#8211; <tt class="docutils literal"><span class="pre">pyne.jsoncpp</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyne.html"
+                        title="next chapter">PyNE Globals &#8211; <tt class="docutils literal"><span class="pre">libpyne</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/cppapi/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="pyne.html" title="PyNE Globals – libpyne"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../pyapi/jsoncpp.html" title="JsonCpp – pyne.jsoncpp"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+ 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2012, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>
