@@ -1,0 +1,6 @@
+<map id="inheritance39ceede74f" name="inheritance39ceede74f">
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ISource" title="pyne.simplesim.cards.ISource" alt="" coords="249,5,456,32"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.SourceCustom" title="pyne.simplesim.cards.SourceCustom" alt="" coords="507,29,761,57"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,29,199,57"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="248,54,457,82"/>
+</map>

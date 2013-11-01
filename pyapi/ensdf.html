@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ENSDF File Support – pyne.ensdf &mdash; PyNE 0.2-dev</title>
+    <title>ENSDF File Support – pyne.ensdf &mdash; PyNE 0.3</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.3" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
     <link rel="next" title="Cross Section Interface – pyne.xs" href="xs/index.html" />
     <link rel="prev" title="ACE Cross Sections – pyne.ace" href="ace.html" /> <script type="text/javascript">
@@ -88,7 +88,7 @@ if(ga_enabled){
           <div class="body">
             
   <div class="section" id="ensdf-file-support-pyne-ensdf">
-<span id="pyne-ensdf"></span><h1>ENSDF File Support &#8211; <tt class="xref py py-mod docutils literal"><span class="pre">pyne.ensdf</span></tt><a class="headerlink" href="#ensdf-file-support-pyne-ensdf" title="Permalink to this headline">¶</a></h1>
+<span id="pyne-ensdf"></span><h1>ENSDF File Support &#8211; <a class="reference internal" href="#module-pyne.ensdf" title="pyne.ensdf"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.ensdf</span></tt></a><a class="headerlink" href="#ensdf-file-support-pyne-ensdf" title="Permalink to this headline">¶</a></h1>
 <p>Pyne should nominally contain support for reading and writing
 Evaluated Nuclear Structure Data Files (ENSDF).  However, currently
 only parsing out half-life data is supported.</p>
@@ -96,8 +96,8 @@ only parsing out half-life data is supported.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">ensdf</span>
 </pre></div>
 </div>
-<div class="section" id="half-lives">
-<h2>Half Lives<a class="headerlink" href="#half-lives" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyne.ensdf">
+<span id="ensdf-api"></span><h2>ENSDF API<a class="headerlink" href="#module-pyne.ensdf" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyne.ensdf.half_life">
 <tt class="descclassname">pyne.ensdf.</tt><tt class="descname">half_life</tt><big>(</big><em>ensdf</em><big>)</big><a class="reference internal" href="../_modules/pyne/ensdf.html#half_life"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ensdf.half_life" title="Permalink to this definition">¶</a></dt>
@@ -116,9 +116,9 @@ only parsing out half-life data is supported.</p>
 <blockquote class="last">
 <div><p>List of tuples where the indices match</p>
 <ol class="arabic simple">
-<li>from_nuclide, int (zzaaam)</li>
+<li>from_nuclide, int (id)</li>
 <li>level, float (MeV) - from_nuc&#8217;s energy level</li>
-<li>to_nuclide, int (zzaaam)</li>
+<li>to_nuclide, int (id)</li>
 <li>half_life, float (seconds)</li>
 <li>branch_ratio, float (frac)</li>
 </ol>
@@ -144,7 +144,7 @@ only parsing out half-life data is supported.</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">ENSDF File Support &#8211; <tt class="docutils literal"><span class="pre">pyne.ensdf</span></tt></a><ul>
-<li><a class="reference internal" href="#half-lives">Half Lives</a></li>
+<li><a class="reference internal" href="#module-pyne.ensdf">ENSDF API</a></li>
 </ul>
 </li>
 </ul>
@@ -206,7 +206,7 @@ only parsing out half-life data is supported.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2013, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

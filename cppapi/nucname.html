@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nuclide Naming – libpyne_nucname &mdash; PyNE 0.2-dev</title>
+    <title>Nuclide Naming – libpyne_nucname &mdash; PyNE 0.3</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.3" href="../index.html" />
     <link rel="up" title="C++ API" href="index.html" />
     <link rel="next" title="Reaction Naming – libpyne_rxname" href="rxname.html" />
     <link rel="prev" title="PyNE Globals – libpyne" href="pyne.html" /> <script type="text/javascript">
@@ -90,245 +90,111 @@ if(ga_enabled){
   <div class="section" id="nuclide-naming-libpyne-nucname">
 <h1>Nuclide Naming &#8211; <tt class="docutils literal"><span class="pre">libpyne_nucname</span></tt><a class="headerlink" href="#nuclide-naming-libpyne-nucname" title="Permalink to this headline">¶</a></h1>
 <div class="line-block">
-<div class="line" id=""><span id="pyneclasspyne_1_1nucname_1_1_indeterminate_nuclide_form"></span><em>class</em> <strong>pyne::nucname::IndeterminateNuclideForm</strong></div>
-<div class="line"><em>#include &lt;nucname.h&gt;</em></div>
+<div class="line" id=""><span id="pynestructpyne_1_1atomic__decay__struct"></span><em>struct</em> <strong>pyne::atomic_decay_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
 </div>
 <blockquote>
-<div><p></p>
-<p>Custom expection for declaring that a value represents one or more nuclides in one or more namig conventions </p>
-<em>Public Functions</em><blockquote>
-<div><p id="pyne::nucname::IndeterminateNuclideForm::IndeterminateNuclideForm"><span id="pyneclasspyne_1_1nucname_1_1_indeterminate_nuclide_form_1aee3a250200624d6f4ab5935fd1e13d21"></span><div class="line-block">
-<div class="line"> <strong>IndeterminateNuclideForm</strong>()</div>
-</div>
-</p>
+<div><p>a struct matching the &#8216;/atomic_decay&#8217; table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a65ecc975f44e3ca697e777afe17a927a"></span>int <strong>from_nuc</strong></p>
 <blockquote>
-<div><p>default constructor </p>
+<div><p>parent species in id form </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::IndeterminateNuclideForm::~IndeterminateNuclideForm"><span id="pyneclasspyne_1_1nucname_1_1_indeterminate_nuclide_form_1afc4bbaae82a451dcbf3a85b62ab8de0e"></span><div class="line-block">
-<div class="line"> <strong>~IndeterminateNuclideForm</strong>()</div>
-</div>
-</p>
+<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a3c31721d0c6a32a0b400ff58e08432a9"></span>double <strong>level</strong></p>
 <blockquote>
-<div><p>default destuctor </p>
+<div><p>decay level [MeV] </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::IndeterminateNuclideForm::IndeterminateNuclideForm__ss.ss"><span id="pyneclasspyne_1_1nucname_1_1_indeterminate_nuclide_form_1a74d77801a214b679461eaf5dfbf7ab02"></span><div class="line-block">
-<div class="line"> <strong>IndeterminateNuclideForm</strong>(std::string wasptr, std::string nowptr)</div>
-</div>
-</p>
+<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1aef90e3cb88e10095119b4ac489b3cff4"></span>int <strong>to_nuc</strong></p>
 <blockquote>
-<div><p></p>
-<p>Constructor given previous and current state of nulide name <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">wasptr</span></tt> - <p>Previous state, typically user input. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">nowptr</span></tt> - <p>Current state, as far as PyNE could get. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::nucname::IndeterminateNuclideForm::IndeterminateNuclideForm__ss.i"><span id="pyneclasspyne_1_1nucname_1_1_indeterminate_nuclide_form_1a93724a9906be5a73b43b09ecdfed872d"></span><div class="line-block">
-<div class="line"> <strong>IndeterminateNuclideForm</strong>(std::string wasptr, int nowptr)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Constructor given previous and current state of nulide name <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">wasptr</span></tt> - <p>Previous state, typically user input. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">nowptr</span></tt> - <p>Current state, as far as PyNE could get. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::nucname::IndeterminateNuclideForm::IndeterminateNuclideForm__i.ss"><span id="pyneclasspyne_1_1nucname_1_1_indeterminate_nuclide_form_1a3c9c6d0c859f3344fbb78b4259733678"></span><div class="line-block">
-<div class="line"> <strong>IndeterminateNuclideForm</strong>(int wasptr, std::string nowptr)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Constructor given previous and current state of nulide name <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">wasptr</span></tt> - <p>Previous state, typically user input. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">nowptr</span></tt> - <p>Current state, as far as PyNE could get. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::nucname::IndeterminateNuclideForm::IndeterminateNuclideForm__i.i"><span id="pyneclasspyne_1_1nucname_1_1_indeterminate_nuclide_form_1a565a1ca748bf437b18eee4834f65bf19"></span><div class="line-block">
-<div class="line"> <strong>IndeterminateNuclideForm</strong>(int wasptr, int nowptr)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Constructor given previous and current state of nulide name <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">wasptr</span></tt> - <p>Previous state, typically user input. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">nowptr</span></tt> - <p>Current state, as far as PyNE could get. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::nucname::IndeterminateNuclideForm::whatC"><span id="pyneclasspyne_1_1nucname_1_1_indeterminate_nuclide_form_1a9103205a7bd38dec5118e84508ed4bdb"></span><div class="line-block">
-<div class="line">const char * <strong>what</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Generates an informational message for the exception <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>The error string </dd>
-</dl>
-</p>
-</div></blockquote>
-</div></blockquote>
-<em>Private Members</em><blockquote>
-<div><p id=""><span id="pyneclasspyne_1_1nucname_1_1_indeterminate_nuclide_form_1a43f88da11a7678d6b609b8daef4ef77d"></span>std::string <strong>nucwas</strong></p>
-<blockquote>
-<div><p>previous nuclide state </p>
+<div><p>child species in id form </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pyneclasspyne_1_1nucname_1_1_indeterminate_nuclide_form_1a4f21fba38bdfc58171d159f05000fd69"></span>std::string <strong>nucnow</strong></p>
+<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1ab8a1ac272b7a7a1c95335f1b3c81408a"></span>double <strong>half_life</strong></p>
 <blockquote>
-<div><p>current nuclide state </p>
+<div><p>species half life [s] </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a483a4993f476845b523c894dac699906"></span>double <strong>decay_const</strong></p>
+<blockquote>
+<div><p>decay constant [1/s] </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1ace17a464715f6aa27bb662c2abed485e"></span>double <strong>branch_ratio</strong></p>
+<blockquote>
+<div><p>decay branch ratio [fraction] </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
 <div class="line-block">
-<div class="line" id=""><span id="pyneclasspyne_1_1nucname_1_1_not_a_nuclide"></span><em>class</em> <strong>pyne::nucname::NotANuclide</strong></div>
-<div class="line"><em>#include &lt;nucname.h&gt;</em></div>
+<div class="line" id=""><span id="pynestructpyne_1_1atomic__weight__struct"></span><em>struct</em> <strong>pyne::atomic_weight_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
 </div>
 <blockquote>
-<div><p></p>
-<p>Custom expection for declaring that a value does not follow a recognizable nuclide naming convention. </p>
-<em>Public Functions</em><blockquote>
-<div><p id="pyne::nucname::NotANuclide::NotANuclide"><span id="pyneclasspyne_1_1nucname_1_1_not_a_nuclide_1ac1c10c25703f622788f475609fd5eed6"></span><div class="line-block">
-<div class="line"> <strong>NotANuclide</strong>()</div>
-</div>
-</p>
+<div><p>a struct matching the atomic_weight table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1af30ecca96d2085c520b78907f1f4f6dd"></span>int <strong>nuc</strong></p>
 <blockquote>
-<div><p>default constructor </p>
+<div><p>nuclide in id form </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::NotANuclide::~NotANuclide"><span id="pyneclasspyne_1_1nucname_1_1_not_a_nuclide_1a2fd948fc4d3be06a456b30188944b88a"></span><div class="line-block">
-<div class="line"> <strong>~NotANuclide</strong>()</div>
-</div>
-</p>
+<p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1ac9530cc5acc90c9d4553f398317d7d66"></span>double <strong>mass</strong></p>
 <blockquote>
-<div><p>default destructor </p>
+<div><p>nuclide atomic mass [amu] </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::NotANuclide::NotANuclide__ss.ss"><span id="pyneclasspyne_1_1nucname_1_1_not_a_nuclide_1a32741575cb99d294d54f39bc4ca5e51c"></span><div class="line-block">
-<div class="line"> <strong>NotANuclide</strong>(std::string wasptr, std::string nowptr)</div>
-</div>
-</p>
+<p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1a7328fa1c8ceb43e9ac76adf37b5fee37"></span>double <strong>error</strong></p>
 <blockquote>
-<div><p></p>
-<p>Constructor given previous and current state of nulide name <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">wasptr</span></tt> - <p>Previous state, typically user input. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">nowptr</span></tt> - <p>Current state, as far as PyNE could get. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::nucname::NotANuclide::NotANuclide__ss.i"><span id="pyneclasspyne_1_1nucname_1_1_not_a_nuclide_1a10f9f9c4be5b439f1dafd1450943252d"></span><div class="line-block">
-<div class="line"> <strong>NotANuclide</strong>(std::string wasptr, int nowptr)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Constructor given previous and current state of nulide name <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">wasptr</span></tt> - <p>Previous state, typically user input. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">nowptr</span></tt> - <p>Current state, as far as PyNE could get. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::nucname::NotANuclide::NotANuclide__i.ss"><span id="pyneclasspyne_1_1nucname_1_1_not_a_nuclide_1af8665194481f65e932cbd4244ee636ae"></span><div class="line-block">
-<div class="line"> <strong>NotANuclide</strong>(int wasptr, std::string nowptr)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Constructor given previous and current state of nulide name <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">wasptr</span></tt> - <p>Previous state, typically user input. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">nowptr</span></tt> - <p>Current state, as far as PyNE could get. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::nucname::NotANuclide::NotANuclide__i.i"><span id="pyneclasspyne_1_1nucname_1_1_not_a_nuclide_1adbc9b62fa21ec1ab4957ca8a4569a8c6"></span><div class="line-block">
-<div class="line"> <strong>NotANuclide</strong>(int wasptr, int nowptr)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Constructor given previous and current state of nulide name <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">wasptr</span></tt> - <p>Previous state, typically user input. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">nowptr</span></tt> - <p>Current state, as far as PyNE could get. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::nucname::NotANuclide::whatC"><span id="pyneclasspyne_1_1nucname_1_1_not_a_nuclide_1adb841d59149843b5b5718f5ccc47b4dc"></span><div class="line-block">
-<div class="line">const char * <strong>what</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Generates an informational message for the exception <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>The error string </dd>
-</dl>
-</p>
-</div></blockquote>
-</div></blockquote>
-<em>Private Members</em><blockquote>
-<div><p id=""><span id="pyneclasspyne_1_1nucname_1_1_not_a_nuclide_1ada104ea84e37eb23d4315e622637d211"></span>std::string <strong>nucwas</strong></p>
-<blockquote>
-<div><p>previous nuclide state </p>
+<div><p>error in atomic mass [amu] </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pyneclasspyne_1_1nucname_1_1_not_a_nuclide_1af774a16d8570dced969842a8f02241a8"></span>std::string <strong>nucnow</strong></p>
+<p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1a7e35e5c545835d1bcc841cd9946c61ac"></span>double <strong>abund</strong></p>
 <blockquote>
-<div><p>current nuclide state </p>
+<div><p>natural abundance of nuclide [atom fraction] </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line" id=""><span id="pynestructpyne_1_1scattering__lengths__struct"></span><em>struct</em> <strong>pyne::scattering_lengths_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>a struct matching the &#8216;/neutron/scattering_lengths&#8217; table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a5830a5a2860252db555ed91b39fad042"></span>int <strong>nuc</strong></p>
+<blockquote>
+<div><p>nuclide in id form </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a962ef615a9297a7d67ec05fc45ff133e"></span>extra_types::complex_t <strong>b_coherent</strong></p>
+<blockquote>
+<div><p>coherent scattering length [cm] </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a2326e775f7f8eb1dd6c6f1d256b0527d"></span>extra_types::complex_t <strong>b_incoherent</strong></p>
+<blockquote>
+<div><p>incoherent scattering length [cm] </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1ae53517c3358735b1f73f6f7d2946bcc8"></span>double <strong>xs_coherent</strong></p>
+<blockquote>
+<div><p>coherent scattering cross section </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a3a6b05086e35c96469b6455a6760d0ba"></span>double <strong>xs_incoherent</strong></p>
+<blockquote>
+<div><p>incoherent scattering cross section </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1ac3faa4853545985d45ca3f716adcddd2"></span>double <strong>xs</strong></p>
+<blockquote>
+<div><p>scattering cross section </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
@@ -339,453 +205,390 @@ if(ga_enabled){
 <blockquote>
 <div><p></p>
 <p></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynenamespacepyne_1_1nucname"></span><em>namespace</em> <strong>pyne::nucname</strong></div>
-</div>
+<em>Atomic Mass Data</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1a4d199d528a848703e4497aa8781a66bd"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1atomic__weight__struct"><em>pyne::atomic_weight_struct</em></a> <strong>atomic_weight_struct</strong></p>
 <blockquote>
-<div><p></p>
+<div><p>a struct matching the atomic_weight table in nuc_data.h5. </p>
 <p></p>
-<em>Current Form Functions</em><blockquote>
-<div><p>These functions compute the current form of the nuclide. <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>a (string) flag of the nuclides current form. </dd>
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">nuc</span></tt> - <p>a nuclide </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-<p id="pyne::nucname::current_form__ss"><span id="pynenamespacepyne_1_1nucname_1a84b505525dfac939621d16eab9497fd2"></span><div class="line-block">
-<div class="line">std::string <strong>current_form</strong>(std::string nuc)</div>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1a265f948ad8b999772773b55cb10adb70"></span>std::map&lt; int, double &gt; <strong>atomic_mass_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their atomic masses. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::_load_atomic_mass_map"><span id="pynenamespacepyne_1afc84ecca5a23b416bd3bf42b0756e68e"></span><div class="line-block">
+<div class="line">void <strong>_load_atomic_mass_map</strong>()</div>
 </div>
 </p>
 <blockquote>
 <div><p></p>
-<p></p>
+<p>Loads the atomic mass and natural abundance data from the nuc_data.h5 file into memory. </p>
 </div></blockquote>
-<p id="pyne::nucname::current_form__i"><span id="pynenamespacepyne_1_1nucname_1a1524d8e8bac27d4f6ab13ad99b13f013"></span><div class="line-block">
-<div class="line">std::string <strong>current_form</strong>(int nuc)</div>
+<p id="pyne::atomic_mass__i"><span id="pynenamespacepyne_1aaab79c2417fc60c1a248dd702403befb"></span><div class="line-block">
+<div class="line">double <strong>atomic_mass</strong>(int nuc)</div>
 </div>
 </p>
+<blockquote>
+<div><p>Returns the atomic mass of a nuclide <em>nuc</em>. </p>
+<p>This function will first try to find the atomic mass data in the atomic_mass_map. If this map is empty, it will load the data from disk. If the nuclide is in an excited state and not found in the map, it will give the value for the ground state nuclide. If the nuclide simply cannot be found, the A number is returned. </p>
+</div></blockquote>
+<p id="pyne::atomic_mass__cP"><span id="pynenamespacepyne_1a070a35bbdb0217ff8c4b222572912f87"></span><div class="line-block">
+<div class="line">double <strong>atomic_mass</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the atomic mass of a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::atomic_mass__ss"><span id="pynenamespacepyne_1a42514c3a14ce0ed7b91da7d742210ceb"></span><div class="line-block">
+<div class="line">double <strong>atomic_mass</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the atomic mass of a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Scattering Length Data</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1a91c1911f4cdfa00e0b988b09d198c650"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1scattering__lengths__struct"><em>pyne::scattering_lengths_struct</em></a> <strong>scattering_lengths_struct</strong></p>
+<blockquote>
+<div><p>a struct matching the &#8216;/neutron/scattering_lengths&#8217; table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1acb1f11faec860f96ba24425e33303470"></span>std::map&lt; int, extra_types::complex_t &gt; <strong>b_coherent_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their coherent scattering length. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad7ff5d87de64bfd5fd9720424c637ca9"></span>std::map&lt; int, extra_types::complex_t &gt; <strong>b_incoherent_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their incoherent scattering length. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ac04e73bd8b441483c5ece1fef10afb2a"></span>std::map&lt; int, double &gt; <strong>b_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their scattering length. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::_load_scattering_lengths"><span id="pynenamespacepyne_1a5731f21182f208aa6692bf9b3b3867c0"></span><div class="line-block">
+<div class="line">void <strong>_load_scattering_lengths</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Loads the scattering length data from the nuc_data.h5 file into memory. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b_coherent__i"><span id="pynenamespacepyne_1ab31949f85c2cab4013f3845e17bc51f6"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_coherent</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the coherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p>This function works by first checking the b_coherent_map. If the map is empty then the data is read in from disk. If no data is found than a value from a nuclide with the same A number is returned instead. If none of these exist, then the value of a nuclide with the same Z number is used. If none of these work then 0.0 is returned. </p>
+</div></blockquote>
+<p id="pyne::b_coherent__cP"><span id="pynenamespacepyne_1a13bd047be785fd5b7ca65a6db8e0723d"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_coherent</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the coherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b_coherent__ss"><span id="pynenamespacepyne_1ad2a3df137c2d8e13368f3e5da90d05af"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_coherent</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the coherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b_incoherent__i"><span id="pynenamespacepyne_1ab63bf05e9c69c24b68bb6243b04d9777"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_incoherent</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the incoherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p>This function works in the same way that b_coherent() does. </p>
+</div></blockquote>
+<p id="pyne::b_incoherent__cP"><span id="pynenamespacepyne_1a432ac4f56a96c1f8a614f6be27f01191"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_incoherent</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the incoherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b_incoherent__ss"><span id="pynenamespacepyne_1a7f03b64451bc110bc799ed5a5ce4f473"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_incoherent</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the incoherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b__i"><span id="pynenamespacepyne_1a12664d38214170260d6a69c4f5dda8da"></span><div class="line-block">
+<div class="line">double <strong>b</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Computes the scattering length [cm] from the coherent and incoherent components. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b__cP"><span id="pynenamespacepyne_1a702614f522de6463e3cf4f2b188a75ef"></span><div class="line-block">
+<div class="line">double <strong>b</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Computes the scattering length [cm] from the coherent and incoherent components. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b__ss"><span id="pynenamespacepyne_1a6b580c22fa1b5b26da1185723491fc3a"></span><div class="line-block">
+<div class="line">double <strong>b</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Computes the scattering length [cm] from the coherent and incoherent components. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Decay Data</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1a3d4ff38d6ee64c22419af2c5fc2b03b9"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1atomic__decay__struct"><em>pyne::atomic_decay_struct</em></a> <strong>atomic_decay_struct</strong></p>
+<blockquote>
+<div><p>a struct matching the &#8216;/atomic_decay&#8217; table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ac0f14a88359bb52cb5fd26a86b3d7caa"></span>std::map&lt; int, double &gt; <strong>half_life_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their half lives [s]. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad9e9e6587a727301b314776c85d59dcc"></span>std::map&lt; int, double &gt; <strong>decay_const_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their decay constants [1/s]. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad251f22662766748f9cbff3a45da7666"></span>std::map&lt; std::pair&lt; int, int &gt;, double &gt; <strong>branch_ratio_map</strong></p>
 <blockquote>
 <div><p></p>
+<p>Mapping from parent/child nuclide pairs in id form to their branch ratio [fraction]. </p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad1fac0dd892e4c4b513de09124944cfe"></span>std::map&lt; int, double &gt; <strong>state_energy_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their excitation energy [MeV]. </p>
 <p></p>
 </div></blockquote>
+<p id=""><span id="pynenamespacepyne_1a4d81748f381ddee0d680a01dc70bad39"></span>std::map&lt; int, std::set&lt; int &gt; &gt; <strong>decay_children_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to its decay children, if any. </p>
+<p></p>
 </div></blockquote>
-<em>ZZAAAM Form Functions</em><blockquote>
-<div><p>The ZZAAAM nuclide naming convention is the canonical form for representing nuclides in PyNE. This places the charge of the nucleus out front, then has three digits for the atomic mass number, and ends with a metastable flag (0 = ground, 1 = first excited state, 2 = second excited state, etc). Uranium-235 here would be expressed as ‘922350’. <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>an integer nuclide identifier. </dd>
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">nuc</span></tt> - <p>a nuclide </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-<p id="pyne::nucname::zzaaam__i"><span id="pynenamespacepyne_1_1nucname_1ac28bf4202f94c1902bdcb2f0caf314e3"></span><div class="line-block">
-<div class="line">int <strong>zzaaam</strong>(int nuc)</div>
+<p id="pyne::_load_atomic_decay"><span id="pynenamespacepyne_1a13a4091f442960197f54b5a41d70d333"></span><div class="line-block">
+<div class="line">void <strong>_load_atomic_decay</strong>()</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Loads the decay data from the nuc_data.h5 file into memory. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::zzaaam__cP"><span id="pynenamespacepyne_1_1nucname_1ae8f1eddf40a92a093103aa2b4adee432"></span><div class="line-block">
-<div class="line">int <strong>zzaaam</strong>(char * nuc)</div>
+<p id="pyne::half_life__i"><span id="pynenamespacepyne_1a98f776164d1812878cb4b4ee4ef943f5"></span><div class="line-block">
+<div class="line">double <strong>half_life</strong>(int nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
-<p></p>
+<div><p>Returns the half life for a nuclide <em>nuc</em>. </p>
+<p>This function works by first checking the half_life_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be stable and infinity is returned. </p>
 </div></blockquote>
-<p id="pyne::nucname::zzaaam__ss"><span id="pynenamespacepyne_1_1nucname_1aff543a0a9df5e199902780b49d4e82f6"></span><div class="line-block">
-<div class="line">int <strong>zzaaam</strong>(std::string nuc)</div>
+<p id="pyne::half_life__cP"><span id="pynenamespacepyne_1a120acb7c7ff96c26ff012aa192212160"></span><div class="line-block">
+<div class="line">double <strong>half_life</strong>(char * nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the half life for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-</div></blockquote>
-<em>Name Form Functions</em><blockquote>
-<div><p>The &#8216;name&#8217; nuclide naming convention is the more common, human readable notation. The chemical symbol (one or two characters long) is first, followed by the nucleon number. Lastly if the nuclide is metastable, the letter M is concatenated to the end. For example, ‘H-1’ and ‘Am242M’ are both valid. Note that nucname will always return name form with the dash removed and all letters uppercase. <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>a string nuclide identifier. </dd>
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">nuc</span></tt> - <p>a nuclide </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-<p id="pyne::nucname::name__i"><span id="pynenamespacepyne_1_1nucname_1a70117a5d74d65b210c635c662e08fe10"></span><div class="line-block">
-<div class="line">std::string <strong>name</strong>(int nuc)</div>
+<p id="pyne::half_life__ss"><span id="pynenamespacepyne_1a8fe3c8e42a1de1edd2547146da3c68b3"></span><div class="line-block">
+<div class="line">double <strong>half_life</strong>(std::string nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the half life for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::name__cP"><span id="pynenamespacepyne_1_1nucname_1a38fc868c1a343358df2021a151ec03f8"></span><div class="line-block">
-<div class="line">std::string <strong>name</strong>(char * nuc)</div>
+<p id="pyne::decay_const__i"><span id="pynenamespacepyne_1a6b87e11fea0c2167cd19eb62c21b12b2"></span><div class="line-block">
+<div class="line">double <strong>decay_const</strong>(int nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
-<p></p>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
+<p>This function works by first checking the decay_const_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be stable and 0.0 is returned. </p>
 </div></blockquote>
-<p id="pyne::nucname::name__ss"><span id="pynenamespacepyne_1_1nucname_1adfcf9a3fc2217ba23e93ce5915bad706"></span><div class="line-block">
-<div class="line">std::string <strong>name</strong>(std::string nuc)</div>
+<p id="pyne::decay_const__cP"><span id="pynenamespacepyne_1a4160d26376d4c3ea12636fd33ca8b3bb"></span><div class="line-block">
+<div class="line">double <strong>decay_const</strong>(char * nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-</div></blockquote>
-<em>MCNP Form Functions</em><blockquote>
-<div><p>This is the naming convention used by the MCNP suite of codes. The MCNP format for entering nuclides is unfortunately non-standard. In most ways it is similar to zzaaam form, except that it lacks the metastable flag. For information on how metastable isotopes are named, please consult the MCNP documentation for more information. <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>a string nuclide identifier. </dd>
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">nuc</span></tt> - <p>a nuclide </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-<p id="pyne::nucname::mcnp__i"><span id="pynenamespacepyne_1_1nucname_1a9b336037f24de5fb0a9f24bc6324cd40"></span><div class="line-block">
-<div class="line">int <strong>mcnp</strong>(int nuc)</div>
+<p id="pyne::decay_const__ss"><span id="pynenamespacepyne_1a8c3dd2b8fd7565d17301e39f6b959b92"></span><div class="line-block">
+<div class="line">double <strong>decay_const</strong>(std::string nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::mcnp__cP"><span id="pynenamespacepyne_1_1nucname_1aee1f14debc9a04463ec1c3443dbdf4ba"></span><div class="line-block">
-<div class="line">int <strong>mcnp</strong>(char * nuc)</div>
+<p id="pyne::branch_ratio__std::pair:i.i:"><span id="pynenamespacepyne_1af619eaa83237b583dd7f3b5c6b41a618"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(std::pair&lt; int, int &gt; from_to)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
-<p></p>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
+<p>This function works by first checking the branch_ratio_map. If this is empty it loads the data from disk. If the parent/child nuclide pair is still not found, then the decay is assumed to be impossible and 0.0 is returned. </p>
 </div></blockquote>
-<p id="pyne::nucname::mcnp__ss"><span id="pynenamespacepyne_1_1nucname_1a3e05db49bed60a40e56a1798afcd33ea"></span><div class="line-block">
-<div class="line">int <strong>mcnp</strong>(std::string nuc)</div>
+<p id="pyne::branch_ratio__i.i"><span id="pynenamespacepyne_1af2ac244d00d6a8fab26e646eb53fd172"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(int from_nuc, int to_nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
 <p></p>
 </div></blockquote>
-</div></blockquote>
-<em>Serpent Form Functions</em><blockquote>
-<div><p>This is the string-based naming convention used by the Serpent suite of codes. The serpent naming convention is similar to name form. However, only the first letter in the chemical symbol is uppercase, the dash is always present, and the the meta-stable flag is lowercase. For instance, ‘Am-242m’ is the valid serpent notation for this nuclide. <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>a string nuclide identifier. </dd>
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">nuc</span></tt> - <p>a nuclide </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-<p id="pyne::nucname::serpent__i"><span id="pynenamespacepyne_1_1nucname_1add93b13ec55e918550681062e48e1fd2"></span><div class="line-block">
-<div class="line">std::string <strong>serpent</strong>(int nuc)</div>
+<p id="pyne::branch_ratio__cP.cP"><span id="pynenamespacepyne_1abef13981249047d7678dc448db101ef4"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(char * from_nuc, char * to_nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::serpent__cP"><span id="pynenamespacepyne_1_1nucname_1aea4d37bd112080cafb72d7e56fc2c555"></span><div class="line-block">
-<div class="line">std::string <strong>serpent</strong>(char * nuc)</div>
+<p id="pyne::branch_ratio__ss.ss"><span id="pynenamespacepyne_1a5a77a005a47c8c2a421484f17acdec0d"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(std::string from_nuc, std::string to_nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::serpent__ss"><span id="pynenamespacepyne_1_1nucname_1a6c17212425ae2bc60437fa5c96f0b8de"></span><div class="line-block">
-<div class="line">std::string <strong>serpent</strong>(std::string nuc)</div>
+<p id="pyne::state_energy__i"><span id="pynenamespacepyne_1ada1a23281a3a62267fbd355bd48da2e6"></span><div class="line-block">
+<div class="line">double <strong>state_energy</strong>(int nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
-<p></p>
+<div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
+<p>This function works by first checking the state_energy_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be in a ground state and 0.0 is returned. </p>
 </div></blockquote>
-</div></blockquote>
-<em>NIST Form Functions</em><blockquote>
-<div><p>This is the string-based naming convention used by NIST. The NIST naming convention is also similar to the Serpent form. However, this convention contains no metastable information. Moreover, the A-number comes before the element symbol. For example, ‘242Am’ is the valid NIST notation. <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>a string nuclide identifier. </dd>
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">nuc</span></tt> - <p>a nuclide </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-<p id="pyne::nucname::nist__i"><span id="pynenamespacepyne_1_1nucname_1ab7a6f2f0459c253bc311fbbd62e00a38"></span><div class="line-block">
-<div class="line">std::string <strong>nist</strong>(int nuc)</div>
+<p id="pyne::state_energy__cP"><span id="pynenamespacepyne_1afbe96cec07719bac2b5fe3ad299b1dd1"></span><div class="line-block">
+<div class="line">double <strong>state_energy</strong>(char * nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::nist__cP"><span id="pynenamespacepyne_1_1nucname_1aad9752957663fcaa432707c34d414659"></span><div class="line-block">
-<div class="line">std::string <strong>nist</strong>(char * nuc)</div>
+<p id="pyne::state_energy__ss"><span id="pynenamespacepyne_1a1e1a4d494979a9aedce584c054474ae0"></span><div class="line-block">
+<div class="line">double <strong>state_energy</strong>(std::string nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::nist__ss"><span id="pynenamespacepyne_1_1nucname_1aa4c79af1530cdae7db618209167d17da"></span><div class="line-block">
-<div class="line">std::string <strong>nist</strong>(std::string nuc)</div>
+<p id="pyne::decay_children__i"><span id="pynenamespacepyne_1a8a2c5bdf0f2008c850662d015ab1b7de"></span><div class="line-block">
+<div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(int nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
-<p></p>
+<div><p>Returns a set of decay children of a <em>nuc</em>. </p>
+<p>This function works by first checking decay_chidlren_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be stable and an empty set is returned. </p>
 </div></blockquote>
-</div></blockquote>
-<em>CINDER Form Functions</em><blockquote>
-<div><p>This is the naming convention used by the CINDER burnup ibrary. The CINDER format is similar to zzaaam form except that the placement of the Z- and A-numbers are swapped. Therefore, this format is effectively aaazzzm. For example, ‘2420951’ is the valid cinder notation for ‘AM242M’. <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>a string nuclide identifier. </dd>
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">nuc</span></tt> - <p>a nuclide </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-<p id="pyne::nucname::cinder__i"><span id="pynenamespacepyne_1_1nucname_1a72e7d4ad5fb78e4d0f63c3aa4acfbf52"></span><div class="line-block">
-<div class="line">int <strong>cinder</strong>(int nuc)</div>
+<p id="pyne::decay_children__cP"><span id="pynenamespacepyne_1ab7ae40853e11f0350ff134d1b8c00250"></span><div class="line-block">
+<div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(char * nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::cinder__cP"><span id="pynenamespacepyne_1_1nucname_1ab0bbfbc860c6ad54c2e89412965347cd"></span><div class="line-block">
-<div class="line">int <strong>cinder</strong>(char * nuc)</div>
+<p id="pyne::decay_children__ss"><span id="pynenamespacepyne_1a30686798fdf9dc0fe0494df134a3a6e9"></span><div class="line-block">
+<div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(std::string nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::cinder__ss"><span id="pynenamespacepyne_1_1nucname_1ade4d33508b97fd38dcca937e366f324e"></span><div class="line-block">
-<div class="line">int <strong>cinder</strong>(std::string nuc)</div>
+</div></blockquote>
+<em>Natural Abundance Data</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1a8ef2ad6dcdf2555b626a5214916cbb9c"></span>std::map&lt; int, double &gt; <strong>natural_abund_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their natural abundances. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::natural_abund__i"><span id="pynenamespacepyne_1aa34a8311add97b0e90ce7600aa86f000"></span><div class="line-block">
+<div class="line">double <strong>natural_abund</strong>(int nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p></p>
-<p></p>
+<div><p>Returns the natural abundance of a nuclide <em>nuc</em>. </p>
+<p>This follows the same the basic rules for finding or computing the natural abundances as the atomic_mass() functions do. However, if the nuclide cannot be found, the default value returned is 0.0. </p>
 </div></blockquote>
-</div></blockquote>
-<em>Typedefs</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1_1nucname_1aed6b656cde69b79b33f6af37fabb2054"></span>typedef std::string <strong>name_t</strong></p>
-<blockquote>
-<div><p>name type </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1afc72282eda03d12bd117fe7a9c956880"></span>typedef int <strong>zz_t</strong></p>
-<blockquote>
-<div><p>Z number type. </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a583bbe562afd6de9a7ce77718e17a231"></span>typedef std::map&lt; name_t, zz_t &gt; <strong>name_zz_t</strong></p>
-<blockquote>
-<div><p>name and Z num map type </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1ae8154c4038af2ee6638047dfe08e3c77"></span>typedef name_zz_t::iterator <strong>name_zz_iter</strong></p>
-<blockquote>
-<div><p>name and Z num iter type </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1ada82b59dc2e7bf529842a0951cbe0e68"></span>typedef std::map&lt; zz_t, name_t &gt; <strong>zzname_t</strong></p>
-<blockquote>
-<div><p>Z num to name map type. </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a4fabf3e659aef06d90bb7eab271ed255"></span>typedef zzname_t::iterator <strong>zzname_iter</strong></p>
-<blockquote>
-<div><p>Z num to name iter type. </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a8959cfbd85b0ccc8b51ca14e98de9791"></span>typedef std::set&lt; name_t &gt; <strong>name_group</strong></p>
-<blockquote>
-<div><p>name grouping type (for testing containment) </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a8688af33bcbdb1e381461c3140180376"></span>typedef name_group::iterator <strong>name_group_iter</strong></p>
-<blockquote>
-<div><p>name grouping iter type </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a2e9463e61005389bbc50bfa210061582"></span>typedef std::set&lt; zz_t &gt; <strong>zz_group</strong></p>
-<blockquote>
-<div><p>Z number grouping type (for testing containment) </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1aa1a31f11017397e7138249c26954d24c"></span>typedef zz_group::iterator <strong>zz_group_iter</strong></p>
-<blockquote>
-<div><p>Z number grouping iter. </p>
-<p></p>
-</div></blockquote>
-</div></blockquote>
-<em>Functions</em><blockquote>
-<div><p id="pyne::nucname::get_name_zz"><span id="pynenamespacepyne_1_1nucname_1a3fa6d67aad08202b45e826da9b923851"></span><div class="line-block">
-<div class="line">name_zz_t <strong>get_name_zz</strong>()</div>
+<p id="pyne::natural_abund__cP"><span id="pynenamespacepyne_1a54a674f1208696becf15da2c9941c496"></span><div class="line-block">
+<div class="line">double <strong>natural_abund</strong>(char * nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p>Creates standard name to Z number mapping. </p>
+<div><p>Returns the natural abundance of a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::nucname::get_zz_name"><span id="pynenamespacepyne_1_1nucname_1a0bf51fe20e22f60f658a62293a9174cf"></span><div class="line-block">
-<div class="line">zzname_t <strong>get_zz_name</strong>()</div>
+<p id="pyne::natural_abund__ss"><span id="pynenamespacepyne_1a9f1c241172136f7b983c001c3b158ac4"></span><div class="line-block">
+<div class="line">double <strong>natural_abund</strong>(std::string nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p>Creates standard Z number to name mapping. </p>
+<div><p>Returns the natural abundance of a nuclide <em>nuc</em>. </p>
 <p></p>
-</div></blockquote>
-<p id="pyne::nucname::name_to_zz_group__name_group"><span id="pynenamespacepyne_1_1nucname_1a5257239391f4a761c221794887cf1abf"></span><div class="line-block">
-<div class="line">zz_group <strong>name_to_zz_group</strong>(name_group eg)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Converts a name group to a Z number group. <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>a Z numbered group </dd>
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">eg</span></tt> - <p>a grouping of nuclides by name </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
 </div></blockquote>
 </div></blockquote>
 <em>Variables</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1_1nucname_1a6b927f67d2e23e395b1a85dc7bfd9ea5"></span>name_zz_t <strong>name_zz</strong></p>
+<div><p id=""><span id="pynenamespacepyne_1ac4b3b3dcf295d033b906bf921d820ae2"></span>std::string <strong>NUC_DATA_PATH</strong></p>
 <blockquote>
-<div><p>name to Z num map </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a81fdc080ebea1dbae7ff6cde4aaa14c5"></span>zzname_t <strong>zz_name</strong></p>
-<blockquote>
-<div><p>Z num to name map. </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a57af37a790f80646b72a66a939852065"></span>name_t <strong>LAN_array</strong>[15]</p>
-<blockquote>
-<div><p>array of lanthanide names </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1af2882437a2b3650c48ea7d89b2536ad6"></span>name_group <strong>LAN</strong></p>
-<blockquote>
-<div><p>lanthanide name group </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1ace4b080ed7a544d3fc9a30d4d419d286"></span>zz_group <strong>lan</strong></p>
-<blockquote>
-<div><p>lanthanide Z number group </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a8f1cd29788abedc04612967f9f82e42a"></span>name_t <strong>ACT_array</strong>[15]</p>
-<blockquote>
-<div><p>array of actinide names </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1ae94f216bfed559816e632af63336ba91"></span>name_group <strong>ACT</strong></p>
-<blockquote>
-<div><p>actinide name group </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1abb9c35771fb2242bbc44fa287510951d"></span>zz_group <strong>act</strong></p>
-<blockquote>
-<div><p>actinide Z number group </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a6c78e3fa37cbabc37edfc81e85bc6b5c"></span>name_t <strong>TRU_array</strong>[22]</p>
-<blockquote>
-<div><p>array of transuranic names </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a6a534701c95c8968f01694a754d42ea6"></span>name_group <strong>TRU</strong></p>
-<blockquote>
-<div><p>transuranic name group </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1ac038bffc4b4ad044c01a1a4634c9c3d3"></span>zz_group <strong>tru</strong></p>
-<blockquote>
-<div><p>transuranic Z number group </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1aaed86b3124fab556f3064b95c1050665"></span>name_t <strong>MA_array</strong>[10]</p>
-<blockquote>
-<div><p>array of minor actinide names </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a20542ebd8d9697499ff3471a48362895"></span>name_group <strong>MA</strong></p>
-<blockquote>
-<div><p>minor actinide name group </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1ac6dfb75b4a08916d31fbb8e6717bad68"></span>zz_group <strong>ma</strong></p>
-<blockquote>
-<div><p>minor actinide Z number group </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1ac5f40933c5b12ba7ec9f6bbb23cb0b3e"></span>name_t <strong>FP_array</strong>[88]</p>
-<blockquote>
-<div><p>array of fission product names </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1ad9ea9614895dd350e26f276514109460"></span>name_group <strong>FP</strong></p>
-<blockquote>
-<div><p>fission product name group </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1_1nucname_1a05a6e733a83502a694f4229367afc84d"></span>zz_group <strong>fp</strong></p>
-<blockquote>
-<div><p>fission product Z number group </p>
+<div><p>Path to the nuc_data.h5 file. </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
 <div class="line-block">
-<div class="line" id=""><span id="pynenucname_8h"></span><em>file</em> <strong>nucname.h</strong></div>
+<div class="line" id=""><span id="pynedata_8h"></span><em>file</em> <strong>data.h</strong></div>
 <div class="line"><em>#include &lt;iostream&gt;</em></div>
 <div class="line"><em>#include &lt;string&gt;</em></div>
+<div class="line"><em>#include &lt;utility&gt;</em></div>
 <div class="line"><em>#include &lt;map&gt;</em></div>
 <div class="line"><em>#include &lt;set&gt;</em></div>
 <div class="line"><em>#include &lt;exception&gt;</em></div>
 <div class="line"><em>#include &lt;stdlib.h&gt;</em></div>
 <div class="line"><em>#include &lt;stdio.h&gt;</em></div>
+<div class="line"><em>#include &#8220;hdf5.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;hdf5_hl.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;h5wrap.h&#8221;</em></div>
+<div class="line"><em>#include &lt;fstream&gt;</em></div>
+<div class="line"><em>#include &lt;vector&gt;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/extra_types.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;extra_types.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;pyne.h&#8221;</em></div>
+<div class="line"><em>#include &lt;string.h&gt;</em></div>
+<div class="line"><em>#include &lt;sstream&gt;</em></div>
+<div class="line"><em>#include &lt;cctype&gt;</em></div>
+<div class="line"><em>#include &lt;cmath&gt;</em></div>
+<div class="line"><em>#include &lt;sys/stat.h&gt;</em></div>
+<div class="line"><em>#include &lt;sys/types.h&gt;</em></div>
+<div class="line"><em>#include &lt;cstdlib&gt;</em></div>
+<div class="line"><em>#include &lt;algorithm&gt;</em></div>
+<div class="line"><em>#include &#8220;nucname.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/pyne.h&#8221;</em></div>
 </div>
 <blockquote>
-<div><p>Converts between naming conventions for nuclides. </p>
+<div><p>Implements basic nuclear data functions. </p>
 <p><dl class="docutils">
 <dt><strong>Author</strong></dt>
 <dd>Anthony Scopatz (scopatz&#64;gmail.com) </dd>
@@ -793,28 +596,7 @@ if(ga_enabled){
 </p>
 </div></blockquote>
 <div class="line-block">
-<div class="line" id=""><span id="pynedir_16f816c94a95b6c656b1681aa0e1f00c"></span><em>dir</em> <strong>/home/scopatz/pyne/cpp/</strong></div>
-</div>
-<blockquote>
-<div><p></p>
-<p></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedir_75b82e7e4a5feb05200b9ad7adf06257"></span><em>dir</em> <strong>/home/</strong></div>
-</div>
-<blockquote>
-<div><p></p>
-<p></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedir_eb6f41395e501d521b60e4bcc322f5b5"></span><em>dir</em> <strong>/home/scopatz/pyne/</strong></div>
-</div>
-<blockquote>
-<div><p></p>
-<p></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedir_fd36fd30001b5b61e932a47c7a98e725"></span><em>dir</em> <strong>/home/scopatz/</strong></div>
+<div class="line" id=""><span id="pynedir_df511e5bd85cec96854b39d5e1c27aa8"></span><em>dir</em> <strong>/home/scopatz/pyne/cpp</strong></div>
 </div>
 <blockquote>
 <div><p></p>
@@ -888,7 +670,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2013, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

@@ -13,18 +13,23 @@ The following modules and sub-packages are discussed:
     rxname
     data
     material
+    mesh
     bins
     njoy
     cccc
     ace
     ensdf
     xs/index
+    transmute/index
     origen22
     serpent
     enrichment
     utils
-    stlconverters
+    stlcontainers
     dbgen/index
     mcnp
+    ptrac_to_hdf5
+    binaryreader
+    rxdata
     simplesim/index
     jsoncpp

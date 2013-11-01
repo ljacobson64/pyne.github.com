@@ -1,0 +1,197 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyne.dbgen.atomic_mass &mdash; PyNE 0.3</title>
+    
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../../../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.3" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pyne.dbgen.atomic_mass</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">urllib2</span>
+
+<div class="viewcode-block" id="get_atomic_masses"><a class="viewcode-back" href="../../../pyapi/dbgen/atomic_mass.html#pyne.dbgen.atomic_mass.get_atomic_masses">[docs]</a><span class="k">def</span> <span class="nf">get_atomic_masses</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Creates a dictionary of atomic masses based off of data from G Audi,</span>
+<span class="sd">    A. H. Wapstra, and C. Thibault, &quot;The 2003 Atomic Mass Evaluation</span>
+<span class="sd">    (II). Tables, graphs, and references.&quot; Nuclear Physics A729, 337 (2003).</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    atomic_mass : dict</span>
+<span class="sd">        A dictionary where each key is an integer equal to the ZAID identifier</span>
+<span class="sd">        for the nuclide and the value is the atomic mass in units of amu</span>
+<span class="sd">        (1.660538921e-27 kg). For example, to get the atomic mass of U-235 which</span>
+<span class="sd">        has Z=92, you would enter atomic_mass[92235].</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># Open table of masses from NNDC</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://www.nndc.bnl.gov/masses/mass.mas03&#39;</span>
+    <span class="n">mass_file</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="c"># Skip first 39 lines to get to data</span>
+    <span class="n">n_skip</span> <span class="o">=</span> <span class="mi">39</span>
+    <span class="p">[</span><span class="n">mass_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_skip</span><span class="p">)]</span>
+
+    <span class="c"># Create empty dictionary to store atomic mass</span>
+    <span class="n">atomic_mass</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c"># Read data from file</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">mass_file</span><span class="p">:</span>
+        <span class="c"># Read atomic number and mass number</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">14</span><span class="p">])</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">14</span><span class="p">:</span><span class="mi">19</span><span class="p">])</span>
+        <span class="n">zaid</span> <span class="o">=</span> <span class="n">Z</span><span class="o">*</span><span class="mi">1000</span> <span class="o">+</span> <span class="n">A</span>
+
+        <span class="c"># Read atomic mass of this nuclide. Note that the mass is split into two</span>
+        <span class="c"># fields, one which has the integer part and the other which has the</span>
+        <span class="c"># fractional part.</span>
+        <span class="n">mass_int_part</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">96</span><span class="p">:</span><span class="mi">99</span><span class="p">])</span>
+        <span class="n">mass_frac_part</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">99</span><span class="p">:</span><span class="mi">111</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;#&#39;</span><span class="p">,</span><span class="s">&#39;.&#39;</span><span class="p">))</span>
+
+        <span class="c"># Calculate mass and add to dictionary</span>
+        <span class="n">mass</span> <span class="o">=</span> <span class="n">mass_int_part</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="o">*</span><span class="n">mass_frac_part</span>
+        <span class="n">atomic_mass</span><span class="p">[</span><span class="n">zaid</span><span class="p">]</span> <span class="o">=</span> <span class="n">mass</span>
+
+    <span class="c"># Check to make sure mass of C-12 is 12 amu.</span>
+    <span class="k">assert</span> <span class="n">atomic_mass</span><span class="p">[</span><span class="mi">6012</span><span class="p">]</span> <span class="o">==</span> <span class="mf">12.0</span>
+
+    <span class="k">return</span> <span class="n">atomic_mass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../../../index.html">
+          <img class="logo" src="../../../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2013, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

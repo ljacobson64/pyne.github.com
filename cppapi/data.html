@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nuclear Data – libpyne_data &mdash; PyNE 0.2-dev</title>
+    <title>Nuclear Data – libpyne_data &mdash; PyNE 0.3</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.3" href="../index.html" />
     <link rel="up" title="C++ API" href="index.html" />
     <link rel="next" title="Materials – libpyne_material" href="material.html" />
     <link rel="prev" title="Reaction Naming – libpyne_rxname" href="rxname.html" /> <script type="text/javascript">
@@ -99,7 +99,7 @@ if(ga_enabled){
 <em>Public Members</em><blockquote>
 <div><p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a65ecc975f44e3ca697e777afe17a927a"></span>int <strong>from_nuc</strong></p>
 <blockquote>
-<div><p>parent species in zzaaam form </p>
+<div><p>parent species in id form </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a3c31721d0c6a32a0b400ff58e08432a9"></span>double <strong>level</strong></p>
@@ -109,7 +109,7 @@ if(ga_enabled){
 </div></blockquote>
 <p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1aef90e3cb88e10095119b4ac489b3cff4"></span>int <strong>to_nuc</strong></p>
 <blockquote>
-<div><p>child species in zzaaam form </p>
+<div><p>child species in id form </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1ab8a1ac272b7a7a1c95335f1b3c81408a"></span>double <strong>half_life</strong></p>
@@ -139,7 +139,7 @@ if(ga_enabled){
 <em>Public Members</em><blockquote>
 <div><p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1af30ecca96d2085c520b78907f1f4f6dd"></span>int <strong>nuc</strong></p>
 <blockquote>
-<div><p>nuclide in zzaaam form </p>
+<div><p>nuclide in id form </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1ac9530cc5acc90c9d4553f398317d7d66"></span>double <strong>mass</strong></p>
@@ -169,7 +169,7 @@ if(ga_enabled){
 <em>Public Members</em><blockquote>
 <div><p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a5830a5a2860252db555ed91b39fad042"></span>int <strong>nuc</strong></p>
 <blockquote>
-<div><p>nuclide in zzaaam form </p>
+<div><p>nuclide in id form </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a962ef615a9297a7d67ec05fc45ff133e"></span>extra_types::complex_t <strong>b_coherent</strong></p>
@@ -206,14 +206,14 @@ if(ga_enabled){
 <div><p></p>
 <p></p>
 <em>Atomic Mass Data</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1a4d199d528a848703e4497aa8781a66bd"></span>typedef struct  <a class="reference internal" href="#pynestructpyne_1_1atomic__weight__struct"><em>pyne::atomic_weight_struct</em></a> <strong>atomic_weight_struct</strong></p>
+<div><p id=""><span id="pynenamespacepyne_1a4d199d528a848703e4497aa8781a66bd"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1atomic__weight__struct"><em>pyne::atomic_weight_struct</em></a> <strong>atomic_weight_struct</strong></p>
 <blockquote>
 <div><p>a struct matching the atomic_weight table in nuc_data.h5. </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynenamespacepyne_1a265f948ad8b999772773b55cb10adb70"></span>std::map&lt; int, double &gt; <strong>atomic_mass_map</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in zzaaam form to their atomic masses. </p>
+<div><p>Mapping from nuclides in id form to their atomic masses. </p>
 <p></p>
 </div></blockquote>
 <p id="pyne::_load_atomic_mass_map"><span id="pynenamespacepyne_1afc84ecca5a23b416bd3bf42b0756e68e"></span><div class="line-block">
@@ -250,24 +250,24 @@ if(ga_enabled){
 </div></blockquote>
 </div></blockquote>
 <em>Scattering Length Data</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1a91c1911f4cdfa00e0b988b09d198c650"></span>typedef struct  <a class="reference internal" href="#pynestructpyne_1_1scattering__lengths__struct"><em>pyne::scattering_lengths_struct</em></a> <strong>scattering_lengths_struct</strong></p>
+<div><p id=""><span id="pynenamespacepyne_1a91c1911f4cdfa00e0b988b09d198c650"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1scattering__lengths__struct"><em>pyne::scattering_lengths_struct</em></a> <strong>scattering_lengths_struct</strong></p>
 <blockquote>
 <div><p>a struct matching the &#8216;/neutron/scattering_lengths&#8217; table in nuc_data.h5. </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynenamespacepyne_1acb1f11faec860f96ba24425e33303470"></span>std::map&lt; int, extra_types::complex_t &gt; <strong>b_coherent_map</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in zzaaam form to their coherent scattering length. </p>
+<div><p>Mapping from nuclides in id form to their coherent scattering length. </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynenamespacepyne_1ad7ff5d87de64bfd5fd9720424c637ca9"></span>std::map&lt; int, extra_types::complex_t &gt; <strong>b_incoherent_map</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in zzaaam form to their incoherent scattering length. </p>
+<div><p>Mapping from nuclides in id form to their incoherent scattering length. </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynenamespacepyne_1ac04e73bd8b441483c5ece1fef10afb2a"></span>std::map&lt; int, double &gt; <strong>b_map</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in zzaaam form to their scattering length. </p>
+<div><p>Mapping from nuclides in id form to their scattering length. </p>
 <p></p>
 </div></blockquote>
 <p id="pyne::_load_scattering_lengths"><span id="pynenamespacepyne_1a5731f21182f208aa6692bf9b3b3867c0"></span><div class="line-block">
@@ -352,34 +352,34 @@ if(ga_enabled){
 </div></blockquote>
 </div></blockquote>
 <em>Decay Data</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1a3d4ff38d6ee64c22419af2c5fc2b03b9"></span>typedef struct  <a class="reference internal" href="#pynestructpyne_1_1atomic__decay__struct"><em>pyne::atomic_decay_struct</em></a> <strong>atomic_decay_struct</strong></p>
+<div><p id=""><span id="pynenamespacepyne_1a3d4ff38d6ee64c22419af2c5fc2b03b9"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1atomic__decay__struct"><em>pyne::atomic_decay_struct</em></a> <strong>atomic_decay_struct</strong></p>
 <blockquote>
 <div><p>a struct matching the &#8216;/atomic_decay&#8217; table in nuc_data.h5. </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynenamespacepyne_1ac0f14a88359bb52cb5fd26a86b3d7caa"></span>std::map&lt; int, double &gt; <strong>half_life_map</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in zzaaam form to their half lives [s]. </p>
+<div><p>Mapping from nuclides in id form to their half lives [s]. </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynenamespacepyne_1ad9e9e6587a727301b314776c85d59dcc"></span>std::map&lt; int, double &gt; <strong>decay_const_map</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in zzaaam form to their decay constants [1/s]. </p>
+<div><p>Mapping from nuclides in id form to their decay constants [1/s]. </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynenamespacepyne_1ad251f22662766748f9cbff3a45da7666"></span>std::map&lt; std::pair&lt; int, int &gt;, double &gt; <strong>branch_ratio_map</strong></p>
 <blockquote>
 <div><p></p>
-<p>Mapping from parent/child nuclide pairs in zzaaam form to their branch ratio [fraction]. </p>
+<p>Mapping from parent/child nuclide pairs in id form to their branch ratio [fraction]. </p>
 </div></blockquote>
 <p id=""><span id="pynenamespacepyne_1ad1fac0dd892e4c4b513de09124944cfe"></span>std::map&lt; int, double &gt; <strong>state_energy_map</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in zzaaam form to their excitation energy [MeV]. </p>
+<div><p>Mapping from nuclides in id form to their excitation energy [MeV]. </p>
 <p></p>
 </div></blockquote>
 <p id=""><span id="pynenamespacepyne_1a4d81748f381ddee0d680a01dc70bad39"></span>std::map&lt; int, std::set&lt; int &gt; &gt; <strong>decay_children_map</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in zzaaam form to its decay children, if any. </p>
+<div><p>Mapping from nuclides in id form to its decay children, if any. </p>
 <p></p>
 </div></blockquote>
 <p id="pyne::_load_atomic_decay"><span id="pynenamespacepyne_1a13a4091f442960197f54b5a41d70d333"></span><div class="line-block">
@@ -522,7 +522,7 @@ if(ga_enabled){
 <em>Natural Abundance Data</em><blockquote>
 <div><p id=""><span id="pynenamespacepyne_1a8ef2ad6dcdf2555b626a5214916cbb9c"></span>std::map&lt; int, double &gt; <strong>natural_abund_map</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in zzaaam form to their natural abundances. </p>
+<div><p>Mapping from nuclides in id form to their natural abundances. </p>
 <p></p>
 </div></blockquote>
 <p id="pyne::natural_abund__i"><span id="pynenamespacepyne_1aa34a8311add97b0e90ce7600aa86f000"></span><div class="line-block">
@@ -571,9 +571,21 @@ if(ga_enabled){
 <div class="line"><em>#include &#8220;hdf5.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;hdf5_hl.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;h5wrap.h&#8221;</em></div>
+<div class="line"><em>#include &lt;fstream&gt;</em></div>
+<div class="line"><em>#include &lt;vector&gt;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/extra_types.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;extra_types.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;pyne.h&#8221;</em></div>
+<div class="line"><em>#include &lt;string.h&gt;</em></div>
+<div class="line"><em>#include &lt;sstream&gt;</em></div>
+<div class="line"><em>#include &lt;cctype&gt;</em></div>
+<div class="line"><em>#include &lt;cmath&gt;</em></div>
+<div class="line"><em>#include &lt;sys/stat.h&gt;</em></div>
+<div class="line"><em>#include &lt;sys/types.h&gt;</em></div>
+<div class="line"><em>#include &lt;cstdlib&gt;</em></div>
+<div class="line"><em>#include &lt;algorithm&gt;</em></div>
 <div class="line"><em>#include &#8220;nucname.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/pyne.h&#8221;</em></div>
 </div>
 <blockquote>
 <div><p>Implements basic nuclear data functions. </p>
@@ -584,28 +596,7 @@ if(ga_enabled){
 </p>
 </div></blockquote>
 <div class="line-block">
-<div class="line" id=""><span id="pynedir_16f816c94a95b6c656b1681aa0e1f00c"></span><em>dir</em> <strong>/home/scopatz/pyne/cpp/</strong></div>
-</div>
-<blockquote>
-<div><p></p>
-<p></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedir_75b82e7e4a5feb05200b9ad7adf06257"></span><em>dir</em> <strong>/home/</strong></div>
-</div>
-<blockquote>
-<div><p></p>
-<p></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedir_eb6f41395e501d521b60e4bcc322f5b5"></span><em>dir</em> <strong>/home/scopatz/pyne/</strong></div>
-</div>
-<blockquote>
-<div><p></p>
-<p></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedir_fd36fd30001b5b61e932a47c7a98e725"></span><em>dir</em> <strong>/home/scopatz/</strong></div>
+<div class="line" id=""><span id="pynedir_df511e5bd85cec96854b39d5e1c27aa8"></span><em>dir</em> <strong>/home/scopatz/pyne/cpp</strong></div>
 </div>
 <blockquote>
 <div><p></p>
@@ -679,7 +670,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2013, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

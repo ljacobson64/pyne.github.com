@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ORIGEN 2.2 Support – pyne.origen22 &mdash; PyNE 0.2-dev</title>
+    <title>ORIGEN 2.2 Support – pyne.origen22 &mdash; PyNE 0.3</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,10 +33,10 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.3" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
     <link rel="next" title="Serpent Support – pyne.serpent" href="serpent.html" />
-    <link rel="prev" title="Nuclear Reaction Channels – pyne.xs.channels" href="xs/channels.html" /> <script type="text/javascript">
+    <link rel="prev" title="Chain Solve – pyne.transmute.chainsolve" href="transmute/chainsolve.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -71,7 +71,7 @@ if(ga_enabled){
           <a href="serpent.html" title="Serpent Support – pyne.serpent"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="xs/channels.html" title="Nuclear Reaction Channels – pyne.xs.channels"
+          <a href="transmute/chainsolve.html" title="Chain Solve – pyne.transmute.chainsolve"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
@@ -88,7 +88,7 @@ if(ga_enabled){
           <div class="body">
             
   <div class="section" id="origen-2-2-support-pyne-origen22">
-<span id="pyne-origen22"></span><h1>ORIGEN 2.2 Support &#8211; <tt class="xref py py-mod docutils literal"><span class="pre">pyne.origen22</span></tt><a class="headerlink" href="#origen-2-2-support-pyne-origen22" title="Permalink to this headline">¶</a></h1>
+<span id="pyne-origen22"></span><h1>ORIGEN 2.2 Support &#8211; <a class="reference internal" href="#module-pyne.origen22" title="pyne.origen22"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.origen22</span></tt></a><a class="headerlink" href="#origen-2-2-support-pyne-origen22" title="Permalink to this headline">¶</a></h1>
 <p>Pyne contains support for reading, writing, and merging
 certain ORIGEN 2.2 input and output files (tapes).
 More information may be found in the ORIGEN users manual.</p>
@@ -97,23 +97,29 @@ More information may be found in the ORIGEN users manual.</p>
 </pre></div>
 </div>
 <p>Examples of use may be found in the user&#8217;s guide (<a class="reference internal" href="../usersguide/origen22.html#usersguide-origen22"><em>ORIGEN 2.2 I/O Support</em></a>).</p>
-<div class="section" id="tape4">
-<h2>TAPE4<a class="headerlink" href="#tape4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyne.origen22">
+<span id="origen-2-2-api"></span><h2>ORIGEN 2.2 API<a class="headerlink" href="#module-pyne.origen22" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="pyne.origen22.write_tape4">
-<tt class="descclassname">pyne.origen22.</tt><tt class="descname">write_tape4</tt><big>(</big><em>mat</em>, <em>outfile=&quot;TAPE4.INP&quot;</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#write_tape4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.write_tape4" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes a TAPE4.INP ORIGEN input file for a material.</p>
+<dt id="pyne.origen22.merge_tape9">
+<tt class="descclassname">pyne.origen22.</tt><tt class="descname">merge_tape9</tt><big>(</big><em>tape9s</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#merge_tape9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.merge_tape9" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges a sequence of full or partial TAPE9s into a single tape9 dictionary.
+Data from the first tape9 has precednce over the second, the second over the
+third, etc.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>tape9s</strong> : list or tuple</p>
 <blockquote>
-<div><p>Material with mass weights in units of grams.</p>
+<div><p>A sequence of full or partial tape9 dictionaries.  See parse_tape9()
+for more information on the structure of these dictionaires.</p>
 </div></blockquote>
-<p><strong>outfile</strong> : str or file handler, optional</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>tape9</strong> : dictionary</p>
 <blockquote class="last">
-<div><p>Path to tape4 file or file-like object.</p>
+<div><p>A tape9 file which is the merger of the all of the tape9s.  See 
+parse_tape9() for more information on the structure of this dictionary.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -121,78 +127,9 @@ More information may be found in the ORIGEN users manual.</p>
 </table>
 </dd></dl>
 
-</div>
-<div class="section" id="tape5">
-<h2>TAPE5<a class="headerlink" href="#tape5" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="pyne.origen22.write_tape5_irradiation">
-<tt class="descclassname">pyne.origen22.</tt><tt class="descname">write_tape5_irradiation</tt><big>(</big><em>irr_type</em>, <em>irr_time</em>, <em>irr_value</em>, <em>outfile=&quot;TAPE5.INP&quot;</em>, <em>decay_nlb=(1</em>, <em>2</em>, <em>3)</em>, <em>xsfpy_nlb=(204</em>, <em>205</em>, <em>206)</em>, <em>cut_off=1E-10</em>, <em>out_table_nes=(False</em>, <em>False</em>, <em>True)</em>, <em>out_table_laf=(True</em>, <em>True</em>, <em>True)</em>, <em>out_table_num=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#write_tape5_irradiation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.write_tape5_irradiation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes an irradiation TAPE5 file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>irr_type</strong> : str</p>
-<blockquote>
-<div><p>Flag that determines whether this is a constant power &#8220;IRP&#8221;
-irradiation or a constant flux &#8220;IRF&#8221; irradiation calculation.</p>
-</div></blockquote>
-<p><strong>irr_time</strong> : float</p>
-<blockquote>
-<div><p>Irradiation time durration in days.</p>
-</div></blockquote>
-<p><strong>irr_value</strong> : float</p>
-<blockquote>
-<div><p>Magnitude of the irradiation. If irr_type = &#8220;IRP&#8221;, then
-this is a power.  If irr_type = &#8220;IRF&#8221;, then this is a flux.</p>
-</div></blockquote>
-<p><strong>outfile</strong> : str or file-like object</p>
-<blockquote>
-<div><p>Path or file to write the tape5 to.</p>
-</div></blockquote>
-<p><strong>decay_nlb</strong> : length 3 sequence</p>
-<blockquote>
-<div><p>Three tuple of library numbers from the tape9 file decay data, eg (1, 2, 3).</p>
-</div></blockquote>
-<p><strong>xsfpy_nlb</strong> : length 3 sequence</p>
-<blockquote>
-<div><p>Three tuple of library numbers from the tape9 file for cross section and fission
-product yields, eg (204, 205, 206).</p>
-</div></blockquote>
-<p><strong>cut_off</strong> : float, optional</p>
-<blockquote>
-<div><p>Cut-off concentration, below which reults are not recorded.</p>
-</div></blockquote>
-<p><strong>out_table_nes</strong> :  length 3 sequence of bools, optional</p>
-<blockquote>
-<div><p>Specifies which type of output tables should be printed by ORIGEN.  The fields 
-represent (Nuclide, Element, Summary).  The default value of (False, False, True) 
-only prints the summary tables.</p>
-</div></blockquote>
-<p><strong>out_table_laf</strong> :  length 3 sequence of bools, optional</p>
-<blockquote>
-<div><p>Specifies whether to print the activation products (l), actinides (a), and 
-fission products (f).  By default all three are printed.</p>
-</div></blockquote>
-<p><strong>out_table_num</strong> : sequence of ints or None</p>
-<blockquote class="last">
-<div><p>Specifies which tables, by number, to print according to the rules given by 
-out_table_nes and out_table_laf.  For example the list [10, 5] would print 
-tables 5 and 10.  There are 24 tables available. If None, then all tables 
-are printed.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="tape6">
-<h2>TAPE6<a class="headerlink" href="#tape6" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyne.origen22.parse_tape6">
-<tt class="descclassname">pyne.origen22.</tt><tt class="descname">parse_tape6</tt><big>(</big><em>tape6=&quot;TAPE6.OUT&quot;</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#parse_tape6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.parse_tape6" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyne.origen22.</tt><tt class="descname">parse_tape6</tt><big>(</big><em>tape6='TAPE6.OUT'</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#parse_tape6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.parse_tape6" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parses an ORIGEN 2.2 TAPE6.OUT file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -265,12 +202,9 @@ the time vector.  The possible layout of results is as follows:</p>
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="tape9">
-<h2>TAPE9<a class="headerlink" href="#tape9" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyne.origen22.parse_tape9">
-<tt class="descclassname">pyne.origen22.</tt><tt class="descname">parse_tape9</tt><big>(</big><em>tape9=&quot;TAPE9.INP&quot;</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#parse_tape9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.parse_tape9" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyne.origen22.</tt><tt class="descname">parse_tape9</tt><big>(</big><em>tape9='TAPE9.INP'</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#parse_tape9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.parse_tape9" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parses an ORIGEN 2.2 TAPE9 file and returns the data as a dictionary of nuclide dictionaries.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -359,64 +293,6 @@ fission product cross section and yield decks
 </dd></dl>
 
 <dl class="function">
-<dt id="pyne.origen22.merge_tape9">
-<tt class="descclassname">pyne.origen22.</tt><tt class="descname">merge_tape9</tt><big>(</big><em>tape9s</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#merge_tape9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.merge_tape9" title="Permalink to this definition">¶</a></dt>
-<dd><p>Merges a sequence of full or partial TAPE9s into a single tape9 dictionary.
-Data from the first tape9 has precednce over the second, the second over the
-third, etc.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>tape9s</strong> : list or tuple</p>
-<blockquote>
-<div><p>A sequence of full or partial tape9 dictionaries.  See parse_tape9()
-for more information on the structure of these dictionaires.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>tape9</strong> : dictionary</p>
-<blockquote class="last">
-<div><p>A tape9 file which is the merger of the all of the tape9s.  See 
-parse_tape9() for more information on the structure of this dictionary.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyne.origen22.write_tape9">
-<tt class="descclassname">pyne.origen22.</tt><tt class="descname">write_tape9</tt><big>(</big><em>tape9</em>, <em>outfile=&quot;TAPE9.INP&quot;</em>, <em>precision=3</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#write_tape9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.write_tape9" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes an ORIGEN 2.2 TAPE9.INP file given a tape9 dictionary of values.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>tape9</strong> : dict</p>
-<blockquote>
-<div><p>A tape9 dictionary. See parse_tape9() for more information on the structure.</p>
-</div></blockquote>
-<p><strong>outfile</strong> : str or file-like object, optional</p>
-<blockquote>
-<div><p>Path to the new tape9 file.</p>
-</div></blockquote>
-<p><strong>precision</strong> :  int, optional</p>
-<blockquote class="last">
-<div><p>The number of significant figures that all output data is given to beyond 
-the decimal point.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="other-origen22-functions">
-<h2>Other origen22 functions<a class="headerlink" href="#other-origen22-functions" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
 <dt id="pyne.origen22.sec_to_time_unit">
 <tt class="descclassname">pyne.origen22.</tt><tt class="descname">sec_to_time_unit</tt><big>(</big><em>s</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#sec_to_time_unit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.sec_to_time_unit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts seconds to ORIGEN time and units.</p>
@@ -446,6 +322,171 @@ Table 4.2 in ORIGEN 2.2 manual.</p>
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="pyne.origen22.write_tape4">
+<tt class="descclassname">pyne.origen22.</tt><tt class="descname">write_tape4</tt><big>(</big><em>mat</em>, <em>outfile='TAPE4.INP'</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#write_tape4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.write_tape4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a TAPE4.INP ORIGEN input file for a material.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
+<blockquote>
+<div><p>Material with mass weights in units of grams.</p>
+</div></blockquote>
+<p><strong>outfile</strong> : str or file handler, optional</p>
+<blockquote class="last">
+<div><p>Path to tape4 file or file-like object.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.origen22.write_tape5_decay">
+<tt class="descclassname">pyne.origen22.</tt><tt class="descname">write_tape5_decay</tt><big>(</big><em>dec_time</em>, <em>outfile='TAPE5.INP'</em>, <em>decay_nlb=(1</em>, <em>2</em>, <em>3)</em>, <em>xsfpy_nlb=(204</em>, <em>205</em>, <em>206)</em>, <em>cut_off=1e-10</em>, <em>out_table_nes=(False</em>, <em>False</em>, <em>True)</em>, <em>out_table_laf=(True</em>, <em>True</em>, <em>True)</em>, <em>out_table_num=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#write_tape5_decay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.write_tape5_decay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes an irradiation TAPE5 file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>dec_time</strong> : float</p>
+<blockquote>
+<div><p>Decay time durration in days.</p>
+</div></blockquote>
+<p><strong>outfile</strong> : str or file-like object</p>
+<blockquote>
+<div><p>Path or file to write the tape5 to.</p>
+</div></blockquote>
+<p><strong>decay_nlb</strong> : length 3 sequence</p>
+<blockquote>
+<div><p>Three tuple of library numbers from the tape9 file decay data, eg (1, 2, 3).</p>
+</div></blockquote>
+<p><strong>xsfpy_nlb</strong> : length 3 sequence</p>
+<blockquote>
+<div><p>Three tuple of library numbers from the tape9 file for cross section and fission
+product yields, eg (204, 205, 206).</p>
+</div></blockquote>
+<p><strong>cut_off</strong> : float, optional</p>
+<blockquote>
+<div><p>Cut-off concentration, below which reults are not recorded.</p>
+</div></blockquote>
+<p><strong>out_table_nes</strong> :  length 3 sequence of bools, optional</p>
+<blockquote>
+<div><p>Specifies which type of output tables should be printed by ORIGEN.  The fields 
+represent (Nuclide, Element, Summary).  The default value of (False, False, True) 
+only prints the summary tables.</p>
+</div></blockquote>
+<p><strong>out_table_laf</strong> :  length 3 sequence of bools, optional</p>
+<blockquote>
+<div><p>Specifies whether to print the activation products (l), actinides (a), and 
+fission products (f).  By default all three are printed.</p>
+</div></blockquote>
+<p><strong>out_table_num</strong> : sequence of ints or None</p>
+<blockquote class="last">
+<div><p>Specifies which tables, by number, to print according to the rules given by 
+out_table_nes and out_table_laf.  For example the list [10, 5] would print 
+tables 5 and 10.  There are 24 tables available. If None, then all tables 
+are printed.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.origen22.write_tape5_irradiation">
+<tt class="descclassname">pyne.origen22.</tt><tt class="descname">write_tape5_irradiation</tt><big>(</big><em>irr_type</em>, <em>irr_time</em>, <em>irr_value</em>, <em>outfile='TAPE5.INP'</em>, <em>decay_nlb=(1</em>, <em>2</em>, <em>3)</em>, <em>xsfpy_nlb=(204</em>, <em>205</em>, <em>206)</em>, <em>cut_off=1e-10</em>, <em>out_table_nes=(False</em>, <em>False</em>, <em>True)</em>, <em>out_table_laf=(True</em>, <em>True</em>, <em>True)</em>, <em>out_table_num=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#write_tape5_irradiation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.write_tape5_irradiation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes an irradiation TAPE5 file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>irr_type</strong> : str</p>
+<blockquote>
+<div><p>Flag that determines whether this is a constant power &#8220;IRP&#8221;
+irradiation or a constant flux &#8220;IRF&#8221; irradiation calculation.</p>
+</div></blockquote>
+<p><strong>irr_time</strong> : float</p>
+<blockquote>
+<div><p>Irradiation time durration in days.</p>
+</div></blockquote>
+<p><strong>irr_value</strong> : float</p>
+<blockquote>
+<div><p>Magnitude of the irradiation. If irr_type = &#8220;IRP&#8221;, then
+this is a power.  If irr_type = &#8220;IRF&#8221;, then this is a flux.</p>
+</div></blockquote>
+<p><strong>outfile</strong> : str or file-like object</p>
+<blockquote>
+<div><p>Path or file to write the tape5 to.</p>
+</div></blockquote>
+<p><strong>decay_nlb</strong> : length 3 sequence</p>
+<blockquote>
+<div><p>Three tuple of library numbers from the tape9 file decay data, eg (1, 2, 3).</p>
+</div></blockquote>
+<p><strong>xsfpy_nlb</strong> : length 3 sequence</p>
+<blockquote>
+<div><p>Three tuple of library numbers from the tape9 file for cross section and fission
+product yields, eg (204, 205, 206).</p>
+</div></blockquote>
+<p><strong>cut_off</strong> : float, optional</p>
+<blockquote>
+<div><p>Cut-off concentration, below which reults are not recorded.</p>
+</div></blockquote>
+<p><strong>out_table_nes</strong> :  length 3 sequence of bools, optional</p>
+<blockquote>
+<div><p>Specifies which type of output tables should be printed by ORIGEN.  The fields 
+represent (Nuclide, Element, Summary).  The default value of (False, False, True) 
+only prints the summary tables.</p>
+</div></blockquote>
+<p><strong>out_table_laf</strong> :  length 3 sequence of bools, optional</p>
+<blockquote>
+<div><p>Specifies whether to print the activation products (l), actinides (a), and 
+fission products (f).  By default all three are printed.</p>
+</div></blockquote>
+<p><strong>out_table_num</strong> : sequence of ints or None</p>
+<blockquote class="last">
+<div><p>Specifies which tables, by number, to print according to the rules given by 
+out_table_nes and out_table_laf.  For example the list [10, 5] would print 
+tables 5 and 10.  There are 24 tables available. If None, then all tables 
+are printed.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.origen22.write_tape9">
+<tt class="descclassname">pyne.origen22.</tt><tt class="descname">write_tape9</tt><big>(</big><em>tape9</em>, <em>outfile='TAPE9.INP'</em>, <em>precision=3</em><big>)</big><a class="reference internal" href="../_modules/pyne/origen22.html#write_tape9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.origen22.write_tape9" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes an ORIGEN 2.2 TAPE9.INP file given a tape9 dictionary of values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>tape9</strong> : dict</p>
+<blockquote>
+<div><p>A tape9 dictionary. See parse_tape9() for more information on the structure.</p>
+</div></blockquote>
+<p><strong>outfile</strong> : str or file-like object, optional</p>
+<blockquote>
+<div><p>Path to the new tape9 file.</p>
+</div></blockquote>
+<p><strong>precision</strong> :  int, optional</p>
+<blockquote class="last">
+<div><p>The number of significant figures that all output data is given to beyond 
+the decimal point.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 </div>
 
@@ -461,18 +502,14 @@ Table 4.2 in ORIGEN 2.2 manual.</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">ORIGEN 2.2 Support &#8211; <tt class="docutils literal"><span class="pre">pyne.origen22</span></tt></a><ul>
-<li><a class="reference internal" href="#tape4">TAPE4</a></li>
-<li><a class="reference internal" href="#tape5">TAPE5</a></li>
-<li><a class="reference internal" href="#tape6">TAPE6</a></li>
-<li><a class="reference internal" href="#tape9">TAPE9</a></li>
-<li><a class="reference internal" href="#other-origen22-functions">Other origen22 functions</a></li>
+<li><a class="reference internal" href="#module-pyne.origen22">ORIGEN 2.2 API</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="xs/channels.html"
-                        title="previous chapter">Nuclear Reaction Channels &#8211; <tt class="docutils literal"><span class="pre">pyne.xs.channels</span></tt></a></p>
+  <p class="topless"><a href="transmute/chainsolve.html"
+                        title="previous chapter">Chain Solve &#8211; <tt class="docutils literal"><span class="pre">pyne.transmute.chainsolve</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="serpent.html"
                         title="next chapter">Serpent Support &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.serpent</span></tt></a></p>
@@ -516,7 +553,7 @@ Table 4.2 in ORIGEN 2.2 manual.</p>
           <a href="serpent.html" title="Serpent Support – pyne.serpent"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="xs/channels.html" title="Nuclear Reaction Channels – pyne.xs.channels"
+          <a href="transmute/chainsolve.html" title="Chain Solve – pyne.transmute.chainsolve"
              >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
@@ -527,7 +564,7 @@ Table 4.2 in ORIGEN 2.2 manual.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2013, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

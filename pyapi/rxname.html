@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Reaction Names – pyne.rxname &mdash; PyNE 0.2-dev</title>
+    <title>Reaction Names – pyne.rxname &mdash; PyNE 0.3</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.3" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
     <link rel="next" title="Basic Nuclear Data – pyne.data" href="data.html" />
     <link rel="prev" title="Nuclide Naming Module – pyne.nucname" href="nucname.html" /> <script type="text/javascript">
@@ -90,19 +90,22 @@ if(ga_enabled){
   <div class="section" id="module-pyne.rxname">
 <span id="reaction-names-pyne-rxname"></span><span id="pyne-rxname"></span><h1>Reaction Names &#8211; <a class="reference internal" href="#module-pyne.rxname" title="pyne.rxname"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.rxname</span></tt></a><a class="headerlink" href="#module-pyne.rxname" title="Permalink to this headline">¶</a></h1>
 <p>Python wrapper for rxname library.</p>
-<p>The rxname module provides a string-based canonical form for reaction channel names, 
-an integer identifier, labeling and documentation, and conversion to/from other
-conventions for these names.</p>
+<p>The rxname module provides a string-based canonical form for reaction
+channel names, an integer identifier, labeling and documentation, and
+conversion to/from other conventions for these names.</p>
 <blockquote>
-<div><p><strong>Reaction Names:</strong>  The names themselves are strings chosen such that they are 
-valid variable names in most programming languages (including Python and C/C++).
-This strategy is known as <em>natural naming</em> and enables a <em>namespace</em> of reactions.
-Therefore, all names must match the regular expression <tt class="docutils literal"><span class="pre">[A-Za-z_][A-Za-z0-9_]*</span></tt>.
-For example, the elastic scattering cross section is simply &#8220;elastic&#8221; while the 
-pair production reaction is given by &#8220;pair_prod&#8221;.</p>
-<p>A number of patterns dictate how a reaction should be named.  Foremost among these
-are particle names.  Where required, &#8220;z&#8221; is a variable for any incident particle.
-The following table displays particle types and their names:</p>
+<div><p><strong>Reaction Names:</strong> The names themselves are strings chosen such
+that they are valid variable names in most programming languages
+(including Python and C/C++).  This strategy is known as <em>natural
+naming</em> and enables a <em>namespace</em> of reactions.  Therefore, all
+names must match the regular expression <tt class="docutils literal"><span class="pre">[A-Za-z_][A-Za-z0-9_]*</span></tt>.
+For example, the elastic scattering cross section is simply
+&#8220;elastic&#8221; while the pair production reaction is given by
+&#8220;pair_prod&#8221;.</p>
+<p>A number of patterns dictate how a reaction should be named.
+Foremost among these are particle names.  Where required, &#8220;z&#8221; is a
+variable for any incident particle.  The following table displays
+particle types and their names:</p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -139,73 +142,83 @@ The following table displays particle types and their names:</p>
 </tbody>
 </table>
 </div></blockquote>
-<p>From this we can see that a reaction which produces a neutron and a proton is 
-called &#8220;np&#8221;.  If multiple particles of the same type are produced, then the 
-number precedes the particle type.  Thus, one neutron and two protons are given
-by &#8220;n2p&#8221;.  However if this would result in the name starting with a number, then
-the name is prepended with <tt class="docutils literal"><span class="pre">z_</span></tt> to indicate any incident particle.  For example,
-the reaction which yields two neutrons is &#8220;z_2n&#8221; (because &#8220;2n&#8221; is not a valid
-variable name in most programming languages).</p>
-<p>Furthermore, if a reaction name ends in <tt class="docutils literal"><span class="pre">_[0-9]+</span></tt> (underscore plus digits), then
-this means that the nucleus is left in the nth excited state after the interaction.
-For example, &#8220;n_0&#8221; produces a neutron and leaves the nucleus in the ground state,
-&#8220;n_1&#8221; produces a neutron and the nucleus is in the first excited state, and so on.
-However, &#8220;_continuum&#8221; means that the nucleus in an energy state in the continuum.</p>
-<p>If a reaction name begins with <tt class="docutils literal"><span class="pre">erel_</span></tt>, then this channel is for the energy 
-release from the reaction by the name without <tt class="docutils literal"><span class="pre">erel_</span></tt>.  E.g. &#8220;erel_p&#8221; is the 
-energy release from proton emission.</p>
-<p><strong>Reaction IDs:</strong>  While the reaction names are sufficient for defining all 
-possible reactions in a partially physically meaningful way, they do so using a
-variable length format (strings).  It is often advantageous to have a fixed-width
-format, namely for storage.  To this end, unique unsigned 32-bit integers are 
-given to each name.  These identifiers are computed based on a custom hash of the
-reaction name.  This hash function reserves space for MT numbers by not producing
-values below 1000.  It is recommended that the reaction identifiers be used for
-most performance critical tasks, rather than the names that they are calculated 
-from.</p>
-<p><strong>Reaction Labels:</strong>  Reaction labels are short, human-readable strings.  These 
-do not follow the naming convention restrictions that the names themselves are 
-subject to.  Additionally, labels need not be unique.  The labels are provided
-as a convenience for building user interfaces with.</p>
-<p><strong>Reaction Docstrings:</strong>  Similar to labels, reactions also come with a 
-documentation string which gives a description of the reaction in a sentence or
-two. These provide more help and information for a reaction.  This may be useful
-in a tool tip context for user interfaces.</p>
-<p><strong>Other Canonical Forms:</strong>  This module provides mappings between other reaction
-canonical forms and the naming conventions and IDs used here.  The most widespread
-of these are arguably the MT numbers.  MT numbers are a strict subset of the 
-reactions used here.  Further information may be found at <a class="reference internal" href="#nndc">[NNDC]</a>, <a class="reference internal" href="#nea">[NEA]</a>, <a class="reference internal" href="#t2">[T2]</a>, 
-and <a class="reference internal" href="#jaea">[JAEA]</a>.</p>
+<p>From this we can see that a reaction which produces a neutron and a
+proton is called &#8220;np&#8221;.  If multiple particles of the same type are
+produced, then the number precedes the particle type.  Thus, one
+neutron and two protons are given by &#8220;n2p&#8221;.  However if this would
+result in the name starting with a number, then the name is
+prepended with <tt class="docutils literal"><span class="pre">z_</span></tt> to indicate any incident particle.  For
+example, the reaction which yields two neutrons is &#8220;z_2n&#8221; (because
+&#8220;2n&#8221; is not a valid variable name in most programming languages).</p>
+<p>Furthermore, if a reaction name ends in <tt class="docutils literal"><span class="pre">_[0-9]+</span></tt> (underscore plus
+digits), then this means that the nucleus is left in the nth excited
+state after the interaction.  For example, &#8220;n_0&#8221; produces a neutron
+and leaves the nucleus in the ground state, &#8220;n_1&#8221; produces a neutron
+and the nucleus is in the first excited state, and so on.  However,
+&#8220;_continuum&#8221; means that the nucleus in an energy state in the
+continuum.</p>
+<p>If a reaction name begins with <tt class="docutils literal"><span class="pre">erel_</span></tt>, then this channel is for
+the energy release from the reaction by the name without <tt class="docutils literal"><span class="pre">erel_</span></tt>.
+E.g. &#8220;erel_p&#8221; is the energy release from proton emission.</p>
+<p><strong>Reaction IDs:</strong> While the reaction names are sufficient for
+defining all possible reactions in a partially physically meaningful
+way, they do so using a variable length format (strings).  It is
+often advantageous to have a fixed-width format, namely for storage.
+To this end, unique unsigned 32-bit integers are given to each name.
+These identifiers are computed based on a custom hash of the
+reaction name.  This hash function reserves space for MT numbers by
+not producing values below 1000.  It is recommended that the
+reaction identifiers be used for most performance critical tasks,
+rather than the names that they are calculated from.</p>
+<p><strong>Reaction Labels:</strong> Reaction labels are short, human-readable
+strings.  These do not follow the naming convention restrictions
+that the names themselves are subject to.  Additionally, labels need
+not be unique.  The labels are provided as a convenience for
+building user interfaces with.</p>
+<p><strong>Reaction Docstrings:</strong> Similar to labels, reactions also come with
+a documentation string which gives a description of the reaction in
+a sentence or two. These provide more help and information for a
+reaction.  This may be useful in a tool tip context for user
+interfaces.</p>
+<p><strong>Other Canonical Forms:</strong> This module provides mappings between
+other reaction canonical forms and the naming conventions and IDs
+used here.  The most widespread of these are arguably the MT
+numbers.  MT numbers are a strict subset of the reactions used here.
+Further information may be found at <a class="reference internal" href="#nndc">[NNDC]</a>, <a class="reference internal" href="#nea">[NEA]</a>, <a class="reference internal" href="#t2">[T2]</a>, and
+<a class="reference internal" href="#jaea">[JAEA]</a>.</p>
 </div></blockquote>
-<p>The rxname module implements a suite of functions for computing or retrieving 
-reaction names and their associated data described above.  These functions have a
-variety of interfaces. Lookup may occur either by name, ID, MT number, a string of
-ID, or a string of MT number.</p>
-<p>However, lookup may also occur via alternate names or abbreviations.  For example, 
-&#8220;tot&#8221; and &#8220;abs&#8221; will give the names &#8220;total&#8221; and &#8220;absorption&#8221;.  Spelling out particles
-will also work; &#8220;alpha&#8221; and &#8220;duet&#8221; will give &#8220;a&#8221; and &#8220;d&#8221;.  For a listing of all 
-alternative names see the <tt class="docutils literal"><span class="pre">altnames</span></tt> variable.</p>
-<p>Furthermore, certain reactions may be inferred from the nuclide prior and post
-reaction.  For example, if an incident neutron hit U-235 and Th-232 was produced then
-an alpha production reaction is assumed to have occurred. Thus most of the functions
-in rxname will take a from nuclide, a to nuclide, and z &#8211; the incident particle type 
-(which defaults to &#8220;n&#8221; neutron).  Note that z may also be &#8220;decay&#8221;, indicating a 
-radioactive decay occurrence.</p>
+<p>The rxname module implements a suite of functions for computing or
+retrieving reaction names and their associated data described above.
+These functions have a variety of interfaces. Lookup may occur either by
+name, ID, MT number, a string of ID, or a string of MT number.</p>
+<p>However, lookup may also occur via alternate names or abbreviations.
+For example, &#8220;tot&#8221; and &#8220;abs&#8221; will give the names &#8220;total&#8221; and
+&#8220;absorption&#8221;.  Spelling out particles will also work; &#8220;alpha&#8221; and &#8220;duet&#8221;
+will give &#8220;a&#8221; and &#8220;d&#8221;.  For a listing of all alternative names see the
+<tt class="docutils literal"><span class="pre">altnames</span></tt> variable.</p>
+<p>Furthermore, certain reactions may be inferred from the nuclide prior
+and post reaction.  For example, if an incident neutron hit U-235 and
+Th-232 was produced then an alpha production reaction is assumed to have
+occurred. Thus most of the functions in rxname will take a from nuclide,
+a to nuclide, and z &#8211; the incident particle type (which defaults to &#8220;n&#8221;
+neutron).  Note that z may also be &#8220;decay&#8221;, indicating a radioactive
+decay occurrence.</p>
 <div class="section" id="adding-new-reaction-names">
 <h2>Adding New Reaction Names<a class="headerlink" href="#adding-new-reaction-names" title="Permalink to this headline">¶</a></h2>
-<p>If for some reason the existing reaction names are insufficient, the following 
-procedure will add a new reaction to the suite provided.</p>
+<p>If for some reason the existing reaction names are insufficient, the
+following procedure will add a new reaction to the suite provided.</p>
 <ol class="arabic simple">
 <li>Increment <tt class="docutils literal"><span class="pre">NUM_RX_NAMES</span></tt> in &#8220;rxname.h&#8221;.</li>
 <li>Add the name to the <tt class="docutils literal"><span class="pre">_names</span></tt> array at the top of &#8220;rxname.cpp&#8221;.
 Note the location in this array that the new name was added.</li>
-<li>In the <tt class="docutils literal"><span class="pre">_fill_maps()</span></tt> function in &#8220;rxname.cpp&#8221;, add the MT number 
+<li>In the <tt class="docutils literal"><span class="pre">_fill_maps()</span></tt> function in &#8220;rxname.cpp&#8221;, add the MT number
 to the <tt class="docutils literal"><span class="pre">_mts</span></tt> array at the same index the name was added in step 2.
-If the reaction does not have a corresponding MT number, add a zero (0)
-at this location instead.</li>
-<li>In the <tt class="docutils literal"><span class="pre">_fill_maps()</span></tt> function in &#8220;rxname.cpp&#8221;, add a short label to 
-the <tt class="docutils literal"><span class="pre">_labels</span></tt> array at the same index the name was added in step 2.</li>
-<li>In the <tt class="docutils literal"><span class="pre">_fill_maps()</span></tt> function in &#8220;rxname.cpp&#8221;, add a docstring to 
+If the reaction does not have a corresponding MT number, add a zero
+(0) at this location instead.</li>
+<li>In the <tt class="docutils literal"><span class="pre">_fill_maps()</span></tt> function in &#8220;rxname.cpp&#8221;, add a short label
+to the <tt class="docutils literal"><span class="pre">_labels</span></tt> array at the same index the name was added in step
+2.</li>
+<li>In the <tt class="docutils literal"><span class="pre">_fill_maps()</span></tt> function in &#8220;rxname.cpp&#8221;, add a docstring to
 the <tt class="docutils literal"><span class="pre">_docs</span></tt> array at the same index the name was added in step 2.</li>
 </ol>
 <p>Repeat this procedure as necessary.</p>
@@ -235,6 +248,38 @@ the <tt class="docutils literal"><span class="pre">_docs</span></tt> array at th
 </tbody>
 </table>
 <hr class="docutils" />
+<dl class="function">
+<dt id="pyne.rxname.child">
+<tt class="descclassname">pyne.rxname.</tt><tt class="descname">child</tt><big>(</big><em>nuc</em>, <em>rx</em>, <em>char * z=&quot;n&quot;</em><big>)</big><a class="headerlink" href="#pyne.rxname.child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives the child nuclide that comes from a parent and a reaction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : str or int</p>
+<blockquote>
+<div><p>parent nuclide name or id.</p>
+</div></blockquote>
+<p><strong>rx</strong> : str or int</p>
+<blockquote>
+<div><p>reaction name or id.</p>
+</div></blockquote>
+<p><strong>z</strong> : str, optional</p>
+<blockquote>
+<div><p>incident particle type (&#8220;n&#8221;, &#8220;p&#8221;, ...).</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>to_nuc</strong> : int</p>
+<blockquote class="last">
+<div><p>a nuclide identifier.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="function">
 <dt id="pyne.rxname.doc">
 <tt class="descclassname">pyne.rxname.</tt><tt class="descname">doc</tt><big>(</big><em>x</em>, <em>y=None</em>, <em>z=&quot;n&quot;</em><big>)</big><a class="headerlink" href="#pyne.rxname.doc" title="Permalink to this definition">¶</a></dt>
@@ -405,6 +450,38 @@ convention and may be used as a variable in most languages.</p>
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="pyne.rxname.parent">
+<tt class="descclassname">pyne.rxname.</tt><tt class="descname">parent</tt><big>(</big><em>nuc</em>, <em>rx</em>, <em>char * z=&quot;n&quot;</em><big>)</big><a class="headerlink" href="#pyne.rxname.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives the parent nuclide that produces a child from a reaction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : str or int</p>
+<blockquote>
+<div><p>child nuclide name or id.</p>
+</div></blockquote>
+<p><strong>rx</strong> : str or int</p>
+<blockquote>
+<div><p>reaction name or id.</p>
+</div></blockquote>
+<p><strong>z</strong> : str, optional</p>
+<blockquote>
+<div><p>incident particle type (&#8220;n&#8221;, &#8220;p&#8221;, ...).</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
+<blockquote class="last">
+<div><p>a nuclide identifier.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 </div>
 
@@ -482,7 +559,7 @@ convention and may be used as a variable in most languages.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2013, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

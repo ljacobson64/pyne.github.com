@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyne.origen22 &mdash; PyNE 0.2-dev</title>
+    <title>pyne.origen22 &mdash; PyNE 0.3</title>
     
     <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../../index.html" />
+    <link rel="top" title="PyNE 0.3" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -166,8 +166,10 @@ if(ga_enabled){
     <span class="n">lower_z</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[:</span><span class="s">&#39;AC&#39;</span><span class="p">]</span>
     <span class="n">upper_z</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="s">&#39;AC&#39;</span><span class="p">:]</span>
 
-    <span class="n">lower_lines</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;1 {0} {1:.10E}   0 0   0 0   0 0&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span> <span class="k">for</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">mass</span> <span class="ow">in</span> <span class="n">lower_z</span><span class="o">.</span><span class="n">mult_by_mass</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
-    <span class="n">upper_lines</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;2 {0} {1:.10E}   0 0   0 0   0 0&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span> <span class="k">for</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">mass</span> <span class="ow">in</span> <span class="n">upper_z</span><span class="o">.</span><span class="n">mult_by_mass</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="n">lower_lines</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;1 {0} {1:.10E}   0 0   0 0   0 0&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">),</span> <span class="n">mass</span><span class="p">)</span> \
+                   <span class="k">for</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">mass</span> <span class="ow">in</span> <span class="n">lower_z</span><span class="o">.</span><span class="n">mult_by_mass</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="n">upper_lines</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;2 {0} {1:.10E}   0 0   0 0   0 0&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">nuc</span><span class="p">),</span> <span class="n">mass</span><span class="p">)</span> \
+                   <span class="k">for</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">mass</span> <span class="ow">in</span> <span class="n">upper_z</span><span class="o">.</span><span class="n">mult_by_mass</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="n">lower_lines</span> <span class="o">+</span> <span class="n">upper_lines</span> <span class="o">+</span> <span class="p">[</span><span class="s">&quot;0 0 0 0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">]</span>
 
     <span class="n">tape4</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
@@ -204,6 +206,25 @@ if(ga_enabled){
 <span class="s">  END</span>
 <span class="s">&quot;&quot;&quot;</span>
 
+<span class="n">_tape5_decay_template</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s">  -1</span>
+<span class="s">  -1</span>
+<span class="s">  -1</span>
+<span class="s">  CUT     5 {CUT_OFF} -1</span>
+<span class="s">  RDA     Make sure thet the library identifier numbers match those in the TAPE9.INP file</span>
+<span class="s">  LIB     0 {DECAY_NLB1} {DECAY_NLB2} {DECAY_NLB3} {XSFPY_NLB1} {XSFPY_NLB2} {XSFPY_NLB3} 9 3 0 4 0</span>
+<span class="s">  OPTL    {optl}</span>
+<span class="s">  OPTA    {opta}</span>
+<span class="s">  OPTF    {optf}</span>
+<span class="s">  INP     1 -1  0  -1  4  4</span>
+<span class="s">  RDA     All irradiation (IRF and IRP) cards must be between burnup (BUP) cards.</span>
+<span class="s">  BUP</span>
+<span class="s">  DEC     {dec_time}  1   2   4  2</span>
+<span class="s">  BUP</span>
+<span class="s">  OUT     2  1 1 0</span>
+<span class="s">  END</span>
+<span class="s">&quot;&quot;&quot;</span>
+
 <span class="n">_nes_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">_nes_table</span><span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">True</span><span class="p">]</span>    <span class="o">=</span> <span class="mi">1</span>
 <span class="n">_nes_table</span><span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">]</span>   <span class="o">=</span> <span class="mi">2</span>
@@ -230,7 +251,6 @@ if(ga_enabled){
     <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">arr</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">s</span>
-
 
 <div class="viewcode-block" id="write_tape5_irradiation"><a class="viewcode-back" href="../../pyapi/origen22.html#pyne.origen22.write_tape5_irradiation">[docs]</a><span class="k">def</span> <span class="nf">write_tape5_irradiation</span><span class="p">(</span><span class="n">irr_type</span><span class="p">,</span> <span class="n">irr_time</span><span class="p">,</span> <span class="n">irr_value</span><span class="p">,</span> 
                             <span class="n">outfile</span><span class="o">=</span><span class="s">&quot;TAPE5.INP&quot;</span><span class="p">,</span>
@@ -324,9 +344,88 @@ if(ga_enabled){
 
     <span class="k">if</span> <span class="n">opened_here</span><span class="p">:</span>
         <span class="n">outfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="write_tape5_decay"><a class="viewcode-back" href="../../pyapi/origen22.html#pyne.origen22.write_tape5_decay">[docs]</a><span class="k">def</span> <span class="nf">write_tape5_decay</span><span class="p">(</span><span class="n">dec_time</span><span class="p">,</span> 
+                      <span class="n">outfile</span><span class="o">=</span><span class="s">&quot;TAPE5.INP&quot;</span><span class="p">,</span>
+                      <span class="n">decay_nlb</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> 
+                      <span class="n">xsfpy_nlb</span><span class="o">=</span><span class="p">(</span><span class="mi">204</span><span class="p">,</span> <span class="mi">205</span><span class="p">,</span> <span class="mi">206</span><span class="p">),</span> 
+                      <span class="n">cut_off</span><span class="o">=</span><span class="mf">1E-10</span><span class="p">,</span> 
+                      <span class="n">out_table_nes</span><span class="o">=</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">),</span>
+                      <span class="n">out_table_laf</span><span class="o">=</span><span class="p">(</span><span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">),</span>
+                      <span class="n">out_table_num</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Writes an irradiation TAPE5 file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dec_time : float </span>
+<span class="sd">        Decay time durration in days.</span>
+<span class="sd">    outfile : str or file-like object</span>
+<span class="sd">        Path or file to write the tape5 to.</span>
+<span class="sd">    decay_nlb : length 3 sequence</span>
+<span class="sd">        Three tuple of library numbers from the tape9 file decay data, eg (1, 2, 3).</span>
+<span class="sd">    xsfpy_nlb : length 3 sequence</span>
+<span class="sd">        Three tuple of library numbers from the tape9 file for cross section and fission</span>
+<span class="sd">        product yields, eg (204, 205, 206).</span>
+<span class="sd">    cut_off : float, optional</span>
+<span class="sd">        Cut-off concentration, below which reults are not recorded.</span>
+<span class="sd">    out_table_nes :  length 3 sequence of bools, optional</span>
+<span class="sd">        Specifies which type of output tables should be printed by ORIGEN.  The fields </span>
+<span class="sd">        represent (Nuclide, Element, Summary).  The default value of (False, False, True) </span>
+<span class="sd">        only prints the summary tables. </span>
+<span class="sd">    out_table_laf :  length 3 sequence of bools, optional </span>
+<span class="sd">        Specifies whether to print the activation products (l), actinides (a), and </span>
+<span class="sd">        fission products (f).  By default all three are printed.</span>
+<span class="sd">    out_table_num : sequence of ints or None</span>
+<span class="sd">        Specifies which tables, by number, to print according to the rules given by </span>
+<span class="sd">        out_table_nes and out_table_laf.  For example the list [10, 5] would print </span>
+<span class="sd">        tables 5 and 10.  There are 24 tables available. If None, then all tables </span>
+<span class="sd">        are printed.   </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># Make template fill-value dictionary</span>
+    <span class="n">tape5_kw</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;CUT_OFF&#39;</span><span class="p">:</span> <span class="s">&quot;{0:.3E}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cut_off</span><span class="p">),</span>
+        <span class="s">&#39;DECAY_NLB1&#39;</span><span class="p">:</span> <span class="n">decay_nlb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s">&#39;DECAY_NLB2&#39;</span><span class="p">:</span> <span class="n">decay_nlb</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s">&#39;DECAY_NLB3&#39;</span><span class="p">:</span> <span class="n">decay_nlb</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s">&#39;XSFPY_NLB1&#39;</span><span class="p">:</span> <span class="n">xsfpy_nlb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s">&#39;XSFPY_NLB2&#39;</span><span class="p">:</span> <span class="n">xsfpy_nlb</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s">&#39;XSFPY_NLB3&#39;</span><span class="p">:</span> <span class="n">xsfpy_nlb</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s">&#39;dec_time&#39;</span><span class="p">:</span> <span class="s">&#39;{0:.10E}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dec_time</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="n">no_print_string</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c"># Activation Product Print String</span>
+    <span class="k">if</span> <span class="n">out_table_laf</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">tape5_kw</span><span class="p">[</span><span class="s">&#39;optl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_out_table_string</span><span class="p">(</span><span class="n">out_table_nes</span><span class="p">,</span> <span class="n">out_table_num</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tape5_kw</span><span class="p">[</span><span class="s">&#39;optl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">no_print_string</span>
+
+    <span class="c"># Actinide Print String</span>
+    <span class="k">if</span> <span class="n">out_table_laf</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">tape5_kw</span><span class="p">[</span><span class="s">&#39;opta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_out_table_string</span><span class="p">(</span><span class="n">out_table_nes</span><span class="p">,</span> <span class="n">out_table_num</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tape5_kw</span><span class="p">[</span><span class="s">&#39;opta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">no_print_string</span>
+
+    <span class="c"># Fission Product Print String</span>
+    <span class="k">if</span> <span class="n">out_table_laf</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="n">tape5_kw</span><span class="p">[</span><span class="s">&#39;optf&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_out_table_string</span><span class="p">(</span><span class="n">out_table_nes</span><span class="p">,</span> <span class="n">out_table_num</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tape5_kw</span><span class="p">[</span><span class="s">&#39;optf&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">no_print_string</span>
 
 
+    <span class="c"># Fill the template and write it to a file</span>
+    <span class="n">tape5</span> <span class="o">=</span> <span class="n">_tape5_decay_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">tape5_kw</span><span class="p">)</span>
 
+    <span class="n">opened_here</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">opened_here</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tape5</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">opened_here</span><span class="p">:</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="c">#</span>
 <span class="c"># Tape6 functions</span>
@@ -1056,7 +1155,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2013, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

@@ -1,0 +1,261 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Chain Solve – pyne.transmute.chainsolve &mdash; PyNE 0.3</title>
+    
+    <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.3" href="../../index.html" />
+    <link rel="up" title="Transmutation – pyne.transmute" href="index.html" />
+    <link rel="next" title="ORIGEN 2.2 Support – pyne.origen22" href="../origen22.html" />
+    <link rel="prev" title="Transmutation – pyne.transmute" href="index.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../origen22.html" title="ORIGEN 2.2 Support – pyne.origen22"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="index.html" title="Transmutation – pyne.transmute"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../index.html" >Python API</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Transmutation &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.transmute</span></tt></a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pyne.transmute.chainsolve">
+<span id="chain-solve-pyne-transmute-chainsolve"></span><span id="pyne-transmute-channels"></span><h1>Chain Solve &#8211; <a class="reference internal" href="#module-pyne.transmute.chainsolve" title="pyne.transmute.chainsolve"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.transmute.chainsolve</span></tt></a><a class="headerlink" href="#module-pyne.transmute.chainsolve" title="Permalink to this headline">¶</a></h1>
+<p>This module implements an ALARA-like chain-based transmutation solver.</p>
+<dl class="class">
+<dt id="pyne.transmute.chainsolve.Transmuter">
+<em class="property">class </em><tt class="descclassname">pyne.transmute.chainsolve.</tt><tt class="descname">Transmuter</tt><big>(</big><em>t=0.0</em>, <em>phi=0.0</em>, <em>temp=300.0</em>, <em>tol=1e-07</em>, <em>rxs=None</em>, <em>log=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/transmute/chainsolve.html#Transmuter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.transmute.chainsolve.Transmuter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class for transmuting materials using an ALARA-like chain solver.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>t</strong> : float</p>
+<blockquote>
+<div><p>Transmutations time [sec].</p>
+</div></blockquote>
+<p><strong>phi</strong> : float or array of floats</p>
+<blockquote>
+<div><p>Neutron flux vector [n/cm^2/sec].  Currently this must either be 
+a scalar or match the group structure of EAF.</p>
+</div></blockquote>
+<p><strong>temp</strong> : float, optional</p>
+<blockquote>
+<div><p>Temperature [K] of material, defaults to 300.0.</p>
+</div></blockquote>
+<p><strong>tol</strong> : float</p>
+<blockquote>
+<div><p>Tolerance level for chain truncation.</p>
+</div></blockquote>
+<p><strong>rxs</strong> : set of ints or strs</p>
+<blockquote>
+<div><p>Reaction ids or names to use in transmutation which produce well-defined 
+children.  This set should thus not include fission.  If None, then the 
+reactions from EAF are used.</p>
+</div></blockquote>
+<p><strong>log</strong> : file-like or None</p>
+<blockquote class="last">
+<div><p>The log file object should be written. A None imples the log is 
+not desired.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.transmute.chainsolve.Transmuter.transmute">
+<tt class="descname">transmute</tt><big>(</big><em>x</em>, <em>t=None</em>, <em>phi=None</em>, <em>tol=None</em>, <em>log=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/transmute/chainsolve.html#Transmuter.transmute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.transmute.chainsolve.Transmuter.transmute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transmutes a material into its daughters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : Marterial or similar</p>
+<blockquote>
+<div><p>Input material for transmutation.</p>
+</div></blockquote>
+<p><strong>t</strong> : float</p>
+<blockquote>
+<div><p>Transmutations time [sec].</p>
+</div></blockquote>
+<p><strong>phi</strong> : float or array of floats</p>
+<blockquote>
+<div><p>Neutron flux vector [n/cm^2/sec].  Currently this must either be 
+a scalar or match the group structure of EAF.</p>
+</div></blockquote>
+<p><strong>tol</strong> : float</p>
+<blockquote>
+<div><p>Tolerance level for chain truncation.</p>
+</div></blockquote>
+<p><strong>log</strong> : file-like or None</p>
+<blockquote>
+<div><p>The log file object should be written. A None imples the log is 
+not desired.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>y</strong> : Material</p>
+<blockquote class="last">
+<div><p>The output material post-transmutation.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../../index.html">
+          <img class="logo" src="../../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Transmutation &#8211; <tt class="docutils literal"><span class="pre">pyne.transmute</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../origen22.html"
+                        title="next chapter">ORIGEN 2.2 Support &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.origen22</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/pyapi/transmute/chainsolve.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../origen22.html" title="ORIGEN 2.2 Support – pyne.origen22"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="index.html" title="Transmutation – pyne.transmute"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../index.html" >Python API</a> &raquo;</li>
+          <li><a href="index.html" >Transmutation &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.transmute</span></tt></a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2013, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

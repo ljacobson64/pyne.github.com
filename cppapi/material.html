@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Materials – libpyne_material &mdash; PyNE 0.2-dev</title>
+    <title>Materials – libpyne_material &mdash; PyNE 0.3</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.3" href="../index.html" />
     <link rel="up" title="C++ API" href="index.html" />
     <link rel="next" title="Enrichement – libpyne_enrichment" href="enrichment.html" />
     <link rel="prev" title="Nuclear Data – libpyne_data" href="data.html" /> <script type="text/javascript">
@@ -90,564 +90,111 @@ if(ga_enabled){
   <div class="section" id="materials-libpyne-material">
 <h1>Materials &#8211; <tt class="docutils literal"><span class="pre">libpyne_material</span></tt><a class="headerlink" href="#materials-libpyne-material" title="Permalink to this headline">¶</a></h1>
 <div class="line-block">
-<div class="line" id=""><span id="pyneclasspyne_1_1_material"></span><em>class</em> <strong>pyne::Material</strong></div>
-<div class="line"><em>#include &lt;material.h&gt;</em></div>
+<div class="line" id=""><span id="pynestructpyne_1_1atomic__decay__struct"></span><em>struct</em> <strong>pyne::atomic_decay_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
 </div>
 <blockquote>
-<div><p><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> composed of nuclides. </p>
+<div><p>a struct matching the &#8216;/atomic_decay&#8217; table in nuc_data.h5. </p>
 <p></p>
-<em>Public Functions</em><blockquote>
-<div><p id="pyne::Material::Material"><span id="pyneclasspyne_1_1_material_1af9ff0462388696834a886b2e284ccd4e"></span><div class="line-block">
-<div class="line"> <strong>Material</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>empty constructor </p>
-</div></blockquote>
-<p id="pyne::Material::Material__comp_map.double.double.double.Json::Value"><span id="pyneclasspyne_1_1_material_1a0704a8fc8a7599cb271c349240f37538"></span><div class="line-block">
-<div class="line"> <strong>Material</strong>(comp_map cm, double m = -1.0, double d = -1.0, double apm = -1.0, Json::Value attributes = Json::Value(Json::objectValue))</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Constructor from composition map <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">cm</span></tt> - <p>composition map </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">m</span></tt> - <p>mass value, the mass is set to the sum of the values in the composition if <em>m</em> is negative. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">d</span></tt> - <p>density value </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">apm</span></tt> - <p>atoms per mole </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">attributes</span></tt> - <p>initial metadata </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::Material::Material__cP.double.double.double.Json::Value"><span id="pyneclasspyne_1_1_material_1a9119502ada318009bebedfb429d534d6"></span><div class="line-block">
-<div class="line"> <strong>Material</strong>(char * filename, double m = -1.0, double d = -1.0, double apm = -1.0, Json::Value attributes = Json::Value(Json::objectValue))</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Constructor from file <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">filename</span></tt> - <p>path to file on disk, this file may be either in plaintext or HDF5 format. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">m</span></tt> - <p>mass value, the mass is set to the sum of the values in the composition if <em>m</em> is negative, may be overridden by the value from disk. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">d</span></tt> - <p>density value, may be overridden by the value from disk. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">apm</span></tt> - <p>atoms per mole, may be overridden by the value from disk. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">attributes</span></tt> - <p>initial metadata, may be overridden by the value from disk. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::Material::Material__ss.double.double.double.Json::Value"><span id="pyneclasspyne_1_1_material_1ad8f2148f252f71de8f699d58003ca050"></span><div class="line-block">
-<div class="line"> <strong>Material</strong>(std::string filename, double m = -1.0, double d = -1.0, double apm = -1.0, Json::Value attributes = Json::Value(Json::objectValue))</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Constructor from file <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">filename</span></tt> - <p>path to file on disk, this file may be either in plaintext or HDF5 format. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">m</span></tt> - <p>mass value, the mass is set to the sum of the values in the composition if <em>m</em> is negative, may be overridden by the value from disk. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">d</span></tt> - <p>density value, may be overridden by the value from disk. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">apm</span></tt> - <p>atoms per mole, may be overridden by the value from disk. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">attributes</span></tt> - <p>initial metadata, may be overridden by the value from disk. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::Material::~Material"><span id="pyneclasspyne_1_1_material_1ae75f45397f12797356940e62d13fcc6f"></span><div class="line-block">
-<div class="line"> <strong>~Material</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p>default destructor </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::norm_comp"><span id="pyneclasspyne_1_1_material_1a1d4f70382d3c4ad060977de853d23d6c"></span><div class="line-block">
-<div class="line">void <strong>norm_comp</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p>Normalizes the mass values in the composition. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::_load_comp_protocol0__hid_t.ss.i"><span id="pyneclasspyne_1_1_material_1a53c124ac70017813b4893a2f7fe3db6a"></span><div class="line-block">
-<div class="line">void <strong>_load_comp_protocol0</strong>(hid_t db, std::string datapath, int row)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Loads the matrial composition from an HDF5 file according to the layout defined by protocol 0. This protocol is depratacted. <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">db</span></tt> - <p>HDF5 id for the open HDF5 file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">datapath</span></tt> - <p>Path to the base node for the material in <em>db</em>. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">row</span></tt> - <p>The index to read out, may be negative. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::Material::_load_comp_protocol1__hid_t.ss.i"><span id="pyneclasspyne_1_1_material_1a8b46ba10cebb01cd36a5379e363267b1"></span><div class="line-block">
-<div class="line">void <strong>_load_comp_protocol1</strong>(hid_t db, std::string datapath, int row)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Loads the matrial composition from an HDF5 file according to the layout defined by protocol 1. This protocol should be used in favor of protocol 0. <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">db</span></tt> - <p>HDF5 id for the open HDF5 file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">datapath</span></tt> - <p>Path to the base node for the material in <em>db</em>. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">row</span></tt> - <p>The index to read out, may be negative. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::Material::from_hdf5__cP.cP.i.i"><span id="pyneclasspyne_1_1_material_1a8f06385fde86492d1291b35fa982c753"></span><div class="line-block">
-<div class="line">void <strong>from_hdf5</strong>(char * filename, char * datapath, int row = -1, int protocol = 1)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Loads a material from an HDF5 file into this object. <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">filename</span></tt> - <p>Path on disk to the HDF5 file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">datapath</span></tt> - <p>Path to the the material in the file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">row</span></tt> - <p>The index to read out, may be negative. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">protocol</span></tt> - <p>Flag for layout of material on disk. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::Material::from_hdf5__ss.ss.i.i"><span id="pyneclasspyne_1_1_material_1ac6bc51ed739f2f735467baf14716d825"></span><div class="line-block">
-<div class="line">void <strong>from_hdf5</strong>(std::string filename, std::string datapath = &#8220;/material&#8221;, int row = -1, int protocol = 1)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Loads a material from an HDF5 file into this object. <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">filename</span></tt> - <p>Path on disk to the HDF5 file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">datapath</span></tt> - <p>Path to the the material in the file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">row</span></tt> - <p>The index to read out, may be negative. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">protocol</span></tt> - <p>Flag for layout of material on disk. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::Material::write_hdf5__cP.cP.cP.float.i"><span id="pyneclasspyne_1_1_material_1adf226509fcdbf44476019fde3ff2f6ee"></span><div class="line-block">
-<div class="line">void <strong>write_hdf5</strong>(char * filename, char * datapath, char * nucpath, float row = -0.0, int chunksize = 100)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Writes this material out to an HDF5 file. This happens according to protocol 1. <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">filename</span></tt> - <p>Path on disk to the HDF5 file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">datapath</span></tt> - <p>Path to the the material in the file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">nucpath</span></tt> - <p>Path to the nuclides set in the file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">row</span></tt> - <p>The index to read out, may be negative. Also note that this is a float. A value of -0.0 indicates that the material should be appended to the end of the dataset. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">chunksize</span></tt> - <p>The chunksize for all material data on disk. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::Material::write_hdf5__ss.ss.ss.float.i"><span id="pyneclasspyne_1_1_material_1a6a4d53a15511bf406275a28ae41db9b5"></span><div class="line-block">
-<div class="line">void <strong>write_hdf5</strong>(std::string filename, std::string datapath = &#8220;/material&#8221;, std::string nucpath = &#8220;/nuc_zz&#8221;, float row = -0.0, int chunksize = 100)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Writes this material out to an HDF5 file. This happens according to protocol 1. <dl class="docutils">
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last">
-<li><tt class="first docutils literal"><span class="pre">filename</span></tt> - <p>Path on disk to the HDF5 file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">datapath</span></tt> - <p>Path to the the material in the file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">nucpath</span></tt> - <p>Path to the nuclides set in the file. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">row</span></tt> - <p>The index to read out, may be negative. Also note that this is a float. A value of -0.0 indicates that the material should be appended to the end of the dataset. </p>
-</li>
-<li><tt class="first docutils literal"><span class="pre">chunksize</span></tt> - <p>The chunksize for all material data on disk. </p>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</div></blockquote>
-<p id="pyne::Material::from_text__cP"><span id="pyneclasspyne_1_1_material_1a28d8f7a7b06110a8be097c8e7b1fc59a"></span><div class="line-block">
-<div class="line">void <strong>from_text</strong>(char * filename)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Reads data from a plaintext file at <em>filename</em> into this <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> instance. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::from_text__ss"><span id="pyneclasspyne_1_1_material_1a0e7089d30472ba091c61cd949c625c08"></span><div class="line-block">
-<div class="line">void <strong>from_text</strong>(std::string filname)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Reads data from a plaintext file at <em>filename</em> into this <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> instance. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::write_text__cP"><span id="pyneclasspyne_1_1_material_1a6d10e7f7dac857f59a89e1664e8b86b6"></span><div class="line-block">
-<div class="line">void <strong>write_text</strong>(char * filename)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Writes the <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> out to a simple plaintext file readable by <a class="reference internal" href="#pyneclasspyne_1_1_material_1a28d8f7a7b06110a8be097c8e7b1fc59a"><em>from_text()</em></a>. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::write_text__ss"><span id="pyneclasspyne_1_1_material_1a70706c2bc1f4776ea25932e1a5b2642b"></span><div class="line-block">
-<div class="line">void <strong>write_text</strong>(std::string filename)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Writes the <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> out to a simple plaintext file readable by <a class="reference internal" href="#pyneclasspyne_1_1_material_1a28d8f7a7b06110a8be097c8e7b1fc59a"><em>from_text()</em></a>. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::normalize"><span id="pyneclasspyne_1_1_material_1ad27e37568bc08020d3886bb6284bc61d"></span><div class="line-block">
-<div class="line">void <strong>normalize</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Normalizes the mass. </p>
-</div></blockquote>
-<p id="pyne::Material::mult_by_mass"><span id="pyneclasspyne_1_1_material_1a41880d9b8169f3e3e55d55f70b853763"></span><div class="line-block">
-<div class="line">comp_map <strong>mult_by_mass</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Returns a composition map that has been unnormalized by multiplying each mass weight by the actual mass of the material. </p>
-</div></blockquote>
-<p id="pyne::Material::molecular_weight__double"><span id="pyneclasspyne_1_1_material_1a15fd3547e3e05c08c86c7198a668f4d6"></span><div class="line-block">
-<div class="line">double <strong>molecular_weight</strong>(double apm = -1.0)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Calculates the atomic weight of this material based on the composition and the number of atoms per mol. If <em>apm</em> is non-negative then it is used (and stored on the instance) as the atoms_per_mol for this calculation. If <em>apm</em> and atoms_per_mol on this instance are both negative, then the best guess value calculated from the normailized composition is used here. </p>
-</div></blockquote>
-<p id="pyne::Material::expand_elements"><span id="pyneclasspyne_1_1_material_1afe85fd52130c556f3f5524f542781dc2"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>expand_elements</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Returns a copy of the current material where all natural elements in the composition are expanded to their natural isotopic abundances. </p>
-</div></blockquote>
-<p id="pyne::Material::sub_mat__std::set:i:"><span id="pyneclasspyne_1_1_material_1a73bd5ec21f1d635b93281e774704f9a8"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>sub_mat</strong>(std::set&lt; int &gt; nucset)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Creates a sub-Material with only the nuclides present in <em>nucset</em>. Elements of this set may be either in zzaaam form or simple Z numbers. </p>
-</div></blockquote>
-<p id="pyne::Material::sub_mat__std::set:ss:"><span id="pyneclasspyne_1_1_material_1a333ca83e84913a2b2d904a48a6251676"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>sub_mat</strong>(std::set&lt; std::string &gt; nucset)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Creates a sub-Material with only the nuclides present in <em>nucset</em>. Elements of this set may be in any form. </p>
-</div></blockquote>
-<p id="pyne::Material::set_mat__std::set:i:.double"><span id="pyneclasspyne_1_1_material_1ab95b1144a512d844c8861159771d6f24"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>set_mat</strong>(std::set&lt; int &gt; nucset, double value)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Creates a new <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> with the mass weights for all nuclides in <em>nucset</em> set to <em>value</em>. Elements of <em>nucset</em> may be either in zzaaam form or simple Z numbers. </p>
-</div></blockquote>
-<p id="pyne::Material::set_mat__std::set:ss:.double"><span id="pyneclasspyne_1_1_material_1a13a622ff7c6adab2ba4ef4a434557984"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>set_mat</strong>(std::set&lt; std::string &gt; nucset, double value)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Creates a new <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> with the mass weights for all nuclides in <em>nucset</em> set to <em>value</em>. Elements of <em>nucset</em> may be in any form. </p>
-</div></blockquote>
-<p id="pyne::Material::del_mat__std::set:i:"><span id="pyneclasspyne_1_1_material_1a5048c68e3b76617a582baf8a4a384655"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>del_mat</strong>(std::set&lt; int &gt; nucset)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Creates a new <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> with the all nuclides in <em>nucset</em> removed. Elements of <em>nucset</em> may be either in zzaaam form or simple Z numbers. </p>
-</div></blockquote>
-<p id="pyne::Material::del_mat__std::set:ss:"><span id="pyneclasspyne_1_1_material_1a882b33bccfa94a5ddc2ba037ae9bb21b"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>del_mat</strong>(std::set&lt; std::string &gt; nucset)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Creates a new <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> with the all nuclides in <em>nucset</em> removed. Elements of <em>nucset</em> may be in any form. </p>
-</div></blockquote>
-<p id="pyne::Material::sub_range__i.i"><span id="pyneclasspyne_1_1_material_1a221ff09eef3a02828dfaf9ab19dce245"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>sub_range</strong>(int lower = 0, int upper = 10000000)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Creates a sub-Material based on a range of zzaaam-form integers. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::set_range__i.i.double"><span id="pyneclasspyne_1_1_material_1a7c8e9b3c6183ec28befdda99da74112e"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>set_range</strong>(int lower = 0, int upper = 10000000, double value = 0.0)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Creates a new <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> with the mass weights for all nuclides in the zzaaam range set to <em>value</em>. </p>
-</div></blockquote>
-<p id="pyne::Material::del_range__i.i"><span id="pyneclasspyne_1_1_material_1adfc4de8ca622a6600f6a4c07193a8c6e"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>del_range</strong>(int lower = 0, int upper = 10000000)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Creates a new <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> with the all nuclides in the zzaaam range removed. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::sub_u"><span id="pyneclasspyne_1_1_material_1af6c5819a0c37639b488c8e3c9de7e8c7"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>sub_u</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p>Creates a sub-Material of only uranium. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::sub_pu"><span id="pyneclasspyne_1_1_material_1ac4b24919fcd30a6323e078e351dd9476"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>sub_pu</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p>Creates a sub-Material of only plutonium. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::sub_lan"><span id="pyneclasspyne_1_1_material_1a4bcfa029a3d22cbbae6a390f2d7c391f"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>sub_lan</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p>Creates a sub-Material of only lanthanides. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::sub_act"><span id="pyneclasspyne_1_1_material_1a51ddfb64945dc5dd7a35f26ab62b71b8"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>sub_act</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p>Creates a sub-Material of only actinides. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::sub_tru"><span id="pyneclasspyne_1_1_material_1ac68ffe213c99b4eb5441b465edae5ec6"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>sub_tru</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p>Creates a sub-Material of only transuranics. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::sub_ma"><span id="pyneclasspyne_1_1_material_1a33406207a8bc535b5fcf60eb030d4b22"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>sub_ma</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p>Creates a sub-Material of only minor actinides. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::sub_fp"><span id="pyneclasspyne_1_1_material_1a561a580b3fc7f9bac8a2c3e94cb20434"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>sub_fp</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p>Creates a sub-Material of only fission products. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::to_atom_frac"><span id="pyneclasspyne_1_1_material_1a6404b4f7c3e1b624e810db75a89079c6"></span><div class="line-block">
-<div class="line">std::map&lt; int, double &gt; <strong>to_atom_frac</strong>()</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Returns a mapping of the nuclides in this material to their atom fractions. This calculation is based off of the materials molecular weight. </p>
-</div></blockquote>
-<p id="pyne::Material::from_atom_frac__std::map:i.double:"><span id="pyneclasspyne_1_1_material_1a2db9572599c20eb0d17bd0993766f792"></span><div class="line-block">
-<div class="line">void <strong>from_atom_frac</strong>(std::map&lt; int, double &gt; atom_fracs)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p>Sets the composition, mass, and atoms_per_mol of this material to those calculated from <em>atom_fracs</em>, a mapping of nuclides to atom fractions values. </p>
-</div></blockquote>
-<p id="pyne::Material::add-operator__X"><span id="pyneclasspyne_1_1_material_1afb6eed6ecc77c013bdeefb96d3fa4f69"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>operator+</strong>(double)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Adds mass to a material instance. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::add-operator__X"><span id="pyneclasspyne_1_1_material_1a104b2a35af814c59754dffeab2394940"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>operator+</strong>(<a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a>)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Adds two materials together. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::mul-operator__X"><span id="pyneclasspyne_1_1_material_1a3a6a641d6490cd657522c9c2105e8250"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>operator*</strong>(double)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Multiplies a material&#8217;s mass. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::Material::div-operator__X"><span id="pyneclasspyne_1_1_material_1a2ac17d3d3bd5f0360d2396d13f3c8569"></span><div class="line-block">
-<div class="line"><a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> <strong>operator/</strong>(double)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Divides a material&#8217;s mass. </p>
-<p></p>
-</div></blockquote>
-</div></blockquote>
 <em>Public Members</em><blockquote>
-<div><p id=""><span id="pyneclasspyne_1_1_material_1a2b0e850a66f2b8cb2b106307a00a18ed"></span>comp_map <strong>comp</strong></p>
+<div><p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a65ecc975f44e3ca697e777afe17a927a"></span>int <strong>from_nuc</strong></p>
 <blockquote>
-<div><p>composition, maps nuclides in zzaaam form to normalized mass weights. </p>
+<div><p>parent species in id form </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pyneclasspyne_1_1_material_1a729ebba0be2879f26f1fcf3b100d3b5d"></span>double <strong>mass</strong></p>
+<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a3c31721d0c6a32a0b400ff58e08432a9"></span>double <strong>level</strong></p>
 <blockquote>
-<div><p>mass (in arbitrary units) of the <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a>. </p>
+<div><p>decay level [MeV] </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pyneclasspyne_1_1_material_1a916eb7ed0143844a505c454d47755ab0"></span>double <strong>density</strong></p>
+<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1aef90e3cb88e10095119b4ac489b3cff4"></span>int <strong>to_nuc</strong></p>
 <blockquote>
-<div><p>density (in arbitrary units) of the <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a>. </p>
+<div><p>child species in id form </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pyneclasspyne_1_1_material_1abd5fe041a2a529e72362e3a9c0cb7562"></span>double <strong>atoms_per_mol</strong></p>
+<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1ab8a1ac272b7a7a1c95335f1b3c81408a"></span>double <strong>half_life</strong></p>
 <blockquote>
-<div><p></p>
-<p>The number of atoms per mole. </p>
-</div></blockquote>
-<p id=""><span id="pyneclasspyne_1_1_material_1a3c76fc2dc835ab3e8cafb9d1f62eeeff"></span>Json::Value <strong>attrs</strong></p>
-<blockquote>
-<div><p>container for arbitrary metadata, following the JSON rules. </p>
+<div><p>species half life [s] </p>
 <p></p>
 </div></blockquote>
-</div></blockquote>
-<em>Protected Functions</em><blockquote>
-<div><p id="pyne::Material::get_comp_sum"><span id="pyneclasspyne_1_1_material_1a6bfe2556962da33cc05eb1e88bdebf42"></span><div class="line-block">
-<div class="line">double <strong>get_comp_sum</strong>()</div>
-</div>
-</p>
+<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a483a4993f476845b523c894dac699906"></span>double <strong>decay_const</strong></p>
 <blockquote>
-<div><p>Computes the total mass stored in the composition. </p>
+<div><p>decay constant [1/s] </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1ace17a464715f6aa27bb662c2abed485e"></span>double <strong>branch_ratio</strong></p>
+<blockquote>
+<div><p>decay branch ratio [fraction] </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
 <div class="line-block">
-<div class="line" id=""><span id="pynestructpyne_1_1material__struct"></span><em>struct</em> <strong>pyne::material_struct</strong></div>
-<div class="line"><em>#include &lt;material.h&gt;</em></div>
+<div class="line" id=""><span id="pynestructpyne_1_1atomic__weight__struct"></span><em>struct</em> <strong>pyne::atomic_weight_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
 </div>
 <blockquote>
-<div><p></p>
-<p>A stuct for reprensenting fundemental data in a material. Useful for HDF5 representations. </p>
+<div><p>a struct matching the atomic_weight table in nuc_data.h5. </p>
+<p></p>
 <em>Public Members</em><blockquote>
-<div><p id=""><span id="pynestructpyne_1_1material__struct_1a57c5162ae89e2a6d6858f4d2abf2b03a"></span>double <strong>mass</strong></p>
+<div><p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1af30ecca96d2085c520b78907f1f4f6dd"></span>int <strong>nuc</strong></p>
 <blockquote>
-<div><p>material mass </p>
+<div><p>nuclide in id form </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1material__struct_1a967dce166780581748c85c02e651783b"></span>double <strong>density</strong></p>
+<p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1ac9530cc5acc90c9d4553f398317d7d66"></span>double <strong>mass</strong></p>
 <blockquote>
-<div><p>material density </p>
+<div><p>nuclide atomic mass [amu] </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1material__struct_1aed798bbdce5e353fcd874ff24a291de5"></span>double <strong>atoms_per_mol</strong></p>
+<p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1a7328fa1c8ceb43e9ac76adf37b5fee37"></span>double <strong>error</strong></p>
 <blockquote>
-<div><p>material atoms per mole </p>
+<div><p>error in atomic mass [amu] </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1material__struct_1a753b72f7d9d27c7b081a42efaae8e966"></span>double <strong>comp</strong>[]</p>
+<p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1a7e35e5c545835d1bcc841cd9946c61ac"></span>double <strong>abund</strong></p>
 <blockquote>
-<div><p>array of material composition mass weights. </p>
+<div><p>natural abundance of nuclide [atom fraction] </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
 <div class="line-block">
-<div class="line" id=""><span id="pyneclasspyne_1_1_material_protocol_error"></span><em>class</em> <strong>pyne::MaterialProtocolError</strong></div>
-<div class="line"><em>#include &lt;material.h&gt;</em></div>
+<div class="line" id=""><span id="pynestructpyne_1_1scattering__lengths__struct"></span><em>struct</em> <strong>pyne::scattering_lengths_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
 </div>
 <blockquote>
-<div><p>Custom exception for invalid HDF5 protocol numbers. </p>
+<div><p>a struct matching the &#8216;/neutron/scattering_lengths&#8217; table in nuc_data.h5. </p>
 <p></p>
-<em>Private Functions</em><blockquote>
-<div><p id="pyne::MaterialProtocolError::whatC"><span id="pyneclasspyne_1_1_material_protocol_error_1ace9505b9942361d5e1ceaec599f3cc37"></span><div class="line-block">
-<div class="line">const char * <strong>what</strong>()</div>
-</div>
-</p>
+<em>Public Members</em><blockquote>
+<div><p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a5830a5a2860252db555ed91b39fad042"></span>int <strong>nuc</strong></p>
 <blockquote>
-<div><p>marginally helpful error message. </p>
+<div><p>nuclide in id form </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a962ef615a9297a7d67ec05fc45ff133e"></span>extra_types::complex_t <strong>b_coherent</strong></p>
+<blockquote>
+<div><p>coherent scattering length [cm] </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a2326e775f7f8eb1dd6c6f1d256b0527d"></span>extra_types::complex_t <strong>b_incoherent</strong></p>
+<blockquote>
+<div><p>incoherent scattering length [cm] </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1ae53517c3358735b1f73f6f7d2946bcc8"></span>double <strong>xs_coherent</strong></p>
+<blockquote>
+<div><p>coherent scattering cross section </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a3a6b05086e35c96469b6455a6760d0ba"></span>double <strong>xs_incoherent</strong></p>
+<blockquote>
+<div><p>incoherent scattering cross section </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1ac3faa4853545985d45ca3f716adcddd2"></span>double <strong>xs</strong></p>
+<blockquote>
+<div><p>scattering cross section </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
@@ -658,89 +205,398 @@ if(ga_enabled){
 <blockquote>
 <div><p></p>
 <p></p>
-<em>Typedefs</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1a86738cecccf4ce3f4ecc2ff6f45ce1a2"></span>typedef std::map&lt; int, double &gt; <strong>comp_map</strong></p>
+<em>Atomic Mass Data</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1a4d199d528a848703e4497aa8781a66bd"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1atomic__weight__struct"><em>pyne::atomic_weight_struct</em></a> <strong>atomic_weight_struct</strong></p>
 <blockquote>
-<div><p>Nuclide-mass composition map type. </p>
+<div><p>a struct matching the atomic_weight table in nuc_data.h5. </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynenamespacepyne_1af38f60eec2c4c80e6decc75c3b21a879"></span>typedef comp_map::iterator <strong>comp_iter</strong></p>
+<p id=""><span id="pynenamespacepyne_1a265f948ad8b999772773b55cb10adb70"></span>std::map&lt; int, double &gt; <strong>atomic_mass_map</strong></p>
 <blockquote>
-<div><p>Nuclide-mass composition iter type. </p>
+<div><p>Mapping from nuclides in id form to their atomic masses. </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynenamespacepyne_1ae4a7f9569e6a3b9618a1e56d7f5bddb6"></span>typedef struct  <a class="reference internal" href="#pynestructpyne_1_1material__struct"><em>pyne::material_struct</em></a> <strong>material_struct</strong></p>
-<blockquote>
-<div><p></p>
-<p>A stuct for reprensenting fundemental data in a material. Useful for HDF5 representations. </p>
-</div></blockquote>
-</div></blockquote>
-<em>Functions</em><blockquote>
-<div><p id="pyne::lshift-operator__osR.Material"><span id="pynenamespacepyne_1a1241699bbd3224bb066190b7778dbd82"></span><div class="line-block">
-<div class="line">std::ostream &amp; <strong>operator&lt;&lt;</strong>(std::ostream &amp; os, <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> mat)</div>
+<p id="pyne::_load_atomic_mass_map"><span id="pynenamespacepyne_1afc84ecca5a23b416bd3bf42b0756e68e"></span><div class="line-block">
+<div class="line">void <strong>_load_atomic_mass_map</strong>()</div>
 </div>
 </p>
 <blockquote>
-<div><p>Converts a <a class="reference internal" href="#pyneclasspyne_1_1_material"><em>Material</em></a> to a string stream representation. </p>
+<div><p></p>
+<p>Loads the atomic mass and natural abundance data from the nuc_data.h5 file into memory. </p>
+</div></blockquote>
+<p id="pyne::atomic_mass__i"><span id="pynenamespacepyne_1aaab79c2417fc60c1a248dd702403befb"></span><div class="line-block">
+<div class="line">double <strong>atomic_mass</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the atomic mass of a nuclide <em>nuc</em>. </p>
+<p>This function will first try to find the atomic mass data in the atomic_mass_map. If this map is empty, it will load the data from disk. If the nuclide is in an excited state and not found in the map, it will give the value for the ground state nuclide. If the nuclide simply cannot be found, the A number is returned. </p>
+</div></blockquote>
+<p id="pyne::atomic_mass__cP"><span id="pynenamespacepyne_1a070a35bbdb0217ff8c4b222572912f87"></span><div class="line-block">
+<div class="line">double <strong>atomic_mass</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the atomic mass of a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::atomic_mass__ss"><span id="pynenamespacepyne_1a42514c3a14ce0ed7b91da7d742210ceb"></span><div class="line-block">
+<div class="line">double <strong>atomic_mass</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the atomic mass of a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Scattering Length Data</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1a91c1911f4cdfa00e0b988b09d198c650"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1scattering__lengths__struct"><em>pyne::scattering_lengths_struct</em></a> <strong>scattering_lengths_struct</strong></p>
+<blockquote>
+<div><p>a struct matching the &#8216;/neutron/scattering_lengths&#8217; table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1acb1f11faec860f96ba24425e33303470"></span>std::map&lt; int, extra_types::complex_t &gt; <strong>b_coherent_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their coherent scattering length. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad7ff5d87de64bfd5fd9720424c637ca9"></span>std::map&lt; int, extra_types::complex_t &gt; <strong>b_incoherent_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their incoherent scattering length. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ac04e73bd8b441483c5ece1fef10afb2a"></span>std::map&lt; int, double &gt; <strong>b_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their scattering length. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::_load_scattering_lengths"><span id="pynenamespacepyne_1a5731f21182f208aa6692bf9b3b3867c0"></span><div class="line-block">
+<div class="line">void <strong>_load_scattering_lengths</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Loads the scattering length data from the nuc_data.h5 file into memory. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b_coherent__i"><span id="pynenamespacepyne_1ab31949f85c2cab4013f3845e17bc51f6"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_coherent</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the coherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p>This function works by first checking the b_coherent_map. If the map is empty then the data is read in from disk. If no data is found than a value from a nuclide with the same A number is returned instead. If none of these exist, then the value of a nuclide with the same Z number is used. If none of these work then 0.0 is returned. </p>
+</div></blockquote>
+<p id="pyne::b_coherent__cP"><span id="pynenamespacepyne_1a13bd047be785fd5b7ca65a6db8e0723d"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_coherent</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the coherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b_coherent__ss"><span id="pynenamespacepyne_1ad2a3df137c2d8e13368f3e5da90d05af"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_coherent</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the coherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b_incoherent__i"><span id="pynenamespacepyne_1ab63bf05e9c69c24b68bb6243b04d9777"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_incoherent</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the incoherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p>This function works in the same way that b_coherent() does. </p>
+</div></blockquote>
+<p id="pyne::b_incoherent__cP"><span id="pynenamespacepyne_1a432ac4f56a96c1f8a614f6be27f01191"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_incoherent</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the incoherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b_incoherent__ss"><span id="pynenamespacepyne_1a7f03b64451bc110bc799ed5a5ce4f473"></span><div class="line-block">
+<div class="line">extra_types::complex_t <strong>b_incoherent</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Finds the incoherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b__i"><span id="pynenamespacepyne_1a12664d38214170260d6a69c4f5dda8da"></span><div class="line-block">
+<div class="line">double <strong>b</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Computes the scattering length [cm] from the coherent and incoherent components. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b__cP"><span id="pynenamespacepyne_1a702614f522de6463e3cf4f2b188a75ef"></span><div class="line-block">
+<div class="line">double <strong>b</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Computes the scattering length [cm] from the coherent and incoherent components. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::b__ss"><span id="pynenamespacepyne_1a6b580c22fa1b5b26da1185723491fc3a"></span><div class="line-block">
+<div class="line">double <strong>b</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Computes the scattering length [cm] from the coherent and incoherent components. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Decay Data</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1a3d4ff38d6ee64c22419af2c5fc2b03b9"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1atomic__decay__struct"><em>pyne::atomic_decay_struct</em></a> <strong>atomic_decay_struct</strong></p>
+<blockquote>
+<div><p>a struct matching the &#8216;/atomic_decay&#8217; table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ac0f14a88359bb52cb5fd26a86b3d7caa"></span>std::map&lt; int, double &gt; <strong>half_life_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their half lives [s]. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad9e9e6587a727301b314776c85d59dcc"></span>std::map&lt; int, double &gt; <strong>decay_const_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their decay constants [1/s]. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad251f22662766748f9cbff3a45da7666"></span>std::map&lt; std::pair&lt; int, int &gt;, double &gt; <strong>branch_ratio_map</strong></p>
+<blockquote>
+<div><p></p>
+<p>Mapping from parent/child nuclide pairs in id form to their branch ratio [fraction]. </p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1ad1fac0dd892e4c4b513de09124944cfe"></span>std::map&lt; int, double &gt; <strong>state_energy_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their excitation energy [MeV]. </p>
+<p></p>
+</div></blockquote>
+<p id=""><span id="pynenamespacepyne_1a4d81748f381ddee0d680a01dc70bad39"></span>std::map&lt; int, std::set&lt; int &gt; &gt; <strong>decay_children_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to its decay children, if any. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::_load_atomic_decay"><span id="pynenamespacepyne_1a13a4091f442960197f54b5a41d70d333"></span><div class="line-block">
+<div class="line">void <strong>_load_atomic_decay</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Loads the decay data from the nuc_data.h5 file into memory. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::half_life__i"><span id="pynenamespacepyne_1a98f776164d1812878cb4b4ee4ef943f5"></span><div class="line-block">
+<div class="line">double <strong>half_life</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the half life for a nuclide <em>nuc</em>. </p>
+<p>This function works by first checking the half_life_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be stable and infinity is returned. </p>
+</div></blockquote>
+<p id="pyne::half_life__cP"><span id="pynenamespacepyne_1a120acb7c7ff96c26ff012aa192212160"></span><div class="line-block">
+<div class="line">double <strong>half_life</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the half life for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::half_life__ss"><span id="pynenamespacepyne_1a8fe3c8e42a1de1edd2547146da3c68b3"></span><div class="line-block">
+<div class="line">double <strong>half_life</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the half life for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::decay_const__i"><span id="pynenamespacepyne_1a6b87e11fea0c2167cd19eb62c21b12b2"></span><div class="line-block">
+<div class="line">double <strong>decay_const</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
+<p>This function works by first checking the decay_const_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be stable and 0.0 is returned. </p>
+</div></blockquote>
+<p id="pyne::decay_const__cP"><span id="pynenamespacepyne_1a4160d26376d4c3ea12636fd33ca8b3bb"></span><div class="line-block">
+<div class="line">double <strong>decay_const</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::decay_const__ss"><span id="pynenamespacepyne_1a8c3dd2b8fd7565d17301e39f6b959b92"></span><div class="line-block">
+<div class="line">double <strong>decay_const</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::branch_ratio__std::pair:i.i:"><span id="pynenamespacepyne_1af619eaa83237b583dd7f3b5c6b41a618"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(std::pair&lt; int, int &gt; from_to)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
+<p>This function works by first checking the branch_ratio_map. If this is empty it loads the data from disk. If the parent/child nuclide pair is still not found, then the decay is assumed to be impossible and 0.0 is returned. </p>
+</div></blockquote>
+<p id="pyne::branch_ratio__i.i"><span id="pynenamespacepyne_1af2ac244d00d6a8fab26e646eb53fd172"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(int from_nuc, int to_nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::branch_ratio__cP.cP"><span id="pynenamespacepyne_1abef13981249047d7678dc448db101ef4"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(char * from_nuc, char * to_nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::branch_ratio__ss.ss"><span id="pynenamespacepyne_1a5a77a005a47c8c2a421484f17acdec0d"></span><div class="line-block">
+<div class="line">double <strong>branch_ratio</strong>(std::string from_nuc, std::string to_nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::state_energy__i"><span id="pynenamespacepyne_1ada1a23281a3a62267fbd355bd48da2e6"></span><div class="line-block">
+<div class="line">double <strong>state_energy</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
+<p>This function works by first checking the state_energy_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be in a ground state and 0.0 is returned. </p>
+</div></blockquote>
+<p id="pyne::state_energy__cP"><span id="pynenamespacepyne_1afbe96cec07719bac2b5fe3ad299b1dd1"></span><div class="line-block">
+<div class="line">double <strong>state_energy</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::state_energy__ss"><span id="pynenamespacepyne_1a1e1a4d494979a9aedce584c054474ae0"></span><div class="line-block">
+<div class="line">double <strong>state_energy</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::decay_children__i"><span id="pynenamespacepyne_1a8a2c5bdf0f2008c850662d015ab1b7de"></span><div class="line-block">
+<div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns a set of decay children of a <em>nuc</em>. </p>
+<p>This function works by first checking decay_chidlren_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be stable and an empty set is returned. </p>
+</div></blockquote>
+<p id="pyne::decay_children__cP"><span id="pynenamespacepyne_1ab7ae40853e11f0350ff134d1b8c00250"></span><div class="line-block">
+<div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::decay_children__ss"><span id="pynenamespacepyne_1a30686798fdf9dc0fe0494df134a3a6e9"></span><div class="line-block">
+<div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Natural Abundance Data</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1a8ef2ad6dcdf2555b626a5214916cbb9c"></span>std::map&lt; int, double &gt; <strong>natural_abund_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their natural abundances. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::natural_abund__i"><span id="pynenamespacepyne_1aa34a8311add97b0e90ce7600aa86f000"></span><div class="line-block">
+<div class="line">double <strong>natural_abund</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the natural abundance of a nuclide <em>nuc</em>. </p>
+<p>This follows the same the basic rules for finding or computing the natural abundances as the atomic_mass() functions do. However, if the nuclide cannot be found, the default value returned is 0.0. </p>
+</div></blockquote>
+<p id="pyne::natural_abund__cP"><span id="pynenamespacepyne_1a54a674f1208696becf15da2c9941c496"></span><div class="line-block">
+<div class="line">double <strong>natural_abund</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the natural abundance of a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p id="pyne::natural_abund__ss"><span id="pynenamespacepyne_1a9f1c241172136f7b983c001c3b158ac4"></span><div class="line-block">
+<div class="line">double <strong>natural_abund</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the natural abundance of a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Variables</em><blockquote>
+<div><p id=""><span id="pynenamespacepyne_1ac4b3b3dcf295d033b906bf921d820ae2"></span>std::string <strong>NUC_DATA_PATH</strong></p>
+<blockquote>
+<div><p>Path to the nuc_data.h5 file. </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
 <div class="line-block">
-<div class="line" id=""><span id="pynematerial_8h"></span><em>file</em> <strong>material.h</strong></div>
+<div class="line" id=""><span id="pynedata_8h"></span><em>file</em> <strong>data.h</strong></div>
 <div class="line"><em>#include &lt;iostream&gt;</em></div>
-<div class="line"><em>#include &lt;fstream&gt;</em></div>
 <div class="line"><em>#include &lt;string&gt;</em></div>
+<div class="line"><em>#include &lt;utility&gt;</em></div>
 <div class="line"><em>#include &lt;map&gt;</em></div>
 <div class="line"><em>#include &lt;set&gt;</em></div>
-<div class="line"><em>#include &lt;stdio.h&gt;</em></div>
+<div class="line"><em>#include &lt;exception&gt;</em></div>
 <div class="line"><em>#include &lt;stdlib.h&gt;</em></div>
-<div class="line"><em>#include &lt;json/json-forwards.h&gt;</em></div>
-<div class="line"><em>#include &lt;json/json.h&gt;</em></div>
+<div class="line"><em>#include &lt;stdio.h&gt;</em></div>
+<div class="line"><em>#include &#8220;hdf5.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;hdf5_hl.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;h5wrap.h&#8221;</em></div>
+<div class="line"><em>#include &lt;fstream&gt;</em></div>
+<div class="line"><em>#include &lt;vector&gt;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/extra_types.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;extra_types.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;pyne.h&#8221;</em></div>
+<div class="line"><em>#include &lt;string.h&gt;</em></div>
+<div class="line"><em>#include &lt;sstream&gt;</em></div>
+<div class="line"><em>#include &lt;cctype&gt;</em></div>
+<div class="line"><em>#include &lt;cmath&gt;</em></div>
+<div class="line"><em>#include &lt;sys/stat.h&gt;</em></div>
+<div class="line"><em>#include &lt;sys/types.h&gt;</em></div>
+<div class="line"><em>#include &lt;cstdlib&gt;</em></div>
+<div class="line"><em>#include &lt;algorithm&gt;</em></div>
 <div class="line"><em>#include &#8220;nucname.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;data.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/pyne.h&#8221;</em></div>
 </div>
 <blockquote>
-<div><p>The ever-important material class and related helpers. </p>
-<p>
-The material class is effectively a normalized nuclide linked list with associated mass, density, atoms per mol, and metadata. However, this implementation also contains other functions for mixing materials and generating related materials. <dl class="docutils">
+<div><p>Implements basic nuclear data functions. </p>
+<p><dl class="docutils">
 <dt><strong>Author</strong></dt>
-<dd>Anthony Scopatz (scopatz&#64;gmail.com)</dd>
+<dd>Anthony Scopatz (scopatz&#64;gmail.com) </dd>
 </dl>
 </p>
-<em>Defines</em><blockquote>
-<div><p id=""><span id="pynematerial_8h_1a1bf16856b5e907aa83ed7bc825bc5ecf"></span><strong>JSON_IS_AMALGAMATION</strong></p>
-<blockquote>
-<div><p></p>
-<p></p>
-</div></blockquote>
-</div></blockquote>
 </div></blockquote>
 <div class="line-block">
-<div class="line" id=""><span id="pynedir_16f816c94a95b6c656b1681aa0e1f00c"></span><em>dir</em> <strong>/home/scopatz/pyne/cpp/</strong></div>
-</div>
-<blockquote>
-<div><p></p>
-<p></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedir_75b82e7e4a5feb05200b9ad7adf06257"></span><em>dir</em> <strong>/home/</strong></div>
-</div>
-<blockquote>
-<div><p></p>
-<p></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedir_eb6f41395e501d521b60e4bcc322f5b5"></span><em>dir</em> <strong>/home/scopatz/pyne/</strong></div>
-</div>
-<blockquote>
-<div><p></p>
-<p></p>
-</div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedir_fd36fd30001b5b61e932a47c7a98e725"></span><em>dir</em> <strong>/home/scopatz/</strong></div>
+<div class="line" id=""><span id="pynedir_df511e5bd85cec96854b39d5e1c27aa8"></span><em>dir</em> <strong>/home/scopatz/pyne/cpp</strong></div>
 </div>
 <blockquote>
 <div><p></p>
@@ -814,7 +670,7 @@ The material class is effectively a normalized nuclide linked list with associat
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2013, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

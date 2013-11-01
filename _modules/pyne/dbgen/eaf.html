@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyne.dbgen.eaf &mdash; PyNE 0.2-dev</title>
+    <title>pyne.dbgen.eaf &mdash; PyNE 0.3</title>
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../../../index.html" />
+    <link rel="top" title="PyNE 0.3" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -118,8 +118,7 @@ if(ga_enabled){
     <span class="c"># Grab ENSDF files and unzip them.</span>
     <span class="c"># This link was taken from &#39;http://www-nds.iaea.org/fendl/fen-activation.htm&#39;</span>
     <span class="n">iaea_url</span> <span class="o">=</span> <span class="s">&#39;http://www-nds.iaea.org/fendl2/activation/processed/vitj_e/libout/fendlg-2.0_175-gz&#39;</span>
-    <span class="c"># Pending decision to mirror data on Amazon AWS storage...</span>
-    <span class="c">#s3_base_url = &#39;http://s3.amazonaws.com/pyne/&#39;</span>
+    <span class="n">s3_base_url</span> <span class="o">=</span> <span class="s">&#39;http://s3.amazonaws.com/pyne/&#39;</span>
     <span class="n">eaf_gzip</span> <span class="o">=</span> <span class="s">&#39;fendlg-2.0_175-gz&#39;</span>
 
     <span class="n">fpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">eaf_gzip</span><span class="p">)</span>
@@ -128,9 +127,12 @@ if(ga_enabled){
         <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">iaea_url</span><span class="p">,</span> <span class="n">fpath</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3215713</span><span class="p">:</span> 
-            <span class="k">print</span> <span class="s">&quot;  could not get {0} from IAEA;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">iaea_url</span><span class="p">)</span>
+            <span class="k">print</span> <span class="s">&quot;  could not get {0} from IAEA; trying S3 mirror&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eaf_gzip</span><span class="p">)</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">False</span>
+            <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">s3_base_url</span> <span class="o">+</span> <span class="n">eaf_gzip</span><span class="p">,</span> <span class="n">fpath</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3215713</span><span class="p">:</span> 
+                <span class="k">print</span> <span class="s">&quot;  could not get {0} from S3 mirror&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eaf_gzip</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">False</span>
 
     <span class="c"># Write contents of single-file gzip archive to a new file</span>
     <span class="k">try</span><span class="p">:</span>
@@ -198,7 +200,7 @@ if(ga_enabled){
 
         <span class="c"># Store information in new row of array.</span>
         <span class="n">eafrow</span> <span class="o">=</span> <span class="p">(</span>
-                  <span class="n">nucname</span><span class="o">.</span><span class="n">zzaaam</span><span class="p">(</span><span class="n">md</span><span class="p">[</span><span class="s">&#39;iso&#39;</span><span class="p">]),</span>
+                  <span class="n">nucname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="n">md</span><span class="p">[</span><span class="s">&#39;iso&#39;</span><span class="p">]),</span>
                   <span class="n">md</span><span class="p">[</span><span class="s">&#39;rxnum&#39;</span><span class="p">],</span>
                   <span class="n">md</span><span class="p">[</span><span class="s">&#39;rxstr&#39;</span><span class="p">],</span>
                   <span class="n">md</span><span class="p">[</span><span class="s">&#39;daugh&#39;</span><span class="p">],</span>
@@ -397,7 +399,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2013, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

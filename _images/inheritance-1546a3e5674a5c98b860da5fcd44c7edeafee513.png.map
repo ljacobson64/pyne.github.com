@@ -1,5 +1,5 @@
 <map id="inheritancef2be080847" name="inheritancef2be080847">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ISource" title="pyne.simplesim.cards.ISource" alt="" coords="248,5,457,32"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.CriticalityPoints" title="pyne.simplesim.cards.CriticalityPoints" alt="" coords="505,5,761,32"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="7,5,200,32"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ISource" title="pyne.simplesim.cards.ISource" alt="" coords="249,5,456,32"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.CriticalityPoints" title="pyne.simplesim.cards.CriticalityPoints" alt="" coords="505,5,763,32"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,200,32"/>
 </map>
