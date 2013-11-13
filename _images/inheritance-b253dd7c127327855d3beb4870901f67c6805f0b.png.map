@@ -1,0 +1,6 @@
+<map id="inheritance79bbbac730" name="inheritance79bbbac730">
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="261,5,456,33"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.MiscCustom" title="pyne.simplesim.cards.MiscCustom" alt="" coords="515,30,757,58"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,30,203,58"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="252,55,465,83"/>
+</map>
