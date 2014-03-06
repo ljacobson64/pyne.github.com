@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Cards Module – pyne.simplesim.cards &mdash; PyNE 0.2-dev</title>
+    <title>Cards Module – pyne.simplesim.cards &mdash; PyNE 0.4-dev</title>
     
     <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.4-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../../index.html" />
+    <link rel="top" title="PyNE 0.4-dev" href="../../index.html" />
     <link rel="up" title="Simple Simulation Input – pyne.simplesim" href="index.html" />
     <link rel="next" title="Nested Geometry – pyne.simplesim.nestedgeom" href="nestedgeom.html" />
     <link rel="prev" title="Simple Simulation Input – pyne.simplesim" href="index.html" /> <script type="text/javascript">
@@ -91,7 +91,7 @@ if(ga_enabled){
   <div class="section" id="module-pyne.simplesim.cards">
 <span id="cards-module-pyne-simplesim-cards"></span><span id="pyne-simplesim-cards"></span><h1>Cards Module &#8211; <a class="reference internal" href="#module-pyne.simplesim.cards" title="pyne.simplesim.cards"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.cards</span></tt></a><a class="headerlink" href="#module-pyne.simplesim.cards" title="Permalink to this headline">¶</a></h1>
 <p>The <tt class="xref py py-mod docutils literal"><span class="pre">cards</span></tt> module can be imported as such:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne.simplesim</span> <span class="kn">import</span> <span class="n">cards</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">.simplesim</span> <span class="kn">import</span> <span class="n">cards</span>
 </pre></div>
 </div>
 <p>The user creates cards, typically only working with the constructors, and then
@@ -534,12 +534,12 @@ the related simplesim card.</p>
 <strong>AREA</strong> card. The user can initialize this card without providing any cell
 areas.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-83cf2feddcdb2f6f3d99dde105c5bf1ac930e5dc.png" alt="Inheritance diagram of pyne.simplesim.cards.Area" usemap="#inheritance6ce248af92" class="inheritance"/>
+<img src="../../_images/inheritance-073ad18a30a3bf025ab0394717f46a35ca95f0bf.png" alt="Inheritance diagram of pyne.simplesim.cards.Area" usemap="#inheritance6ce248af92" class="inheritance"/>
 <map id="inheritance6ce248af92" name="inheritance6ce248af92">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.Area" title="pyne.simplesim.cards.Area" alt="" coords="608,4,764,26"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="397,4,569,26"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="201,4,356,26"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,162,26"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="201,4,356,26"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="397,4,569,26"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,162,26"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.Area" title="pyne.simplesim.cards.Area" alt="" coords="608,4,764,26"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -604,12 +604,12 @@ done using <a class="reference internal" href="#pyne.simplesim.cards.Area.set" t
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">AxisCylinder</tt><big>(</big><em>name</em>, <em>cartesian_axis</em>, <em>radius</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#AxisCylinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.AxisCylinder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cylinder aligned with and centered on one of the Cartesian axes.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-1ced037f252f15673e26b545cf0c3e94ffc8b8d9.png" alt="Inheritance diagram of pyne.simplesim.cards.AxisCylinder" usemap="#inheritancedf43b9ce22" class="inheritance"/>
+<img src="../../_images/inheritance-d3735bbbf1dfa6e8ab00a40f652edad4c4e2ad6c.png" alt="Inheritance diagram of pyne.simplesim.cards.AxisCylinder" usemap="#inheritancedf43b9ce22" class="inheritance"/>
 <map id="inheritancedf43b9ce22" name="inheritancedf43b9ce22">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.AxisCylinder" title="pyne.simplesim.cards.AxisCylinder" alt="" coords="589,3,763,24"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IAxisSurface" title="pyne.simplesim.cards.IAxisSurface" alt="" coords="376,3,553,24"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="183,3,340,24"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,147,24"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="183,3,340,24"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.IAxisSurface" title="pyne.simplesim.cards.IAxisSurface" alt="" coords="376,3,553,24"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,147,24"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.AxisCylinder" title="pyne.simplesim.cards.AxisCylinder" alt="" coords="589,3,763,24"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -698,12 +698,12 @@ circular cross section, which cannot be accommodated:</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">AxisPlane</tt><big>(</big><em>name</em>, <em>cartesian_axis</em>, <em>position</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#AxisPlane"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.AxisPlane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plane perpendicular to one of the Cartesian axes.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-457bb952e9ecf6bc155ac4e965ca2526dd925e4c.png" alt="Inheritance diagram of pyne.simplesim.cards.AxisPlane" usemap="#inheritancec7f8d3e374" class="inheritance"/>
+<img src="../../_images/inheritance-2875bcee969b8067bc2286444377f6e2c75c01c9.png" alt="Inheritance diagram of pyne.simplesim.cards.AxisPlane" usemap="#inheritancec7f8d3e374" class="inheritance"/>
 <map id="inheritancec7f8d3e374" name="inheritancec7f8d3e374">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.IAxisSurface" title="pyne.simplesim.cards.IAxisSurface" alt="" coords="382,3,561,24"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.AxisPlane" title="pyne.simplesim.cards.AxisPlane" alt="" coords="598,3,763,24"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="186,3,346,24"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,150,24"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="186,3,346,24"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.IAxisSurface" title="pyne.simplesim.cards.IAxisSurface" alt="" coords="382,3,561,24"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,150,24"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.AxisPlane" title="pyne.simplesim.cards.AxisPlane" alt="" coords="598,3,763,24"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -931,14 +931,14 @@ cell as follows:</p>
 <dd><p>Charge deposition tally in cells. In MCNP, this is the <strong>+F8</strong> card. No
 alternative units are available.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-1634d1c599362205b231b943701371cf6821dde4.png" alt="Inheritance diagram of pyne.simplesim.cards.CellChargeDeposition" usemap="#inheritance4a4b33f11d" class="inheritance"/>
+<img src="../../_images/inheritance-4127b85665ba372d71d14e9f98703eeb7192641e.png" alt="Inheritance diagram of pyne.simplesim.cards.CellChargeDeposition" usemap="#inheritance4a4b33f11d" class="inheritance"/>
 <map id="inheritance4a4b33f11d" name="inheritance4a4b33f11d">
 <area shape="rect" id="node1" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="355,2,466,15"/>
 <area shape="rect" id="node7" href="#pyne.simplesim.cards.CellPulseHeight" title="pyne.simplesim.cards.CellPulseHeight" alt="" coords="488,2,607,15"/>
 <area shape="rect" id="node2" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="223,2,333,15"/>
 <area shape="rect" id="node4" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="114,2,201,15"/>
 <area shape="rect" id="node5" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="2,2,92,15"/>
-<area shape="rect" id="node9" href="#pyne.simplesim.cards.CellChargeDeposition" title="pyne.simplesim.cards.CellChargeDeposition" alt="" coords="629,2,766,15"/>
+<area shape="rect" id="node10" href="#pyne.simplesim.cards.CellChargeDeposition" title="pyne.simplesim.cards.CellChargeDeposition" alt="" coords="629,2,766,15"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -982,12 +982,12 @@ protons and electrons:</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">CellCustom</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#CellCustom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.CellCustom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom <a class="reference internal" href="#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell"><tt class="xref py py-class docutils literal"><span class="pre">Cell</span></tt></a> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-d3bcff2c083d5898c611b9ffbc0297d3ed5b0a7f.png" alt="Inheritance diagram of CellCustom" usemap="#inheritanced1da1cda82" class="inheritance"/>
+<img src="../../_images/inheritance-0038ea62914366d1af02e52ea6652c61f6994328.png" alt="Inheritance diagram of CellCustom" usemap="#inheritanced1da1cda82" class="inheritance"/>
 <map id="inheritanced1da1cda82" name="inheritanced1da1cda82">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell" alt="" coords="265,5,452,33"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.CellCustom" title="pyne.simplesim.cards.CellCustom" alt="" coords="515,30,752,58"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,30,203,58"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,30,203,58"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell" alt="" coords="265,5,452,33"/>
 <area shape="rect" id="node4" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="252,55,465,83"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.CellCustom" title="pyne.simplesim.cards.CellCustom" alt="" coords="515,30,752,58"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1027,13 +1027,13 @@ card number, except for one case with tallies.</p>
 <dd><p>Energy deposition tally. In MCNP, this is the <strong>F6</strong> card. In MCNP, it
 is not permitted to use a particle &#8216;all&#8217; and also to use alternative units.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-208dd483a831a099c962bd6daad4afbd1bc505e3.png" alt="Inheritance diagram of pyne.simplesim.cards.CellEnergyDeposition" usemap="#inheritance32893f8600" class="inheritance"/>
+<img src="../../_images/inheritance-034b5428e710f87a19bc814b6828f6ca5fe59994.png" alt="Inheritance diagram of pyne.simplesim.cards.CellEnergyDeposition" usemap="#inheritance32893f8600" class="inheritance"/>
 <map id="inheritance32893f8600" name="inheritance32893f8600">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,112,18"/>
-<area shape="rect" id="node3" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="140,3,246,18"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="274,3,408,18"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="435,3,571,18"/>
-<area shape="rect" id="node8" href="#pyne.simplesim.cards.CellEnergyDeposition" title="pyne.simplesim.cards.CellEnergyDeposition" alt="" coords="599,3,764,18"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.CellEnergyDeposition" title="pyne.simplesim.cards.CellEnergyDeposition" alt="" coords="599,3,764,18"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="435,3,571,18"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="274,3,408,18"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="140,3,246,18"/>
+<area shape="rect" id="node7" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,112,18"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1100,13 +1100,13 @@ cell &#8216;cA&#8217;:</p>
 <dd><p>Fission energy deposition tally. In MCNP, this is the <strong>F7</strong> card. The
 particle is necessarily neutron.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-06ddc5462ec86713d6c6e1ee0397efac2de81f5c.png" alt="Inheritance diagram of pyne.simplesim.cards.CellFissionEnergyDeposition" usemap="#inheritanceb56b7ee97d" class="inheritance"/>
+<img src="../../_images/inheritance-c423f6f4e2e3c5071f45e8f6387959be29898360.png" alt="Inheritance diagram of pyne.simplesim.cards.CellFissionEnergyDeposition" usemap="#inheritanceb56b7ee97d" class="inheritance"/>
 <map id="inheritanceb56b7ee97d" name="inheritanceb56b7ee97d">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,109,18"/>
-<area shape="rect" id="node7" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="136,3,239,18"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="423,3,555,18"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.CellFissionEnergyDeposition" title="pyne.simplesim.cards.CellFissionEnergyDeposition" alt="" coords="581,3,765,18"/>
-<area shape="rect" id="node3" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="266,3,397,18"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="266,3,397,18"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="423,3,555,18"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="136,3,239,18"/>
+<area shape="rect" id="node8" href="#pyne.simplesim.cards.CellFissionEnergyDeposition" title="pyne.simplesim.cards.CellFissionEnergyDeposition" alt="" coords="581,3,765,18"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,109,18"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1155,13 +1155,13 @@ the average across &#8216;cA&#8217; and &#8216;cB&#8217;:</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">CellFlux</tt><big>(</big><em>name</em>, <em>particle</em>, <em>cards</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#CellFlux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.CellFlux" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cell flux tally. In MCNP, this is the <strong>F4</strong> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-518bb2b4f3fe38b3fc9cf19c0882f8f588afcfe4.png" alt="Inheritance diagram of pyne.simplesim.cards.CellFlux" usemap="#inheritance7f79a1511d" class="inheritance"/>
+<img src="../../_images/inheritance-91448bd594edfa9323c665e08a283950f8338ab9.png" alt="Inheritance diagram of pyne.simplesim.cards.CellFlux" usemap="#inheritance7f79a1511d" class="inheritance"/>
 <map id="inheritance7f79a1511d" name="inheritance7f79a1511d">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.CellFlux" title="pyne.simplesim.cards.CellFlux" alt="" coords="638,3,765,19"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="465,3,610,19"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="292,3,436,19"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="465,3,610,19"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="149,3,263,19"/>
 <area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,120,19"/>
-<area shape="rect" id="node7" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="149,3,263,19"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="292,3,436,19"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.CellFlux" title="pyne.simplesim.cards.CellFlux" alt="" coords="638,3,765,19"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1222,11 +1222,11 @@ card.</p>
 <p>See <a class="reference internal" href="#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell"><tt class="xref py py-class docutils literal"><span class="pre">Cell</span></tt></a> for universes, fill, and lattices.</p>
 <p>Note this card was written with MCNPX version 2.7 in mind.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-6a95cb63f25dc31417a7dc26393410705fba1db2.png" alt="Inheritance diagram of pyne.simplesim.cards.CellMCNP" usemap="#inheritance571129ce15" class="inheritance"/>
+<img src="../../_images/inheritance-52f8824cc85620143f1bcefac38950e6db0242bb.png" alt="Inheritance diagram of pyne.simplesim.cards.CellMCNP" usemap="#inheritance571129ce15" class="inheritance"/>
 <map id="inheritance571129ce15" name="inheritance571129ce15">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,203,33"/>
-<area shape="rect" id="node3" href="#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell" alt="" coords="252,5,439,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.CellMCNP" title="pyne.simplesim.cards.CellMCNP" alt="" coords="489,5,713,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.CellMCNP" title="pyne.simplesim.cards.CellMCNP" alt="" coords="489,5,713,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.Cell" title="pyne.simplesim.cards.Cell" alt="" coords="252,5,439,33"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,203,33"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1502,13 +1502,13 @@ transform of &#8216;0.7V2&#8217;, on their own, they can do the following:</p>
 <dd><p>Pulse height tally in cells. In MCNP, this is the <strong>F8</strong> card. For a
 charge deposition tally, see <a class="reference internal" href="#pyne.simplesim.cards.CellChargeDeposition" title="pyne.simplesim.cards.CellChargeDeposition"><tt class="xref py py-class docutils literal"><span class="pre">CellChargeDeposition</span></tt></a>.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-d08b4da4640ad767ce5e9935b779f1e70700fcc4.png" alt="Inheritance diagram of pyne.simplesim.cards.CellPulseHeight" usemap="#inheritancee9932ab8b7" class="inheritance"/>
+<img src="../../_images/inheritance-4fbbce4ad59d47cd27545326e4a5dfa0f2270d9f.png" alt="Inheritance diagram of pyne.simplesim.cards.CellPulseHeight" usemap="#inheritancee9932ab8b7" class="inheritance"/>
 <map id="inheritancee9932ab8b7" name="inheritancee9932ab8b7">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,116,19"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="144,3,253,19"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="447,3,587,19"/>
-<area shape="rect" id="node7" href="#pyne.simplesim.cards.CellPulseHeight" title="pyne.simplesim.cards.CellPulseHeight" alt="" coords="614,3,765,19"/>
-<area shape="rect" id="node3" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="281,3,420,19"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="281,3,420,19"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="447,3,587,19"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="144,3,253,19"/>
+<area shape="rect" id="node8" href="#pyne.simplesim.cards.CellPulseHeight" title="pyne.simplesim.cards.CellPulseHeight" alt="" coords="614,3,765,19"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,116,19"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1565,7 +1565,7 @@ protons and electrons, and requests units of MeV:</p>
 <dd><p>A criticality source of neutrons. Unique card with name <cite>criticality</cite>.
 In MCNP, this is the <strong>KCODE</strong> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-d48873e7baf782d58131822833fbf7e965322fcf.png" alt="Inheritance diagram of pyne.simplesim.cards.Criticality" usemap="#inheritancef8f0de653b" class="inheritance"/>
+<img src="../../_images/inheritance-171cd2b66efcbba6affaf07262c5f8e546097b24.png" alt="Inheritance diagram of pyne.simplesim.cards.Criticality" usemap="#inheritancef8f0de653b" class="inheritance"/>
 <map id="inheritancef8f0de653b" name="inheritancef8f0de653b">
 <area shape="rect" id="node1" href="#pyne.simplesim.cards.ISource" title="pyne.simplesim.cards.ISource" alt="" coords="252,5,463,33"/>
 <area shape="rect" id="node4" href="#pyne.simplesim.cards.Criticality" title="pyne.simplesim.cards.Criticality" alt="" coords="513,5,735,33"/>
@@ -1701,12 +1701,12 @@ given particle type and DXTRAN sphere, with name
 <cite>dxtrancont-&lt;sph_name&gt;-&lt;particle&gt;</cite> (or more simply <cite>dxtrancont-&lt;particle&gt;</cite>
 if input applies for all spheres). In MCNP, this is the <strong>DXC</strong> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-29f8a02cdbb2509924c91f454a923d29a841b44d.png" alt="Inheritance diagram of pyne.simplesim.cards.DXTRANContribution" usemap="#inheritancec5463e3a8b" class="inheritance"/>
+<img src="../../_images/inheritance-9360c68ee94af6f18cc84a385298903fe7415991.png" alt="Inheritance diagram of pyne.simplesim.cards.DXTRANContribution" usemap="#inheritancec5463e3a8b" class="inheritance"/>
 <map id="inheritancec5463e3a8b" name="inheritancec5463e3a8b">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="360,3,516,24"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.DXTRANContribution" title="pyne.simplesim.cards.DXTRANContribution" alt="" coords="552,3,764,24"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="182,3,323,24"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,147,24"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="182,3,323,24"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="360,3,516,24"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,147,24"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.DXTRANContribution" title="pyne.simplesim.cards.DXTRANContribution" alt="" coords="552,3,764,24"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1789,12 +1789,12 @@ method:</p>
 code&#8217;s (e.g. MCNP&#8217;s) manual for default values. All the spheres added to
 this card are named so that they can be referenced by other cards.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-877ce8496038f5acd0dce78b0723d53415359b05.png" alt="Inheritance diagram of pyne.simplesim.cards.DXTRANSpheres" usemap="#inheritanceb6881019b2" class="inheritance"/>
+<img src="../../_images/inheritance-4ed1f33312301db4d05d71307ffc4210cd09eb84.png" alt="Inheritance diagram of pyne.simplesim.cards.DXTRANSpheres" usemap="#inheritanceb6881019b2" class="inheritance"/>
 <map id="inheritanceb6881019b2" name="inheritanceb6881019b2">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="180,3,318,23"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="354,3,538,23"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,144,23"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.DXTRANSpheres" title="pyne.simplesim.cards.DXTRANSpheres" alt="" coords="572,3,764,23"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.DXTRANSpheres" title="pyne.simplesim.cards.DXTRANSpheres" alt="" coords="572,3,764,23"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="354,3,538,23"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="180,3,318,23"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,144,23"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1935,12 +1935,12 @@ arguments come after the sphere parameters:</p>
 <dd><p>Probability of contribution of cell to a detector. Unique card with name
 <cite>detcontrib-&lt;detname&gt;</cite>. In MCNP, this is the <strong>PD</strong> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-31c4dda6149ce8b7ef58f249b604ee597d65ee77.png" alt="Inheritance diagram of pyne.simplesim.cards.DetectorContribution" usemap="#inheritance4a15b48814" class="inheritance"/>
+<img src="../../_images/inheritance-2fcfe941c8f5d94d176dda0769017324038bbe5e.png" alt="Inheritance diagram of pyne.simplesim.cards.DetectorContribution" usemap="#inheritance4a15b48814" class="inheritance"/>
 <map id="inheritance4a15b48814" name="inheritance4a15b48814">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.DetectorContribution" title="pyne.simplesim.cards.DetectorContribution" alt="" coords="549,3,764,24"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="358,3,514,24"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="181,3,322,24"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,146,24"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="181,3,322,24"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="358,3,514,24"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,146,24"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.DetectorContribution" title="pyne.simplesim.cards.DetectorContribution" alt="" coords="549,3,764,24"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2176,12 +2176,12 @@ specified:</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">DistributionCustom</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#DistributionCustom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.DistributionCustom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom <a class="reference internal" href="#pyne.simplesim.cards.Distribution" title="pyne.simplesim.cards.Distribution"><tt class="xref py py-class docutils literal"><span class="pre">Distribution</span></tt></a> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-775134e5ce84b7441ac8b8b2313727f94bb3e254.png" alt="Inheritance diagram of DistributionCustom" usemap="#inheritance66af3b872f" class="inheritance"/>
+<img src="../../_images/inheritance-1dd10fa056f803f4dc3dbfc7e4fd915bc4401519.png" alt="Inheritance diagram of DistributionCustom" usemap="#inheritance66af3b872f" class="inheritance"/>
 <map id="inheritance66af3b872f" name="inheritance66af3b872f">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.DistributionCustom" title="pyne.simplesim.cards.DistributionCustom" alt="" coords="496,28,763,54"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="243,4,441,30"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.Distribution" title="pyne.simplesim.cards.Distribution" alt="" coords="232,51,452,77"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,28,188,54"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,28,188,54"/>
+<area shape="rect" id="node3" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="243,4,441,30"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.Distribution" title="pyne.simplesim.cards.Distribution" alt="" coords="232,51,452,77"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.DistributionCustom" title="pyne.simplesim.cards.DistributionCustom" alt="" coords="496,28,763,54"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2227,7 +2227,7 @@ SI, SP, SB).</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">EnergyGrid</tt><big>(</big><em>name</em>, <em>tally</em>, <em>energies</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#EnergyGrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.EnergyGrid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Energy grid for tallies. In MCNP, this is the <strong>E</strong> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-21dbceee224afed112dcefaa0143335c1daf5f9c.png" alt="Inheritance diagram of pyne.simplesim.cards.EnergyGrid" usemap="#inheritance232d4749d6" class="inheritance"/>
+<img src="../../_images/inheritance-2cdc1787e9e1d2a0416e3a638f287c8d5123a151.png" alt="Inheritance diagram of pyne.simplesim.cards.EnergyGrid" usemap="#inheritance232d4749d6" class="inheritance"/>
 <map id="inheritance232d4749d6" name="inheritance232d4749d6">
 <area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="252,5,447,33"/>
 <area shape="rect" id="node4" href="#pyne.simplesim.cards.EnergyGrid" title="pyne.simplesim.cards.EnergyGrid" alt="" coords="496,5,731,33"/>
@@ -2277,12 +2277,12 @@ name <cite>exptransform-&lt;particle&gt;</cite>. In MCNP, this is the <strong>EX
 user can initialize this card without requesting any exponential
 transforms.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-1f71bf8a80f27fc1dca54d94038a8c7656550ba8.png" alt="Inheritance diagram of pyne.simplesim.cards.ExponentialTransform" usemap="#inheritance4d6ebf7a85" class="inheritance"/>
+<img src="../../_images/inheritance-b3b90761d8e684d80196a879a989b91846c3cc2f.png" alt="Inheritance diagram of pyne.simplesim.cards.ExponentialTransform" usemap="#inheritance4d6ebf7a85" class="inheritance"/>
 <map id="inheritance4d6ebf7a85" name="inheritance4d6ebf7a85">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellModParticle" title="pyne.simplesim.cards.ICellModParticle" alt="" coords="434,3,576,18"/>
-<area shape="rect" id="node8" href="#pyne.simplesim.cards.ExponentialTransform" title="pyne.simplesim.cards.ExponentialTransform" alt="" coords="602,3,765,18"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="268,3,408,18"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ExponentialTransform" title="pyne.simplesim.cards.ExponentialTransform" alt="" coords="602,3,765,18"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICellModParticle" title="pyne.simplesim.cards.ICellModParticle" alt="" coords="434,3,576,18"/>
 <area shape="rect" id="node4" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="136,3,241,18"/>
+<area shape="rect" id="node7" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="268,3,408,18"/>
 <area shape="rect" id="node5" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,110,18"/>
 </map>
 </p>
@@ -2419,12 +2419,12 @@ using <a class="reference internal" href="#pyne.simplesim.cards.IMacrobody.facet
 card with name <cite>fill</cite>. In MCNP, this is the <strong>FILL</strong> card. The user can
 initialize this card without providing any inputs.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-03132bba9262a4cd440b4d79b4291e5128dc47f3.png" alt="Inheritance diagram of pyne.simplesim.cards.Fill" usemap="#inheritance1c099fd388" class="inheritance"/>
+<img src="../../_images/inheritance-0258c76c370fab1c3b69fb62fdbfccdd8a09479f.png" alt="Inheritance diagram of pyne.simplesim.cards.Fill" usemap="#inheritance1c099fd388" class="inheritance"/>
 <map id="inheritance1c099fd388" name="inheritance1c099fd388">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="402,4,577,26"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.Fill" title="pyne.simplesim.cards.Fill" alt="" coords="618,4,763,26"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="204,4,361,26"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,164,26"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="204,4,361,26"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="402,4,577,26"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,164,26"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.Fill" title="pyne.simplesim.cards.Fill" alt="" coords="618,4,763,26"/>
 </map>
 </p>
 <p>Limitations:</p>
@@ -2491,12 +2491,12 @@ are the names of universes, the user can do the following:</p>
 MCNP, this is the <strong>NONU</strong> card. If no arguments are provided, then the
 setting of &#8216;capture-gamma&#8217; is applied to all cells.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-ff43571a7cc92896d346cbe3fc194587e7a41457.png" alt="Inheritance diagram of pyne.simplesim.cards.FissionTurnoff" usemap="#inheritancea247f2527e" class="inheritance"/>
+<img src="../../_images/inheritance-f7f12a98298d22195587c9c97d52ca0b824a9c9a.png" alt="Inheritance diagram of pyne.simplesim.cards.FissionTurnoff" usemap="#inheritancea247f2527e" class="inheritance"/>
 <map id="inheritancea247f2527e" name="inheritancea247f2527e">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="376,4,539,25"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.FissionTurnoff" title="pyne.simplesim.cards.FissionTurnoff" alt="" coords="577,4,764,25"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="190,4,338,25"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,153,25"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="190,4,338,25"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="376,4,539,25"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,153,25"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.FissionTurnoff" title="pyne.simplesim.cards.FissionTurnoff" alt="" coords="577,4,764,25"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2571,13 +2571,13 @@ using <a class="reference internal" href="#pyne.simplesim.cards.FissionTurnoff.s
 name <cite>forcedcoll-&lt;particle&gt;</cite>. In MCNP, this is the <strong>FCL</strong> card. The user
 can initialize this card without requesting forced collisions.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-5d562977b18d6f9957bae7efcd3425b3d3854ac3.png" alt="Inheritance diagram of pyne.simplesim.cards.ForcedCollision" usemap="#inheritancec8db63b664" class="inheritance"/>
+<img src="../../_images/inheritance-8e968c31fcc2358628bd0711192825c48b711f8c.png" alt="Inheritance diagram of pyne.simplesim.cards.ForcedCollision" usemap="#inheritancec8db63b664" class="inheritance"/>
 <map id="inheritancec8db63b664" name="inheritancec8db63b664">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellModParticle" title="pyne.simplesim.cards.ICellModParticle" alt="" coords="447,3,594,18"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ForcedCollision" title="pyne.simplesim.cards.ForcedCollision" alt="" coords="621,3,765,18"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="276,3,420,18"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="140,3,249,18"/>
-<area shape="rect" id="node7" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,113,18"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ForcedCollision" title="pyne.simplesim.cards.ForcedCollision" alt="" coords="621,3,765,18"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICellModParticle" title="pyne.simplesim.cards.ICellModParticle" alt="" coords="447,3,594,18"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="276,3,420,18"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="140,3,249,18"/>
+<area shape="rect" id="node8" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,113,18"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2682,11 +2682,11 @@ individually after the card is created:</p>
 </pre></div>
 </div>
 <p class="graphviz">
-<img src="../../_images/inheritance-eafbf9f346c644cd7aaabda59dbc12527c150a84.png" alt="Inheritance diagram of pyne.simplesim.cards.GeneralSource" usemap="#inheritanceeed3d21fc1" class="inheritance"/>
+<img src="../../_images/inheritance-e72997734204cc3374dd697d44b12da0f50708b3.png" alt="Inheritance diagram of pyne.simplesim.cards.GeneralSource" usemap="#inheritanceeed3d21fc1" class="inheritance"/>
 <map id="inheritanceeed3d21fc1" name="inheritanceeed3d21fc1">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.GeneralSource" title="pyne.simplesim.cards.GeneralSource" alt="" coords="506,5,761,32"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ISource" title="pyne.simplesim.cards.ISource" alt="" coords="249,5,456,32"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,200,32"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ISource" title="pyne.simplesim.cards.ISource" alt="" coords="249,5,456,32"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.GeneralSource" title="pyne.simplesim.cards.GeneralSource" alt="" coords="506,5,761,32"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,200,32"/>
 </map>
 </p>
 <p>Limitations:</p>
@@ -2939,11 +2939,11 @@ the average across &#8216;cA&#8217; and &#8216;cB&#8217;:</p>
 axis-aligned surfaces. Accordingly, such classes share the cartesian_axis
 property.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-fa6363b3fd28d0a226e86359fac02ff739b485b1.png" alt="Inheritance diagram of pyne.simplesim.cards.IAxisSurface" usemap="#inheritance1c722e9d78" class="inheritance"/>
+<img src="../../_images/inheritance-362249f4d4a33fef96d5434f83fa232352ab719a.png" alt="Inheritance diagram of pyne.simplesim.cards.IAxisSurface" usemap="#inheritance1c722e9d78" class="inheritance"/>
 <map id="inheritance1c722e9d78" name="inheritance1c722e9d78">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.IAxisSurface" title="pyne.simplesim.cards.IAxisSurface" alt="" coords="517,5,760,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="252,5,468,33"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,203,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="252,5,468,33"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IAxisSurface" title="pyne.simplesim.cards.IAxisSurface" alt="" coords="517,5,760,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,203,33"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -3159,10 +3159,9 @@ individually:</p>
 </div>
 <p>Alternatively, the cards can be specified by something like the
 following (see <a class="reference internal" href="nestedgeom.html#module-pyne.simplesim.nestedgeom" title="pyne.simplesim.nestedgeom"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.simplesim.nestedgeom</span></tt></a>):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyne.simplesim.nestedgeom</span> <span class="kn">as</span> <span class="nn">ng</span>
-<span class="n">unit</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">Surf</span><span class="p">(</span><span class="s">&#39;sA&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">ng</span><span class="o">.</span><span class="n">FCell</span><span class="p">(</span><span class="s">&#39;cA&#39;</span><span class="p">)</span>
-<span class="n">tally</span> <span class="o">=</span> <span class="n">SurfaceFlux</span><span class="p">(</span><span class="s">&#39;fuel&#39;</span><span class="p">,</span> <span class="s">&#39;neutron&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span>
-</pre></div>
+<div class="highlight-python"><pre>import .simplesim.nestedgeom as ng
+unit = ng.Surf('sA') &lt; ng.FCell('cA')
+tally = SurfaceFlux('fuel', 'neutron', unit)</pre>
 </div>
 <p>The basic input and the unit input can be mixed, and two different
 units can be requested:</p>
@@ -3205,11 +3204,11 @@ separately. Set to False to disable the separate printing.</p>
 macrobody cards. Macrobodies are an MCNP concept. The classes here account
 for the notion of facets.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-b8a9eafa3e60d499b3d3530981264a729451ad71.png" alt="Inheritance diagram of pyne.simplesim.cards.IMacrobody" usemap="#inheritanceeca395b219" class="inheritance"/>
+<img src="../../_images/inheritance-c8acfbf5418796ec94deccfb7123ae0991060aa8.png" alt="Inheritance diagram of pyne.simplesim.cards.IMacrobody" usemap="#inheritanceeca395b219" class="inheritance"/>
 <map id="inheritanceeca395b219" name="inheritanceeca395b219">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMacrobody" title="pyne.simplesim.cards.IMacrobody" alt="" coords="517,5,755,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="252,5,468,33"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,203,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="252,5,468,33"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IMacrobody" title="pyne.simplesim.cards.IMacrobody" alt="" coords="517,5,755,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,203,33"/>
 </map>
 </p>
 <dl class="method">
@@ -3382,10 +3381,10 @@ not even be available. For other codes, then, the appropriate
 appropriate string to the code&#8217;s input file, or in the latter case return
 an exception.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-c6132ce658b70092b4c65cf36fbf106b1b7ce751.png" alt="Inheritance diagram of pyne.simplesim.cards.ISurface" usemap="#inheritance4bba26e68a" class="inheritance"/>
+<img src="../../_images/inheritance-9a78cfb009ac81df420ae10cf29ddc207746b1b0.png" alt="Inheritance diagram of pyne.simplesim.cards.ISurface" usemap="#inheritance4bba26e68a" class="inheritance"/>
 <map id="inheritance4bba26e68a" name="inheritance4bba26e68a">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,203,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="252,5,468,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="252,5,468,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,203,33"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -3653,12 +3652,12 @@ following:</p>
 this is the <strong>LAT</strong> card. The user can initialize this card without
 providing any inputs.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-bf72570fe010550e4a73911492eaab4621bff24c.png" alt="Inheritance diagram of pyne.simplesim.cards.Lattice" usemap="#inheritance7676bc7a4e" class="inheritance"/>
+<img src="../../_images/inheritance-288bc0e44745a0aa7e0c1eee1f18e88f22194bb4.png" alt="Inheritance diagram of pyne.simplesim.cards.Lattice" usemap="#inheritance7676bc7a4e" class="inheritance"/>
 <map id="inheritance7676bc7a4e" name="inheritance7676bc7a4e">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.Lattice" title="pyne.simplesim.cards.Lattice" alt="" coords="600,4,764,26"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="391,4,561,26"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,159,26"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="198,4,351,26"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="198,4,351,26"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="391,4,561,26"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,159,26"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.Lattice" title="pyne.simplesim.cards.Lattice" alt="" coords="600,4,764,26"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -3823,12 +3822,12 @@ for <tt class="docutils literal"><span class="pre">comp</span></tt>:</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">MaterialCustom</tt><big>(</big><em>mat</em>, <em>name=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#MaterialCustom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.MaterialCustom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom <a class="reference internal" href="#pyne.simplesim.cards.Material" title="pyne.simplesim.cards.Material"><tt class="xref py py-class docutils literal"><span class="pre">Material</span></tt></a> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-ab4d34d56744f78c80df0921a1cd6b1a32aa5256.png" alt="Inheritance diagram of MaterialCustom" usemap="#inheritance869b18ec37" class="inheritance"/>
+<img src="../../_images/inheritance-4378adcebf67244434174ebc0ad0c344f999bcac.png" alt="Inheritance diagram of MaterialCustom" usemap="#inheritance869b18ec37" class="inheritance"/>
 <map id="inheritance869b18ec37" name="inheritance869b18ec37">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.Material" title="pyne.simplesim.cards.Material" alt="" coords="245,5,456,32"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.MaterialCustom" title="pyne.simplesim.cards.MaterialCustom" alt="" coords="504,29,761,57"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,29,198,57"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="246,54,454,81"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.MaterialCustom" title="pyne.simplesim.cards.MaterialCustom" alt="" coords="504,29,761,57"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="246,5,454,32"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.Material" title="pyne.simplesim.cards.Material" alt="" coords="245,54,456,81"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,29,198,57"/>
 </map>
 </p>
 <p>NOTE The name of the MaterialCustom
@@ -3901,12 +3900,12 @@ for <tt class="docutils literal"><span class="pre">comp</span></tt>:</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">MiscCustom</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#MiscCustom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.MiscCustom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom <a class="reference internal" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc"><tt class="xref py py-class docutils literal"><span class="pre">IMisc</span></tt></a> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-b253dd7c127327855d3beb4870901f67c6805f0b.png" alt="Inheritance diagram of MiscCustom" usemap="#inheritance79bbbac730" class="inheritance"/>
+<img src="../../_images/inheritance-db3d55a4b2b0a40c9f1fb71a4143e4fe2f22a59c.png" alt="Inheritance diagram of MiscCustom" usemap="#inheritance79bbbac730" class="inheritance"/>
 <map id="inheritance79bbbac730" name="inheritance79bbbac730">
 <area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="261,5,456,33"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.MiscCustom" title="pyne.simplesim.cards.MiscCustom" alt="" coords="515,30,757,58"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.MiscCustom" title="pyne.simplesim.cards.MiscCustom" alt="" coords="515,30,757,58"/>
 <area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,30,203,58"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="252,55,465,83"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="252,55,465,83"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -4118,12 +4117,12 @@ Unlike with other subclasses of <a class="reference internal" href="#pyne.simple
 <a class="reference internal" href="#pyne.simplesim.cards.ICellModParticle" title="pyne.simplesim.cards.ICellModParticle"><tt class="xref py py-class docutils literal"><span class="pre">ICellModParticle</span></tt></a>, this class cannot be formed via only the
 constructor; the <a class="reference internal" href="#pyne.simplesim.cards.PhotonWeight.set" title="pyne.simplesim.cards.PhotonWeight.set"><tt class="xref py py-meth docutils literal"><span class="pre">set()</span></tt></a> method must be used.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-98fbaa00524cf369ceb110647bcde83ee178c658.png" alt="Inheritance diagram of pyne.simplesim.cards.PhotonWeight" usemap="#inheritance8b5fb93c00" class="inheritance"/>
+<img src="../../_images/inheritance-d3b9fc4b920c5988268886002431d6f8c907a2f6.png" alt="Inheritance diagram of pyne.simplesim.cards.PhotonWeight" usemap="#inheritance8b5fb93c00" class="inheritance"/>
 <map id="inheritance8b5fb93c00" name="inheritance8b5fb93c00">
 <area shape="rect" id="node1" href="#pyne.simplesim.cards.PhotonWeight" title="pyne.simplesim.cards.PhotonWeight" alt="" coords="574,4,763,25"/>
 <area shape="rect" id="node2" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="374,4,536,25"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,152,25"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="189,4,336,25"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="189,4,336,25"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,152,25"/>
 </map>
 </p>
 <dl class="class">
@@ -4209,12 +4208,12 @@ threshold:</p>
 <dd><p>A point detector tally. In MCNP, this is the <strong>F5</strong> card. This is not to
 be confused with the more general use of the term <cite>Detector</cite> in Serpent.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-7b3c014edca7df8f2c45949d91dec9c80396d8a4.png" alt="Inheritance diagram of pyne.simplesim.cards.PointDetector" usemap="#inheritance946406e565" class="inheritance"/>
+<img src="../../_images/inheritance-3ef105780b1d5b47b2bec03e9ff03262fdb25f80.png" alt="Inheritance diagram of pyne.simplesim.cards.PointDetector" usemap="#inheritance946406e565" class="inheritance"/>
 <map id="inheritance946406e565" name="inheritance946406e565">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.PointDetector" title="pyne.simplesim.cards.PointDetector" alt="" coords="575,4,763,25"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IDetector" title="pyne.simplesim.cards.IDetector" alt="" coords="370,4,538,25"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="189,4,333,25"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,152,25"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IDetector" title="pyne.simplesim.cards.IDetector" alt="" coords="370,4,538,25"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.PointDetector" title="pyne.simplesim.cards.PointDetector" alt="" coords="575,4,763,25"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="189,4,333,25"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,152,25"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -4405,12 +4404,12 @@ sense, False otherwise.</p>
 <dd><p>A ring detector tally. In MCNP, this is the <strong>F5a</strong> card. This is not to
 be confused with the more general use of the term <cite>Detector</cite> in Serpent.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-195de766e268273d1d3333466c3bcbb4a208cf50.png" alt="Inheritance diagram of pyne.simplesim.cards.RingDetector" usemap="#inheritancef2e919de81" class="inheritance"/>
+<img src="../../_images/inheritance-558c7e75e5ac5f32e5486e27b6e920094165842c.png" alt="Inheritance diagram of pyne.simplesim.cards.RingDetector" usemap="#inheritancef2e919de81" class="inheritance"/>
 <map id="inheritancef2e919de81" name="inheritancef2e919de81">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.IDetector" title="pyne.simplesim.cards.IDetector" alt="" coords="372,4,541,25"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.RingDetector" title="pyne.simplesim.cards.RingDetector" alt="" coords="577,4,764,25"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="190,4,335,25"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,153,25"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.RingDetector" title="pyne.simplesim.cards.RingDetector" alt="" coords="577,4,764,25"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.IDetector" title="pyne.simplesim.cards.IDetector" alt="" coords="372,4,541,25"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="190,4,335,25"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,153,25"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -4547,7 +4546,7 @@ separately, and alternative units are used for the output:</p>
 <dd><p>Scattering law for a material. Unique card for a given material, with
 name <cite>scatlaw-&lt;matname&gt;</cite>. In MCNP, this is the <strong>MT</strong> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-cf3fc1058183e068729135838ee720122c95d35e.png" alt="Inheritance diagram of pyne.simplesim.cards.ScatteringLaw" usemap="#inheritancedf547b7ee0" class="inheritance"/>
+<img src="../../_images/inheritance-688d58120366e19ad1574df634c82d4ed817c91e.png" alt="Inheritance diagram of pyne.simplesim.cards.ScatteringLaw" usemap="#inheritancedf547b7ee0" class="inheritance"/>
 <map id="inheritancedf547b7ee0" name="inheritancedf547b7ee0">
 <area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="252,5,447,33"/>
 <area shape="rect" id="node4" href="#pyne.simplesim.cards.ScatteringLaw" title="pyne.simplesim.cards.ScatteringLaw" alt="" coords="497,5,751,33"/>
@@ -4587,12 +4586,12 @@ identifiers as strings.</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">SourceCustom</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#SourceCustom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.SourceCustom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom <a class="reference internal" href="#pyne.simplesim.cards.ISource" title="pyne.simplesim.cards.ISource"><tt class="xref py py-class docutils literal"><span class="pre">ISource</span></tt></a> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-08ed99b4f77fae291979014f3173fc4702d14b6e.png" alt="Inheritance diagram of SourceCustom" usemap="#inheritance39ceede74f" class="inheritance"/>
+<img src="../../_images/inheritance-4aa521ff93e5ed2d59cedff6c4fa511431349bd2.png" alt="Inheritance diagram of SourceCustom" usemap="#inheritance39ceede74f" class="inheritance"/>
 <map id="inheritance39ceede74f" name="inheritance39ceede74f">
 <area shape="rect" id="node1" href="#pyne.simplesim.cards.ISource" title="pyne.simplesim.cards.ISource" alt="" coords="249,5,456,32"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.SourceCustom" title="pyne.simplesim.cards.SourceCustom" alt="" coords="507,29,761,57"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.SourceCustom" title="pyne.simplesim.cards.SourceCustom" alt="" coords="507,29,761,57"/>
 <area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,29,199,57"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="248,54,457,82"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="248,54,457,82"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -4631,12 +4630,12 @@ card number, except for one case with tallies.</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">SurfaceCurrent</tt><big>(</big><em>name</em>, <em>particle</em>, <em>cards</em>, <em>total=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#SurfaceCurrent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.SurfaceCurrent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Surface current tally. In MCNP, this is the <strong>F1</strong> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-8705e5ebb3fb36a2c8cd3fca819a46631452c477.png" alt="Inheritance diagram of pyne.simplesim.cards.SurfaceCurrent" usemap="#inheritanceede1858db5" class="inheritance"/>
+<img src="../../_images/inheritance-b05b999c8e136df80e1e89f07af91fd89c751005.png" alt="Inheritance diagram of pyne.simplesim.cards.SurfaceCurrent" usemap="#inheritanceede1858db5" class="inheritance"/>
 <map id="inheritanceede1858db5" name="inheritanceede1858db5">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="361,3,538,24"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.SurfaceCurrent" title="pyne.simplesim.cards.SurfaceCurrent" alt="" coords="573,3,764,24"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="184,3,325,24"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,148,24"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.SurfaceCurrent" title="pyne.simplesim.cards.SurfaceCurrent" alt="" coords="573,3,764,24"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="361,3,538,24"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="184,3,325,24"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,148,24"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -4689,12 +4688,12 @@ as the total across &#8216;sA&#8217; and &#8216;sB&#8217;:</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">SurfaceCustom</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#SurfaceCustom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.SurfaceCustom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom <a class="reference internal" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface"><tt class="xref py py-class docutils literal"><span class="pre">ISurface</span></tt></a> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-b38a24eacae3010eb4c12518862bc7a1556fc7be.png" alt="Inheritance diagram of SurfaceCustom" usemap="#inheritancecfb3452148" class="inheritance"/>
+<img src="../../_images/inheritance-fcd302a3b231e8d4b7612030c34be23836a70a0e.png" alt="Inheritance diagram of SurfaceCustom" usemap="#inheritancecfb3452148" class="inheritance"/>
 <map id="inheritancecfb3452148" name="inheritancecfb3452148">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.SurfaceCustom" title="pyne.simplesim.cards.SurfaceCustom" alt="" coords="505,29,763,57"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="247,5,456,32"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="246,54,457,81"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,29,198,57"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ISurface" title="pyne.simplesim.cards.ISurface" alt="" coords="246,5,457,32"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.SurfaceCustom" title="pyne.simplesim.cards.SurfaceCustom" alt="" coords="505,29,763,57"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,29,198,57"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="247,54,456,81"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -4733,13 +4732,13 @@ card number, except for one case with tallies.</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">SurfaceFlux</tt><big>(</big><em>name</em>, <em>particle</em>, <em>cards</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#SurfaceFlux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.SurfaceFlux" title="Permalink to this definition">¶</a></dt>
 <dd><p>Surface flux tally. In MCNP, this is the <strong>F2</strong> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-f646a242c3cbeb9e0828fe824225798341af9dc9.png" alt="Inheritance diagram of pyne.simplesim.cards.SurfaceFlux" usemap="#inheritance6c241688a8" class="inheritance"/>
+<img src="../../_images/inheritance-583e09875365992d62095cc12638527560e9592e.png" alt="Inheritance diagram of pyne.simplesim.cards.SurfaceFlux" usemap="#inheritance6c241688a8" class="inheritance"/>
 <map id="inheritance6c241688a8" name="inheritance6c241688a8">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.SurfaceFlux" title="pyne.simplesim.cards.SurfaceFlux" alt="" coords="626,3,764,19"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="455,3,598,19"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="286,3,427,19"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.IAverageTally" title="pyne.simplesim.cards.IAverageTally" alt="" coords="455,3,598,19"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="146,3,258,19"/>
 <area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,118,19"/>
-<area shape="rect" id="node7" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="146,3,258,19"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICellSurfTally" title="pyne.simplesim.cards.ICellSurfTally" alt="" coords="286,3,427,19"/>
+<area shape="rect" id="node8" href="#pyne.simplesim.cards.SurfaceFlux" title="pyne.simplesim.cards.SurfaceFlux" alt="" coords="626,3,764,19"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -4794,12 +4793,12 @@ The card is printed in the order that it
 is added, but unlike with the other custom cards the user must provide
 their own tally number.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-e768c20cdd1def8469b3a210820d826417f31fea.png" alt="Inheritance diagram of TallyCustom" usemap="#inheritancedbb3524312" class="inheritance"/>
+<img src="../../_images/inheritance-ad629f73229abf6843216c5a9893d5464e77cb41.png" alt="Inheritance diagram of TallyCustom" usemap="#inheritancedbb3524312" class="inheritance"/>
 <map id="inheritancedbb3524312" name="inheritancedbb3524312">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="252,5,465,33"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.TallyCustom" title="pyne.simplesim.cards.TallyCustom" alt="" coords="515,30,755,58"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,30,203,58"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="263,55,455,83"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,30,203,58"/>
+<area shape="rect" id="node3" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="252,5,465,33"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.ITally" title="pyne.simplesim.cards.ITally" alt="" coords="263,55,455,83"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.TallyCustom" title="pyne.simplesim.cards.TallyCustom" alt="" coords="515,30,755,58"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -4862,12 +4861,12 @@ is the <strong>TMP</strong> card and is used for the free gas thermal treatment.
 card may require that <a class="reference internal" href="#pyne.simplesim.cards.TemperatureTimes" title="pyne.simplesim.cards.TemperatureTimes"><tt class="xref py py-class docutils literal"><span class="pre">TemperatureTimes</span></tt></a> card is in the
 simulation.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-7c4bbce804157a880e635867a60f3f2a3d714ba9.png" alt="Inheritance diagram of pyne.simplesim.cards.Temperature" usemap="#inheritance1ab50c3893" class="inheritance"/>
+<img src="../../_images/inheritance-2805804c28507ff7c111123bed633aa2dbc11bf8.png" alt="Inheritance diagram of pyne.simplesim.cards.Temperature" usemap="#inheritance1ab50c3893" class="inheritance"/>
 <map id="inheritance1ab50c3893" name="inheritance1ab50c3893">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="377,4,541,25"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.Temperature" title="pyne.simplesim.cards.Temperature" alt="" coords="578,4,764,25"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="191,4,339,25"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,154,25"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="191,4,339,25"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="377,4,541,25"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,154,25"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.Temperature" title="pyne.simplesim.cards.Temperature" alt="" coords="578,4,764,25"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -4941,7 +4940,7 @@ does not provide this input, and it defaults to <tt class="docutils literal"><sp
 card. Unique card with name <cite>temptimes</cite>. In MCNP, this is the <strong>THTME</strong>
 card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-dd8d3e6bce59b01c1d8596bc1f434ccee04300c2.png" alt="Inheritance diagram of pyne.simplesim.cards.TemperatureTimes" usemap="#inheritancea2e79ed584" class="inheritance"/>
+<img src="../../_images/inheritance-ac594830327c095f360cf2ca08f5ab70c192a59e.png" alt="Inheritance diagram of pyne.simplesim.cards.TemperatureTimes" usemap="#inheritancea2e79ed584" class="inheritance"/>
 <map id="inheritancea2e79ed584" name="inheritancea2e79ed584">
 <area shape="rect" id="node1" href="#pyne.simplesim.cards.TemperatureTimes" title="pyne.simplesim.cards.TemperatureTimes" alt="" coords="486,5,763,32"/>
 <area shape="rect" id="node2" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="247,5,438,32"/>
@@ -4976,10 +4975,10 @@ is not supported here. Note that if generating an input for MCNP, this card
 needs to be added to the simulation by
 <a class="reference internal" href="definition.html#pyne.simplesim.definition.MCNPSimulation.add_transformation" title="pyne.simplesim.definition.MCNPSimulation.add_transformation"><tt class="xref py py-meth docutils literal"><span class="pre">pyne.simplesim.definition.MCNPSimulation.add_transformation()</span></tt></a>.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-29982e6b5560e866fb97a3ba9c9be1e9bbbe1e7c.png" alt="Inheritance diagram of pyne.simplesim.cards.Transformation" usemap="#inheritanceb2824fb092" class="inheritance"/>
+<img src="../../_images/inheritance-06b6d25bc6ff267c413e649413479a9c911695e2.png" alt="Inheritance diagram of pyne.simplesim.cards.Transformation" usemap="#inheritanceb2824fb092" class="inheritance"/>
 <map id="inheritanceb2824fb092" name="inheritanceb2824fb092">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.Transformation" title="pyne.simplesim.cards.Transformation" alt="" coords="252,5,511,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,203,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,5,203,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.Transformation" title="pyne.simplesim.cards.Transformation" alt="" coords="252,5,511,33"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -5037,12 +5036,12 @@ the main coordinate system.</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.cards.</tt><tt class="descname">TransformationCustom</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/cards.html#TransformationCustom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.cards.TransformationCustom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom <a class="reference internal" href="#pyne.simplesim.cards.Transformation" title="pyne.simplesim.cards.Transformation"><tt class="xref py py-class docutils literal"><span class="pre">Transformation</span></tt></a> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-39c4c001e640fbb06c157495593c42294967bf3f.png" alt="Inheritance diagram of TransformationCustom" usemap="#inheritance783dc089e2" class="inheritance"/>
+<img src="../../_images/inheritance-c2e4b9dd28862c984e44180d62a99b537819bd6d.png" alt="Inheritance diagram of TransformationCustom" usemap="#inheritance783dc089e2" class="inheritance"/>
 <map id="inheritance783dc089e2" name="inheritance783dc089e2">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.Transformation" title="pyne.simplesim.cards.Transformation" alt="" coords="221,4,448,29"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.TransformationCustom" title="pyne.simplesim.cards.TransformationCustom" alt="" coords="492,26,763,51"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,26,178,51"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="241,49,428,73"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.TransformationCustom" title="pyne.simplesim.cards.TransformationCustom" alt="" coords="492,26,763,51"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.Custom" title="pyne.simplesim.cards.Custom" alt="" coords="241,4,428,29"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.Transformation" title="pyne.simplesim.cards.Transformation" alt="" coords="221,49,448,73"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="5,26,178,51"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -5095,12 +5094,12 @@ card number, except for one case with tallies.</p>
 MCNP, this is the <strong>U</strong> card. The user can initialize this card without
 providing any universe names.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-a77e20b970880fbfe5c19c98bdb3239d155cf13d.png" alt="Inheritance diagram of pyne.simplesim.cards.Universes" usemap="#inheritance6ab5c3f393" class="inheritance"/>
+<img src="../../_images/inheritance-def9d883f1d3c91376157ed920a9ae93571da075.png" alt="Inheritance diagram of pyne.simplesim.cards.Universes" usemap="#inheritance6ab5c3f393" class="inheritance"/>
 <map id="inheritance6ab5c3f393" name="inheritance6ab5c3f393">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="383,4,549,25"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.Universes" title="pyne.simplesim.cards.Universes" alt="" coords="588,4,763,25"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="194,4,344,25"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,156,25"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="194,4,344,25"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="383,4,549,25"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,156,25"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.Universes" title="pyne.simplesim.cards.Universes" alt="" coords="588,4,763,25"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -5227,12 +5226,12 @@ as <tt class="docutils literal"><span class="pre">np</span></tt>:</p>
 <strong>VOL</strong> card. The user can initialize this card without providing any cell
 volumes.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-89b300f11c72f60ff858d187a4f595550f30d5c8.png" alt="Inheritance diagram of pyne.simplesim.cards.Volume" usemap="#inheritancead6073a6eb" class="inheritance"/>
+<img src="../../_images/inheritance-cbe08b9823497844850c9c66f40269c4f604bf21.png" alt="Inheritance diagram of pyne.simplesim.cards.Volume" usemap="#inheritancead6073a6eb" class="inheritance"/>
 <map id="inheritancead6073a6eb" name="inheritancead6073a6eb">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.Volume" title="pyne.simplesim.cards.Volume" alt="" coords="597,4,764,26"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="389,4,558,26"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="197,4,350,26"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,159,26"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="197,4,350,26"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICellMod" title="pyne.simplesim.cards.ICellMod" alt="" coords="389,4,558,26"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,4,159,26"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.Volume" title="pyne.simplesim.cards.Volume" alt="" coords="597,4,764,26"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -5305,13 +5304,13 @@ type, with name <cite>weightwinbound-&lt;particle&gt;</cite>. In MCNP, this is t
 card. In MCNP, these are typically generated automatically using its weight
 window generator.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-8a6f79ae2d008c430a939ea05fc8141a6a53cbb1.png" alt="Inheritance diagram of pyne.simplesim.cards.WeightWindowBound" usemap="#inheritancec95133ea01" class="inheritance"/>
+<img src="../../_images/inheritance-895eab8fbba850c366977606e2e47410934e619f.png" alt="Inheritance diagram of pyne.simplesim.cards.WeightWindowBound" usemap="#inheritancec95133ea01" class="inheritance"/>
 <map id="inheritancec95133ea01" name="inheritancec95133ea01">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.ICellModParticle" title="pyne.simplesim.cards.ICellModParticle" alt="" coords="435,3,579,18"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="137,3,242,18"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="269,3,409,18"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,110,18"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICellModParticle" title="pyne.simplesim.cards.ICellModParticle" alt="" coords="435,3,579,18"/>
 <area shape="rect" id="node8" href="#pyne.simplesim.cards.WeightWindowBound" title="pyne.simplesim.cards.WeightWindowBound" alt="" coords="605,3,764,18"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="269,3,409,18"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="137,3,242,18"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="3,3,110,18"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -5416,12 +5415,12 @@ type, with name <cite>weightwinenergy-&lt;particle&gt;</cite> or
 <cite>weightwingenenergy-&lt;particle&gt;</cite>. In MCNP, this is the <strong>WWE</strong>
 or <strong>WWGE</strong> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-635dedc51eda8f85ed606c0e9a57adfac9ca3cdb.png" alt="Inheritance diagram of pyne.simplesim.cards.WeightWindowEnergies" usemap="#inheritance301f44c561" class="inheritance"/>
+<img src="../../_images/inheritance-79d192e9b6a73d38048a936b8353afe10ff1b09c.png" alt="Inheritance diagram of pyne.simplesim.cards.WeightWindowEnergies" usemap="#inheritance301f44c561" class="inheritance"/>
 <map id="inheritance301f44c561" name="inheritance301f44c561">
-<area shape="rect" id="node1" href="#pyne.simplesim.cards.WeightWindowEnergies" title="pyne.simplesim.cards.WeightWindowEnergies" alt="" coords="553,3,763,22"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="341,3,519,22"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="173,3,307,22"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,139,22"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="173,3,307,22"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="341,3,519,22"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,139,22"/>
+<area shape="rect" id="node6" href="#pyne.simplesim.cards.WeightWindowEnergies" title="pyne.simplesim.cards.WeightWindowEnergies" alt="" coords="553,3,763,22"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -5473,12 +5472,12 @@ option:</p>
 type, with name <cite>weightwintime-&lt;particle&gt;</cite> or <cite>weightwingentime-&lt;particle</cite>.
 In MCNP this is the <strong>WWT</strong> or <strong>WWGT</strong> card.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-8ae13169e8520ed46181283b4f113b520c220cb0.png" alt="Inheritance diagram of pyne.simplesim.cards.WeightWindowTimes" usemap="#inheritancec2252f18a7" class="inheritance"/>
+<img src="../../_images/inheritance-409912c2ec8030037aeb54ea4c5920dde798c335.png" alt="Inheritance diagram of pyne.simplesim.cards.WeightWindowTimes" usemap="#inheritancec2252f18a7" class="inheritance"/>
 <map id="inheritancec2252f18a7" name="inheritancec2252f18a7">
 <area shape="rect" id="node1" href="#pyne.simplesim.cards.IMisc" title="pyne.simplesim.cards.IMisc" alt="" coords="176,3,312,23"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="347,3,528,23"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.cards.IUniqueParticle" title="pyne.simplesim.cards.IUniqueParticle" alt="" coords="347,3,528,23"/>
 <area shape="rect" id="node2" href="#pyne.simplesim.cards.ICard" title="pyne.simplesim.cards.ICard" alt="" coords="4,3,142,23"/>
-<area shape="rect" id="node6" href="#pyne.simplesim.cards.WeightWindowTimes" title="pyne.simplesim.cards.WeightWindowTimes" alt="" coords="561,3,764,23"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.cards.WeightWindowTimes" title="pyne.simplesim.cards.WeightWindowTimes" alt="" coords="561,3,764,23"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -5621,7 +5620,7 @@ option:</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

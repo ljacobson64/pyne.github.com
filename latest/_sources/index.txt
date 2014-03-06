@@ -6,6 +6,7 @@ PyNE: The Nuclear Engineering Toolkit
 
     .. image:: gallery/half_life_thumb.png
     .. image:: gallery/data_sources_thumb.png
+    .. image:: gallery/mesh_tags_thumb.png
     .. image:: gallery/enrichment_mstar_vs_flowrate_thumb.png
     .. image:: gallery/origen22_h1_xs_thumb.png
 
@@ -31,8 +32,6 @@ For a quick install from source, please  clone from the official repo::
     python setup.py install --user
     scripts/nuc_data_make
 
-For Windows install instructions please :ref:`go here <win_install>`.
-
 --------
 Contents
 --------
@@ -57,6 +56,7 @@ Development:
     devsguide/index
     pubs
     dev_team
+    gsoc/index
 
 ------------
 Search Links
@@ -70,3 +70,7 @@ Search Links
 .. _GitHub project site: https://github.com/pyne
 
 .. _github: https://github.com/pyne/pyne
+
+.. _zip: https://github.com/pyne/pyne/zipball/0.3
+.. _tar: https://github.com/pyne/pyne/tarball/0.3
+

@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nested Geometry – pyne.simplesim.nestedgeom &mdash; PyNE 0.2-dev</title>
+    <title>Nested Geometry – pyne.simplesim.nestedgeom &mdash; PyNE 0.4-dev</title>
     
     <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.4-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../../index.html" />
+    <link rel="top" title="PyNE 0.4-dev" href="../../index.html" />
     <link rel="up" title="Simple Simulation Input – pyne.simplesim" href="index.html" />
     <link rel="next" title="Definition Module – pyne.simplesim.definition" href="definition.html" />
     <link rel="prev" title="Cards Module – pyne.simplesim.cards" href="cards.html" /> <script type="text/javascript">
@@ -98,8 +98,7 @@ user input clearler, this class has methods that help with creating cell
 comments and mcnp strings.</p>
 <p>The names of classes here are fairly short, so the user may not want to import
 the entire namespace. A suggested way to import the module is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyne.simplesim.nestedgeom</span> <span class="kn">as</span> <span class="nn">ng</span>
-</pre></div>
+<div class="highlight-python"><pre>import .simplesim.nestedgeom as ng</pre>
 </div>
 <p>An inheritance diagram of all the classes in this module can be found at
 <a class="reference internal" href="inheritance.html#pyne-simplesim-inheritance"><em>Inheritance Diagrams</em></a>.</p>
@@ -229,11 +228,11 @@ tally.</p>
 <dd><p>The user uses this class directly to reference a cell in the system
 definition for tallying.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-26fde98429e4d0b34a35d0ee8891839691e48776.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Cell" usemap="#inheritancecf5e6fb593" class="inheritance"/>
+<img src="../../_images/inheritance-1122c0505abf6a2740763bf930879c3591c8a00b.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Cell" usemap="#inheritancecf5e6fb593" class="inheritance"/>
 <map id="inheritancecf5e6fb593" name="inheritancecf5e6fb593">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="268,4,505,30"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,4,223,30"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="268,4,505,30"/>
 <area shape="rect" id="node4" href="#pyne.simplesim.nestedgeom.Cell" title="pyne.simplesim.nestedgeom.Cell" alt="" coords="550,4,763,30"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,4,223,30"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -257,10 +256,10 @@ surface or cell number.</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.nestedgeom.</tt><tt class="descname">Cor</tt><big>(</big><em>points=[0, 0, 0]</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/nestedgeom.html#Cor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.nestedgeom.Cor" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of lattice element coordinates (in indices).</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-ed20bed6bc6f824e234d37e960b8e6eb19717e82.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Cor" usemap="#inheritance92898e8fa6" class="inheritance"/>
+<img src="../../_images/inheritance-b0c53739e86fb550e6c4deb2c6fdcebcf1331f02.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Cor" usemap="#inheritance92898e8fa6" class="inheritance"/>
 <map id="inheritance92898e8fa6" name="inheritance92898e8fa6">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Cor" title="pyne.simplesim.nestedgeom.Cor" alt="" coords="345,5,577,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.Cor" title="pyne.simplesim.nestedgeom.Cor" alt="" coords="345,5,577,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -292,12 +291,12 @@ cell. It is to be used for higher-level cells (closer to the real world),
 and has an additional attribute to specify specific lattice elements from
 this cell if it is a lattice cell.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-39589a51e236beb94de000e3fe43f299058af598.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.FCell" usemap="#inheritance28471834f8" class="inheritance"/>
+<img src="../../_images/inheritance-eb2580694694649f58e9b416d324721276c44770.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.FCell" usemap="#inheritance28471834f8" class="inheritance"/>
 <map id="inheritance28471834f8" name="inheritance28471834f8">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.FCell" title="pyne.simplesim.nestedgeom.FCell" alt="" coords="601,3,763,22"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Cell" title="pyne.simplesim.nestedgeom.Cell" alt="" coords="409,3,568,22"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="199,3,376,22"/>
-<area shape="rect" id="node5" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="4,3,166,22"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="4,3,166,22"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="199,3,376,22"/>
+<area shape="rect" id="node5" href="#pyne.simplesim.nestedgeom.Cell" title="pyne.simplesim.nestedgeom.Cell" alt="" coords="409,3,568,22"/>
+<area shape="rect" id="node4" href="#pyne.simplesim.nestedgeom.FCell" title="pyne.simplesim.nestedgeom.FCell" alt="" coords="601,3,763,22"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -386,10 +385,10 @@ thereof (cell/surf), and
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.nestedgeom.</tt><tt class="descname">Lin</tt><big>(</big><em>linear_index</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/nestedgeom.html#Lin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.nestedgeom.Lin" title="Permalink to this definition">¶</a></dt>
 <dd><p>A single linear index of a lattice element.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-19094d4bf2bfa8080b1a0fbc6cfe71a7987854ad.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Lin" usemap="#inheritance2960a922e9" class="inheritance"/>
+<img src="../../_images/inheritance-b6136dab5290b51912590f6d5955222642a5e0d5.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Lin" usemap="#inheritance2960a922e9" class="inheritance"/>
 <map id="inheritance2960a922e9" name="inheritance2960a922e9">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Lin" title="pyne.simplesim.nestedgeom.Lin" alt="" coords="344,5,573,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.Lin" title="pyne.simplesim.nestedgeom.Lin" alt="" coords="344,5,573,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -412,10 +411,10 @@ specifier becomes a part of.</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.nestedgeom.</tt><tt class="descname">Rng</tt><big>(</big><em>x_bounds=[0, 0], y_bounds=[0, 0], z_bounds=[0, 0]</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/nestedgeom.html#Rng"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.nestedgeom.Rng" title="Permalink to this definition">¶</a></dt>
 <dd><p>A range of lattice elements.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-2cc1aab7160a569c67e0f3081baf1fbac9660626.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Rng" usemap="#inheritancececdfc45fa" class="inheritance"/>
+<img src="../../_images/inheritance-458061f82ad8ea2463b07d53e6c4aa19214499ec.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Rng" usemap="#inheritancececdfc45fa" class="inheritance"/>
 <map id="inheritancececdfc45fa" name="inheritancececdfc45fa">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Rng" title="pyne.simplesim.nestedgeom.Rng" alt="" coords="344,5,579,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.Rng" title="pyne.simplesim.nestedgeom.Rng" alt="" coords="344,5,579,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.ILatticeSpec" title="pyne.simplesim.nestedgeom.ILatticeSpec" alt="" coords="7,5,295,33"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -455,11 +454,11 @@ leave as [0, 0].</p>
 <dd><p>The user uses this class directly to reference a surface in the system
 definition for tallying.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-8b51a73d10546c9820ee103e61069203b1633b1a.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Surf" usemap="#inheritanced3320664c6" class="inheritance"/>
+<img src="../../_images/inheritance-1897209cde4b6d37262ccb799a71943067f1264c.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Surf" usemap="#inheritanced3320664c6" class="inheritance"/>
 <map id="inheritanced3320664c6" name="inheritanced3320664c6">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.Surf" title="pyne.simplesim.nestedgeom.Surf" alt="" coords="548,4,763,30"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="267,4,504,30"/>
-<area shape="rect" id="node4" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,4,222,30"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,4,222,30"/>
+<area shape="rect" id="node3" href="#pyne.simplesim.nestedgeom.ICellSurf" title="pyne.simplesim.nestedgeom.ICellSurf" alt="" coords="267,4,504,30"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Surf" title="pyne.simplesim.nestedgeom.Surf" alt="" coords="548,4,763,30"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -483,10 +482,10 @@ surface or cell number.</p>
 <em class="property">class </em><tt class="descclassname">pyne.simplesim.nestedgeom.</tt><tt class="descname">Union</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../../_modules/pyne/simplesim/nestedgeom.html#Union"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.simplesim.nestedgeom.Union" title="Permalink to this definition">¶</a></dt>
 <dd><p>A union of surfaces, cells, or of a single universe.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-99e0ea940c2a16fe3d05d17be61f09639faf8fff.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Union" usemap="#inheritancebb5bccecbc" class="inheritance"/>
+<img src="../../_images/inheritance-ddd2de8ccf588bea20c3f353c2847735aa974693.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Union" usemap="#inheritancebb5bccecbc" class="inheritance"/>
 <map id="inheritancebb5bccecbc" name="inheritancebb5bccecbc">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union" alt="" coords="293,5,541,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,5,245,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,5,245,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Union" title="pyne.simplesim.nestedgeom.Union" alt="" coords="293,5,541,33"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -506,10 +505,10 @@ surface or cell number.</p>
 world). The class, given the name of a universe in the system, looks up the
 appropriate universe number.</p>
 <p class="graphviz">
-<img src="../../_images/inheritance-d09a260ca1a4715a32168f7641cc73c2d02dcbb7.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Univ" usemap="#inheritanceeb70e251f9" class="inheritance"/>
+<img src="../../_images/inheritance-10d6a3627ebefd1f2527148f5f4c4a26d7c9c366.png" alt="Inheritance diagram of pyne.simplesim.nestedgeom.Univ" usemap="#inheritanceeb70e251f9" class="inheritance"/>
 <map id="inheritanceeb70e251f9" name="inheritanceeb70e251f9">
-<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.Univ" title="pyne.simplesim.nestedgeom.Univ" alt="" coords="295,5,532,33"/>
-<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,5,245,33"/>
+<area shape="rect" id="node1" href="#pyne.simplesim.nestedgeom.IUnit" title="pyne.simplesim.nestedgeom.IUnit" alt="" coords="5,5,245,33"/>
+<area shape="rect" id="node2" href="#pyne.simplesim.nestedgeom.Univ" title="pyne.simplesim.nestedgeom.Univ" alt="" coords="295,5,532,33"/>
 </map>
 </p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -621,7 +620,7 @@ separate units:</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

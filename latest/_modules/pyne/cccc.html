@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyne.cccc &mdash; PyNE 0.2-dev</title>
+    <title>pyne.cccc &mdash; PyNE 0.4-dev</title>
     
     <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.4-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../../index.html" />
+    <link rel="top" title="PyNE 0.4-dev" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -109,8 +109,6 @@ if(ga_enabled){
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">struct</span>
-<span class="kn">import</span> <span class="nn">math</span>
 
 <span class="kn">from</span> <span class="nn">binaryreader</span> <span class="kn">import</span> <span class="n">_BinaryReader</span><span class="p">,</span> <span class="n">_FortranRecord</span>
 
@@ -278,7 +276,7 @@ if(ga_enabled){
         <span class="n">nuc</span><span class="o">.</span><span class="n">libParams</span><span class="p">[</span><span class="s">&#39;nuclide&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get_string</span><span class="p">(</span><span class="mi">8</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="c"># absolute nuclide label</span>
         <span class="n">nuc</span><span class="o">.</span><span class="n">libParams</span><span class="p">[</span><span class="s">&#39;libName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get_string</span><span class="p">(</span><span class="mi">8</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c"># library name (ENDFV, etc. )</span>
         <span class="n">nuc</span><span class="o">.</span><span class="n">libParams</span><span class="p">[</span><span class="s">&#39;isoIdent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get_string</span><span class="p">(</span><span class="mi">8</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">nuc</span><span class="o">.</span><span class="n">libParams</span><span class="p">[</span><span class="s">&#39;amass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get_float</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c"># gram atomic weight</span>
+        <span class="n">nuc</span><span class="o">.</span><span class="n">libParams</span><span class="p">[</span><span class="s">&#39;amass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get_float</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c"># gram atomic mass</span>
         <span class="n">nuc</span><span class="o">.</span><span class="n">libParams</span><span class="p">[</span><span class="s">&#39;efiss&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get_float</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c"># thermal energy yield/fission</span>
         <span class="n">nuc</span><span class="o">.</span><span class="n">libParams</span><span class="p">[</span><span class="s">&#39;ecapt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get_float</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c"># thermal energy yield/capture</span>
         <span class="n">nuc</span><span class="o">.</span><span class="n">libParams</span><span class="p">[</span><span class="s">&#39;temp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get_float</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c"># nuclide temperature (K)</span>
@@ -665,7 +663,7 @@ if(ga_enabled){
         <span class="nb">super</span><span class="p">(</span><span class="n">Matxs</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
 </div>
-<span class="k">class</span> <span class="nc">Spectr</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
+<div class="viewcode-block" id="Spectr"><a class="viewcode-back" href="../../pyapi/cccc.html#pyne.cccc.Spectr">[docs]</a><span class="k">class</span> <span class="nc">Spectr</span><span class="p">(</span><span class="n">_BinaryReader</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reads ultra-fine group spectrum file from MC**2&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
@@ -691,7 +689,7 @@ if(ga_enabled){
             <span class="n">flux</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">get_float</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">flux</span>
 
-
+</div>
 <span class="k">class</span> <span class="nc">_Nuclide</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Contains data about a single nuclide in an ISOTXS file. Originally,</span>
 <span class="sd">    Touran had his own Nuclide class so this one is provided to supply the basic</span>
@@ -759,7 +757,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

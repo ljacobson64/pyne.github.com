@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>MCNP Input and Output Interfaces – pyne.mcnp &mdash; PyNE 0.2-dev</title>
+    <title>MCNP Input and Output Interfaces – pyne.mcnp &mdash; PyNE 0.4-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.4-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,10 +33,10 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="Simple Simulation Input – pyne.simplesim" href="simplesim/index.html" />
-    <link rel="prev" title="Materials Library – pyne.dbgen.materials_library" href="dbgen/materials_library.html" /> <script type="text/javascript">
+    <link rel="next" title="ALARA Input and Output Interfaces – pyne.alara" href="alara.html" />
+    <link rel="prev" title="Mesh-based Variance Reduction – pyne.variancereduction" href="variancereduction.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -68,10 +68,10 @@ if(ga_enabled){
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="simplesim/index.html" title="Simple Simulation Input – pyne.simplesim"
+          <a href="alara.html" title="ALARA Input and Output Interfaces – pyne.alara"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="dbgen/materials_library.html" title="Materials Library – pyne.dbgen.materials_library"
+          <a href="variancereduction.html" title="Mesh-based Variance Reduction – pyne.variancereduction"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
@@ -87,20 +87,747 @@ if(ga_enabled){
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-pyne.mcnp">
-<span id="mcnp-input-and-output-interfaces-pyne-mcnp"></span><span id="pyne-mcnp"></span><h1>MCNP Input and Output Interfaces &#8211; <a class="reference internal" href="#module-pyne.mcnp" title="pyne.mcnp"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.mcnp</span></tt></a><a class="headerlink" href="#module-pyne.mcnp" title="Permalink to this headline">¶</a></h1>
-<p>Module for parsing MCNP output data. MCNP is a general-purpose Monte Carlo
-N-Particle code developed at Los Alamos National Laboratory that can be used for
-neutron, photon, electron, or coupled neutron/photon/electron transport. Further
-information on MCNP can be obtained from <a class="reference external" href="http://mcnp-green.lanl.gov/">http://mcnp-green.lanl.gov/</a></p>
-<p>Mctal and Runtpe classes still need work. Also should add Meshtal and Outp
-classes.</p>
+  <div class="section" id="mcnp-input-and-output-interfaces-pyne-mcnp">
+<span id="pyne-mcnp"></span><h1>MCNP Input and Output Interfaces &#8211; <a class="reference internal" href="#module-pyne.mcnp" title="pyne.mcnp"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.mcnp</span></tt></a><a class="headerlink" href="#mcnp-input-and-output-interfaces-pyne-mcnp" title="Permalink to this headline">¶</a></h1>
 <p>There is a class for a variety of types of files that MCNP produces.  The
 functionality of the module can be obtained by importing as such:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">mcnp</span>
 </pre></div>
 </div>
 <p>You may also want to consult the userguide page <a class="reference internal" href="../usersguide/mcnp.html#usersguide-mcnp"><em>MCNP</em></a>.</p>
+<div class="section" id="module-pyne.mcnp">
+<span id="mcnp-api"></span><h2>MCNP API<a class="headerlink" href="#module-pyne.mcnp" title="Permalink to this headline">¶</a></h2>
+<p>Module for parsing MCNP output data. MCNP is a general-purpose Monte Carlo
+N-Particle code developed at Los Alamos National Laboratory that can be used
+for neutron, photon, electron, or coupled neutron/photon/electron transport.
+Further information on MCNP can be obtained from <a class="reference external" href="http://mcnp.lanl.gov/">http://mcnp.lanl.gov/</a></p>
+<p>Mctal and Runtpe classes still need work. Also should add Meshtal and Outp
+classes.</p>
+<p>If PyTAPS is not installed, then Wwinp, Meshtal, and Meshtally will not be
+available to use.</p>
+<dl class="class">
+<dt id="pyne.mcnp.MeshTally">
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">MeshTally</tt><big>(</big><em>f</em>, <em>tally_number</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#MeshTally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.MeshTally" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class stores all information from all single MCNP mesh tally that
+exists within some meshtal file. Header information is stored as attributes
+and the &#8220;mesh&#8221; attribute is a MOAB mesh with all result and relative error
+data tagged. This class inherits from StatMesh, exposing all statistical
+mesh manipulation methods.</p>
+<p class="rubric">Notes</p>
+<p>All Mesh attributes are also present via a super() call to
+Mesh.__init__().</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="15%" />
+<col width="71%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>tally_number</td>
+<td>int</td>
+<td>The MCNP tally number. Must end in 4 (e.g. 4, 14, 214).</td>
+</tr>
+<tr class="row-even"><td>particle</td>
+<td>string</td>
+<td>Either &#8220;n&#8221; for a neutron mesh tally or &#8220;p&#8221; for a photon mesh tally.</td>
+</tr>
+<tr class="row-odd"><td>dose_response</td>
+<td>bool</td>
+<td>True is the tally is modified by a dose response function.</td>
+</tr>
+<tr class="row-even"><td>x_bounds</td>
+<td>list of floats</td>
+<td>The locations of mesh vertices in the x direction.</td>
+</tr>
+<tr class="row-odd"><td>y_bounds</td>
+<td>list of floats</td>
+<td>The locations of mesh vertices in the y direction.</td>
+</tr>
+<tr class="row-even"><td>z_bounds</td>
+<td>list of floats</td>
+<td>The locations of mesh vertices in the z direction.</td>
+</tr>
+<tr class="row-odd"><td>e_bounds</td>
+<td>list of floats</td>
+<td>The minimum and maximum bounds for energy bins</td>
+</tr>
+<tr class="row-even"><td>mesh :</td>
+<td>&nbsp;</td>
+<td>An iMesh instance tagged with all results and
+relative errors</td>
+</tr>
+</tbody>
+</table>
+<p>Create MeshTally object from a filestream (f) open to the second
+line of a mesh tally header (the neutron/photon line). The
+&#8220;tally_number&#8221; is the MCNP fmesh4 tally number (e.g. 4, 14, 24).
+MeshTally objects should be instantiated only through the
+Meshtal class.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.mcnp.Meshtal">
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">Meshtal</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Meshtal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Meshtal" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class stores all the information from an MCNP meshtal file with
+single or multiple fmesh4 neutron or photon tallies. The &#8220;tally&#8221; attribute
+provides key/value access to invidial MeshTally objects.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="10%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>filename</td>
+<td>string</td>
+<td>Path to an MCNP meshtal file</td>
+</tr>
+<tr class="row-even"><td>version</td>
+<td>float</td>
+<td>The MCNP verison number</td>
+</tr>
+<tr class="row-odd"><td>ld</td>
+<td>string</td>
+<td>The MCNP verison date</td>
+</tr>
+<tr class="row-even"><td>title</td>
+<td>string</td>
+<td>Title card from the MCNP input</td>
+</tr>
+<tr class="row-odd"><td>histories</td>
+<td>int</td>
+<td>Number of histories from the MCNP simulation</td>
+</tr>
+<tr class="row-even"><td>tally</td>
+<td>dict</td>
+<td>A dictionary with MCNP fmesh4 tally numbers
+(e.g. 4, 14, 24) as keys and
+MeshTally objects as values.</td>
+</tr>
+</tbody>
+</table>
+<p>Instantiate a Meshtal object from a meshtal file.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.mcnp.PtracReader">
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">PtracReader</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#PtracReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.PtracReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to read _binary_ PTRAC files generated by MCNP.</p>
+<p>Construct a new Ptrac reader for a given filename, determine the
+number format and read the file&#8217;s headers.</p>
+<dl class="method">
+<dt id="pyne.mcnp.PtracReader.determine_endianness">
+<tt class="descname">determine_endianness</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#PtracReader.determine_endianness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.PtracReader.determine_endianness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the number format (endianness) used in the Ptrac file.
+For this, the file&#8217;s first entry is used. It is always minus one
+and has a length of 4 bytes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.PtracReader.read_event_line">
+<tt class="descname">read_event_line</tt><big>(</big><em>ptrac_event</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#PtracReader.read_event_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.PtracReader.read_event_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read an event record and save it to a given PtracParticle instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.PtracReader.read_headers">
+<tt class="descname">read_headers</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#PtracReader.read_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.PtracReader.read_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read and save the MCNP version and problem description from the
+Ptrac file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.PtracReader.read_next">
+<tt class="descname">read_next</tt><big>(</big><em>format</em>, <em>number=1</em>, <em>auto=False</em>, <em>raw_format=False</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#PtracReader.read_next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.PtracReader.read_next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method for reading records from the Ptrac file.
+All binary records consist of the record content&#8217;s length in bytes,
+the content itself and then the length again.
+format can be one of the struct module&#8217;s format characters (i.e. i
+for an int, f for a float, s for a string).
+The length of the record can either be hard-coded by setting the
+number parameter (e.g. to read 10 floats) or determined automatically
+by setting auto=True.
+Setting the parameter raw_format to True means that the format string
+will not be expanded by number, but will be used directly.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.PtracReader.read_nps_line">
+<tt class="descname">read_nps_line</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#PtracReader.read_nps_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.PtracReader.read_nps_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read an NPS record and save the type of the next event.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.PtracReader.read_variable_ids">
+<tt class="descname">read_variable_ids</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#PtracReader.read_variable_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.PtracReader.read_variable_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the list of variable IDs that each record type in the Ptrac
+file is comprised of. The variables can vary for different problems.
+Consult the MCNP manual for details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.PtracReader.write_to_hdf5_table">
+<tt class="descname">write_to_hdf5_table</tt><big>(</big><em>hdf5_table</em>, <em>print_progress=0</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#PtracReader.write_to_hdf5_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.PtracReader.write_to_hdf5_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the events contained in this Ptrac file to a given HDF5
+table. The table must already exist and have rows that match the
+PtracEvent definition.
+If desired, the number of processed events can be printed to the
+console each N events by passing the print_progress=N parameter.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.mcnp.Srctp">
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">Srctp</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Srctp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Srctp" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class stores source site data from a &#8216;srctp&#8217; file written by
+MCNP. The source sites are stored in the &#8216;fso&#8217; array in MCNP.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote class="last">
+<div><p>Path to Srctp file being worked with.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.mcnp.SurfSrc">
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">SurfSrc</tt><big>(</big><em>filename</em>, <em>mode='rb'</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables manipulating both the header and tracklists in surface source
+files.</p>
+<p>Example use cases include adding source particles from other codes, and
+combining multiple files together. Note that typically additional code
+will be needed to supplement this class in order to modify the header or
+track information in a way suitable to the use case.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote>
+<div><p>Path to surface source file being read or written.</p>
+</div></blockquote>
+<p><strong>mode</strong> : str, optional</p>
+<blockquote class="last">
+<div><p>String indicating file opening mode to be used (defaults to &#8216;rb&#8217;).</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.print_header">
+<tt class="descname">print_header</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.print_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.print_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns contents of SurfSrc&#8217;s header as an informative string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>header_string</strong> : str</p>
+<blockquote class="last">
+<div><p>A line-by-line listing of the contents of the SurfSrc&#8217;s header.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.print_tracklist">
+<tt class="descname">print_tracklist</tt><big>(</big><em>max_tracks=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.print_tracklist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.print_tracklist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns tracklists in SurfSrc as a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>max_tracks</strong> : int, optional</p>
+<blockquote>
+<div><p>Maximum number of tracks to print. Defaults to all tracks.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>track_data</strong> : str</p>
+<blockquote class="last">
+<div><p>Single string with data for one track on each line.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.put_header">
+<tt class="descname">put_header</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.put_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.put_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the header part of the header to the surface source file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.put_summary">
+<tt class="descname">put_summary</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.put_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.put_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the summary part of the header to the surface source file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.put_surface_info">
+<tt class="descname">put_surface_info</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.put_surface_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.put_surface_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the record for each surface to the surface source file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.put_table_1">
+<tt class="descname">put_table_1</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.put_table_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.put_table_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the table1 part of the header to the surface source file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.put_table_2">
+<tt class="descname">put_table_2</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.put_table_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.put_table_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the table2 part of the header to the surface source file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.read_header">
+<tt class="descname">read_header</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.read_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.read_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read in the header block data. This block comprises 4 fortran
+records which we refer to as: header, table1, table2, summary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.read_tracklist">
+<tt class="descname">read_tracklist</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.read_tracklist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.read_tracklist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads in track records for individual particles.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.update_tracklist">
+<tt class="descname">update_tracklist</tt><big>(</big><em>surf_src</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.update_tracklist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.update_tracklist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update tracklist from another surface source.
+This updates the surface source in-place.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.write_header">
+<tt class="descname">write_header</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.write_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.write_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the first part of the MCNP surface source file. The header content 
+comprises five parts shown below.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.SurfSrc.write_tracklist">
+<tt class="descname">write_tracklist</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.write_tracklist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.write_tracklist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write track records for individual particles. Second part of the MCNP 
+surface source file.  Tracklist is also known as a &#8216;phase space&#8217;.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.mcnp.Wwinp">
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">Wwinp</tt><a class="reference internal" href="../_modules/pyne/mcnp.html#Wwinp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Wwinp" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Wwinp object stores all of the information from a single MCNP WWINP
+file. Weight window lower bounds are stored on a structured mesh. Only
+Cartesian mesh WWINP files are supported. Neutron, photon, and
+simotaneous neutron and photon WWINP files are supported.</p>
+<p class="rubric">Notes</p>
+<p>Attribute names are identical to names speficied in WWINP file
+description in the MCNP5 User&#8217;s Guide Volume 3 Appendix J.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="40%" />
+<col width="56%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ni</td>
+<td>number of integers on card 2.</td>
+<td>ni = 1 for neutron WWINPs, ni = 2 for photon WWINPs or neutron + photon WWINPs.</td>
+</tr>
+<tr class="row-even"><td>nr</td>
+<td>int</td>
+<td>10 for rectangular, 16 for cylindrical.</td>
+</tr>
+<tr class="row-odd"><td>ne</td>
+<td>list of number of energy groups for neutrons and photons.</td>
+<td>If ni = 1 the list is only 1 value long,
+to represent the number of neutron energy groups</td>
+</tr>
+<tr class="row-even"><td>nf</td>
+<td>list of numbers</td>
+<td>of fine mesh points in the i, j, k dimensions</td>
+</tr>
+<tr class="row-odd"><td>nft</td>
+<td>int</td>
+<td>total number of fine mesh points</td>
+</tr>
+<tr class="row-even"><td>origin</td>
+<td>list of i, j, k</td>
+<td>minimums.</td>
+</tr>
+<tr class="row-odd"><td>nc</td>
+<td>list</td>
+<td>number of coarse mesh points in the i, j, k dimensions</td>
+</tr>
+<tr class="row-even"><td>nwg</td>
+<td>int</td>
+<td>1 for rectangular, 2 for cylindrical.</td>
+</tr>
+<tr class="row-odd"><td>cm</td>
+<td>list of lists</td>
+<td>of coarse mesh points in the i, j, k dimensions. Note
+the origin is not considered a coarse mesh point (as in MCNP).</td>
+</tr>
+<tr class="row-even"><td>fm</td>
+<td>list of lists</td>
+<td>of number of fine mesh points between the coarses
+mesh points in the i, j, k dimensions.</td>
+</tr>
+<tr class="row-odd"><td>e</td>
+<td>list of lists</td>
+<td>of energy upper bounds for neutrons, photons. If
+ni = 1, the e will look like [[]]. If ni = 2, e will look like
+[[], []].</td>
+</tr>
+<tr class="row-even"><td>bounds</td>
+<td>list of lists</td>
+<td>of spacial bounds in the i, j, k dimensions.</td>
+</tr>
+<tr class="row-odd"><td>mesh</td>
+<td>Mesh object</td>
+<td>with a structured mesh containing all the neutron and/or
+photon mass window lower bounds. These tags have the form
+&#8220;ww_X&#8221; where X is n or p The mesh has rootSet tags in the form
+X_e_upper_bounds.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.mcnp.Wwinp.read_mesh">
+<tt class="descname">read_mesh</tt><big>(</big><em>mesh</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Wwinp.read_mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Wwinp.read_mesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a Wwinp object from a structured mesh object.
+The mesh must have tags in the form &#8220;ww_X&#8221; where X is n
+or p. For every particle there must be a rootSet tag in the form
+X_e_upper_bounds containing a list of energy upper bounds.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.Wwinp.read_wwinp">
+<tt class="descname">read_wwinp</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Wwinp.read_wwinp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Wwinp.read_wwinp" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a Wwinp object from the WWINP file &lt;filename&gt;.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.Wwinp.write_wwinp">
+<tt class="descname">write_wwinp</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Wwinp.write_wwinp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Wwinp.write_wwinp" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method writes a complete WWINP file to &lt;filename&gt;.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.mcnp.Xsdir">
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">Xsdir</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Xsdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Xsdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class stores the information contained in a single MCNP xsdir file.</p>
+<p class="rubric">Notes</p>
+<p>See MCNP5 User&#8217;s Guide Volume 3 Appendix K for more information.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="13%" />
+<col width="77%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>f</td>
+<td>file handle</td>
+<td>The xsdir file.</td>
+</tr>
+<tr class="row-even"><td>filename</td>
+<td>str</td>
+<td>Path to the xsdir file.</td>
+</tr>
+<tr class="row-odd"><td>directory</td>
+<td>str</td>
+<td>Path to the directory containing the xsdir file.</td>
+</tr>
+<tr class="row-even"><td>datapath</td>
+<td>str</td>
+<td>The data path specified in the first line of the xsdir file, if it
+exists.</td>
+</tr>
+<tr class="row-odd"><td>awr</td>
+<td>dict</td>
+<td>Maps material ids to their atomic weight ratios.</td>
+</tr>
+<tr class="row-even"><td>tables</td>
+<td>list</td>
+<td>Entries are XsdirTable objects, that appear in the same order as the
+xsdir table lines.</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote class="last">
+<div><p>Path to xsdir file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.mcnp.Xsdir.find_table">
+<tt class="descname">find_table</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Xsdir.find_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Xsdir.find_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all tables for a given ZIAD.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>The ZIAD name.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>tables</strong> : list</p>
+<blockquote class="last">
+<div><p>All XsdirTable objects for a given ZIAD.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.Xsdir.nucs">
+<tt class="descname">nucs</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Xsdir.nucs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Xsdir.nucs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a set of the valid nuclide ids for nuclides contained
+in the xsdir.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>valid_nucs</strong> : set</p>
+<blockquote class="last">
+<div><p>The valid nuclide ids.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.Xsdir.read">
+<tt class="descname">read</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Xsdir.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Xsdir.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Populate the Xsdir object by reading the file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mcnp.Xsdir.to_xsdata">
+<tt class="descname">to_xsdata</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Xsdir.to_xsdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Xsdir.to_xsdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a Serpent xsdata file for all continuous energy xs tables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote class="last">
+<div><p>The output filename.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.mcnp.XsdirTable">
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">XsdirTable</tt><a class="reference internal" href="../_modules/pyne/mcnp.html#XsdirTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.XsdirTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores all information that describes a xsdir table entry, which appears
+as a single line in xsdir file. Attribute names are based off of those found in
+the MCNP5 User&#8217;s Guide Volume 3, appendix K.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="6%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>name</td>
+<td>str</td>
+<td>The ZAID and library identifier, delimited by a &#8216;.&#8217;.</td>
+</tr>
+<tr class="row-even"><td>awr</td>
+<td>float</td>
+<td>The atomic mass ratio of the nuclide.</td>
+</tr>
+<tr class="row-odd"><td>filename</td>
+<td>str</td>
+<td>The relative path of the file containing the xs table.</td>
+</tr>
+<tr class="row-even"><td>access</td>
+<td>str</td>
+<td>Additional string to specify an access route, such as UNIX directory.
+This entry is typically 0.</td>
+</tr>
+<tr class="row-odd"><td>filetype</td>
+<td>int</td>
+<td>Describes whether the file contains formated (1) or unformated (2)
+file.</td>
+</tr>
+<tr class="row-even"><td>address</td>
+<td>int</td>
+<td>If filetype is 1, address is the line number of the xsdir table. If
+filetype is 2, address is the record number.</td>
+</tr>
+<tr class="row-odd"><td>tablelength</td>
+<td>int</td>
+<td>Length of the second block of a data table.</td>
+</tr>
+<tr class="row-even"><td>recordlength</td>
+<td>int</td>
+<td>Unused for filetype = 1. For filetype = 2, recordlength is the number
+of entires per record times the size (in bytes) of each entry.</td>
+</tr>
+<tr class="row-odd"><td>entries</td>
+<td>int</td>
+<td>Unused for filetype = 1. For filetype = 2, it is the number of entries
+per record</td>
+</tr>
+<tr class="row-even"><td>temperature</td>
+<td>float</td>
+<td>Temperature in MeV for neutron data only.</td>
+</tr>
+<tr class="row-odd"><td>ptable</td>
+<td>bool</td>
+<td>True if xs table describes continuous energy neutron data with
+unresolved resonance range probability tables.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.mcnp.XsdirTable.to_serpent">
+<tt class="descname">to_serpent</tt><big>(</big><em>directory=''</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#XsdirTable.to_serpent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.XsdirTable.to_serpent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts table to serpent format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>directory</strong> : str</p>
+<blockquote class="last">
+<div><p>The directory where Serpent data is to be stored.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.mcnp.XsdirTable.alias">
+<tt class="descname">alias</tt><a class="reference internal" href="../_modules/pyne/mcnp.html#XsdirTable.alias"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.XsdirTable.alias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the table entry &lt;ZIAD&gt;.&lt;library id&gt;.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.mcnp.XsdirTable.metastable">
+<tt class="descname">metastable</tt><a class="reference internal" href="../_modules/pyne/mcnp.html#XsdirTable.metastable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.XsdirTable.metastable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns 1 is xsdir table nuclide is metastable. Returns zero
+otherwise.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.mcnp.XsdirTable.serpent_type">
+<tt class="descname">serpent_type</tt><a class="reference internal" href="../_modules/pyne/mcnp.html#XsdirTable.serpent_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.XsdirTable.serpent_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts cross section table type to Serpent format:
+:1: continuous energy (c).
+:2: dosimetry table (y).
+:3: termal (t).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.mcnp.XsdirTable.zaid">
+<tt class="descname">zaid</tt><a class="reference internal" href="../_modules/pyne/mcnp.html#XsdirTable.zaid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.XsdirTable.zaid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ZIAD of the nuclide.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.mcnp.mat_from_mcnp">
+<tt class="descclassname">pyne.mcnp.</tt><tt class="descname">mat_from_mcnp</tt><big>(</big><em>filename</em>, <em>mat_line</em>, <em>densities='None'</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#mat_from_mcnp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.mat_from_mcnp" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a function that recieves and MCNP input filename, the
+line number, and list of densities associated with the material and
+returns a material object. This function is typically called by
+read_mcnp_inp. If a material has multiple densities, a multimaterial
+object is returned.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.mcnp.mesh_to_geom">
+<tt class="descclassname">pyne.mcnp.</tt><tt class="descname">mesh_to_geom</tt><big>(</big><em>mesh</em>, <em>frac_type='mass'</em>, <em>title_card='Generated from PyNE Mesh'</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#mesh_to_geom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.mesh_to_geom" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function reads a structured Mesh object and returns the geometry
+portion of an MCNP input file (cells, surfaces, materials), prepended by a
+title card. The mesh must be axis aligned. Surfaces and cells are written
+in xyz iteration order (z changing fastest).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
+<blockquote>
+<div><p>A structured Mesh object with materials and valid densities.</p>
+</div></blockquote>
+<p><strong>frac_type</strong> : str, optional</p>
+<blockquote>
+<div><p>Either &#8216;mass&#8217; or &#8216;atom&#8217;. The type of fraction to use for the material
+definition.</p>
+</div></blockquote>
+<p><strong>title_card</strong> : str, optional</p>
+<blockquote>
+<div><p>The MCNP title card to appear at the top of the input file.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>geom</strong> : str</p>
+<blockquote class="last">
+<div><p>The title, cell, surface, and material cards of an MCNP input file in
+the proper order.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.mcnp.read_mcnp_inp">
+<tt class="descclassname">pyne.mcnp.</tt><tt class="descname">read_mcnp_inp</tt><big>(</big><em>inp</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#read_mcnp_inp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.read_mcnp_inp" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function reads an MCNP inp file and returns a list of Materials
+material objects (for single density materials) and MultiMaterial objects
+(for multiple density materials). This function relys on
+mat_from_mcnp.</p>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -112,12 +839,20 @@ functionality of the module can be obtained by importing as such:</p>
         <p class="logo"><a href="../index.html">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
         </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">MCNP Input and Output Interfaces &#8211; <tt class="docutils literal"><span class="pre">pyne.mcnp</span></tt></a><ul>
+<li><a class="reference internal" href="#module-pyne.mcnp">MCNP API</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="dbgen/materials_library.html"
-                        title="previous chapter">Materials Library &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.dbgen.materials_library</span></tt></a></p>
+  <p class="topless"><a href="variancereduction.html"
+                        title="previous chapter">Mesh-based Variance Reduction &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.variancereduction</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="simplesim/index.html"
-                        title="next chapter">Simple Simulation Input &#8211; <tt class="docutils literal"><span class="pre">pyne.simplesim</span></tt></a></p>
+  <p class="topless"><a href="alara.html"
+                        title="next chapter">ALARA Input and Output Interfaces &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.alara</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/mcnp.txt"
@@ -155,10 +890,10 @@ functionality of the module can be obtained by importing as such:</p>
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="simplesim/index.html" title="Simple Simulation Input – pyne.simplesim"
+          <a href="alara.html" title="ALARA Input and Output Interfaces – pyne.alara"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="dbgen/materials_library.html" title="Materials Library – pyne.dbgen.materials_library"
+          <a href="variancereduction.html" title="Mesh-based Variance Reduction – pyne.variancereduction"
              >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
@@ -169,7 +904,7 @@ functionality of the module can be obtained by importing as such:</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

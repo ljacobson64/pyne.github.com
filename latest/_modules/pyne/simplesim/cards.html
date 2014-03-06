@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyne.simplesim.cards &mdash; PyNE 0.2-dev</title>
+    <title>pyne.simplesim.cards &mdash; PyNE 0.4-dev</title>
     
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.4-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../../../index.html" />
+    <link rel="top" title="PyNE 0.4-dev" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -82,7 +82,7 @@ if(ga_enabled){
   <h1>Source code for pyne.simplesim.cards</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;The :py:mod:`cards` module can be imported as such::</span>
 
-<span class="sd">    from pyne.simplesim import cards</span>
+<span class="sd">    from .simplesim import cards</span>
 
 <span class="sd">The user creates cards, typically only working with the constructors, and then</span>
 <span class="sd">adds the cards to a :py:class:`pyne.simplesim.definition.IDefinition`. The user</span>
@@ -373,9 +373,9 @@ if(ga_enabled){
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
-<span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">material</span>
-<span class="kn">import</span> <span class="nn">pyne.simplesim.nestedgeom</span> <span class="kn">as</span> <span class="nn">ng</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">nucname</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">material</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">nestedgeom</span> <span class="k">as</span> <span class="n">ng</span>
 
 <span class="k">def</span> <span class="nf">_validate_name</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">isunique</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
@@ -3634,7 +3634,7 @@ if(ga_enabled){
 <span class="sd">        Alternatively, the cards can be specified by something like the</span>
 <span class="sd">        following (see :py:mod:`pyne.simplesim.nestedgeom`)::</span>
 
-<span class="sd">            import pyne.simplesim.nestedgeom as ng</span>
+<span class="sd">            import .simplesim.nestedgeom as ng</span>
 <span class="sd">            unit = ng.Surf(&#39;sA&#39;) &lt; ng.FCell(&#39;cA&#39;)</span>
 <span class="sd">            tally = SurfaceFlux(&#39;fuel&#39;, &#39;neutron&#39;, unit)</span>
 
@@ -7313,7 +7313,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

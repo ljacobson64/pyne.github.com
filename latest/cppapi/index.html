@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>C++ API &mdash; PyNE 0.2-dev</title>
+    <title>C++ API &mdash; PyNE 0.4-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.4-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
     <link rel="next" title="PyNE Globals – libpyne" href="pyne.html" />
     <link rel="prev" title="JsonCpp – pyne.jsoncpp" href="../pyapi/jsoncpp.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
@@ -172,6 +172,38 @@ the authors if you require additional assistance.</p>
 </tbody>
 </table>
 </div>
+<div class="section" id="amalgamating-pyne-into-a-single-source-file">
+<h2>Amalgamating PyNE into a Single Source File<a class="headerlink" href="#amalgamating-pyne-into-a-single-source-file" title="Permalink to this headline">¶</a></h2>
+<p>PyNE has a lot of great stuff in it! However, adding dependencies to C++ projects
+can be annoying, frustrating, and error prone. It often seems easier to just rip
+out the functionality that you need and include it in your own project.</p>
+<p><em>Good news!</em> PyNE offers a formal mechanism for combining some or all of its
+C++ API into a single, redistributable source file and an accompanying header file.
+This let&#8217;s you use pyne in your projects without adding pyne as an external dependency.
+This mechanism is known as <em>amalgamation</em>.</p>
+<p>In the top level pyne source code directory, there is an <tt class="docutils literal"><span class="pre">amalgamate.py</span></tt> script.
+Simply run this script to combine all C++ source information into <tt class="docutils literal"><span class="pre">pyne.cpp</span></tt> and
+<tt class="docutils literal"><span class="pre">pyne.h</span></tt> files.  Run with no options to combine all commonly used C++ files.
+Add options to modify the behavior.  Current options are:</p>
+<div class="highlight-bash"><div class="highlight"><pre>scopatz@ares ~/pyne <span class="nv">$ </span>./amalgamate.py -h
+usage: amalgamate.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-s SOURCE_PATH<span class="o">]</span> <span class="o">[</span>-i HEADER_PATH<span class="o">]</span>
+                     <span class="o">[</span>-f FILES <span class="o">[</span>FILES ...<span class="o">]]</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  -s SOURCE_PATH        Output *.cpp <span class="nb">source </span>path.
+  -i HEADER_PATH        Output header path.
+  -f FILES <span class="o">[</span>FILES ...<span class="o">]</span>  Files to amalgamate.
+</pre></div>
+</div>
+<p>For example, to take only up through the rxname, amalgamate with:</p>
+<div class="highlight-bash"><div class="highlight"><pre>scopatz@ares ~/pyne <span class="nv">$ </span>./amalgamate.py -s pyne.cc -i pyne.h -f license.txt <span class="se">\</span>
+cpp/pyne.* cpp/extra_types.h cpp/h5wrap.h cpp/nucname.* cpp/rxname.*
+</pre></div>
+</div>
+<p><a class="reference external" href="http://fuelcycle.org">Cyclus</a> is an example of a project which uses an amalgamated
+version of pyne.</p>
+</div>
 </div>
 
 
@@ -187,6 +219,7 @@ the authors if you require additional assistance.</p>
   <ul>
 <li><a class="reference internal" href="#">C++ API</a><ul>
 <li><a class="reference internal" href="#using-the-c-api">Using the C++ API</a></li>
+<li><a class="reference internal" href="#amalgamating-pyne-into-a-single-source-file">Amalgamating PyNE into a Single Source File</a></li>
 </ul>
 </li>
 </ul>
@@ -247,7 +280,7 @@ the authors if you require additional assistance.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyne.utils &mdash; PyNE 0.2-dev</title>
+    <title>pyne.utils &mdash; PyNE 0.4-dev</title>
     
     <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.4-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../../index.html" />
+    <link rel="top" title="PyNE 0.4-dev" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -163,27 +163,45 @@ if(ga_enabled){
     <span class="s">&#39;barns&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
     <span class="s">&#39;kb&#39;</span><span class="p">:</span> <span class="mf">1E+3</span><span class="p">,</span>
     <span class="s">&#39;kilobarn&#39;</span><span class="p">:</span> <span class="mf">1E+3</span><span class="p">,</span>
+    <span class="s">&#39;cm2&#39;</span><span class="p">:</span> <span class="mf">1E+24</span><span class="p">,</span>
+    <span class="s">&#39;cm^2&#39;</span><span class="p">:</span> <span class="mf">1E+24</span><span class="p">,</span>
     <span class="p">}</span>
-    
 
 <div class="viewcode-block" id="to_barns"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.to_barns">[docs]</a><span class="k">def</span> <span class="nf">to_barns</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Converts a cross section with units to barns.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    xs : number</span>
+<span class="sd">    xs : </span>
 <span class="sd">        Cross section value in [units].</span>
 <span class="sd">    units : str</span>
 <span class="sd">        Units flag, eg &#39;b&#39;, &#39;microbarn&#39;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    barn_xs : float</span>
+<span class="sd">    barn_xs : </span>
 <span class="sd">        Cross section value in [barns].</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">barn_xs</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">*</span> <span class="n">barn_conv_dict</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
-    <span class="k">return</span> <span class="n">barn_xs</span>
+    <span class="k">return</span> <span class="n">xs</span> <span class="o">*</span> <span class="n">barn_conv_dict</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+</div>
+<div class="viewcode-block" id="from_barns"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.from_barns">[docs]</a><span class="k">def</span> <span class="nf">from_barns</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Converts a cross section from barns to units.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xs : </span>
+<span class="sd">        Cross section value in [barns].</span>
+<span class="sd">    units : str</span>
+<span class="sd">        Units flag, eg &#39;b&#39;, &#39;microbarn&#39;.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unit_xs : </span>
+<span class="sd">        Cross section value in [units].</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">xs</span> <span class="o">/</span> <span class="n">barn_conv_dict</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
 
 
 <span class="c">#########################</span>
@@ -192,7 +210,7 @@ if(ga_enabled){
 </div>
 <span class="n">USE_COLOR</span> <span class="o">=</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="s">&#39;posix&#39;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="message"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.message">[docs]</a><span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Formats a message for printing.  If on a posix system the message will</span>
 <span class="sd">    be in color.</span>
 
@@ -202,8 +220,8 @@ if(ga_enabled){
     <span class="n">msg</span> <span class="o">=</span> <span class="n">head</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="n">tail</span>
     <span class="k">return</span> <span class="n">msg</span>
 
-
-<span class="k">def</span> <span class="nf">failure</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="failure"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.failure">[docs]</a><span class="k">def</span> <span class="nf">failure</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Formats a fail message for printing.  If on a posix system the message</span>
 <span class="sd">    will be in color.</span>
 
@@ -217,8 +235,8 @@ if(ga_enabled){
 <span class="c">##################################</span>
 <span class="c">### Path manipulation routines ###</span>
 <span class="c">##################################</span>
-
-<span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="remove"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.remove">[docs]</a><span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Removes a path, or recursively a directory, or does nothing</span>
 <span class="sd">    if path is neither a file nor a directory.</span>
 
@@ -228,7 +246,7 @@ if(ga_enabled){
     <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
         <span class="n">remove_tree</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">pass</span>
+        <span class="k">pass</span></div>
 </pre></div>
 
           </div>
@@ -279,7 +297,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

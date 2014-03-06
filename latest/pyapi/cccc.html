@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>CCCC Formats – pyne.cccc &mdash; PyNE 0.2-dev</title>
+    <title>CCCC Formats – pyne.cccc &mdash; PyNE 0.4-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.4-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
     <link rel="next" title="ACE Cross Sections – pyne.ace" href="ace.html" />
     <link rel="prev" title="NJOY Automation – pyne.njoy" href="njoy.html" /> <script type="text/javascript">
@@ -87,8 +87,17 @@ if(ga_enabled){
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-pyne.cccc">
-<span id="cccc-formats-pyne-cccc"></span><span id="pyne-cccc"></span><h1>CCCC Formats &#8211; <a class="reference internal" href="../usersguide/cccc.html#module-pyne.cccc" title="pyne.cccc"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.cccc</span></tt></a><a class="headerlink" href="#module-pyne.cccc" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="cccc-formats-pyne-cccc">
+<span id="pyne-cccc"></span><h1>CCCC Formats &#8211; <a class="reference internal" href="../usersguide/cccc.html#module-pyne.cccc" title="pyne.cccc"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.cccc</span></tt></a><a class="headerlink" href="#cccc-formats-pyne-cccc" title="Permalink to this headline">¶</a></h1>
+<p>All functionality may be found in the <tt class="docutils literal"><span class="pre">cccc</span></tt> package:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">cccc</span>
+</pre></div>
+</div>
+<p>The information below represents the complete specification of the classes in
+the cccc module. For examples of usage, please refer to the User&#8217;s Guide entry
+for <a class="reference internal" href="../usersguide/cccc.html#usersguide-cccc"><em>CCCC Formats</em></a>.</p>
+<div class="section" id="module-pyne.cccc">
+<span id="cccc-api"></span><h2>CCCC API<a class="headerlink" href="#module-pyne.cccc" title="Permalink to this headline">¶</a></h2>
 <p>The CCCC module contains a number of classes for reading various cross section,
 flux, geometry, and data files with specifications given by the Committee for
 Computer Code Coordination. The following types of files can be read using
@@ -100,15 +109,99 @@ Nick Touran for work on his PhD thesis. DLAYXS was later added by Paul Romano.</
 <p>A description of several CCCC formats are available online for <a class="reference external" href="http://t2.lanl.gov/codes/transx-hyper/isotxs.html">ISOTXS</a>, <a class="reference external" href="http://t2.lanl.gov/codes/transx-hyper/matxs.html">MATXS</a>,
 <a class="reference external" href="http://t2.lanl.gov/codes/transx-hyper/rtflux.html">RTFLUX</a>, and <a class="reference external" href="http://t2.lanl.gov/codes/transx-hyper/rzflux.html">RZFLUX</a>. Other format specifications can be found in Los Alamos
 Report <a class="reference external" href="http://www.osti.gov/bridge/servlets/purl/5369298-uIcX6p/">LA-5324-MS</a>.</p>
-<p>All functionality may be found in the <tt class="docutils literal"><span class="pre">cccc</span></tt> package:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">cccc</span>
-</pre></div>
-</div>
-<p>The information below represents the complete specification of the classes in
-the cccc module. For examples of usage, please refer to the User&#8217;s Guide entry
-for <a class="reference internal" href="../usersguide/cccc.html#usersguide-cccc"><em>CCCC Formats</em></a>.</p>
-<div class="section" id="isotxs-class">
-<h2>Isotxs Class<a class="headerlink" href="#isotxs-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyne.cccc.Atflux">
+<em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Atflux</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Atflux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Atflux" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Atflux object represents data stored in a ATFLUX file from the CCCC
+format specification. This file contains adjoint total fluxes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote class="last">
+<div><p>Path to the ATFLUX file to be read.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.cccc.Brkoxs">
+<em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Brkoxs</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Brkoxs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Brkoxs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Brkoxs object represents data stored in a BRKOXS file from the CCCC
+format specification. This file is given in conjunction with an ISOTXS (or
+GRUPXS) file when the Bondarenko self-shielding method is to be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote class="last">
+<div><p>Path of the BRKOXS file to read.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.cccc.Dlayxs">
+<em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Dlayxs</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Dlayxs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Dlayxs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Dlayxs object represents the data stored in a CCCC-format DLAYXS
+file. This file contains delayed neutron precursor yields, emission spectra,
+and decay constants reduced to multigroup form. Typically, the data in a
+DLAYXS file would be related to cross-section files in ISOTXS and GRUPXS.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Attributes :</th><td class="field-body"><dl class="first docutils">
+<dt><strong>isotopes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of strs</span></dt>
+<dd><p class="first last">Names of the isotopes in the DLAYXS file.</p>
+</dd>
+<dt><strong>isotopeFamily</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
+<dd><p class="first last">Dictionary whose keys are the isotope names and whose values are</p>
+</dd>
+<dt><strong>decay</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
+<dd><p class="first last">Dictionary whose keys are names of nuclides and whose values are decay
+constants for each delayed neutron family.</p>
+</dd>
+</dl>
+<p><strong>spectrum</strong> : dict</p>
+<dl class="docutils">
+<dt><strong>nGroups</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Number of energy groups</p>
+</dd>
+<dt><strong>nIsotopes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Number of isotopes</p>
+</dd>
+<dt><strong>nFamilies</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Number of delayed neutron families</p>
+</dd>
+</dl>
+<p><strong>nu</strong> : dict</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote class="last">
+<div><p>Path of the DLAYXS file to load.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.cccc.Dlayxs.read">
+<tt class="descname">read</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Dlayxs.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Dlayxs.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read through and parse data in the DLAYXS file.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="pyne.cccc.Isotxs">
 <em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Isotxs</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Isotxs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Isotxs" title="Permalink to this definition">¶</a></dt>
@@ -192,79 +285,18 @@ CCCC specifications.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="dlayxs-class">
-<h2>Dlayxs Class<a class="headerlink" href="#dlayxs-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="pyne.cccc.Dlayxs">
-<em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Dlayxs</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Dlayxs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Dlayxs" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Dlayxs object represents the data stored in a CCCC-format DLAYXS
-file. This file contains delayed neutron precursor yields, emission spectra,
-and decay constants reduced to multigroup form. Typically, the data in a
-DLAYXS file would be related to cross-section files in ISOTXS and GRUPXS.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Attributes :</th><td class="field-body"><dl class="first docutils">
-<dt><strong>isotopes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of strs</span></dt>
-<dd><p class="first last">Names of the isotopes in the DLAYXS file.</p>
-</dd>
-<dt><strong>isotopeFamily</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
-<dd><p class="first last">Dictionary whose keys are the isotope names and whose values are</p>
-</dd>
-<dt><strong>decay</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
-<dd><p class="first last">Dictionary whose keys are names of nuclides and whose values are decay
-constants for each delayed neutron family.</p>
-</dd>
-</dl>
-<p><strong>spectrum</strong> : dict</p>
-<dl class="docutils">
-<dt><strong>nGroups</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">Number of energy groups</p>
-</dd>
-<dt><strong>nIsotopes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">Number of isotopes</p>
-</dd>
-<dt><strong>nFamilies</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">Number of delayed neutron families</p>
-</dd>
-</dl>
-<p><strong>nu</strong> : dict</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
-<blockquote class="last">
-<div><p>Path of the DLAYXS file to load.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="pyne.cccc.Dlayxs.read">
-<tt class="descname">read</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Dlayxs.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Dlayxs.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read through and parse data in the DLAYXS file.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="brkoxs-class">
-<h2>Brkoxs Class<a class="headerlink" href="#brkoxs-class" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyne.cccc.Brkoxs">
-<em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Brkoxs</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Brkoxs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Brkoxs" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Brkoxs object represents data stored in a BRKOXS file from the CCCC
-format specification. This file is given in conjunction with an ISOTXS (or
-GRUPXS) file when the Bondarenko self-shielding method is to be used.</p>
+<dt id="pyne.cccc.Matxs">
+<em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Matxs</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Matxs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Matxs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Matxs object represents data stored in a MATXS file. This file contains
+generalized cross-sections.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
-<div><p>Path of the BRKOXS file to read.</p>
+<div><p>Path to the MATXS file to be read.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -272,9 +304,6 @@ GRUPXS) file when the Bondarenko self-shielding method is to be used.</p>
 </table>
 </dd></dl>
 
-</div>
-<div class="section" id="rtflux-class">
-<h2>Rtflux Class<a class="headerlink" href="#rtflux-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyne.cccc.Rtflux">
 <em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Rtflux</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Rtflux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Rtflux" title="Permalink to this definition">¶</a></dt>
@@ -294,31 +323,6 @@ format specification. This file contains regular total fluxes.</p>
 </table>
 </dd></dl>
 
-</div>
-<div class="section" id="atflux-class">
-<h2>Atflux Class<a class="headerlink" href="#atflux-class" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyne.cccc.Atflux">
-<em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Atflux</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Atflux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Atflux" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Atflux object represents data stored in a ATFLUX file from the CCCC
-format specification. This file contains adjoint total fluxes.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
-<blockquote class="last">
-<div><p>Path to the ATFLUX file to be read.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="rzflux-class">
-<h2>Rzflux Class<a class="headerlink" href="#rzflux-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyne.cccc.Rzflux">
 <em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Rzflux</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Rzflux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Rzflux" title="Permalink to this definition">¶</a></dt>
@@ -339,26 +343,10 @@ broad energy groups for different geometric zones.</p>
 </table>
 </dd></dl>
 
-</div>
-<div class="section" id="matxs-class">
-<h2>Matxs Class<a class="headerlink" href="#matxs-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="pyne.cccc.Matxs">
-<em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Matxs</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Matxs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Matxs" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Matxs object represents data stored in a MATXS file. This file contains
-generalized cross-sections.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
-<blockquote class="last">
-<div><p>Path to the MATXS file to be read.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dt id="pyne.cccc.Spectr">
+<em class="property">class </em><tt class="descclassname">pyne.cccc.</tt><tt class="descname">Spectr</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/cccc.html#Spectr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.cccc.Spectr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads ultra-fine group spectrum file from MC**2</p>
 </dd></dl>
 
 </div>
@@ -376,13 +364,7 @@ generalized cross-sections.</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">CCCC Formats &#8211; <tt class="docutils literal"><span class="pre">pyne.cccc</span></tt></a><ul>
-<li><a class="reference internal" href="#isotxs-class">Isotxs Class</a></li>
-<li><a class="reference internal" href="#dlayxs-class">Dlayxs Class</a></li>
-<li><a class="reference internal" href="#brkoxs-class">Brkoxs Class</a></li>
-<li><a class="reference internal" href="#rtflux-class">Rtflux Class</a></li>
-<li><a class="reference internal" href="#atflux-class">Atflux Class</a></li>
-<li><a class="reference internal" href="#rzflux-class">Rzflux Class</a></li>
-<li><a class="reference internal" href="#matxs-class">Matxs Class</a></li>
+<li><a class="reference internal" href="#module-pyne.cccc">CCCC API</a></li>
 </ul>
 </li>
 </ul>
@@ -444,7 +426,7 @@ generalized cross-sections.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

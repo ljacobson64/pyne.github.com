@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ACE Cross Sections – pyne.ace &mdash; PyNE 0.2-dev</title>
+    <title>ACE Cross Sections – pyne.ace &mdash; PyNE 0.4-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.4-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,9 +33,9 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="ENSDF File Support – pyne.ensdf" href="ensdf.html" />
+    <link rel="next" title="ENDF File Support – pyne.endf" href="endf.html" />
     <link rel="prev" title="CCCC Formats – pyne.cccc" href="cccc.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -68,7 +68,7 @@ if(ga_enabled){
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="ensdf.html" title="ENSDF File Support – pyne.ensdf"
+          <a href="endf.html" title="ENDF File Support – pyne.endf"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="cccc.html" title="CCCC Formats – pyne.cccc"
@@ -203,7 +203,7 @@ object.</p>
 </div></blockquote>
 <p><strong>awr</strong> : float</p>
 <blockquote>
-<div><p>Atomic weight ratio of the target nuclide.</p>
+<div><p>Atomic mass ratio of the target nuclide.</p>
 </div></blockquote>
 <p><strong>temp</strong> : float</p>
 <blockquote>
@@ -213,7 +213,7 @@ object.</p>
 <blockquote class="last">
 <div><dl class="docutils">
 <dt><strong>awr</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">Atomic weight ratio of the target nuclide.</p>
+<dd><p class="first last">Atomic mass ratio of the target nuclide.</p>
 </dd>
 <dt><strong>energy</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of floats</span></dt>
 <dd><p class="first last">The energy values (MeV) at which reaction cross-sections are tabulated.</p>
@@ -285,7 +285,7 @@ an S(alpha, beta) table.</p>
 </div></blockquote>
 <p><strong>awr</strong> : float</p>
 <blockquote>
-<div><p>Atomic weight ratio of the target nuclide.</p>
+<div><p>Atomic mass ratio of the target nuclide.</p>
 </div></blockquote>
 <p><strong>temp</strong> : float</p>
 <blockquote>
@@ -295,7 +295,7 @@ an S(alpha, beta) table.</p>
 <blockquote class="last">
 <div><dl class="docutils">
 <dt><strong>awr</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">Atomic weight ratio of the target nuclide.</p>
+<dd><p class="first last">Atomic mass ratio of the target nuclide.</p>
 </dd>
 <dt><strong>elastic_e_in</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of floats</span></dt>
 <dd><p class="first last">Incoming energies in MeV for which the elastic cross section is
@@ -434,8 +434,8 @@ be preformed in the laboratory system.</p>
   <p class="topless"><a href="cccc.html"
                         title="previous chapter">CCCC Formats &#8211; <tt class="docutils literal"><span class="pre">pyne.cccc</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="ensdf.html"
-                        title="next chapter">ENSDF File Support &#8211; <tt class="docutils literal"><span class="pre">pyne.ensdf</span></tt></a></p>
+  <p class="topless"><a href="endf.html"
+                        title="next chapter">ENDF File Support &#8211; <tt class="docutils literal"><span class="pre">pyne.endf</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/ace.txt"
@@ -473,7 +473,7 @@ be preformed in the laboratory system.</p>
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="ensdf.html" title="ENSDF File Support – pyne.ensdf"
+          <a href="endf.html" title="ENDF File Support – pyne.endf"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="cccc.html" title="CCCC Formats – pyne.cccc"
@@ -487,7 +487,7 @@ be preformed in the laboratory system.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

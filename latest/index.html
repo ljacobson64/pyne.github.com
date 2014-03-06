@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyNE: The Nuclear Engineering Toolkit &mdash; PyNE 0.2-dev</title>
+    <title>PyNE: The Nuclear Engineering Toolkit &mdash; PyNE 0.4-dev</title>
     
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2-dev',
+        VERSION:     '0.4-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,8 +33,8 @@
     <script type="text/javascript" src="_static/toggle_sections.js"></script>
     <script type="text/javascript" src="_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.2-dev" href="#" />
-    <link rel="next" title="Installation" href="install.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.4-dev" href="#" />
+    <link rel="next" title="Installation Instructions" href="install.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -66,7 +66,7 @@ if(ga_enabled){
           <a href="np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="install.html" title="Installation"
+          <a href="install.html" title="Installation Instructions"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
     <li><a href="gallery/index.html">Gallery</a> | </li>
     <li><a href="#">PyNE</a> &raquo;</li>
@@ -86,6 +86,7 @@ if(ga_enabled){
 <div class="frontpage-images container">
 <img alt="_images/half_life_thumb.png" src="_images/half_life_thumb.png" />
 <img alt="_images/data_sources_thumb.png" src="_images/data_sources_thumb.png" />
+<img alt="_images/mesh_tags_thumb.png" src="_images/mesh_tags_thumb.png" />
 <img alt="_images/enrichment_mstar_vs_flowrate_thumb.png" src="_images/enrichment_mstar_vs_flowrate_thumb.png" />
 <img alt="_images/origen22_h1_xs_thumb.png" src="_images/origen22_h1_xs_thumb.png" />
 </div>
@@ -106,13 +107,12 @@ cd pyne/
 python setup.py install --user
 scripts/nuc_data_make</pre>
 </div>
-<p>For Windows install instructions please <a class="reference internal" href="install.html#win-install"><em>go here</em></a>.</p>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <p>Usage:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usersguide/index.html">User&#8217;s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyapi/index.html">Python API</a></li>
@@ -126,6 +126,13 @@ scripts/nuc_data_make</pre>
 <li class="toctree-l1"><a class="reference internal" href="devsguide/index.html">Developer&#8217;s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pubs.html">References &amp; Publications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_team.html">PyNE Development Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gsoc/index.html">Google Summer of Code 2014 Project Ideas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gsoc/index.html#information-for-students">Information for Students</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gsoc/index.html#experimental-nuclear-data-project">Experimental Nuclear Data Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gsoc/index.html#integrate-ahotn">Integrate AHOTN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gsoc/index.html#hexahedral-mesh-sampling">Hexahedral Mesh Sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gsoc/index.html#transport-solver-components">Transport Solver Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gsoc/index.html#template-project">Template Project</a></li>
 </ul>
 </div>
 </div>
@@ -161,7 +168,7 @@ scripts/nuc_data_make</pre>
 
   <h4>Next topic</h4>
   <p class="topless"><a href="install.html"
-                        title="next chapter">Installation</a></p>
+                        title="next chapter">Installation Instructions</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -199,7 +206,7 @@ scripts/nuc_data_make</pre>
           <a href="np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="install.html" title="Installation"
+          <a href="install.html" title="Installation Instructions"
              >next</a> &nbsp; &nbsp;</li>
     <li><a href="gallery/index.html">Gallery</a> | </li>
     <li><a href="#">PyNE</a> &raquo;</li>
@@ -209,7 +216,7 @@ scripts/nuc_data_make</pre>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2012, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
