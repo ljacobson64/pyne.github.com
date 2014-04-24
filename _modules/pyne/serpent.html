@@ -80,8 +80,13 @@ if(ga_enabled){
           <div class="body">
             
   <h1>Source code for pyne.serpent</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="nb">basestring</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+    <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">str</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="n">_if_idx_str</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;&quot;&quot;if (exist(&quot;idx&quot;, &quot;var&quot;));</span><span class="se">\n</span><span class="s">&quot;&quot;&quot;</span>
               <span class="sd">&quot;&quot;&quot;  idx = idx + 1;\n&quot;&quot;&quot;</span>
@@ -172,14 +177,14 @@ if(ga_enabled){
     <span class="n">header</span> <span class="o">=</span> <span class="s">&quot;import numpy as np</span><span class="se">\n\n</span><span class="s">&quot;</span>
 
     <span class="c"># Find all variables and shape</span>
-    <span class="n">vars_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_lhs_variable_pattern</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="p">)</span>
+    <span class="n">vars_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_lhs_variable_pattern</span><span class="p">,</span> <span class="n">f</span><span class="p">))))</span>
     <span class="n">vars_dtype</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_rhs_variable_pattern</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="p">)</span>
     <span class="c"># Initialize variables to zero</span>
     <span class="n">header</span> <span class="o">=</span> <span class="n">header</span> <span class="o">+</span> <span class="s">&quot;# Initialize variables</span><span class="se">\n</span><span class="s">&quot;</span>
     <span class="k">for</span> <span class="n">vs</span> <span class="ow">in</span> <span class="n">vars_shape</span><span class="p">:</span>
         <span class="c"># Determine shape</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">r&#39;\[.*:(.*?)\]&#39;</span><span class="p">,</span> <span class="n">vs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">r&#39;\[.*?:(.*?)\]&#39;</span><span class="p">,</span> <span class="n">vs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">vs_shape</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">vs_shape</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -207,7 +212,7 @@ if(ga_enabled){
     <span class="n">f</span> <span class="o">=</span> <span class="n">header</span> <span class="o">+</span> <span class="n">f</span>
 
     <span class="c"># Replace variable overrides</span>
-    <span class="nb">vars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&quot;(&quot;</span> <span class="o">+</span> <span class="n">_lhs_variable_pattern</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="p">)</span>
+    <span class="nb">vars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&quot;(&quot;</span> <span class="o">+</span> <span class="n">_lhs_variable_pattern</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">))))</span>
     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">:</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&quot;{0}[idx] &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 
@@ -225,8 +230,9 @@ if(ga_enabled){
 
     <span class="c"># Execute the adjusted file</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">exec</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">{},</span> <span class="n">res</span><span class="p">)</span>
-
+    <span class="k">exec</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s">&#39;__builtins__&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;__builtins__&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">res</span>
 
 
@@ -305,7 +311,9 @@ if(ga_enabled){
     <span class="n">footer</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
     <span class="k">if</span> <span class="n">make_mats</span><span class="p">:</span>
         <span class="n">mat_gen_line</span> <span class="o">=</span> <span class="s">&quot;{name}MATERIAL = [{name}VOLUME * Material(dict(zip(zai[:-2], {name}MDENS[:-2, col]))) for col in cols]</span><span class="se">\n</span><span class="s">&quot;</span>
-        <span class="n">footer</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n\n</span><span class="s"># Construct materials</span><span class="se">\n</span><span class="s">zai = map(int, ZAI)</span><span class="se">\n</span><span class="s">cols = range(len(DAYS))</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="n">footer</span> <span class="o">+=</span> <span class="p">(</span><span class="s">&#39;</span><span class="se">\n\n</span><span class="s"># Construct materials</span><span class="se">\n</span><span class="s">&#39;</span>
+                   <span class="s">&#39;zai = list(map(int, ZAI))</span><span class="se">\n</span><span class="s">&#39;</span>
+                   <span class="s">&#39;cols = list(range(len(DAYS)))</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
         <span class="n">base_names</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;(MAT_\w*_)MDENS = &#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">base_name</span> <span class="ow">in</span> <span class="n">base_names</span><span class="p">:</span>
             <span class="n">footer</span> <span class="o">+=</span> <span class="n">mat_gen_line</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">base_name</span><span class="p">)</span>
@@ -326,8 +334,9 @@ if(ga_enabled){
 
     <span class="c"># Execute the adjusted file</span>
     <span class="n">dep</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">exec</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">{},</span> <span class="n">dep</span><span class="p">)</span>
-
+    <span class="k">exec</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">dep</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s">&#39;__builtins__&#39;</span> <span class="ow">in</span> <span class="n">dep</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">dep</span><span class="p">[</span><span class="s">&#39;__builtins__&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">dep</span>
 
 
@@ -447,7 +456,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2013, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

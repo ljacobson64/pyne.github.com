@@ -97,38 +97,69 @@ if(ga_enabled){
 
 <dl class="class">
 <dt id="pyne.mesh.Mesh">
-<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">Mesh</tt><big>(</big><em>mesh=None</em>, <em>mesh_file=None</em>, <em>structured=False</em>, <em>structured_coords=None</em>, <em>structured_set=None</em>, <em>mats=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class houses any iMesh instance and contains methods for various mesh
+<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">Mesh</tt><big>(</big><em>mesh=None</em>, <em>mesh_file=None</em>, <em>structured=False</em>, <em>structured_coords=None</em>, <em>structured_set=None</em>, <em>structured_ordering='xyz'</em>, <em>mats=()</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class houses an iMesh instance and contains methods for various mesh
 operations. Special methods exploit the properties of structured mesh.</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
+<col width="18%" />
 <col width="13%" />
-<col width="33%" />
-<col width="54%" />
+<col width="68%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>mesh</td>
 <td>iMesh instance</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>mesh_file</td>
-<td>string</td>
-<td>File name of file containing iMesh instance.</td>
-</tr>
-<tr class="row-odd"><td>structured</td>
+<tr class="row-even"><td>structured</td>
 <td>bool</td>
 <td>True for structured mesh.</td>
 </tr>
-<tr class="row-even"><td>structured_coords</td>
+<tr class="row-odd"><td>structured_coords</td>
 <td>list of lists</td>
 <td>A list containing lists of x_points, y_points and z_points that make up
 a structured mesh.</td>
 </tr>
-<tr class="row-odd"><td>structured_set</td>
-<td>iMesh entity set handle</td>
-<td><p class="first">A preexisting structured entity set on an iMesh instance with a
+<tr class="row-even"><td>structured_ordering</td>
+<td>str</td>
+<td>A three character string denoting the iteration order of the mesh (e.g.
+&#8216;xyz&#8217;, meaning z changest fastest, then y, then x.)</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : iMesh instance, optional</p>
+<p><strong>mesh_file</strong> : str, optional</p>
+<blockquote>
+<div><p>File name of file containing iMesh instance.</p>
+</div></blockquote>
+<p><strong>structured</strong> : bool, optional</p>
+<blockquote>
+<div><p>True for structured mesh.</p>
+</div></blockquote>
+<p><strong>structured_coords</strong> : list of lists, optional</p>
+<blockquote>
+<div><p>A list containing lists of x_points, y_points and z_points that make up
+a structured mesh.</p>
+</div></blockquote>
+<p><strong>structured_set</strong> : iMesh entity set handle, optional</p>
+<blockquote>
+<div><p>A preexisting structured entity set on an iMesh instance with a
 &#8220;BOX_DIMS&#8221; tag.</p>
+</div></blockquote>
+<p><strong>structured_ordering</strong> : str, optional</p>
+<blockquote>
+<div><p>A three character string denoting the iteration order of the mesh (e.g.
+&#8216;xyz&#8217;, meaning z changest fastest, then y, then x.)</p>
+</div></blockquote>
+<p><strong>mats</strong> : MaterialLibrary or dict or Materials or None, optional</p>
+<blockquote class="last">
+<div><p>This is a mapping of volume element handles to Material objects.  If 
+mats is None, then no empty materials are created for the mesh.</p>
 <dl class="docutils">
 <dt>Unstructured mesh instantiation:</dt>
 <dd><ul class="first last simple">
@@ -142,24 +173,21 @@ a structured mesh.</td>
 by specifying &lt;mesh&gt; and structured = True.</li>
 <li>From mesh file with exactly 1 entity set (with BOX_DIMS tag) by
 specifying &lt;mesh_file&gt; and structured = True.</li>
-<li>From an imesh instance with multiple entity sets by specifying
+<li>From an imesh instance with multiple entity sets by specifying 
 &lt;mesh&gt;, &lt;structured_set&gt;, structured=True.</li>
 <li>From coordinates by specifying &lt;structured_coords&gt;,
 structured=True, and optional preexisting iMesh instance &lt;mesh&gt;</li>
 </ul>
 </dd>
 </dl>
-<p class="last">The &#8220;BOX_DIMS&#8221; tag on iMesh instances containing structured mesh is
+<p>The &#8220;BOX_DIMS&#8221; tag on iMesh instances containing structured mesh is
 a vector of floats it the following form:
 [i_min, j_min, k_min, i_max, j_max, k_max]
-where each value is a volume element index number. Typically volume
+where each value is a volume element index number. Typically volume 
 elements should be indexed from 0. The &#8220;BOX_DIMS&#8221; information is stored
 in self.dims.</p>
+</div></blockquote>
 </td>
-</tr>
-<tr class="row-even"><td>mats</td>
-<td>MaterialLibrary or dict or Materials or None</td>
-<td>This is a mapping of volume element handles to Material objects.</td>
 </tr>
 </tbody>
 </table>
@@ -167,6 +195,54 @@ in self.dims.</p>
 <dt id="pyne.mesh.Mesh.add">
 <tt class="descname">add</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the common tags of other to the mesh object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mesh.Mesh.cell_fracs_to_mats">
+<tt class="descname">cell_fracs_to_mats</tt><big>(</big><em>cell_fracs</em>, <em>cell_mats</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.cell_fracs_to_mats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.cell_fracs_to_mats" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function uses the output from dagmc.discretize_geom() and 
+a mapping of geometry cells to Materials to assign materials
+to each mesh volume element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cell_fracs</strong> : structured array</p>
+<blockquote>
+<div><p>The output from dagmc.discretize_geom(). A sorted, one dimensional
+array, each entry containing the following fields:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">idx:</th><td class="field-body">int 
+The volume element index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">cell:</th><td class="field-body">int
+The geometry cell number.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">vol_frac:</th><td class="field-body">float
+The volume fraction of the cell withing the mesh ve.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rel_error:</th><td class="field-body">float
+The relative error associated with the volume fraction.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>The array must be sorted with respect to both idx and cell, with cell
+changing fastest.</p>
+</div></blockquote>
+<p><strong>cell_mats</strong> : dict</p>
+<blockquote class="last">
+<div><p>Maps geometry cell numbers to Material objects that represent what
+material each cell is made of.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -179,6 +255,59 @@ in self.dims.</p>
 <dt id="pyne.mesh.Mesh.div">
 <tt class="descname">div</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.div"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.div" title="Permalink to this definition">¶</a></dt>
 <dd><p>Divides the common tags of other to the mesh object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mesh.Mesh.elem_volume">
+<tt class="descname">elem_volume</tt><big>(</big><em>ve</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.elem_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.elem_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the volume of a hexahedral or tetrahedral volume element</p>
+<p>Approaches are adapted from MOAB&#8217;s measure.cpp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>ve</strong> : iMesh.Mesh.EntitySet</p>
+<blockquote>
+<div><p>A volume element</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>..</strong> : float</p>
+<blockquote class="last">
+<div><p>Element&#8217;s volume. Returns None if volume is not a hex or tet.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mesh.Mesh.iter_structured_idx">
+<tt class="descname">iter_structured_idx</tt><big>(</big><em>order=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.iter_structured_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.iter_structured_idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterater object of volume element indexes (idx) for any
+iteration order. Note that idx is assigned upon instantiation in the 
+order of the structured_ordering attribute. This method is meant to be
+used when the order argument is different from structured_ordering.
+When they are the same, the iterator (0, 1, 2, ... N-1) is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>order</strong> : str, optional</p>
+<blockquote class="last">
+<div><p>The requested iteration order (e.g. &#8216;zyx&#8217;).</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mesh.Mesh.iter_ve">
+<tt class="descname">iter_ve</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.iter_ve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.iter_ve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an iterator that yields on the volume elements.</p>
 </dd></dl>
 
 <dl class="method">
@@ -208,6 +337,12 @@ along that dimension.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyne.mesh.Mesh.structured_hex_volume">
+<tt class="descname">structured_hex_volume</tt><big>(</big><em>i</em>, <em>j</em>, <em>k</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.structured_hex_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.structured_hex_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the volume of the (i,j,k)&#8217;th hexahedron in the mesh</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyne.mesh.Mesh.structured_iterate_hex">
 <tt class="descname">structured_iterate_hex</tt><big>(</big><em>order='zyx'</em>, <em>**kw</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.structured_iterate_hex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.structured_iterate_hex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an iterator over the hexahedra of the mesh</p>
@@ -228,14 +363,16 @@ y: specify one or more j-coordinates to iterate over.
 z: specify one or more k-coordinates to iterate over.</pre>
 </div>
 <p>Examples:</p>
-<div class="highlight-python"><pre>structured_iterate_hex(): equivalent to iMesh iterator over hexes in mesh
-structured_iterate_hex("xyz"): iterate over entire mesh, with k-coordinates
-                               changing fastest, i-coordinates least fast.
-structured_iterate_hex("yz", x=3): Iterate over the j-k plane of the mesh
-                                   whose i-coordinate is 3, with k values
-                                   changing fastest.
-structured_iterate_hex("z"): Iterate over k-coordinates, with i=dims.imin
-                   and j=dims.jmin
+<div class="highlight-python"><pre>structured_iterate_hex(): equivalent to iMesh iterator over hexes
+                          in mesh
+structured_iterate_hex("xyz"): iterate over entire mesh, with
+                               k-coordinates changing fastest,
+                               i-coordinates least fast.
+structured_iterate_hex("yz", x=3): Iterate over the j-k plane of the
+                                   mesh whose i-coordinate is 3, with
+                                   k values changing fastest.
+structured_iterate_hex("z"): Iterate over k-coordinates, with
+                             i=dims.imin and j=dims.jmin
 structured_iterate_hex("yxz", y=(3,4)): Iterate over all hexes with
                               j-coordinate = 3 or 4.  k-coordinate
                               values change fastest, j-values least
@@ -247,16 +384,16 @@ structured_iterate_hex("yxz", y=(3,4)): Iterate over all hexes with
 <dt id="pyne.mesh.Mesh.structured_iterate_hex_volumes">
 <tt class="descname">structured_iterate_hex_volumes</tt><big>(</big><em>order='zyx'</em>, <em>**kw</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.structured_iterate_hex_volumes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.structured_iterate_hex_volumes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an iterator over the volumes of the mesh hexahedra</p>
-<p>See structured_iterate_hex() for an explanation of the order argument and the
-available keyword arguments.</p>
+<p>See structured_iterate_hex() for an explanation of the order argument
+and the available keyword arguments.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyne.mesh.Mesh.structured_iterate_vertex">
 <tt class="descname">structured_iterate_vertex</tt><big>(</big><em>order='zyx'</em>, <em>**kw</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.structured_iterate_vertex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.structured_iterate_vertex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an iterator over the vertices of the mesh</p>
-<p>See structured_iterate_hex() for an explanation of the order argument and the
-available keyword arguments.</p>
+<p>See structured_iterate_hex() for an explanation of the order argument
+and the available keyword arguments.</p>
 </dd></dl>
 
 <dl class="method">
@@ -268,8 +405,8 @@ available keyword arguments.</p>
 <dl class="method">
 <dt id="pyne.mesh.Mesh.tag">
 <tt class="descname">tag</tt><big>(</big><em>name</em>, <em>value=None</em>, <em>tagtype=None</em>, <em>doc=None</em>, <em>size=None</em>, <em>dtype=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.tag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.tag" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a new tag to the mesh, guessing the approriate place to store the
-data.</p>
+<dd><p>Adds a new tag to the mesh, guessing the approriate place to store
+the data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -300,6 +437,31 @@ strings are accepted: IMeshTag, MetadataTag, ComputedTag, &#8216;imesh&#8217;,
 <blockquote class="last">
 <div><p>The data type of the tag. This only applies to IMeshTags. See PyTAPS
 for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.mesh.Mesh.ve_center">
+<tt class="descname">ve_center</tt><big>(</big><em>ve</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.ve_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.ve_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the point at the center of any tetrahedral or hexahedral mesh
+volume element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>ve</strong> : iMesh entity handle</p>
+<blockquote>
+<div><p>Any mesh volume element.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>center</strong> : tuple</p>
+<blockquote class="last">
+<div><p>The (x, y, z) coordinates of the center of the mesh volume element.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -471,7 +633,7 @@ metadata attributes.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2013, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

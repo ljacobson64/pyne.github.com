@@ -1,0 +1,297 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyne.dbgen.wimsdfpy &mdash; PyNE 0.4-dev</title>
+    
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../../../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../../../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../../../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.4-dev" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pyne.dbgen.wimsdfpy</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;This module provides a way to grab and store raw data for fission product yeilds</span>
+<span class="sd">from the WIMSD library at the IAEA. For more information, please visit their website:</span>
+<span class="sd">https://www-nds.iaea.org/wimsd/index.html or </span>
+<span class="sd">https://www-nds.iaea.org/wimsd/fpyield.htm. Please contact the NDS at  </span>
+<span class="sd">nds.contact-point@iaea.org with questions about the data itself.</span>
+
+<span class="sd">The copyright for the data parsed here is held by the IAEA and is made available </span>
+<span class="sd">under the following conditions:</span>
+
+<span class="sd">**Disclaimer:** Distributed data products contain consensus values of physical </span>
+<span class="sd">constants. However, neither the network centre nor the IAEA guarantees the </span>
+<span class="sd">accuracy of such data products or their suitability for particular applied </span>
+<span class="sd">scientific purposes.</span>
+
+<span class="sd">**Copyright:**  One may use or reproduce data and information from this site with </span>
+<span class="sd">an appropriate acknowledgement to the source of data. One may not charge any </span>
+<span class="sd">subsequent fee for these data.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="kn">as</span> <span class="nn">urllib2</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">html.parser</span> <span class="kn">import</span> <span class="n">HTMLParser</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">HTMLParser</span> <span class="kn">import</span> <span class="n">HTMLParser</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
+
+<span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
+<span class="kn">from</span> <span class="nn">pyne.dbgen.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
+
+
+<div class="viewcode-block" id="grab_fpy"><a class="viewcode-back" href="../../../pyapi/dbgen/wimsdfpy.html#pyne.dbgen.wimsdfpy.grab_fpy">[docs]</a><span class="k">def</span> <span class="nf">grab_fpy</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s">&#39;wimsd-fpyield.html&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Grabs the WIMS fission product yields from the IAEA website</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">build_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">file_out</span><span class="p">)</span>
+    <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="n">file_out</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">local_filename</span><span class="p">):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">local_filename</span><span class="p">,</span> <span class="n">build_filename</span><span class="p">)</span>
+        <span class="k">return</span> 
+
+    <span class="n">nist</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;https://www-nds.iaea.org/wimsd/fpyield.htm&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">build_filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">nist</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+</div>
+<div class="viewcode-block" id="Parser"><a class="viewcode-back" href="../../../pyapi/dbgen/wimsdfpy.html#pyne.dbgen.wimsdfpy.Parser">[docs]</a><span class="k">class</span> <span class="nc">Parser</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Parser for WIMSD fission product yield files.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c"># HTMLParser is not a new style class, no super()</span>
+        <span class="n">HTMLParser</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_currrow</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fromnucs</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fission_product_yields</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">def</span> <span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s">&#39;tr&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_currrow</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">handle_endtag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s">&#39;tr&#39;</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_currrow</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_currrow</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;Fission&#39;</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;product&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_fromnucs</span> <span class="o">=</span> <span class="p">[</span><span class="n">nucname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]]</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">6</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;FP&#39;</span><span class="p">):</span>
+                <span class="k">return</span>
+            <span class="n">tonuc</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fission_product_yields</span> <span class="o">+=</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fromnucs</span><span class="p">,</span> <span class="p">[</span><span class="n">tonuc</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> 
+                                               <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]))</span>
+
+    <span class="k">def</span> <span class="nf">handle_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_currrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+</div>
+<span class="n">fpy_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="s">&#39;from_nuc&#39;</span><span class="p">,</span> <span class="s">&#39;i4&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;to_nuc&#39;</span><span class="p">,</span> <span class="s">&#39;i4&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;yields&#39;</span><span class="p">,</span> <span class="s">&#39;f8&#39;</span><span class="p">),</span>
+    <span class="p">])</span>
+
+
+<div class="viewcode-block" id="parse_fpy"><a class="viewcode-back" href="../../../pyapi/dbgen/wimsdfpy.html#pyne.dbgen.wimsdfpy.parse_fpy">[docs]</a><span class="k">def</span> <span class="nf">parse_fpy</span><span class="p">(</span><span class="n">build_dir</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Converts fission product yeild data to a numpy array.&quot;&quot;&quot;</span>
+    <span class="n">build_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;wimsd-fpyield.html&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">build_filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">raw_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">Parser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">fission_product_yields</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">fpy_dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+</div>
+<div class="viewcode-block" id="make_fpy_table"><a class="viewcode-back" href="../../../pyapi/dbgen/wimsdfpy.html#pyne.dbgen.wimsdfpy.make_fpy_table">[docs]</a><span class="k">def</span> <span class="nf">make_fpy_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Adds the neutron scattering lengths to the nuc_data library.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nuc_data : str</span>
+<span class="sd">        Path to nuclide data file.</span>
+<span class="sd">    build_dir : str</span>
+<span class="sd">        Directory the html files in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">yields</span> <span class="o">=</span> <span class="n">parse_fpy</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">BASIC_FILTERS</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s">&#39;neutron&#39;</span><span class="p">):</span>
+        <span class="n">neutron_group</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createGroup</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;neutron&#39;</span><span class="p">,</span> <span class="s">&#39;Neutron Data&#39;</span><span class="p">)</span>
+    <span class="n">fpy_table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s">&#39;/neutron/&#39;</span><span class="p">,</span> <span class="s">&#39;wimsd_fission_products&#39;</span><span class="p">,</span> <span class="n">yields</span><span class="p">,</span> 
+                               <span class="s">&#39;WIMSD Fission Product Yields, fractions [unitless]&#39;</span><span class="p">)</span>
+    <span class="n">fpy_table</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="make_fpy"><a class="viewcode-back" href="../../../pyapi/dbgen/wimsdfpy.html#pyne.dbgen.wimsdfpy.make_fpy">[docs]</a><span class="k">def</span> <span class="nf">make_fpy</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Controller function for WIMS fission products.&quot;&quot;&quot;</span>
+    <span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">build_dir</span>
+
+    <span class="c"># Check that the table exists</span>
+    <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">BASIC_FILTERS</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s">&#39;neutron&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">neutron</span><span class="p">,</span> 
+                                                  <span class="s">&#39;wimsd_fission_products&#39;</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;skipping WIMSD fission product yield table creation; &#39;</span>
+                  <span class="s">&#39;already exists.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+    <span class="c"># Grab the raw data</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Grabbing WIMSD fission product yield data.&quot;</span><span class="p">)</span>
+    <span class="n">grab_fpy</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
+
+    <span class="c"># Make scatering table once we have the data</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Making WIMSD fission product yield table.&#39;</span><span class="p">)</span>
+    <span class="n">make_fpy_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">)</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../../../index.html">
+          <img class="logo" src="../../../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../../../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2014, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

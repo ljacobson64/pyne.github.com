@@ -258,30 +258,30 @@ the material may be performed with integer-keys, string-keys, slices, or sequenc
 <p>Other methods also exist for obtaining commonly used sub-materials, such as gathering the Uranium or
 Plutonium vector.</p>
 </div>
-<div class="section" id="molecular-weights-atom-fractions">
-<h2>Molecular Weights &amp; Atom Fractions<a class="headerlink" href="#molecular-weights-atom-fractions" title="Permalink to this headline">¶</a></h2>
-<p>You may also calculate the molecular weight of a material via the <a class="reference internal" href="../pyapi/material.html#pyne.material.Material.molecular_weight" title="pyne.material.Material.molecular_weight"><tt class="xref py py-meth docutils literal"><span class="pre">Material.molecular_weight()</span></tt></a> method.
+<div class="section" id="molecular-mass-atom-fractions">
+<h2>Molecular Mass &amp; Atom Fractions<a class="headerlink" href="#molecular-mass-atom-fractions" title="Permalink to this headline">¶</a></h2>
+<p>You may also calculate the molecular mass of a material via the <a class="reference internal" href="../pyapi/material.html#pyne.material.Material.molecular_mass" title="pyne.material.Material.molecular_mass"><tt class="xref py py-meth docutils literal"><span class="pre">Material.molecular_mass()</span></tt></a> method.
 This uses the <a class="reference internal" href="../pyapi/data.html#pyne.data.atomic_mass" title="pyne.data.atomic_mass"><tt class="xref py py-func docutils literal"><span class="pre">pyne.data.atomic_mass()</span></tt></a> function to look up the atomic mass values of
 the constituent nuclides.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [29]: </span><span class="n">leu</span><span class="o">.</span><span class="n">molecular_weight</span><span class="p">()</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [29]: </span><span class="n">leu</span><span class="o">.</span><span class="n">molecular_mass</span><span class="p">()</span>
 <span class="gr">Out[29]: </span><span class="mf">237.9290388038301</span>
 </pre></div>
 </div>
 <p>Note that by default, materials are assumed to have one atom per molecule.  This is a poor
 assumption for more complex materials.  For example, take water.  Without specifying the
-number of atoms per molecule, the molecular weight calculation will be off by a factor of 3.
+number of atoms per molecule, the molecular mass calculation will be off by a factor of 3.
 This can be remedied by passing the correct number to the method.  If there is no other valid
 number of molecules stored on the material, this will set the appropriate attribute on the
 class.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [30]: </span><span class="n">h2o</span> <span class="o">=</span> <span class="n">Material</span><span class="p">({</span><span class="mi">10010</span><span class="p">:</span> <span class="mf">0.11191487328808077</span><span class="p">,</span> <span class="mi">80160</span><span class="p">:</span> <span class="mf">0.8880851267119192</span><span class="p">})</span>
 
-<span class="gp">In [31]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">molecular_weight</span><span class="p">()</span>
+<span class="gp">In [31]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">molecular_mass</span><span class="p">()</span>
 <span class="gr">Out[31]: </span><span class="mf">6.003521561343334</span>
 
-<span class="gp">In [32]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">molecular_weight</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="gp">In [32]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">molecular_mass</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
 <span class="gr">Out[32]: </span><span class="mf">18.01056468403</span>
 
-<span class="gp">In [33]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_mol</span>
+<span class="gp">In [33]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_molecule</span>
 <span class="gr">Out[33]: </span><span class="mf">3.0</span>
 </pre></div>
 </div>
@@ -294,7 +294,7 @@ fractional number of atoms is returned.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [34]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">to_atom_frac</span><span class="p">()</span>
 <span class="gr">Out[34]: </span><span class="p">{</span><span class="mi">10010</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">80160</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
 
-<span class="gp">In [35]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_mol</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+<span class="gp">In [35]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_molecule</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
 
 <span class="gp">In [36]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">to_atom_frac</span><span class="p">()</span>
 <span class="gr">Out[36]: </span><span class="p">{</span><span class="mi">10010</span><span class="p">:</span> <span class="mf">0.666666666667</span><span class="p">,</span> <span class="mi">80160</span><span class="p">:</span> <span class="mf">0.333333333333</span><span class="p">}</span>
@@ -306,7 +306,7 @@ which will clear out the current contents of the material&#8217;s composition an
 it with the mass-weighted values.  Note that
 when you initialize a material from atom fractions, the sum of all of the atom fractions
 will be stored as the atoms per molecule on this class.  Additionally, if a mass is not
-already set on the material, the molecular weight will be used.</p>
+already set on the material, the molecular mass will be used.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [37]: </span><span class="n">h2o_atoms</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10010</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="s">&#39;O16&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
 
 <span class="gp">In [38]: </span><span class="n">h2o</span> <span class="o">=</span> <span class="n">Material</span><span class="p">()</span>
@@ -316,13 +316,13 @@ already set on the material, the molecular weight will be used.</p>
 <span class="gp">In [40]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">comp</span>
 <span class="gr">Out[40]: </span><span class="p">{</span><span class="mi">10010</span><span class="p">:</span> <span class="mf">0.111914873288</span><span class="p">,</span> <span class="mi">80160</span><span class="p">:</span> <span class="mf">0.888085126712</span><span class="p">}</span>
 
-<span class="gp">In [41]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_mol</span>
+<span class="gp">In [41]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_molecule</span>
 <span class="gr">Out[41]: </span><span class="mf">3.0</span>
 
 <span class="gp">In [42]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">mass</span>
 <span class="gr">Out[42]: </span><span class="mf">18.01056468403</span>
 
-<span class="gp">In [43]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">molecular_weight</span><span class="p">()</span>
+<span class="gp">In [43]: </span><span class="n">h2o</span><span class="o">.</span><span class="n">molecular_mass</span><span class="p">()</span>
 <span class="gr">Out[43]: </span><span class="mf">18.01056468403</span>
 </pre></div>
 </div>
@@ -426,7 +426,7 @@ Doing so invalidates any previous views into this container.</p>
 <li><a class="reference internal" href="#material-arithmetic">Material Arithmetic</a></li>
 <li><a class="reference internal" href="#raw-member-access">Raw Member Access</a></li>
 <li><a class="reference internal" href="#indexing-slicing">Indexing &amp; Slicing</a></li>
-<li><a class="reference internal" href="#molecular-weights-atom-fractions">Molecular Weights &amp; Atom Fractions</a></li>
+<li><a class="reference internal" href="#molecular-mass-atom-fractions">Molecular Mass &amp; Atom Fractions</a></li>
 <li><a class="reference internal" href="#user-defined-metadata">User-defined Metadata</a></li>
 </ul>
 </li>
@@ -489,7 +489,7 @@ Doing so invalidates any previous views into this container.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2013, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

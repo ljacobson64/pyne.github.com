@@ -81,19 +81,84 @@ if(ga_enabled){
             
   <h1>Source code for pyne.dbgen.decay</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;This module provides a way to grab and store raw data for radioactive decay.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">urllib</span>
-<span class="kn">import</span> <span class="nn">urllib2</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="kn">as</span> <span class="nn">urllib</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib</span>
 <span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
 
-<span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">ensdf</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
+
+
+<span class="k">def</span> <span class="nf">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">dstart</span><span class="p">,</span> <span class="n">dlen</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">dstart</span><span class="p">:</span><span class="n">dstart</span> <span class="o">+</span> <span class="n">dlen</span><span class="p">])</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">dstart</span> <span class="o">+</span> <span class="n">dlen</span><span class="p">:</span><span class="n">dstart</span> <span class="o">+</span> <span class="n">dlen</span> <span class="o">+</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">error</span>
+
+
+<span class="k">def</span> <span class="nf">_read_variablepoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">dstart</span><span class="p">,</span> <span class="n">dlen</span><span class="p">):</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">dstart</span><span class="p">:</span><span class="n">dstart</span> <span class="o">+</span> <span class="n">dlen</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">_getvalue</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">_getvalue</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">error</span>
+
+
+<span class="k">def</span> <span class="nf">grab_atomic_data</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+    <span class="n">medfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;mednew.dat&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">medfile</span><span class="p">):</span>
+        <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="s">&#39;http://www.nndc.bnl.gov/nndcscr/ensdf_pgm/&#39;</span>
+                           <span class="o">+</span> <span class="s">&#39;analysis/radlst/mednew.dat&#39;</span><span class="p">,</span> <span class="n">medfile</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">parse_atomic_data</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">medfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;mednew.dat&#39;</span><span class="p">)</span>
+    <span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">103</span><span class="p">,),</span> <span class="n">atomic_dtype</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">medfile</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">Z</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+            <span class="n">k_shell_fluor</span><span class="p">,</span> <span class="n">k_shell_fluor_error</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+            <span class="n">l_shell_fluor</span><span class="p">,</span> <span class="n">l_shell_fluor_error</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+            <span class="c">#Probability of creating L-shell vacancy by filling K-shell vacancy</span>
+            <span class="n">prob</span><span class="p">,</span> <span class="n">prob_error</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+            <span class="n">k_shell_be</span><span class="p">,</span> <span class="n">k_shell_be_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+            <span class="n">li_shell_be</span><span class="p">,</span> <span class="n">li_shell_be_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+            <span class="n">mi_shell_be</span><span class="p">,</span> <span class="n">mi_shell_be_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+            <span class="n">ni_shell_be</span><span class="p">,</span> <span class="n">ni_shell_be_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Kb_to_Ka</span><span class="p">,</span> <span class="n">Kb_to_Ka_err</span> <span class="o">=</span> <span class="n">_read_variablepoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+            <span class="n">Ka2_to_Ka1</span><span class="p">,</span> <span class="n">Ka2_to_Ka1_err</span> <span class="o">=</span> <span class="n">_read_variablepoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+            <span class="n">L_auger</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">29</span><span class="p">:</span><span class="mi">36</span><span class="p">])</span>
+            <span class="n">K_auger</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">36</span><span class="p">:</span><span class="mi">42</span><span class="p">])</span>
+            <span class="n">Ka1_X_ray_en</span><span class="p">,</span> <span class="n">Ka1_X_ray_en_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+            <span class="n">Ka2_X_ray_en</span><span class="p">,</span> <span class="n">Ka2_X_ray_en_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+            <span class="n">Kb_X_ray_en</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">65</span><span class="p">:</span><span class="mi">69</span><span class="p">])</span>
+            <span class="n">L_X_ray_en</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">70</span><span class="p">:</span><span class="mi">76</span><span class="p">])</span>
+            <span class="n">dat</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">,</span> <span class="n">k_shell_fluor</span><span class="p">,</span> <span class="n">k_shell_fluor_error</span><span class="p">,</span> <span class="n">l_shell_fluor</span><span class="p">,</span> \
+                     <span class="n">l_shell_fluor_error</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">k_shell_be</span><span class="p">,</span> <span class="n">k_shell_be_err</span><span class="p">,</span> \
+                     <span class="n">li_shell_be</span><span class="p">,</span> <span class="n">li_shell_be_err</span><span class="p">,</span> <span class="n">mi_shell_be</span><span class="p">,</span> \
+                     <span class="n">mi_shell_be_err</span><span class="p">,</span> <span class="n">ni_shell_be</span><span class="p">,</span> <span class="n">ni_shell_be_err</span><span class="p">,</span> \
+                     <span class="n">Kb_to_Ka</span><span class="p">,</span> <span class="n">Kb_to_Ka_err</span><span class="p">,</span> <span class="n">Ka2_to_Ka1</span><span class="p">,</span> <span class="n">Ka2_to_Ka1_err</span><span class="p">,</span> \
+                     <span class="n">L_auger</span><span class="p">,</span> <span class="n">K_auger</span><span class="p">,</span> <span class="n">Ka1_X_ray_en</span><span class="p">,</span> <span class="n">Ka1_X_ray_en_err</span><span class="p">,</span> \
+                     <span class="n">Ka2_X_ray_en</span><span class="p">,</span> <span class="n">Ka2_X_ray_en_err</span><span class="p">,</span> <span class="n">Kb_X_ray_en</span><span class="p">,</span> <span class="n">L_X_ray_en</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">dat</span>
+
 
 <div class="viewcode-block" id="grab_ensdf_decay"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.grab_ensdf_decay">[docs]</a><span class="k">def</span> <span class="nf">grab_ensdf_decay</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the ENSDF decay data files</span>
@@ -112,68 +177,264 @@ if(ga_enabled){
         <span class="k">pass</span>
 
     <span class="c"># Grab ENSDF files and unzip them.</span>
-    <span class="n">iaea_base_url</span> <span class="o">=</span> <span class="s">&#39;http://www-nds.iaea.org/ensdf_base_files/2010-November/&#39;</span>
-    <span class="n">s3_base_url</span> <span class="o">=</span> <span class="s">&#39;http://s3.amazonaws.com/pyne/&#39;</span>
-    <span class="n">ensdf_zip</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;ensdf_1010_099.zip&#39;</span><span class="p">,</span> <span class="s">&#39;ensdf_1010_199.zip&#39;</span><span class="p">,</span> <span class="s">&#39;ensdf_1010_294.zip&#39;</span><span class="p">,]</span>
+    <span class="n">iaea_base_url</span> <span class="o">=</span> <span class="s">&#39;http://www-nds.iaea.org/ensdf_base_files/2013-October/&#39;</span>
+    <span class="n">cf_base_url</span> <span class="o">=</span> <span class="s">&#39;http://data.pyne.io/&#39;</span>
+    <span class="n">ensdf_zip</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;ensdf_131009_099.zip&#39;</span><span class="p">,</span> <span class="s">&#39;ensdf_131009_199.zip&#39;</span><span class="p">,</span> <span class="s">&#39;ensdf_131009_294.zip&#39;</span><span class="p">,</span> <span class="p">]</span>
 
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">ensdf_zip</span><span class="p">:</span>
         <span class="n">fpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">f</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">build_dir</span><span class="p">):</span>
-            <span class="k">print</span> <span class="s">&quot;  grabbing {0} and placing it in {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fpath</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;  grabbing {0} and placing it in {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fpath</span><span class="p">))</span>
             <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">iaea_base_url</span> <span class="o">+</span> <span class="n">f</span><span class="p">,</span> <span class="n">fpath</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1048576</span><span class="p">:</span> 
-                <span class="k">print</span> <span class="s">&quot;  could not get {0} from IAEA; trying S3 mirror&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1048576</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">&quot;  could not get {0} from IAEA; trying mirror&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
-                <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">s3_base_url</span> <span class="o">+</span> <span class="n">f</span><span class="p">,</span> <span class="n">fpath</span><span class="p">)</span>
+                <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">cf_base_url</span> <span class="o">+</span> <span class="n">f</span><span class="p">,</span> <span class="n">fpath</span><span class="p">)</span>
 
         <span class="c"># not using ZipFile context manager (with statement for Python 2.6)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">zf</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">zf</span><span class="o">.</span><span class="n">namelist</span><span class="p">():</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">name</span><span class="p">)):</span>
-                    <span class="k">print</span> <span class="s">&quot;    extracting {0} from {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;    extracting {0} from {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
                     <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">)</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        
-
 
 </div>
-<span class="n">atomic_decay_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
-    <span class="p">(</span><span class="s">&#39;from_nuc&#39;</span><span class="p">,</span>   <span class="nb">int</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;level&#39;</span><span class="p">,</span>         <span class="nb">float</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;to_nuc&#39;</span><span class="p">,</span>     <span class="nb">int</span><span class="p">),</span> 
-    <span class="p">(</span><span class="s">&#39;half_life&#39;</span><span class="p">,</span>     <span class="nb">float</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;decay_const&#39;</span><span class="p">,</span>   <span class="nb">float</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;branch_ratio&#39;</span><span class="p">,</span>  <span class="nb">float</span><span class="p">),</span>
-    <span class="p">])</span>
-    
-    
-<div class="viewcode-block" id="parse_decay"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.parse_decay">[docs]</a><span class="k">def</span> <span class="nf">parse_decay</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<span class="n">level_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="s">&#39;nuc_id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;rx_id&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;half_life&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;level&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;branch_ratio&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;metastable&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;special&#39;</span><span class="p">,</span> <span class="s">&#39;S1&#39;</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">decay_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="s">&#39;parent&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;child&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;decay&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;half_life&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;half_life_error&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;branch_ratio&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;photon_branch_ratio&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;photon_branch_ratio_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;beta_branch_ratio&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;beta_branch_ratio_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">gammas_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="s">&#39;from_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;to_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;parent_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;energy&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;energy_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;photon_intensity&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;photon_intensity_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;conv_intensity&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;conv_intensity_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;total_intensity&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;total_intensity_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;k_conv_e&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;l_conv_e&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;m_conv_e&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">alphas_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="s">&#39;from_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;to_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;energy&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;intensity&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">betas_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="s">&#39;from_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;to_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;endpoint_energy&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;avg_energy&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;intensity&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">ecbp_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="s">&#39;from_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;to_nuc&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;endpoint_energy&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;avg_energy&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;beta_plus_intensity&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;ec_intensity&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;k_conv_e&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;l_conv_e&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;m_conv_e&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+<span class="p">])</span>
+
+
+<span class="n">atomic_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;k_shell_fluor&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;k_shell_fluor_error&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;l_shell_fluor&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;l_shell_fluor_error&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;prob&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;k_shell_be&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;k_shell_be_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;li_shell_be&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;li_shell_be_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;mi_shell_be&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;mi_shell_be_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;ni_shell_be&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;ni_shell_be_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;kb_to_ka&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;kb_to_ka_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;ka2_to_ka1&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;ka2_to_ka1_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;l_auger&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;k_auger&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;ka1_x_ray_en&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;ka1_x_ray_en_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;ka2_x_ray_en&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;ka2_x_ray_en_err&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;kb_x_ray_en&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;l_x_ray_en&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+<span class="p">])</span>
+
+
+<div class="viewcode-block" id="parse_level_data"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.parse_level_data">[docs]</a><span class="k">def</span> <span class="nf">parse_level_data</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Builds and returns a list of nuclide decay data.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    build_dir : str</span>
+<span class="sd">        build_nuc_data directory containing ENSDF folder</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    level_list_array : np.ndarray</span>
+<span class="sd">        array of level data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">build_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;ENSDF&#39;</span><span class="p">)</span>
+
+    <span class="n">level_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;ensdf.*&#39;</span><span class="p">))])</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;    building level data from {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="n">level_list</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">levels</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">level_list</span><span class="p">)</span>
+
+    <span class="n">level_list_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">level_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">level_dtype</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">level_list_array</span>
+
+</div>
+<div class="viewcode-block" id="parse_decay_data"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.parse_decay_data">[docs]</a><span class="k">def</span> <span class="nf">parse_decay_data</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Builds and returns a list of nuclide decay data.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    build_dir : str</span>
+<span class="sd">        build_nuc_data directory containing ENSDF folder</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    all_decay_array : np.ndarray</span>
+<span class="sd">        array of decay data</span>
+<span class="sd">    all_gammas_array : np.ndarray</span>
+<span class="sd">        array of gamma ray data</span>
+<span class="sd">    all_alphas_array : np.ndarray</span>
+<span class="sd">        array of alpha decay data</span>
+<span class="sd">    all_betas_array : np.ndarray</span>
+<span class="sd">        array of beta decay data</span>
+<span class="sd">    all_ecbp_array : np.ndarray</span>
+<span class="sd">        array of electron capture and beta plus decay data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">build_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;ENSDF&#39;</span><span class="p">)</span>
 
     <span class="n">decay_data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;ensdf.*&#39;</span><span class="p">))])</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&quot;    parsing decay data from {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-        <span class="n">decay_data</span> <span class="o">+=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">half_life</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;    parsing decay data from {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="n">decay_data</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">decays</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">decay_data</span><span class="p">)</span>
 
-    <span class="n">ln2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
-    <span class="n">decay_data</span> <span class="o">=</span> <span class="p">[(</span><span class="n">fn</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">ln2</span><span class="o">/</span><span class="n">hl</span><span class="p">,</span> <span class="n">br</span><span class="p">)</span> <span class="k">for</span> <span class="n">fn</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">br</span> <span class="ow">in</span> <span class="n">decay_data</span><span class="p">]</span>
-    <span class="n">decay_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">decay_data</span><span class="p">)</span>
-    <span class="n">decay_data</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">decay_data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="n">all_decays</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">all_gammas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">all_alphas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">all_betas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">all_ecbp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">decay_data</span><span class="p">:</span>
+        <span class="n">all_decays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">subitem</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span>
+                <span class="n">all_gammas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">subitem</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">subitem</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span>
+                <span class="n">all_alphas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">subitem</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">subitem</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span>
+                <span class="n">all_betas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">subitem</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">13</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">subitem</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="mi">13</span><span class="p">]:</span>
+                <span class="n">all_ecbp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">subitem</span><span class="p">))</span>
 
-    <span class="n">decay_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">decay_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">atomic_decay_dtype</span><span class="p">)</span>
-    <span class="c">#da, mask = np.unique(decay_array, return_index=True)</span>
-    <span class="c">#mask.sort()</span>
-    <span class="c">#decay_array = decay_array[mask]</span>
-    <span class="k">return</span> <span class="n">decay_array</span>
-    
-    </div>
+    <span class="n">all_decay_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_decays</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">decay_dtype</span><span class="p">)</span>
+    <span class="n">all_gammas_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_gammas</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">gammas_dtype</span><span class="p">)</span>
+    <span class="n">all_alphas_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_alphas</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">alphas_dtype</span><span class="p">)</span>
+    <span class="n">all_betas_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_betas</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">betas_dtype</span><span class="p">)</span>
+    <span class="n">all_ecbp_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_ecbp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ecbp_dtype</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">all_decay_array</span><span class="p">,</span> <span class="n">all_gammas_array</span><span class="p">,</span> <span class="n">all_alphas_array</span><span class="p">,</span> \
+           <span class="n">all_betas_array</span><span class="p">,</span> <span class="n">all_ecbp_array</span>
+
+</div>
 <div class="viewcode-block" id="make_atomic_decay_table"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.make_atomic_decay_table">[docs]</a><span class="k">def</span> <span class="nf">make_atomic_decay_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Makes atomic decay table in the nuc_data library.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nuc_data : str</span>
+<span class="sd">        Path to nuclide data file.</span>
+<span class="sd">    build_dir : str</span>
+<span class="sd">        Directory to place xray data file in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">xrd</span> <span class="o">=</span> <span class="n">parse_atomic_data</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
+
+    <span class="n">db</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">BASIC_FILTERS</span><span class="p">)</span>
+
+    <span class="c"># Make a new the table</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s">&#39;decay&#39;</span><span class="p">):</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">createGroup</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;decay&#39;</span><span class="p">,</span> <span class="s">&#39;ENSDF Decay data&#39;</span><span class="p">)</span>
+
+    <span class="n">atomic_table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s">&#39;/decay/&#39;</span><span class="p">,</span> <span class="s">&#39;atomic&#39;</span><span class="p">,</span> <span class="n">xrd</span><span class="p">,</span>
+                              <span class="s">&#39;z&#39;</span>
+                              <span class="s">&#39;k_shell_fluor&#39;</span>
+                              <span class="s">&#39;k_shell_fluor_error&#39;</span>
+                              <span class="s">&#39;l_shell_fluor&#39;</span>
+                              <span class="s">&#39;l_shell_fluor_error&#39;</span>
+                              <span class="s">&#39;prob&#39;</span>
+                              <span class="s">&#39;k_shell_be&#39;</span>
+                              <span class="s">&#39;k_shell_be_err&#39;</span>
+                              <span class="s">&#39;li_shell_be&#39;</span>
+                              <span class="s">&#39;li_shell_be_err&#39;</span>
+                              <span class="s">&#39;mi_shell_be&#39;</span>
+                              <span class="s">&#39;mi_shell_be_err&#39;</span>
+                              <span class="s">&#39;ni_shell_be&#39;</span>
+                              <span class="s">&#39;ni_shell_be_err&#39;</span>
+                              <span class="s">&#39;kb_to_ka&#39;</span>
+                              <span class="s">&#39;kb_to_ka_err&#39;</span>
+                              <span class="s">&#39;ka2_to_ka1&#39;</span>
+                              <span class="s">&#39;ka2_to_ka1_err&#39;</span>
+                              <span class="s">&#39;k_auger&#39;</span>
+                              <span class="s">&#39;k_auger&#39;</span>
+                              <span class="s">&#39;ka1_x_ray_en&#39;</span>
+                              <span class="s">&#39;ka1_x_ray_en_err&#39;</span>
+                              <span class="s">&#39;ka2_x_ray_en&#39;</span>
+                              <span class="s">&#39;ka2_x_ray_en_err&#39;</span>
+                              <span class="s">&#39;kb_x_ray_en&#39;</span>
+                              <span class="s">&#39;l_x_ray_en&#39;</span><span class="p">,</span>
+                              <span class="n">expectedrows</span><span class="o">=</span><span class="mi">103</span><span class="p">)</span>
+    <span class="n">atomic_table</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="make_decay_half_life_table"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.make_decay_half_life_table">[docs]</a><span class="k">def</span> <span class="nf">make_decay_half_life_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Makes a decay table in the nuc_data library.</span>
 
 <span class="sd">    Parameters</span>
@@ -183,26 +444,81 @@ if(ga_enabled){
 <span class="sd">    build_dir : str</span>
 <span class="sd">        Directory to place ensdf files in.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># Grab raw data</span>
-    <span class="n">atomic_decay</span>  <span class="o">=</span> <span class="n">parse_decay</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
+    <span class="c"># Grab raw level data</span>
+    <span class="n">level_list</span> <span class="o">=</span> <span class="n">parse_level_data</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
 
     <span class="c"># Open the HDF5 File</span>
-    <span class="n">decay_db</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">BASIC_FILTERS</span><span class="p">)</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">BASIC_FILTERS</span><span class="p">)</span>
 
     <span class="c"># Make a new the table</span>
-    <span class="n">decaytable</span> <span class="o">=</span> <span class="n">decay_db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="s">&quot;atomic_decay&quot;</span><span class="p">,</span> 
-                    <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">atomic_decay_dtype</span><span class="p">),</span> 
-                    <span class="s">&quot;Atomic Decay Data level [MeV], half_life [s], decay_const &quot;</span>
-                    <span class="s">&quot;[1/s], branch_ratio [frac]&quot;</span><span class="p">,</span> <span class="n">expectedrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">atomic_decay</span><span class="p">))</span>
-    <span class="n">decaytable</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atomic_decay</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s">&#39;decay&#39;</span><span class="p">):</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">createGroup</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;decay&#39;</span><span class="p">,</span> <span class="s">&#39;ENSDF Decay data&#39;</span><span class="p">)</span>
 
-    <span class="c"># Ensure that data was written to table</span>
-    <span class="n">decaytable</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="n">ll_table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s">&#39;/decay/&#39;</span><span class="p">,</span> <span class="s">&#39;level_list&#39;</span><span class="p">,</span> <span class="n">level_list</span><span class="p">,</span>
+                              <span class="s">&#39;nuclide [nuc_id], level [keV], half life [s],&#39;</span>
+                              <span class="s">&#39;metastable [int]&#39;</span><span class="p">,</span> <span class="n">expectedrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">level_list</span><span class="p">))</span>
+    <span class="n">ll_table</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+    <span class="c">#now that the level data is in nuc_data we can build the decay data fast</span>
+    <span class="n">decay</span><span class="p">,</span> <span class="n">gammas</span><span class="p">,</span> <span class="n">alphas</span><span class="p">,</span> <span class="n">betas</span><span class="p">,</span> <span class="n">ecbp</span> <span class="o">=</span> <span class="n">parse_decay_data</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
+
+    <span class="n">decay_table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s">&#39;/decay/&#39;</span><span class="p">,</span> <span class="s">&#39;decays&#39;</span><span class="p">,</span> <span class="n">decay</span><span class="p">,</span>
+                                 <span class="s">&#39;parent nuclide [nuc_id], daughter nuclide &#39;</span>
+                                 <span class="s">&#39;[nuc_id], decay [string], half life [s],&#39;</span>
+                                 <span class="s">&#39;half life error [s], branch ratio [frac],&#39;</span>
+                                 <span class="s">&#39;photon branch ratio [ratio],&#39;</span>
+                                 <span class="s">&#39;photon branch ratio error [ratio],&#39;</span>
+                                 <span class="s">&#39;beta branch ratio [ratio],&#39;</span>
+                                 <span class="s">&#39;beta branch ratio error [ratio]&#39;</span><span class="p">,</span>
+                                 <span class="n">expectedrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">decay</span><span class="p">))</span>
+    <span class="n">decay_table</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+    <span class="n">gamma_table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s">&#39;/decay/&#39;</span><span class="p">,</span> <span class="s">&#39;gammas&#39;</span><span class="p">,</span> <span class="n">gammas</span><span class="p">,</span>
+                                 <span class="s">&#39;from_nuc [int], to_nuc [int], primary parent&#39;</span>
+                                 <span class="s">&#39;nuc_id [int],&#39;</span>
+                                 <span class="s">&#39;Energy [keV], Energy error [keV], &#39;</span>
+                                 <span class="s">&#39;photon intensity [ratio], &#39;</span>
+                                 <span class="s">&#39;photon intensity error [ratio],&#39;</span>
+                                 <span class="s">&#39;conversion e intensity [ratio],&#39;</span>
+                                 <span class="s">&#39;conversion e intensity error [ratio],&#39;</span>
+                                 <span class="s">&#39;total intensity [ratio],&#39;</span>
+                                 <span class="s">&#39;total intensity error [ratio], &#39;</span>
+                                 <span class="s">&#39;K conversion electron&#39;</span>
+                                 <span class="s">&#39;intensity [ratio], L conversion electron&#39;</span>
+                                 <span class="s">&#39;intensity [ratio], M conversion electron&#39;</span>
+                                 <span class="s">&#39;intensity [ratio]&#39;</span><span class="p">,</span>
+                                 <span class="n">expectedrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">gammas</span><span class="p">))</span>
+
+    <span class="n">gamma_table</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+    <span class="n">alphas_table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s">&#39;/decay/&#39;</span><span class="p">,</span> <span class="s">&#39;alphas&#39;</span><span class="p">,</span> <span class="n">alphas</span><span class="p">,</span>
+                                  <span class="s">&#39;from_nuc [int], to_nuc [int]&#39;</span>
+                                  <span class="s">&#39;Energy [keV], Intensity [ratio],&#39;</span><span class="p">,</span>
+                                  <span class="n">expectedrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">))</span>
+    <span class="n">alphas_table</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+    <span class="n">betas_table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s">&#39;/decay/&#39;</span><span class="p">,</span> <span class="s">&#39;betas&#39;</span><span class="p">,</span> <span class="n">betas</span><span class="p">,</span>
+                                 <span class="s">&#39;from_nuc [int], to_nuc [int],&#39;</span>
+                                 <span class="s">&#39;Endpoint Energy [keV], Average Energy [keV],&#39;</span>
+                                 <span class="s">&#39;Intensity [ratio]&#39;</span>
+                                 <span class="p">,</span> <span class="n">expectedrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">betas</span><span class="p">))</span>
+
+    <span class="n">betas_table</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+    <span class="n">ecbp_table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s">&#39;/decay/&#39;</span><span class="p">,</span> <span class="s">&#39;ecbp&#39;</span><span class="p">,</span> <span class="n">ecbp</span><span class="p">,</span>
+                                <span class="s">&#39;from_nuc [int], to_nuc [int],&#39;</span>
+                                <span class="s">&#39;Endpoint Energy [keV], Average Energy [keV],&#39;</span>
+                                <span class="s">&#39;B+ Intensity [ratio], &#39;</span>
+                                <span class="s">&#39;Electron Capture Intensity [ratio],&#39;</span>
+                                <span class="s">&#39;K conversion&#39;</span>
+                                <span class="s">&#39;electron intensity [ratio], L conversion&#39;</span>
+                                <span class="s">&#39;electron intensity [ratio], M conversion&#39;</span>
+                                <span class="s">&#39;electron intensity [ratio]&#39;</span><span class="p">,</span>
+                                <span class="n">expectedrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">ecbp</span><span class="p">))</span>
+    <span class="n">ecbp_table</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 
     <span class="c"># Close the hdf5 file</span>
-    <span class="n">decay_db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-
+    <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 </div>
 <div class="viewcode-block" id="make_decay"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.make_decay">[docs]</a><span class="k">def</span> <span class="nf">make_decay</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
@@ -210,16 +526,22 @@ if(ga_enabled){
     <span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">build_dir</span>
 
     <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s">&#39;atomic_decay&#39;</span><span class="p">):</span>
-            <span class="k">print</span> <span class="s">&quot;skipping ENSDF decay data table creation; already exists.&quot;</span>
-            <span class="k">return</span> 
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s">&#39;decay&#39;</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;skipping ENSDF decay data table creation; already exists.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
 
-    <span class="c"># grab the decay data</span>
-    <span class="k">print</span> <span class="s">&quot;Grabbing the ENSDF decay data from IAEA&quot;</span>
+            <span class="c"># grab the decay data</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Grabbing the ENSDF decay data from IAEA&quot;</span><span class="p">)</span>
     <span class="n">grab_ensdf_decay</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
 
-    <span class="c"># Make atomic weight table once we have the array</span>
-    <span class="k">print</span> <span class="s">&quot;Making decay data table.&quot;</span>
+    <span class="c"># Make atomic mass table once we have the array</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Making decay data table.&quot;</span><span class="p">)</span>
+    <span class="n">make_decay_half_life_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Grabbing Atomic data from NNDC&quot;</span><span class="p">)</span>
+    <span class="n">grab_atomic_data</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Making atomic decay data table&quot;</span><span class="p">)</span>
     <span class="n">make_atomic_decay_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">)</span>
 </pre></div></div>
 
@@ -271,7 +593,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2013, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

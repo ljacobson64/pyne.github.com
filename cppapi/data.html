@@ -89,134 +89,754 @@ if(ga_enabled){
             
   <div class="section" id="nuclear-data-libpyne-data">
 <h1>Nuclear Data &#8211; <tt class="docutils literal"><span class="pre">libpyne_data</span></tt><a class="headerlink" href="#nuclear-data-libpyne-data" title="Permalink to this headline">¶</a></h1>
-<div class="line-block">
-<div class="line" id=""><span id="pynestructpyne_1_1atomic__decay__struct"></span><em>struct</em> <strong>pyne::atomic_decay_struct</strong></div>
+<div class="line-block" id="pyne_datastructpyne_1_1alpha__struct">
+<div class="line"><em>struct</em> <strong>pyne::alpha_struct</strong></div>
 <div class="line"><em>#include &lt;data.h&gt;</em></div>
 </div>
 <blockquote>
-<div><p>a struct matching the &#8216;/atomic_decay&#8217; table in nuc_data.h5. </p>
+<div><p>a struct matching the &#8216;/decay/alphas&#8217; table in nuc_data.h5. </p>
 <p></p>
 <em>Public Members</em><blockquote>
-<div><p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a65ecc975f44e3ca697e777afe17a927a"></span>int <strong>from_nuc</strong></p>
+<div><p><span class="target" id="pyne_datastructpyne_1_1alpha__struct_1af2868fe89ba01b7cbff510df39c1964b"></span>int <strong>from_nuc</strong></p>
 <blockquote>
-<div><p>parent species in id form </p>
+<div><p></p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a3c31721d0c6a32a0b400ff58e08432a9"></span>double <strong>level</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1alpha__struct_1a8eb9bab97bf5a3f24807edbe3c3f2c68"></span>int <strong>to_nuc</strong></p>
 <blockquote>
-<div><p>decay level [MeV] </p>
+<div><p></p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1aef90e3cb88e10095119b4ac489b3cff4"></span>int <strong>to_nuc</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1alpha__struct_1aedab5bfe5fc5ac637172047e304cad4a"></span>double <strong>energy</strong></p>
 <blockquote>
-<div><p>child species in id form </p>
+<div><p></p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1ab8a1ac272b7a7a1c95335f1b3c81408a"></span>double <strong>half_life</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1alpha__struct_1ae1300096e34540eba0e09acdfc88fb78"></span>double <strong>intensity</strong></p>
 <blockquote>
-<div><p>species half life [s] </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1a483a4993f476845b523c894dac699906"></span>double <strong>decay_const</strong></p>
-<blockquote>
-<div><p>decay constant [1/s] </p>
-<p></p>
-</div></blockquote>
-<p id=""><span id="pynestructpyne_1_1atomic__decay__struct_1ace17a464715f6aa27bb662c2abed485e"></span>double <strong>branch_ratio</strong></p>
-<blockquote>
-<div><p>decay branch ratio [fraction] </p>
+<div><p></p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynestructpyne_1_1atomic__weight__struct"></span><em>struct</em> <strong>pyne::atomic_weight_struct</strong></div>
+<div class="line-block" id="pyne_datastructpyne_1_1atomic__mass__struct">
+<div class="line"><em>struct</em> <strong>pyne::atomic_mass_struct</strong></div>
 <div class="line"><em>#include &lt;data.h&gt;</em></div>
 </div>
 <blockquote>
-<div><p>a struct matching the atomic_weight table in nuc_data.h5. </p>
+<div><p>a struct matching the atomic_mass table in nuc_data.h5. </p>
 <p></p>
 <em>Public Members</em><blockquote>
-<div><p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1af30ecca96d2085c520b78907f1f4f6dd"></span>int <strong>nuc</strong></p>
+<div><p><span class="target" id="pyne_datastructpyne_1_1atomic__mass__struct_1a8a25e664e91de8eab063d6ecd5b9456b"></span>int <strong>nuc</strong></p>
 <blockquote>
 <div><p>nuclide in id form </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1ac9530cc5acc90c9d4553f398317d7d66"></span>double <strong>mass</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__mass__struct_1adab99510545d7a579d029e982fae23c8"></span>double <strong>mass</strong></p>
 <blockquote>
 <div><p>nuclide atomic mass [amu] </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1a7328fa1c8ceb43e9ac76adf37b5fee37"></span>double <strong>error</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__mass__struct_1ada81b3f28e2b15de05d2f13d0fcf35ac"></span>double <strong>error</strong></p>
 <blockquote>
 <div><p>error in atomic mass [amu] </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1atomic__weight__struct_1a7e35e5c545835d1bcc841cd9946c61ac"></span>double <strong>abund</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__mass__struct_1a1190928e6b63b92dc5f3de12df45437b"></span>double <strong>abund</strong></p>
 <blockquote>
 <div><p>natural abundance of nuclide [atom fraction] </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynestructpyne_1_1scattering__lengths__struct"></span><em>struct</em> <strong>pyne::scattering_lengths_struct</strong></div>
+<div class="line-block" id="pyne_datastructpyne_1_1atomic__struct">
+<div class="line"><em>struct</em> <strong>pyne::atomic_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Structure for atomic data. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a94154d4aa5c7d8f867d49028d1a73456"></span>int <strong>z</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a8d00d74045f0df278f03a233fd637717"></span>double <strong>k_shell_fluor</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a5ca0a52db48cf69e01026265ef7cf302"></span>double <strong>k_shell_fluor_error</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1afbedb28d9ca7e3444fc0d80b28cad900"></span>double <strong>l_shell_fluor</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a486744cdd7f128a0dccc3b4869e9815d"></span>double <strong>l_shell_fluor_error</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a2118275dcc4538bd0554c61b4522d8c5"></span>double <strong>prob</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a29831cfdba87da9290fe84f5170b5029"></span>double <strong>k_shell_be</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a913b53c28d558f8d04262a4746c0693e"></span>double <strong>k_shell_be_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1addc9841563f1318db02393f8849fad79"></span>double <strong>li_shell_be</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a35ef97b342bee106ef6af9fc22582434"></span>double <strong>li_shell_be_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1aa6233b257742f99f43d8cbb19b3c449f"></span>double <strong>mi_shell_be</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a37442025115947b3973ccacaeaa87706"></span>double <strong>mi_shell_be_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1aec3768c8d043b15ffc3d758121d4bdfd"></span>double <strong>ni_shell_be</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a23fac5621d6b48ebdac23944fa417364"></span>double <strong>ni_shell_be_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a2b11484b5554ed950ea283ecc1955b40"></span>double <strong>kb_to_ka</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1acb48434fdc7c68e6d153b4ba26a31668"></span>double <strong>kb_to_ka_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a1477ec89e9b76ce21c2542a685725c43"></span>double <strong>ka2_to_ka1</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1ad85da5f75d322579e1c48a4dc2592a0d"></span>double <strong>ka2_to_ka1_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a4908bcadc07760fa33ad97184aafe5b2"></span>double <strong>l_auger</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1aa3f6051b737353b294d5b84f6c2b63ed"></span>double <strong>k_auger</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a8e2a1dd62ed540dfbe9d3706f4185d42"></span>double <strong>ka1_x_ray_en</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1aa985b4780d2488dea560872134ead8c1"></span>double <strong>ka1_x_ray_en_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a27d8ac34c31ac609e2bfa84d0439060d"></span>double <strong>ka2_x_ray_en</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1a292a648fbdacd83a8110ba83352039bd"></span>double <strong>ka2_x_ray_en_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1adb2b2efdfc2b5e173868e4d29c732f06"></span>double <strong>kb_x_ray_en</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1atomic__struct_1af3ee410b2b0027b01d7fdf3384569049"></span>double <strong>l_x_ray_en</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1beta__struct">
+<div class="line"><em>struct</em> <strong>pyne::beta_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>a struct matching the &#8216;/decay/betas&#8217; table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1beta__struct_1a23bd64468c03e46ae1996fecb5f95bf6"></span>int <strong>from_nuc</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1beta__struct_1a4f700e98899c3d2afd7328158762eb17"></span>int <strong>to_nuc</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1beta__struct_1afa18c380e2156db826b4892372a1ea85"></span>double <strong>endpoint_energy</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1beta__struct_1a5dc6ba0c5e820c033eaad85fb1a78918"></span>double <strong>avg_energy</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1beta__struct_1a337f543d71a40e5f9b6de9bfc8752d2e"></span>double <strong>intensity</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1decay__struct">
+<div class="line"><em>struct</em> <strong>pyne::decay_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>a struct matching the &#8216;/decay/decays&#8217; table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1a85925d6005b392c099217cd7d4bd69fc"></span>int <strong>parent</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1a22e342846b6391a221719bbaed41c13f"></span>int <strong>child</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1a1dcae3325938da1ccab80e63f88d39b1"></span>unsigned int <strong>decay</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1ab3cda2b4b4f74795bc93dbe826d7229e"></span>double <strong>half_life</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1a5c7f644f86727f3a25d506f9e0cbf18e"></span>double <strong>half_life_error</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1a7a3ebddbf79f7745fbfcef04b936945a"></span>double <strong>branch_ratio</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1aeef504dcf63f5b0c6e4cef4a9123a916"></span>double <strong>photon_branch_ratio</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1a9fca63f1b40b28b1aaf6246d0a5b5e18"></span>double <strong>photon_branch_ratio_error</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1a3dca52c011386e5ab4c921ea15344074"></span>double <strong>beta_branch_ratio</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1a9018f86440a2d08bbc0265fa58763aae"></span>double <strong>beta_branch_ratio_error</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1ecbp__struct">
+<div class="line"><em>struct</em> <strong>pyne::ecbp_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>A struct matching the &#8216;/decay/ecbp&#8217; table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1ecbp__struct_1a024151ae8a77d350169baf84bff05777"></span>int <strong>from_nuc</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ecbp__struct_1ab30d545475c8e70e4e0e6717ffe2908f"></span>int <strong>to_nuc</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ecbp__struct_1add3aae1dc0947995ae4db5476f000d16"></span>double <strong>endpoint_energy</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ecbp__struct_1a182ad5b5bb865198aa85367072e3dc4f"></span>double <strong>avg_energy</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ecbp__struct_1a5e36796884ef260e972cb689c4077d08"></span>double <strong>beta_plus_intensity</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ecbp__struct_1a8dec57f11391960981e72535991541c3"></span>double <strong>ec_intensity</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ecbp__struct_1a44d5e84efc8d0d6f5fd4ac2f7c2c40ea"></span>double <strong>k_conv_e</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ecbp__struct_1aa822b80d41e3fa048922a701a9f3b61c"></span>double <strong>l_conv_e</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ecbp__struct_1af83a192e526ccd6041f712378b4af1e5"></span>double <strong>m_conv_e</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1gamma__struct">
+<div class="line"><em>struct</em> <strong>pyne::gamma_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>a struct matching the &#8216;/decay/gammas&#8217; table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1a8dc78991368a9ed273597fd7e834f2d2"></span>int <strong>from_nuc</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1a4fc79e7db41ad1af3c87c191173122af"></span>int <strong>to_nuc</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1aff6f5a5c41d759a843480701cd304217"></span>int <strong>parent_nuc</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1ab30bacc83e99bafcfd9e8aa72f374f5e"></span>double <strong>energy</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1a0352508464469e3eaf7d4bc0199c72c8"></span>double <strong>energy_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1a277f87c39fa0655ed1fb0be70bc9eb42"></span>double <strong>photon_intensity</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1a2b70d59550efc7f88aac84de1b4e6ca6"></span>double <strong>photon_intensity_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1aada14882003b496496cc8669c3e01968"></span>double <strong>conv_intensity</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1a99712d40fe001aeca8ed9db2945a3ac3"></span>double <strong>conv_intensity_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1ab81bf87f88bcef24fdba8d60054db413"></span>double <strong>total_intensity</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1a234113a008f6008f8bb2227983369587"></span>double <strong>total_intensity_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1af629f503f19b61c893d8f6d3cbb18c09"></span>double <strong>k_conv_e</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1acc03c8e81a18c99828a1b84e82eb6800"></span>double <strong>l_conv_e</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1gamma__struct_1a3348b5c97b4f391ec2cdd9b271a7733e"></span>double <strong>m_conv_e</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_dataclasspyne_1_1_invalid_simple_x_s">
+<div class="line"><em>class</em> <strong>pyne::InvalidSimpleXS</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Custom exception for declaring a simple_xs request invalid. </p>
+<p></p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="pyne::InvalidSimpleXS::InvalidSimpleXS"></span><span class="target" id="pyne_dataclasspyne_1_1_invalid_simple_x_s_1aacf3e4c898625e77c2efbcd147caa86e"></span><div class="line-block">
+<div class="line"> <strong>InvalidSimpleXS</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::InvalidSimpleXS::~InvalidSimpleXS"></span><span class="target" id="pyne_dataclasspyne_1_1_invalid_simple_x_s_1add70dcbaf73dfe56bb5647b774eaa966"></span><div class="line-block">
+<div class="line"> <strong>~InvalidSimpleXS</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::InvalidSimpleXS::InvalidSimpleXS__ss"></span><span class="target" id="pyne_dataclasspyne_1_1_invalid_simple_x_s_1ad3bac5f587ea476c11a622024914d074"></span><div class="line-block">
+<div class="line"> <strong>InvalidSimpleXS</strong>(std::string msg)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::InvalidSimpleXS::whatC"></span><span class="target" id="pyne_dataclasspyne_1_1_invalid_simple_x_s_1aaafdfd9422833d680a00d7c00263b04a"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Private Members</em><blockquote>
+<div><p><span class="target" id="pyne_dataclasspyne_1_1_invalid_simple_x_s_1a9906c0a87232ac69388947710266c173"></span>std::string <strong>msg_</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1level__struct">
+<div class="line"><em>struct</em> <strong>pyne::level_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>a struct matching the &#8216;/decay/level_list&#8217; table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1level__struct_1a409dce0f9b579dd63ad53e470dc6301c"></span>int <strong>nuc_id</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1level__struct_1a1f402e606879b2a46d6ee618f917740c"></span>unsigned int <strong>rx_id</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1level__struct_1abf5f0ab26e92536ca5e51a309cbba7e4"></span>double <strong>half_life</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1level__struct_1a7c5b463ec3e6ec5cda2d86e74d574dd8"></span>double <strong>level</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1level__struct_1a059cf3be9dea59bca4498e4adc616456"></span>double <strong>branch_ratio</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1level__struct_1a2131679592a67e882afe23c617a92e79"></span>int <strong>metastable</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1level__struct_1ae03c4c3dd08736a7b7be12242d43aee0"></span>char <strong>special</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1ndsfpy__struct">
+<div class="line"><em>struct</em> <strong>pyne::ndsfpy_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>a struct matching the &#8216;/neutron/nds_fission_product&#8217; table in nuc_data.h5 </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1ndsfpy__struct_1aa7fc20eefc84ea2400fb0bb2e461ba3f"></span>int <strong>from_nuc</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpy__struct_1a99e09ee92fee32ae18d9266c16565bc4"></span>int <strong>to_nuc</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpy__struct_1a79dde831fc0b1e671c0f0dab8ea31dec"></span>double <strong>yield_thermal</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpy__struct_1a617099ca2f762e8296474b0205d3384f"></span>double <strong>yield_thermal_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpy__struct_1aaaad2ebac45a901c8cc62558d025c4b1"></span>double <strong>yield_fast</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpy__struct_1a18f1086ae2f2f0046a63395fce527f83"></span>double <strong>yield_fast_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpy__struct_1a947d4665e207cbf72979f0c83d87084e"></span>double <strong>yield_14MeV</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpy__struct_1af959642d9babcfc88027d83fb66cdd5a"></span>double <strong>yield_14MeV_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1ndsfpysub__struct">
+<div class="line"><em>struct</em> <strong>pyne::ndsfpysub_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>a struct for the nds data for fpyield </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1ndsfpysub__struct_1a017a8ef5b6c15822d5a59939c90bd0ec"></span>double <strong>yield_thermal</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpysub__struct_1ae441f34ed70fcdb5c81cbbae18de94d8"></span>double <strong>yield_thermal_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpysub__struct_1a75df938d4e7ee49deaafdd53483c38d4"></span>double <strong>yield_fast</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpysub__struct_1a63568a8f052fadd3212962ad8a1aebd9"></span>double <strong>yield_fast_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpysub__struct_1a1c30a6c42663cf7f1f57916d73041e6e"></span>double <strong>yield_14MeV</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1ndsfpysub__struct_1a7044668396ec8863351c2bd3fa16812b"></span>double <strong>yield_14MeV_err</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1q__val__struct">
+<div class="line"><em>struct</em> <strong>pyne::q_val_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>a struct matching the q_value table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1q__val__struct_1a2da8c013d77c986da371225450465814"></span>int <strong>nuc</strong></p>
+<blockquote>
+<div><p>nuclide in id form </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1q__val__struct_1a34b2db126fe82af5fe375d45ccb72368"></span>double <strong>q_val</strong></p>
+<blockquote>
+<div><p>nuclide q_value [MeV/fission] </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1q__val__struct_1ab899be3f2e59ad16b174cf34126a1d37"></span>double <strong>gamma_frac</strong></p>
+<blockquote>
+<div><p>fraction of q that comes from gammas </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1scattering__lengths__struct">
+<div class="line"><em>struct</em> <strong>pyne::scattering_lengths_struct</strong></div>
 <div class="line"><em>#include &lt;data.h&gt;</em></div>
 </div>
 <blockquote>
 <div><p>a struct matching the &#8216;/neutron/scattering_lengths&#8217; table in nuc_data.h5. </p>
 <p></p>
 <em>Public Members</em><blockquote>
-<div><p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a5830a5a2860252db555ed91b39fad042"></span>int <strong>nuc</strong></p>
+<div><p><span class="target" id="pyne_datastructpyne_1_1scattering__lengths__struct_1a5830a5a2860252db555ed91b39fad042"></span>int <strong>nuc</strong></p>
 <blockquote>
 <div><p>nuclide in id form </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a962ef615a9297a7d67ec05fc45ff133e"></span>extra_types::complex_t <strong>b_coherent</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1scattering__lengths__struct_1a46f71650a034bf76c0a869db00dd99ad"></span>xd_complex_t <strong>b_coherent</strong></p>
 <blockquote>
 <div><p>coherent scattering length [cm] </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a2326e775f7f8eb1dd6c6f1d256b0527d"></span>extra_types::complex_t <strong>b_incoherent</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1scattering__lengths__struct_1a7e391485b29d23097f02dc696042d27e"></span>xd_complex_t <strong>b_incoherent</strong></p>
 <blockquote>
 <div><p>incoherent scattering length [cm] </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1ae53517c3358735b1f73f6f7d2946bcc8"></span>double <strong>xs_coherent</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1scattering__lengths__struct_1ae53517c3358735b1f73f6f7d2946bcc8"></span>double <strong>xs_coherent</strong></p>
 <blockquote>
 <div><p>coherent scattering cross section </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1a3a6b05086e35c96469b6455a6760d0ba"></span>double <strong>xs_incoherent</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1scattering__lengths__struct_1a3a6b05086e35c96469b6455a6760d0ba"></span>double <strong>xs_incoherent</strong></p>
 <blockquote>
 <div><p>incoherent scattering cross section </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynestructpyne_1_1scattering__lengths__struct_1ac3faa4853545985d45ca3f716adcddd2"></span>double <strong>xs</strong></p>
+<p><span class="target" id="pyne_datastructpyne_1_1scattering__lengths__struct_1ac3faa4853545985d45ca3f716adcddd2"></span>double <strong>xs</strong></p>
 <blockquote>
 <div><p>scattering cross section </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynenamespacepyne"></span><em>namespace</em> <strong>pyne</strong></div>
+<div class="line-block" id="pyne_dataclasspyne_1_1swapmapcompare">
+<div class="line"><em>class</em> <strong>pyne::swapmapcompare</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Data access functions. </p>
+<p>simple class to swap the order in which a pair is compared </p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="pyne::swapmapcompare::call-operator__std::pair:i.double:CR.std::pair:i.double:CRC"></span><span class="target" id="pyne_dataclasspyne_1_1swapmapcompare_1a766adfc375aa681d00aa60ac66a1fdd9"></span><div class="line-block">
+<div class="line">bool <strong>operator()</strong>(const std::pair&lt; int, double &gt; &amp; lhs, const std::pair&lt; int, double &gt; &amp; rhs)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1wimsdfpy__struct">
+<div class="line"><em>struct</em> <strong>pyne::wimsdfpy_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>a struct matching the &#8216;/neutron/wimsd_fission_product&#8217; table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1wimsdfpy__struct_1a947f2d809cd00d6364569e24b58999cd"></span>int <strong>from_nuc</strong></p>
+<blockquote>
+<div><p>from nuclide in id form </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1wimsdfpy__struct_1a7afb9e5677ab5f39b7133fbce75d7024"></span>int <strong>to_nuc</strong></p>
+<blockquote>
+<div><p>from nuclide in id form </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1wimsdfpy__struct_1a8883b2f2433adaa14a52c70e74f26319"></span>double <strong>yields</strong></p>
+<blockquote>
+<div><p>fission product yield, fraction [unitless] </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datanamespacepyne">
+<div class="line"><em>namespace</em> <strong>pyne</strong></div>
 </div>
 <blockquote>
 <div><p></p>
 <p></p>
 <em>Atomic Mass Data</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1a4d199d528a848703e4497aa8781a66bd"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1atomic__weight__struct"><em>pyne::atomic_weight_struct</em></a> <strong>atomic_weight_struct</strong></p>
+<div><p><span class="target" id="pyne_datanamespacepyne_1aea8c7bf87af55617062f53924195fb20"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1atomic__mass__struct"><em>pyne::atomic_mass_struct</em></a> <strong>atomic_mass_struct</strong></p>
 <blockquote>
-<div><p>a struct matching the atomic_weight table in nuc_data.h5. </p>
+<div><p>a struct matching the atomic_mass table in nuc_data.h5. </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynenamespacepyne_1a265f948ad8b999772773b55cb10adb70"></span>std::map&lt; int, double &gt; <strong>atomic_mass_map</strong></p>
+<p><span class="target" id="pyne_datanamespacepyne_1a265f948ad8b999772773b55cb10adb70"></span>std::map&lt; int, double &gt; <strong>atomic_mass_map</strong></p>
 <blockquote>
 <div><p>Mapping from nuclides in id form to their atomic masses. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::_load_atomic_mass_map"><span id="pynenamespacepyne_1afc84ecca5a23b416bd3bf42b0756e68e"></span><div class="line-block">
+<p><span class="target" id="pyne::get_data_checksums"></span><span class="target" id="pyne_datanamespacepyne_1acb6fb99d266d36afd0320185ddb72160"></span><div class="line-block">
+<div class="line">std::map&lt; std::string, std::string &gt; <strong>get_data_checksums</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::_load_atomic_mass_map"></span><span class="target" id="pyne_datanamespacepyne_1afc84ecca5a23b416bd3bf42b0756e68e"></span><div class="line-block">
 <div class="line">void <strong>_load_atomic_mass_map</strong>()</div>
 </div>
 </p>
@@ -224,7 +844,7 @@ if(ga_enabled){
 <div><p></p>
 <p>Loads the atomic mass and natural abundance data from the nuc_data.h5 file into memory. </p>
 </div></blockquote>
-<p id="pyne::atomic_mass__i"><span id="pynenamespacepyne_1aaab79c2417fc60c1a248dd702403befb"></span><div class="line-block">
+<p><span class="target" id="pyne::atomic_mass__i"></span><span class="target" id="pyne_datanamespacepyne_1aaab79c2417fc60c1a248dd702403befb"></span><div class="line-block">
 <div class="line">double <strong>atomic_mass</strong>(int nuc)</div>
 </div>
 </p>
@@ -232,7 +852,7 @@ if(ga_enabled){
 <div><p>Returns the atomic mass of a nuclide <em>nuc</em>. </p>
 <p>This function will first try to find the atomic mass data in the atomic_mass_map. If this map is empty, it will load the data from disk. If the nuclide is in an excited state and not found in the map, it will give the value for the ground state nuclide. If the nuclide simply cannot be found, the A number is returned. </p>
 </div></blockquote>
-<p id="pyne::atomic_mass__cP"><span id="pynenamespacepyne_1a070a35bbdb0217ff8c4b222572912f87"></span><div class="line-block">
+<p><span class="target" id="pyne::atomic_mass__cP"></span><span class="target" id="pyne_datanamespacepyne_1a070a35bbdb0217ff8c4b222572912f87"></span><div class="line-block">
 <div class="line">double <strong>atomic_mass</strong>(char * nuc)</div>
 </div>
 </p>
@@ -240,7 +860,7 @@ if(ga_enabled){
 <div><p>Returns the atomic mass of a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::atomic_mass__ss"><span id="pynenamespacepyne_1a42514c3a14ce0ed7b91da7d742210ceb"></span><div class="line-block">
+<p><span class="target" id="pyne::atomic_mass__ss"></span><span class="target" id="pyne_datanamespacepyne_1a42514c3a14ce0ed7b91da7d742210ceb"></span><div class="line-block">
 <div class="line">double <strong>atomic_mass</strong>(std::string nuc)</div>
 </div>
 </p>
@@ -249,28 +869,72 @@ if(ga_enabled){
 <p></p>
 </div></blockquote>
 </div></blockquote>
+<em>Q_value Data</em><blockquote>
+<div><p><span class="target" id="pyne_datanamespacepyne_1a8003b2513b66abaff4ae70cc9e00a6a8"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1q__val__struct"><em>pyne::q_val_struct</em></a> <strong>q_val_struct</strong></p>
+<blockquote>
+<div><p>a struct matching the q_value table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a186a21d47612e2c50c47f44e72190440"></span>std::map&lt; int, double &gt; <strong>q_val_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their q_values. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::_load_q_val_map"></span><span class="target" id="pyne_datanamespacepyne_1a4bc2d6406c60d62e570ace1b1710af0a"></span><div class="line-block">
+<div class="line">void <strong>_load_q_val_map</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Loads the q_value data from the nuc_data.h5 file into memory. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::q_val__i"></span><span class="target" id="pyne_datanamespacepyne_1a9b7f5a9fbe46dc523263f22f295de782"></span><div class="line-block">
+<div class="line">double <strong>q_val</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the q_value of a nuclide <em>nuc</em>. </p>
+<p>This function will first try to find the q_value data in the q_val_map. If this map is empty, it will load the data from disk. If the nuclide simply cannot be found, the default value returned is 0.0. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::q_val__cP"></span><span class="target" id="pyne_datanamespacepyne_1a9301ba19c96a2938ca53fa5b9a6afccd"></span><div class="line-block">
+<div class="line">double <strong>q_val</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the q_value of a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::q_val__ss"></span><span class="target" id="pyne_datanamespacepyne_1a256eaa2fcfedbcef6205ea2f3ced15fb"></span><div class="line-block">
+<div class="line">double <strong>q_val</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the q_value of a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
 <em>Scattering Length Data</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1a91c1911f4cdfa00e0b988b09d198c650"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1scattering__lengths__struct"><em>pyne::scattering_lengths_struct</em></a> <strong>scattering_lengths_struct</strong></p>
+<div><p><span class="target" id="pyne_datanamespacepyne_1a91c1911f4cdfa00e0b988b09d198c650"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1scattering__lengths__struct"><em>pyne::scattering_lengths_struct</em></a> <strong>scattering_lengths_struct</strong></p>
 <blockquote>
 <div><p>a struct matching the &#8216;/neutron/scattering_lengths&#8217; table in nuc_data.h5. </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynenamespacepyne_1acb1f11faec860f96ba24425e33303470"></span>std::map&lt; int, extra_types::complex_t &gt; <strong>b_coherent_map</strong></p>
+<p><span class="target" id="pyne_datanamespacepyne_1af03efb13e92d1a3b454eee2ce56b0fc0"></span>std::map&lt; int, xd_complex_t &gt; <strong>b_coherent_map</strong></p>
 <blockquote>
 <div><p>Mapping from nuclides in id form to their coherent scattering length. </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynenamespacepyne_1ad7ff5d87de64bfd5fd9720424c637ca9"></span>std::map&lt; int, extra_types::complex_t &gt; <strong>b_incoherent_map</strong></p>
+<p><span class="target" id="pyne_datanamespacepyne_1ab198866276372a8e450d72672f72a4de"></span>std::map&lt; int, xd_complex_t &gt; <strong>b_incoherent_map</strong></p>
 <blockquote>
 <div><p>Mapping from nuclides in id form to their incoherent scattering length. </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynenamespacepyne_1ac04e73bd8b441483c5ece1fef10afb2a"></span>std::map&lt; int, double &gt; <strong>b_map</strong></p>
+<p><span class="target" id="pyne_datanamespacepyne_1ac04e73bd8b441483c5ece1fef10afb2a"></span>std::map&lt; int, double &gt; <strong>b_map</strong></p>
 <blockquote>
 <div><p>Mapping from nuclides in id form to their scattering length. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::_load_scattering_lengths"><span id="pynenamespacepyne_1a5731f21182f208aa6692bf9b3b3867c0"></span><div class="line-block">
+<p><span class="target" id="pyne::_load_scattering_lengths"></span><span class="target" id="pyne_datanamespacepyne_1a5731f21182f208aa6692bf9b3b3867c0"></span><div class="line-block">
 <div class="line">void <strong>_load_scattering_lengths</strong>()</div>
 </div>
 </p>
@@ -278,55 +942,55 @@ if(ga_enabled){
 <div><p>Loads the scattering length data from the nuc_data.h5 file into memory. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::b_coherent__i"><span id="pynenamespacepyne_1ab31949f85c2cab4013f3845e17bc51f6"></span><div class="line-block">
-<div class="line">extra_types::complex_t <strong>b_coherent</strong>(int nuc)</div>
+<p><span class="target" id="pyne::b_coherent__i"></span><span class="target" id="pyne_datanamespacepyne_1a94620ef1a92c4562e8d4d54242428ab8"></span><div class="line-block">
+<div class="line">xd_complex_t <strong>b_coherent</strong>(int nuc)</div>
 </div>
 </p>
 <blockquote>
 <div><p>Finds the coherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
 <p>This function works by first checking the b_coherent_map. If the map is empty then the data is read in from disk. If no data is found than a value from a nuclide with the same A number is returned instead. If none of these exist, then the value of a nuclide with the same Z number is used. If none of these work then 0.0 is returned. </p>
 </div></blockquote>
-<p id="pyne::b_coherent__cP"><span id="pynenamespacepyne_1a13bd047be785fd5b7ca65a6db8e0723d"></span><div class="line-block">
-<div class="line">extra_types::complex_t <strong>b_coherent</strong>(char * nuc)</div>
+<p><span class="target" id="pyne::b_coherent__cP"></span><span class="target" id="pyne_datanamespacepyne_1a5ec92f6c1f9b71644af8290272e58aca"></span><div class="line-block">
+<div class="line">xd_complex_t <strong>b_coherent</strong>(char * nuc)</div>
 </div>
 </p>
 <blockquote>
 <div><p>Finds the coherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::b_coherent__ss"><span id="pynenamespacepyne_1ad2a3df137c2d8e13368f3e5da90d05af"></span><div class="line-block">
-<div class="line">extra_types::complex_t <strong>b_coherent</strong>(std::string nuc)</div>
+<p><span class="target" id="pyne::b_coherent__ss"></span><span class="target" id="pyne_datanamespacepyne_1a2df8a4dfc9f5bd2c8b673dd370a482af"></span><div class="line-block">
+<div class="line">xd_complex_t <strong>b_coherent</strong>(std::string nuc)</div>
 </div>
 </p>
 <blockquote>
 <div><p>Finds the coherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::b_incoherent__i"><span id="pynenamespacepyne_1ab63bf05e9c69c24b68bb6243b04d9777"></span><div class="line-block">
-<div class="line">extra_types::complex_t <strong>b_incoherent</strong>(int nuc)</div>
+<p><span class="target" id="pyne::b_incoherent__i"></span><span class="target" id="pyne_datanamespacepyne_1a2f07313175b4a12453fcd84aca062f06"></span><div class="line-block">
+<div class="line">xd_complex_t <strong>b_incoherent</strong>(int nuc)</div>
 </div>
 </p>
 <blockquote>
 <div><p>Finds the incoherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
 <p>This function works in the same way that b_coherent() does. </p>
 </div></blockquote>
-<p id="pyne::b_incoherent__cP"><span id="pynenamespacepyne_1a432ac4f56a96c1f8a614f6be27f01191"></span><div class="line-block">
-<div class="line">extra_types::complex_t <strong>b_incoherent</strong>(char * nuc)</div>
+<p><span class="target" id="pyne::b_incoherent__cP"></span><span class="target" id="pyne_datanamespacepyne_1a9088e0fc374d045d9e643b943b35d091"></span><div class="line-block">
+<div class="line">xd_complex_t <strong>b_incoherent</strong>(char * nuc)</div>
 </div>
 </p>
 <blockquote>
 <div><p>Finds the incoherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::b_incoherent__ss"><span id="pynenamespacepyne_1a7f03b64451bc110bc799ed5a5ce4f473"></span><div class="line-block">
-<div class="line">extra_types::complex_t <strong>b_incoherent</strong>(std::string nuc)</div>
+<p><span class="target" id="pyne::b_incoherent__ss"></span><span class="target" id="pyne_datanamespacepyne_1ac1e839bc561307fd34ed6905a0ca7209"></span><div class="line-block">
+<div class="line">xd_complex_t <strong>b_incoherent</strong>(std::string nuc)</div>
 </div>
 </p>
 <blockquote>
 <div><p>Finds the incoherent scattering length [cm] for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::b__i"><span id="pynenamespacepyne_1a12664d38214170260d6a69c4f5dda8da"></span><div class="line-block">
+<p><span class="target" id="pyne::b__i"></span><span class="target" id="pyne_datanamespacepyne_1a12664d38214170260d6a69c4f5dda8da"></span><div class="line-block">
 <div class="line">double <strong>b</strong>(int nuc)</div>
 </div>
 </p>
@@ -334,7 +998,7 @@ if(ga_enabled){
 <div><p>Computes the scattering length [cm] from the coherent and incoherent components. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::b__cP"><span id="pynenamespacepyne_1a702614f522de6463e3cf4f2b188a75ef"></span><div class="line-block">
+<p><span class="target" id="pyne::b__cP"></span><span class="target" id="pyne_datanamespacepyne_1a702614f522de6463e3cf4f2b188a75ef"></span><div class="line-block">
 <div class="line">double <strong>b</strong>(char * nuc)</div>
 </div>
 </p>
@@ -342,7 +1006,7 @@ if(ga_enabled){
 <div><p>Computes the scattering length [cm] from the coherent and incoherent components. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::b__ss"><span id="pynenamespacepyne_1a6b580c22fa1b5b26da1185723491fc3a"></span><div class="line-block">
+<p><span class="target" id="pyne::b__ss"></span><span class="target" id="pyne_datanamespacepyne_1a6b580c22fa1b5b26da1185723491fc3a"></span><div class="line-block">
 <div class="line">double <strong>b</strong>(std::string nuc)</div>
 </div>
 </p>
@@ -351,46 +1015,279 @@ if(ga_enabled){
 <p></p>
 </div></blockquote>
 </div></blockquote>
-<em>Decay Data</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1a3d4ff38d6ee64c22419af2c5fc2b03b9"></span>typedef struct  <a class="reference internal" href="rxname.html#pynestructpyne_1_1atomic__decay__struct"><em>pyne::atomic_decay_struct</em></a> <strong>atomic_decay_struct</strong></p>
+<em>Fission Product Yield Data</em><blockquote>
+<div><p><span class="target" id="pyne_datanamespacepyne_1a1600f1e8a6321b52f3d27c558b307d00"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1wimsdfpy__struct"><em>pyne::wimsdfpy_struct</em></a> <strong>wimsdfpy_struct</strong></p>
 <blockquote>
-<div><p>a struct matching the &#8216;/atomic_decay&#8217; table in nuc_data.h5. </p>
+<div><p>a struct matching the &#8216;/neutron/wimsd_fission_product&#8217; table in nuc_data.h5. </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynenamespacepyne_1ac0f14a88359bb52cb5fd26a86b3d7caa"></span>std::map&lt; int, double &gt; <strong>half_life_map</strong></p>
+<p><span class="target" id="pyne_datanamespacepyne_1aead0726b209a7ba733caa2dd677f11f4"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1ndsfpy__struct"><em>pyne::ndsfpy_struct</em></a> <strong>ndsfpy_struct</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in id form to their half lives [s]. </p>
+<div><p>a struct matching the &#8216;/neutron/nds_fission_product&#8217; table in nuc_data.h5 </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynenamespacepyne_1ad9e9e6587a727301b314776c85d59dcc"></span>std::map&lt; int, double &gt; <strong>decay_const_map</strong></p>
+<p><span class="target" id="pyne_datanamespacepyne_1a92ec65b061448ab328228c23e2fc3b66"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1ndsfpysub__struct"><em>pyne::ndsfpysub_struct</em></a> <strong>ndsfpysub_struct</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in id form to their decay constants [1/s]. </p>
+<div><p>a struct for the nds data for fpyield </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynenamespacepyne_1ad251f22662766748f9cbff3a45da7666"></span>std::map&lt; std::pair&lt; int, int &gt;, double &gt; <strong>branch_ratio_map</strong></p>
+<p><span class="target" id="pyne_datanamespacepyne_1a4f99cd935eb8f3e2297fdd3a1e7f769c"></span>std::map&lt; std::pair&lt; int, int &gt;, double &gt; <strong>wimsdfpy_data</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to their scattering length. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a1efe46695a7d24214e0cbd026e504ba2"></span>std::map&lt; std::pair&lt; int, int &gt;,  <a class="reference internal" href="#pyne_datastructpyne_1_1ndsfpysub__struct"><em>ndsfpysub_struct</em></a>  &gt; <strong>ndsfpy_data</strong></p>
 <blockquote>
 <div><p></p>
-<p>Mapping from parent/child nuclide pairs in id form to their branch ratio [fraction]. </p>
-</div></blockquote>
-<p id=""><span id="pynenamespacepyne_1ad1fac0dd892e4c4b513de09124944cfe"></span>std::map&lt; int, double &gt; <strong>state_energy_map</strong></p>
-<blockquote>
-<div><p>Mapping from nuclides in id form to their excitation energy [MeV]. </p>
 <p></p>
 </div></blockquote>
-<p id=""><span id="pynenamespacepyne_1a4d81748f381ddee0d680a01dc70bad39"></span>std::map&lt; int, std::set&lt; int &gt; &gt; <strong>decay_children_map</strong></p>
-<blockquote>
-<div><p>Mapping from nuclides in id form to its decay children, if any. </p>
-<p></p>
-</div></blockquote>
-<p id="pyne::_load_atomic_decay"><span id="pynenamespacepyne_1a13a4091f442960197f54b5a41d70d333"></span><div class="line-block">
-<div class="line">void <strong>_load_atomic_decay</strong>()</div>
+<p><span class="target" id="pyne::_load_wimsdfpy"></span><span class="target" id="pyne_datanamespacepyne_1a32682c82d07a8370677923550dbc9904"></span><div class="line-block">
+<div class="line">void <strong>_load_wimsdfpy</strong>()</div>
 </div>
 </p>
 <blockquote>
-<div><p>Loads the decay data from the nuc_data.h5 file into memory. </p>
+<div><p>Loads the WIMSD fission product yield data from the nuc_data.h5 file into memory. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::half_life__i"><span id="pynenamespacepyne_1a98f776164d1812878cb4b4ee4ef943f5"></span><div class="line-block">
+<p><span class="target" id="pyne::_load_ndsfpy"></span><span class="target" id="pyne_datanamespacepyne_1af936ac3eb775e52c0bc7df8fbd248a66"></span><div class="line-block">
+<div class="line">void <strong>_load_ndsfpy</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Loads the NDS fission product yield data from the nuc_data.h5 file into memory. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::fpyield__std::pair:i.i:.i.b"></span><span class="target" id="pyne_datanamespacepyne_1aff6ebb85fad0e8c4001fcfef4d334c8c"></span><div class="line-block">
+<div class="line">double <strong>fpyield</strong>(std::pair&lt; int, int &gt; from_to, int source, bool get_error)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the fission product yield for a parent/child nuclide pair. </p>
+<p>This function works by first checking the fission yield data. If this is empty it loads the data from disk. If the parent/child nuclide pair is still not found, then the process is assumed to be impossible and 0.0 is returned. The data source is determined by the type value as follows: 0 WIMS, 1 thermal NDS, 2 fast NDS, 3 14 MeV NDS. negative type values return error for that data type. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::fpyield__i.i.i.b"></span><span class="target" id="pyne_datanamespacepyne_1a0524d0aa3b138fe9275dde433d046fbf"></span><div class="line-block">
+<div class="line">double <strong>fpyield</strong>(int from_nuc, int to_nuc, int source, bool get_error)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the fission product yield for a parent/child nuclide pair. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::fpyield__cP.cP.i.b"></span><span class="target" id="pyne_datanamespacepyne_1a3228e21aa31a43ffbf2394f7c6dba392"></span><div class="line-block">
+<div class="line">double <strong>fpyield</strong>(char * from_nuc, char * to_nuc, int source, bool get_error)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the fission product yield for a parent/child nuclide pair. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::fpyield__ss.ss.i.b"></span><span class="target" id="pyne_datanamespacepyne_1af51092b1f4dd0ac7c5f52df8b3cb33d5"></span><div class="line-block">
+<div class="line">double <strong>fpyield</strong>(std::string from_nuc, std::string to_nuc, int source, bool get_error)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the fission product yield for a parent/child nuclide pair. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Decay Data</em><blockquote>
+<div><p><span class="target" id="pyne_datanamespacepyne_1a677a794224288dc3bf3137a99f3282b6"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1atomic__struct"><em>pyne::atomic_struct</em></a> <strong>atomic_struct</strong></p>
+<blockquote>
+<div><p>Structure for atomic data. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a62a299b4ebd66b9f6b079c1d28a66a16"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1level__struct"><em>pyne::level_struct</em></a> <strong>level_struct</strong></p>
+<blockquote>
+<div><p>a struct matching the &#8216;/decay/level_list&#8217; table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a95a68ca632878d41755f3d6f70bd59d3"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1decay__struct"><em>pyne::decay_struct</em></a> <strong>decay_struct</strong></p>
+<blockquote>
+<div><p>a struct matching the &#8216;/decay/decays&#8217; table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1ad72497840fbed5e437246705ba44025a"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1gamma__struct"><em>pyne::gamma_struct</em></a> <strong>gamma_struct</strong></p>
+<blockquote>
+<div><p>a struct matching the &#8216;/decay/gammas&#8217; table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a0e7034b6973fafe59e5654fe79ffff4e"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1alpha__struct"><em>pyne::alpha_struct</em></a> <strong>alpha_struct</strong></p>
+<blockquote>
+<div><p>a struct matching the &#8216;/decay/alphas&#8217; table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a4ff3760e0819a7d45c48433f18cc4271"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1beta__struct"><em>pyne::beta_struct</em></a> <strong>beta_struct</strong></p>
+<blockquote>
+<div><p>a struct matching the &#8216;/decay/betas&#8217; table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a658da81167c790ab58e7336ff26d6b09"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1ecbp__struct"><em>pyne::ecbp_struct</em></a> <strong>ecbp_struct</strong></p>
+<blockquote>
+<div><p>A struct matching the &#8216;/decay/ecbp&#8217; table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1ab9d3d1d212a4b8c3a2a3fea09190a3b0"></span>std::map&lt; int,  <a class="reference internal" href="#pyne_datastructpyne_1_1atomic__struct"><em>atomic_struct</em></a>  &gt; <strong>atomic_data_map</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a69fd3469336a9bc52145e7062a873932"></span>std::map&lt; std::pair&lt; int, double &gt;,  <a class="reference internal" href="#pyne_datastructpyne_1_1level__struct"><em>level_struct</em></a>  &gt; <strong>level_data_lvl_map</strong></p>
+<blockquote>
+<div><p></p>
+<p>Mapping from nuclides in id form to a struct containing data associated with that level. </p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1af04b99dca75819b1dcc0a5d8d3eed74b"></span>std::map&lt; std::pair&lt; int, unsigned int &gt;,  <a class="reference internal" href="#pyne_datastructpyne_1_1level__struct"><em>level_struct</em></a>  &gt; <strong>level_data_rx_map</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1af4f30f19f787f6cf571d55c7f593b64a"></span>std::map&lt; std::pair&lt; int, int &gt;,  <a class="reference internal" href="#pyne_datastructpyne_1_1decay__struct"><em>decay_struct</em></a>  &gt; <strong>decay_data</strong></p>
+<blockquote>
+<div><p></p>
+<p>Mapping from a pair of nuclides in id form to a struct containing data associated with the decay from the first to the second </p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a6bb67aa113c7879e66c4404e5cac81bf"></span>std::map&lt; std::pair&lt; int, double &gt;,  <a class="reference internal" href="#pyne_datastructpyne_1_1gamma__struct"><em>gamma_struct</em></a>  &gt; <strong>gamma_data</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a093e8c95aa69078079bd83cbb3860613"></span>std::map&lt; std::pair&lt; int, double &gt;,  <a class="reference internal" href="#pyne_datastructpyne_1_1alpha__struct"><em>alpha_struct</em></a>  &gt; <strong>alpha_data</strong></p>
+<blockquote>
+<div><p>A vector of structs containing alpha data for access in memory. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a3f38381c97e230efb347f0e7ce2b7981"></span>std::map&lt; std::pair&lt; int, double &gt;,  <a class="reference internal" href="#pyne_datastructpyne_1_1beta__struct"><em>beta_struct</em></a>  &gt; <strong>beta_data</strong></p>
+<blockquote>
+<div><p>A vector of structs containing beta data for access in memory. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a7ea5c43d1c2046c454c6a9e5b7743b60"></span>std::map&lt; std::pair&lt; int, double &gt;,  <a class="reference internal" href="#pyne_datastructpyne_1_1ecbp__struct"><em>ecbp_struct</em></a>  &gt; <strong>ecbp_data</strong></p>
+<blockquote>
+<div><p>A vector of structs containing ecbp data for access in memory. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::data_access__double.double.s.std::map:std::pair:i.double:.U:R"></span><span class="target" id="pyne_datanamespacepyne_1aa740d5c3e5da71876b9220a43ec8128b"></span><div class="line-block">
+<div class="line">template &lt; typename T, typename U &gt;</div>
+<div class="line">std::vector&lt; T &gt; <strong>data_access</strong>(double emin, double emax, size_t valoffset, std::map&lt; std::pair&lt; int, double &gt;, U &gt; &amp; data)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Access data in a std::map&lt;std::pair&lt;int, double&gt; for a range of values of the second member of the pair. Returns a vector of all values at valoffset of class U of type T f </p>
+</div></blockquote>
+<p><span class="target" id="pyne::data_access__i.double.double.s.std::map:std::pair:i.double:.U:R"></span><span class="target" id="pyne_datanamespacepyne_1af8eda613399d579c2080cfc779ab4a0c"></span><div class="line-block">
+<div class="line">template &lt; typename T, typename U &gt;</div>
+<div class="line">std::vector&lt; T &gt; <strong>data_access</strong>(int parent, double min, double max, size_t valoffset, std::map&lt; std::pair&lt; int, double &gt;, U &gt; &amp; data)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Access data in a std::map&lt;std::pair&lt;int, double&gt; for a given value of the first member of the pair. Returns a vector of all values at valoffset of class U of type T </p>
+</div></blockquote>
+<p><span class="target" id="pyne::data_access__std::pair:i.i:.s.std::map:std::pair:i.i:.U:R"></span><span class="target" id="pyne_datanamespacepyne_1aa1373c97baba4a611ac69e8f672ff9c6"></span><div class="line-block">
+<div class="line">template &lt; typename T, typename U &gt;</div>
+<div class="line">T <strong>data_access</strong>(std::pair&lt; int, int &gt; from_to, size_t valoffset, std::map&lt; std::pair&lt; int, int &gt;, U &gt; &amp; data)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Access data in a std::map&lt;std::pair&lt;int, int&gt; for a given matching pair. Returns the value at valoffset of class U of type T </p>
+</div></blockquote>
+<p><span class="target" id="pyne::data_access__i.s.std::map:std::pair:i.i:.U:R"></span><span class="target" id="pyne_datanamespacepyne_1a0ed09641442b7e5dc8bda489bae1a014"></span><div class="line-block">
+<div class="line">template &lt; typename T, typename U &gt;</div>
+<div class="line">std::vector&lt; T &gt; <strong>data_access</strong>(int parent, size_t valoffset, std::map&lt; std::pair&lt; int, int &gt;, U &gt; &amp; data)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Access data in a std::map&lt;std::pair&lt;int, int&gt; for a given value of the first member of the pair. Returns an array of the values at valoffset of class U of type T </p>
+</div></blockquote>
+<p><span class="target" id="pyne::data_access__i.s.std::map:std::pair:i.unsigned-i:.U:R"></span><span class="target" id="pyne_datanamespacepyne_1a1df75491750846b4c6d611f22ccad1af"></span><div class="line-block">
+<div class="line">template &lt; typename T, typename U &gt;</div>
+<div class="line">std::vector&lt; T &gt; <strong>data_access</strong>(int parent, size_t valoffset, std::map&lt; std::pair&lt; int, unsigned int &gt;, U &gt; &amp; data)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::data_access__i.s.std::map:i.U:R"></span><span class="target" id="pyne_datanamespacepyne_1ab7cc1f6ac1c7ec2c4921fefacc5f0868"></span><div class="line-block">
+<div class="line">template &lt; typename U &gt;</div>
+<div class="line">double <strong>data_access</strong>(int parent, size_t valoffset, std::map&lt; int, U &gt; &amp; data)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Access data in a std::map&lt;int, data&gt; format for a given first member of the pair. Returns the value at valoffset of the matching datapoint. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::_load_data"></span><span class="target" id="pyne_datanamespacepyne_1a730e33590dd1c1df41027d7ca952fb6a"></span><div class="line-block">
+<div class="line">template &lt; typename T &gt;</div>
+<div class="line">void <strong>_load_data</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::_load_data:atomic_struct:"></span><span class="target" id="pyne_datanamespacepyne_1a37d38de3af846edec37cdb45132d1bca"></span><div class="line-block">
+<div class="line">template &lt;  &gt;</div>
+<div class="line">void <strong>_load_data&lt; atomic_struct &gt;</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::calculate_xray_data__i.double.double"></span><span class="target" id="pyne_datanamespacepyne_1a3fb8ffd959c5686e3827b279f68d9034"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>calculate_xray_data</strong>(int z, double k_conv, double l_conv)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::_load_data:level_struct:"></span><span class="target" id="pyne_datanamespacepyne_1ae47003d33a4844a3f81406df570cc664"></span><div class="line-block">
+<div class="line">template &lt;  &gt;</div>
+<div class="line">void <strong>_load_data&lt; level_struct &gt;</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::id_from_level__i.double"></span><span class="target" id="pyne_datanamespacepyne_1a11f4852ba4824c0e047b509efe0c6b8c"></span><div class="line-block">
+<div class="line">int <strong>id_from_level</strong>(int nuc, double level)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the nuc_id of an energy level. </p>
+<p>This function looks for the level that best matches the input level within 1 keV of the input nuclide </p>
+</div></blockquote>
+<p><span class="target" id="pyne::id_from_level__i.double.ss"></span><span class="target" id="pyne_datanamespacepyne_1aa3d3232f957170f144e412fa170aaa58"></span><div class="line-block">
+<div class="line">int <strong>id_from_level</strong>(int nuc, double level, std::string special)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::metastable_id__i.i"></span><span class="target" id="pyne_datanamespacepyne_1a2e817a4d6dac740b6fa883ac99272201"></span><div class="line-block">
+<div class="line">int <strong>metastable_id</strong>(int nuc, int m)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the nuc_id of a metastable state. </p>
+<p>This function looks through the level map for a given input nuc_id to find the nuc_id corresponding to the level </p>
+</div></blockquote>
+<p><span class="target" id="pyne::metastable_id__i"></span><span class="target" id="pyne_datanamespacepyne_1ae4f71f8816cbdd47588d1c3c5fb4908c"></span><div class="line-block">
+<div class="line">int <strong>metastable_id</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Assumes the first metastable state is the desired one. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::half_life__i"></span><span class="target" id="pyne_datanamespacepyne_1a98f776164d1812878cb4b4ee4ef943f5"></span><div class="line-block">
 <div class="line">double <strong>half_life</strong>(int nuc)</div>
 </div>
 </p>
@@ -398,7 +1295,7 @@ if(ga_enabled){
 <div><p>Returns the half life for a nuclide <em>nuc</em>. </p>
 <p>This function works by first checking the half_life_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be stable and infinity is returned. </p>
 </div></blockquote>
-<p id="pyne::half_life__cP"><span id="pynenamespacepyne_1a120acb7c7ff96c26ff012aa192212160"></span><div class="line-block">
+<p><span class="target" id="pyne::half_life__cP"></span><span class="target" id="pyne_datanamespacepyne_1a120acb7c7ff96c26ff012aa192212160"></span><div class="line-block">
 <div class="line">double <strong>half_life</strong>(char * nuc)</div>
 </div>
 </p>
@@ -406,7 +1303,7 @@ if(ga_enabled){
 <div><p>Returns the half life for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::half_life__ss"><span id="pynenamespacepyne_1a8fe3c8e42a1de1edd2547146da3c68b3"></span><div class="line-block">
+<p><span class="target" id="pyne::half_life__ss"></span><span class="target" id="pyne_datanamespacepyne_1a8fe3c8e42a1de1edd2547146da3c68b3"></span><div class="line-block">
 <div class="line">double <strong>half_life</strong>(std::string nuc)</div>
 </div>
 </p>
@@ -414,7 +1311,7 @@ if(ga_enabled){
 <div><p>Returns the half life for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::decay_const__i"><span id="pynenamespacepyne_1a6b87e11fea0c2167cd19eb62c21b12b2"></span><div class="line-block">
+<p><span class="target" id="pyne::decay_const__i"></span><span class="target" id="pyne_datanamespacepyne_1a6b87e11fea0c2167cd19eb62c21b12b2"></span><div class="line-block">
 <div class="line">double <strong>decay_const</strong>(int nuc)</div>
 </div>
 </p>
@@ -422,7 +1319,7 @@ if(ga_enabled){
 <div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
 <p>This function works by first checking the decay_const_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be stable and 0.0 is returned. </p>
 </div></blockquote>
-<p id="pyne::decay_const__cP"><span id="pynenamespacepyne_1a4160d26376d4c3ea12636fd33ca8b3bb"></span><div class="line-block">
+<p><span class="target" id="pyne::decay_const__cP"></span><span class="target" id="pyne_datanamespacepyne_1a4160d26376d4c3ea12636fd33ca8b3bb"></span><div class="line-block">
 <div class="line">double <strong>decay_const</strong>(char * nuc)</div>
 </div>
 </p>
@@ -430,7 +1327,7 @@ if(ga_enabled){
 <div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::decay_const__ss"><span id="pynenamespacepyne_1a8c3dd2b8fd7565d17301e39f6b959b92"></span><div class="line-block">
+<p><span class="target" id="pyne::decay_const__ss"></span><span class="target" id="pyne_datanamespacepyne_1a8c3dd2b8fd7565d17301e39f6b959b92"></span><div class="line-block">
 <div class="line">double <strong>decay_const</strong>(std::string nuc)</div>
 </div>
 </p>
@@ -438,7 +1335,7 @@ if(ga_enabled){
 <div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::branch_ratio__std::pair:i.i:"><span id="pynenamespacepyne_1af619eaa83237b583dd7f3b5c6b41a618"></span><div class="line-block">
+<p><span class="target" id="pyne::branch_ratio__std::pair:i.i:"></span><span class="target" id="pyne_datanamespacepyne_1af619eaa83237b583dd7f3b5c6b41a618"></span><div class="line-block">
 <div class="line">double <strong>branch_ratio</strong>(std::pair&lt; int, int &gt; from_to)</div>
 </div>
 </p>
@@ -446,7 +1343,7 @@ if(ga_enabled){
 <div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
 <p>This function works by first checking the branch_ratio_map. If this is empty it loads the data from disk. If the parent/child nuclide pair is still not found, then the decay is assumed to be impossible and 0.0 is returned. </p>
 </div></blockquote>
-<p id="pyne::branch_ratio__i.i"><span id="pynenamespacepyne_1af2ac244d00d6a8fab26e646eb53fd172"></span><div class="line-block">
+<p><span class="target" id="pyne::branch_ratio__i.i"></span><span class="target" id="pyne_datanamespacepyne_1af2ac244d00d6a8fab26e646eb53fd172"></span><div class="line-block">
 <div class="line">double <strong>branch_ratio</strong>(int from_nuc, int to_nuc)</div>
 </div>
 </p>
@@ -454,7 +1351,7 @@ if(ga_enabled){
 <div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::branch_ratio__cP.cP"><span id="pynenamespacepyne_1abef13981249047d7678dc448db101ef4"></span><div class="line-block">
+<p><span class="target" id="pyne::branch_ratio__cP.cP"></span><span class="target" id="pyne_datanamespacepyne_1abef13981249047d7678dc448db101ef4"></span><div class="line-block">
 <div class="line">double <strong>branch_ratio</strong>(char * from_nuc, char * to_nuc)</div>
 </div>
 </p>
@@ -462,7 +1359,7 @@ if(ga_enabled){
 <div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::branch_ratio__ss.ss"><span id="pynenamespacepyne_1a5a77a005a47c8c2a421484f17acdec0d"></span><div class="line-block">
+<p><span class="target" id="pyne::branch_ratio__ss.ss"></span><span class="target" id="pyne_datanamespacepyne_1a5a77a005a47c8c2a421484f17acdec0d"></span><div class="line-block">
 <div class="line">double <strong>branch_ratio</strong>(std::string from_nuc, std::string to_nuc)</div>
 </div>
 </p>
@@ -470,7 +1367,7 @@ if(ga_enabled){
 <div><p>Returns the branch ratio for a parent/child nuclide pair. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::state_energy__i"><span id="pynenamespacepyne_1ada1a23281a3a62267fbd355bd48da2e6"></span><div class="line-block">
+<p><span class="target" id="pyne::state_energy__i"></span><span class="target" id="pyne_datanamespacepyne_1ada1a23281a3a62267fbd355bd48da2e6"></span><div class="line-block">
 <div class="line">double <strong>state_energy</strong>(int nuc)</div>
 </div>
 </p>
@@ -478,7 +1375,7 @@ if(ga_enabled){
 <div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
 <p>This function works by first checking the state_energy_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be in a ground state and 0.0 is returned. </p>
 </div></blockquote>
-<p id="pyne::state_energy__cP"><span id="pynenamespacepyne_1afbe96cec07719bac2b5fe3ad299b1dd1"></span><div class="line-block">
+<p><span class="target" id="pyne::state_energy__cP"></span><span class="target" id="pyne_datanamespacepyne_1afbe96cec07719bac2b5fe3ad299b1dd1"></span><div class="line-block">
 <div class="line">double <strong>state_energy</strong>(char * nuc)</div>
 </div>
 </p>
@@ -486,7 +1383,7 @@ if(ga_enabled){
 <div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::state_energy__ss"><span id="pynenamespacepyne_1a1e1a4d494979a9aedce584c054474ae0"></span><div class="line-block">
+<p><span class="target" id="pyne::state_energy__ss"></span><span class="target" id="pyne_datanamespacepyne_1a1e1a4d494979a9aedce584c054474ae0"></span><div class="line-block">
 <div class="line">double <strong>state_energy</strong>(std::string nuc)</div>
 </div>
 </p>
@@ -494,7 +1391,7 @@ if(ga_enabled){
 <div><p>Returns the excitation energy [MeV] of a <em>nuc</em> in a given state. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::decay_children__i"><span id="pynenamespacepyne_1a8a2c5bdf0f2008c850662d015ab1b7de"></span><div class="line-block">
+<p><span class="target" id="pyne::decay_children__i"></span><span class="target" id="pyne_datanamespacepyne_1a8a2c5bdf0f2008c850662d015ab1b7de"></span><div class="line-block">
 <div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(int nuc)</div>
 </div>
 </p>
@@ -502,7 +1399,7 @@ if(ga_enabled){
 <div><p>Returns a set of decay children of a <em>nuc</em>. </p>
 <p>This function works by first checking decay_chidlren_map. If this is empty it loads the data from disk. If the nuclide is still not found, then the species is assumed to be stable and an empty set is returned. </p>
 </div></blockquote>
-<p id="pyne::decay_children__cP"><span id="pynenamespacepyne_1ab7ae40853e11f0350ff134d1b8c00250"></span><div class="line-block">
+<p><span class="target" id="pyne::decay_children__cP"></span><span class="target" id="pyne_datanamespacepyne_1ab7ae40853e11f0350ff134d1b8c00250"></span><div class="line-block">
 <div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(char * nuc)</div>
 </div>
 </p>
@@ -510,7 +1407,7 @@ if(ga_enabled){
 <div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::decay_children__ss"><span id="pynenamespacepyne_1a30686798fdf9dc0fe0494df134a3a6e9"></span><div class="line-block">
+<p><span class="target" id="pyne::decay_children__ss"></span><span class="target" id="pyne_datanamespacepyne_1a30686798fdf9dc0fe0494df134a3a6e9"></span><div class="line-block">
 <div class="line">std::set&lt; int &gt; <strong>decay_children</strong>(std::string nuc)</div>
 </div>
 </p>
@@ -518,14 +1415,366 @@ if(ga_enabled){
 <div><p>Returns the decay constant for a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
+<p><span class="target" id="pyne::_load_data:decay_struct:"></span><span class="target" id="pyne_datanamespacepyne_1ad71148b395d992aad64f5148b4e55f76"></span><div class="line-block">
+<div class="line">template &lt;  &gt;</div>
+<div class="line">void <strong>_load_data&lt; decay_struct &gt;</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Loads the decay data from the nuc_data.h5 file into memory. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::decay_half_life__X"></span><span class="target" id="pyne_datanamespacepyne_1a933d54c94c9ce09bc1f074a04f653868"></span><div class="line-block">
+<div class="line">std::pair&lt; double, double &gt; <strong>decay_half_life</strong>(std::pair&lt; int, int &gt;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::decay_half_lifes__X"></span><span class="target" id="pyne_datanamespacepyne_1ae0bbcdc578f729aed314bc6e867d2b1b"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>decay_half_lifes</strong>(int)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::decay_branch_ratio__X"></span><span class="target" id="pyne_datanamespacepyne_1a9664752687deed520d438837982e7222"></span><div class="line-block">
+<div class="line">double <strong>decay_branch_ratio</strong>(std::pair&lt; int, int &gt;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::decay_branch_ratios__i"></span><span class="target" id="pyne_datanamespacepyne_1a614aa30ca1e7fb0f31185f91187a01a8"></span><div class="line-block">
+<div class="line">std::vector&lt; double &gt; <strong>decay_branch_ratios</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::decay_photon_branch_ratio__X"></span><span class="target" id="pyne_datanamespacepyne_1a0dea3db23973fb36b6cb843980d1a83c"></span><div class="line-block">
+<div class="line">std::pair&lt; double, double &gt; <strong>decay_photon_branch_ratio</strong>(std::pair&lt; int, int &gt;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::decay_photon_branch_ratios__i"></span><span class="target" id="pyne_datanamespacepyne_1a13130eb0a72597c6327303ead89b2309"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>decay_photon_branch_ratios</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::decay_beta_branch_ratio__X"></span><span class="target" id="pyne_datanamespacepyne_1adff928fda46f6dc8414c9aa33039809f"></span><div class="line-block">
+<div class="line">std::pair&lt; double, double &gt; <strong>decay_beta_branch_ratio</strong>(std::pair&lt; int, int &gt;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::decay_beta_branch_ratios__i"></span><span class="target" id="pyne_datanamespacepyne_1a3252e22947519a40ecf946a2b245aa83"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>decay_beta_branch_ratios</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::_load_data:gamma_struct:"></span><span class="target" id="pyne_datanamespacepyne_1a361106774d85a59fc187d9ef22aacd81"></span><div class="line-block">
+<div class="line">template &lt;  &gt;</div>
+<div class="line">void <strong>_load_data&lt; gamma_struct &gt;</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Loads the gamma ray data from the nuc_data.h5 file into memory. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_energy__i"></span><span class="target" id="pyne_datanamespacepyne_1a9597dcc5375a8d815e65d0e0689ae5d4"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>gamma_energy</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_photon_intensity__i"></span><span class="target" id="pyne_datanamespacepyne_1a8d9f4ff62d368c7a6ea8b0b2d19cbc42"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>gamma_photon_intensity</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_conversion_intensity__i"></span><span class="target" id="pyne_datanamespacepyne_1a1ecd163a42049c2b1b92ff1069b9d4f0"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>gamma_conversion_intensity</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_total_intensity__i"></span><span class="target" id="pyne_datanamespacepyne_1a8c291371495740297a0818a30a699fbb"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>gamma_total_intensity</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_from_to__i"></span><span class="target" id="pyne_datanamespacepyne_1ad3cb05a9c479bd42e447b10d20f93f84"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; int, int &gt; &gt; <strong>gamma_from_to</strong>(int parxent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_from_to__double.double"></span><span class="target" id="pyne_datanamespacepyne_1acf21d46fec7dfc28c39bed4d48a25de8"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; int, int &gt; &gt; <strong>gamma_from_to</strong>(double energy, double error)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_parent__double.double"></span><span class="target" id="pyne_datanamespacepyne_1aa3431899f8b900b00160937b49d0a5bf"></span><div class="line-block">
+<div class="line">std::vector&lt; int &gt; <strong>gamma_parent</strong>(double energy, double error)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_xrays__i"></span><span class="target" id="pyne_datanamespacepyne_1a51e5d0ebbce3f808edd352ccd876ded9"></span><div class="line-block">
+<div class="line">std::vector&lt; std::vector&lt; std::pair&lt; double, double &gt; &gt; &gt; <strong>gamma_xrays</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::_load_data:alpha_struct:"></span><span class="target" id="pyne_datanamespacepyne_1ad34322a7a0102a8765c9f16ed8b79ab1"></span><div class="line-block">
+<div class="line">template &lt;  &gt;</div>
+<div class="line">void <strong>_load_data&lt; alpha_struct &gt;</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Loads the alpha decay data from the nuc_data.h5 file into memory. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::alpha_energy__i"></span><span class="target" id="pyne_datanamespacepyne_1a38f7dfe1335cf309de1ca6d4c91d873d"></span><div class="line-block">
+<div class="line">std::vector&lt; double &gt; <strong>alpha_energy</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::alpha_intensity__i"></span><span class="target" id="pyne_datanamespacepyne_1a0b7a5bd768e623864148a4f40b86a133"></span><div class="line-block">
+<div class="line">std::vector&lt; double &gt; <strong>alpha_intensity</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::alpha_parent__double.double"></span><span class="target" id="pyne_datanamespacepyne_1a72413f08d2eb39908ed5087e150a8271"></span><div class="line-block">
+<div class="line">std::vector&lt; int &gt; <strong>alpha_parent</strong>(double energy, double error)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::alpha_child__double.double"></span><span class="target" id="pyne_datanamespacepyne_1a65baef82bc7b30a04a4dd9b056c4b51a"></span><div class="line-block">
+<div class="line">std::vector&lt; int &gt; <strong>alpha_child</strong>(double energy, double error)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::alpha_child__i"></span><span class="target" id="pyne_datanamespacepyne_1af329c97cea19fece4d5ab90365956dac"></span><div class="line-block">
+<div class="line">std::vector&lt; int &gt; <strong>alpha_child</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::_load_data:beta_struct:"></span><span class="target" id="pyne_datanamespacepyne_1aefda2b514fb2be0871da0e93d78ef2e5"></span><div class="line-block">
+<div class="line">template &lt;  &gt;</div>
+<div class="line">void <strong>_load_data&lt; beta_struct &gt;</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Loads the beta decay data from the nuc_data.h5 file into memory. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::beta_endpoint_energy__i"></span><span class="target" id="pyne_datanamespacepyne_1a2eddac966ab0b40b479b3ac37ceac6c0"></span><div class="line-block">
+<div class="line">std::vector&lt; double &gt; <strong>beta_endpoint_energy</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::beta_average_energy__i"></span><span class="target" id="pyne_datanamespacepyne_1a3cae820c592c442fcaeb9c5c4ee27f1e"></span><div class="line-block">
+<div class="line">std::vector&lt; double &gt; <strong>beta_average_energy</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::beta_intensity__i"></span><span class="target" id="pyne_datanamespacepyne_1a3dec4c68e31589392d7d10cbd3baf9bd"></span><div class="line-block">
+<div class="line">std::vector&lt; double &gt; <strong>beta_intensity</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::beta_parent__double.double"></span><span class="target" id="pyne_datanamespacepyne_1a7f2f9c33a441783a201cc519cf64bbe4"></span><div class="line-block">
+<div class="line">std::vector&lt; int &gt; <strong>beta_parent</strong>(double energy, double error)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::beta_child__double.double"></span><span class="target" id="pyne_datanamespacepyne_1aea55e45565211adea582d49c03ecc2f6"></span><div class="line-block">
+<div class="line">std::vector&lt; int &gt; <strong>beta_child</strong>(double energy, double error)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::beta_child__i"></span><span class="target" id="pyne_datanamespacepyne_1a62bdad56a5a44ad9734e122157576138"></span><div class="line-block">
+<div class="line">std::vector&lt; int &gt; <strong>beta_child</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::_load_data:ecbp_struct:"></span><span class="target" id="pyne_datanamespacepyne_1a8ef32da7fd91387555f52797a9828a9a"></span><div class="line-block">
+<div class="line">template &lt;  &gt;</div>
+<div class="line">void <strong>_load_data&lt; ecbp_struct &gt;</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Loads the electron capture and beta plus decay data from the nuc_data.h5 file into memory. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::ecbp_endpoint_energy__i"></span><span class="target" id="pyne_datanamespacepyne_1aa2e0e370d318cdcd709d6c83b299bfe2"></span><div class="line-block">
+<div class="line">std::vector&lt; double &gt; <strong>ecbp_endpoint_energy</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>returns a list of electron capture/ beta plus decay endpoint energies from input parent nuclide </p>
+</div></blockquote>
+<p><span class="target" id="pyne::ecbp_average_energy__i"></span><span class="target" id="pyne_datanamespacepyne_1a7a5a8bf53b8edb555c82b20b605f8ac5"></span><div class="line-block">
+<div class="line">std::vector&lt; double &gt; <strong>ecbp_average_energy</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ec_intensity__i"></span><span class="target" id="pyne_datanamespacepyne_1a1b52ace5c1cb9608e6ccd3c6f19dd13d"></span><div class="line-block">
+<div class="line">std::vector&lt; double &gt; <strong>ec_intensity</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::bp_intensity__i"></span><span class="target" id="pyne_datanamespacepyne_1a1b819544c6be5064fb752a4e51a10b2c"></span><div class="line-block">
+<div class="line">std::vector&lt; double &gt; <strong>bp_intensity</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ecbp_parent__double.double"></span><span class="target" id="pyne_datanamespacepyne_1a5eab90ed80200f1ecf6bbc97cd8723ae"></span><div class="line-block">
+<div class="line">std::vector&lt; int &gt; <strong>ecbp_parent</strong>(double energy, double error)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ecbp_child__double.double"></span><span class="target" id="pyne_datanamespacepyne_1a0cbaf6e6001d61eb1857f132b7485ea4"></span><div class="line-block">
+<div class="line">std::vector&lt; int &gt; <strong>ecbp_child</strong>(double energy, double error)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ecbp_child__i"></span><span class="target" id="pyne_datanamespacepyne_1af6ee0342da59312d4e4f4305d42a07a6"></span><div class="line-block">
+<div class="line">std::vector&lt; int &gt; <strong>ecbp_child</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ecbp_xrays__i"></span><span class="target" id="pyne_datanamespacepyne_1a3025d2af66753c74eca32d876f33b9ae"></span><div class="line-block">
+<div class="line">std::vector&lt; std::vector&lt; std::pair&lt; double, double &gt; &gt; &gt; <strong>ecbp_xrays</strong>(int parent)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Mathematical and Physical Constants</em><blockquote>
+<div><p><span class="target" id="pyne_datanamespacepyne_1a3b91aba14e56f740dc75b78b9eba037a"></span>const double <strong>pi</strong></p>
+<blockquote>
+<div><p>pi = 3.14159265359 </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a44461c2367af5fc9b6bb0988aac2429b"></span>const double <strong>N_A</strong></p>
+<blockquote>
+<div><p>Avogadro&#8217;s Number. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1ad475cf6f124859f735f6d93ec206ec0d"></span>const double <strong>barns_per_cm2</strong></p>
+<blockquote>
+<div><p>barns per cm^2 </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a0706fc6ba35f0c6f85cea550344c1815"></span>const double <strong>cm2_per_barn</strong></p>
+<blockquote>
+<div><p>cm^2 per barn </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a3a54f183e7323b4d62c12f309c3af081"></span>const double <strong>sec_per_day</strong></p>
+<blockquote>
+<div><p></p>
+<p>seconds per day </p>
+</div></blockquote>
 </div></blockquote>
 <em>Natural Abundance Data</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1a8ef2ad6dcdf2555b626a5214916cbb9c"></span>std::map&lt; int, double &gt; <strong>natural_abund_map</strong></p>
+<div><p><span class="target" id="pyne_datanamespacepyne_1a8ef2ad6dcdf2555b626a5214916cbb9c"></span>std::map&lt; int, double &gt; <strong>natural_abund_map</strong></p>
 <blockquote>
 <div><p>Mapping from nuclides in id form to their natural abundances. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::natural_abund__i"><span id="pynenamespacepyne_1aa34a8311add97b0e90ce7600aa86f000"></span><div class="line-block">
+<p><span class="target" id="pyne::natural_abund__i"></span><span class="target" id="pyne_datanamespacepyne_1aa34a8311add97b0e90ce7600aa86f000"></span><div class="line-block">
 <div class="line">double <strong>natural_abund</strong>(int nuc)</div>
 </div>
 </p>
@@ -533,7 +1782,7 @@ if(ga_enabled){
 <div><p>Returns the natural abundance of a nuclide <em>nuc</em>. </p>
 <p>This follows the same the basic rules for finding or computing the natural abundances as the atomic_mass() functions do. However, if the nuclide cannot be found, the default value returned is 0.0. </p>
 </div></blockquote>
-<p id="pyne::natural_abund__cP"><span id="pynenamespacepyne_1a54a674f1208696becf15da2c9941c496"></span><div class="line-block">
+<p><span class="target" id="pyne::natural_abund__cP"></span><span class="target" id="pyne_datanamespacepyne_1a54a674f1208696becf15da2c9941c496"></span><div class="line-block">
 <div class="line">double <strong>natural_abund</strong>(char * nuc)</div>
 </div>
 </p>
@@ -541,7 +1790,7 @@ if(ga_enabled){
 <div><p>Returns the natural abundance of a nuclide <em>nuc</em>. </p>
 <p></p>
 </div></blockquote>
-<p id="pyne::natural_abund__ss"><span id="pynenamespacepyne_1a9f1c241172136f7b983c001c3b158ac4"></span><div class="line-block">
+<p><span class="target" id="pyne::natural_abund__ss"></span><span class="target" id="pyne_datanamespacepyne_1a9f1c241172136f7b983c001c3b158ac4"></span><div class="line-block">
 <div class="line">double <strong>natural_abund</strong>(std::string nuc)</div>
 </div>
 </p>
@@ -550,24 +1799,102 @@ if(ga_enabled){
 <p></p>
 </div></blockquote>
 </div></blockquote>
+<em>Gamma Fraction of Q Values Data</em><blockquote>
+<div><p><span class="target" id="pyne_datanamespacepyne_1a6c03d8d2c2a8254259d8aef8d13d8ea4"></span>std::map&lt; int, double &gt; <strong>gamma_frac_map</strong></p>
+<blockquote>
+<div><p>Mapping from nuclides in id form to the fraction of Q that comes from gammas. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_frac__i"></span><span class="target" id="pyne_datanamespacepyne_1aef2fb37465ee46726235ea5b16ccad52"></span><div class="line-block">
+<div class="line">double <strong>gamma_frac</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the natural abundance of a nuclide <em>nuc</em>. </p>
+<p>This follows the same the basic rules for finding or computing the fraction of Q that comes from gammas as the q_val() functions do. If the nuclide cannot be found, the default value returned is 0.0. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_frac__cP"></span><span class="target" id="pyne_datanamespacepyne_1acb84faf7b60b278c7fcc0a24eb936617"></span><div class="line-block">
+<div class="line">double <strong>gamma_frac</strong>(char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the gamma_frac of a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_frac__ss"></span><span class="target" id="pyne_datanamespacepyne_1a65ee3d70d7060637571f65249dc116f9"></span><div class="line-block">
+<div class="line">double <strong>gamma_frac</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the gamma_frac of a nuclide <em>nuc</em>. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Functions</em><blockquote>
+<div><p><span class="target" id="pyne::simple_xs__i.i.ss"></span><span class="target" id="pyne_datanamespacepyne_1abde9d0cbfe70fd1a75a7cb2d1f59e1f1"></span><div class="line-block">
+<div class="line">double <strong>simple_xs</strong>(int nuc, int rx, std::string energy)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>returns the microscopic cross section in barns for the specified nuclide, reaction, and energy group. energy must be one of: &#8220;thermal&#8221;, &#8220;thermal_maxwell_ave&#8221;, &#8220;resonance_integral&#8221;, &#8220;fourteen_MeV&#8221;, &#8220;fission_spectrum_ave&#8221;. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::simple_xs__i.ss.ss"></span><span class="target" id="pyne_datanamespacepyne_1ab10ec6870a2330af652b07b4dc6dcb27"></span><div class="line-block">
+<div class="line">double <strong>simple_xs</strong>(int nuc, std::string rx, std::string energy)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::simple_xs__ss.i.ss"></span><span class="target" id="pyne_datanamespacepyne_1a5175275a09e97886dcf15a082a719812"></span><div class="line-block">
+<div class="line">double <strong>simple_xs</strong>(std::string nuc, int rx, std::string energy)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::simple_xs__ss.ss.ss"></span><span class="target" id="pyne_datanamespacepyne_1ac9f173d7792a84eb558dc7396c7d4d56"></span><div class="line-block">
+<div class="line">double <strong>simple_xs</strong>(std::string nuc, std::string rx, std::string energy)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
 <em>Variables</em><blockquote>
-<div><p id=""><span id="pynenamespacepyne_1ac4b3b3dcf295d033b906bf921d820ae2"></span>std::string <strong>NUC_DATA_PATH</strong></p>
+<div><p><span class="target" id="pyne_datanamespacepyne_1ac4b3b3dcf295d033b906bf921d820ae2"></span>std::string <strong>NUC_DATA_PATH</strong></p>
 <blockquote>
 <div><p>Path to the nuc_data.h5 file. </p>
 <p></p>
 </div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a5bddb70c4d1143b3bddad31dd52197eb"></span>std::map&lt; std::string, std::string &gt; <strong>data_checksums</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1af58151eb4d3e5626def0d82188952ecc"></span>std::map&lt; std::string, std::map&lt; int, std::map&lt; int, double &gt; &gt; &gt; <strong>simple_xs_map</strong></p>
+<blockquote>
+<div><p>map&lt;energy, map&lt;nuclide, map&lt;rx, xs&gt; &gt; &gt; </p>
+<p></p>
 </div></blockquote>
 </div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedata_8h"></span><em>file</em> <strong>data.h</strong></div>
+</div></blockquote>
+<div class="line-block" id="pyne_datadata_8h">
+<div class="line"><em>file</em> <strong>data.h</strong></div>
 <div class="line"><em>#include &lt;iostream&gt;</em></div>
 <div class="line"><em>#include &lt;string&gt;</em></div>
 <div class="line"><em>#include &lt;utility&gt;</em></div>
 <div class="line"><em>#include &lt;map&gt;</em></div>
 <div class="line"><em>#include &lt;set&gt;</em></div>
+<div class="line"><em>#include &lt;limits&gt;</em></div>
 <div class="line"><em>#include &lt;exception&gt;</em></div>
 <div class="line"><em>#include &lt;stdlib.h&gt;</em></div>
 <div class="line"><em>#include &lt;stdio.h&gt;</em></div>
+<div class="line"><em>#include &lt;float.h&gt;</em></div>
+<div class="line"><em>#include &lt;math.h&gt;</em></div>
 <div class="line"><em>#include &#8220;hdf5.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;hdf5_hl.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;h5wrap.h&#8221;</em></div>
@@ -586,6 +1913,8 @@ if(ga_enabled){
 <div class="line"><em>#include &lt;algorithm&gt;</em></div>
 <div class="line"><em>#include &#8220;nucname.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/pyne.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;rxname.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/nucname.h&#8221;</em></div>
 </div>
 <blockquote>
 <div><p>Implements basic nuclear data functions. </p>
@@ -595,8 +1924,8 @@ if(ga_enabled){
 </dl>
 </p>
 </div></blockquote>
-<div class="line-block">
-<div class="line" id=""><span id="pynedir_df511e5bd85cec96854b39d5e1c27aa8"></span><em>dir</em> <strong>/home/scopatz/pyne/cpp</strong></div>
+<div class="line-block" id="pyne_datadir_df511e5bd85cec96854b39d5e1c27aa8">
+<div class="line"><em>dir</em> <strong>/home/scopatz/pyne/cpp</strong></div>
 </div>
 <blockquote>
 <div><p></p>
@@ -670,7 +1999,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2013, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

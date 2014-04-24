@@ -99,29 +99,140 @@ only parsing out half-life data is supported.</p>
 <div class="section" id="module-pyne.ensdf">
 <span id="ensdf-api"></span><h2>ENSDF API<a class="headerlink" href="#module-pyne.ensdf" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="pyne.ensdf.half_life">
-<tt class="descclassname">pyne.ensdf.</tt><tt class="descname">half_life</tt><big>(</big><em>ensdf</em><big>)</big><a class="reference internal" href="../_modules/pyne/ensdf.html#half_life"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ensdf.half_life" title="Permalink to this definition">¶</a></dt>
-<dd><p>Grabs the half-lives from an ENSDF file.</p>
+<dt id="pyne.ensdf.gamma_rays">
+<tt class="descclassname">pyne.ensdf.</tt><tt class="descname">gamma_rays</tt><big>(</big><em>f</em><big>)</big><a class="reference internal" href="../_modules/pyne/ensdf.html#gamma_rays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ensdf.gamma_rays" title="Permalink to this definition">¶</a></dt>
+<dd><p>This splits an ENSDF file into datasets. It then passes the dataset to the
+appropriate parser. Currently only a subset of decay datasets are
+supported. The output is a list of objects containing information
+pertaining to a particular decay. This object is described in detail in the
+_parse_decay_dataset function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>ensdf</strong> : str or file-like object</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
-<div><p>ENSDF file to inspect for half-life data</p>
+<div><p>Name of ENSDF formatted file</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>data</strong> : list of 5-tuples</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>decaylist</strong> : list of tuples</p>
+<blockquote>
+<div><p>list of objects containing information pertaining to a particular
+decay. This information is in the following format:</p>
+</div></blockquote>
+<p><strong>int</strong> :</p>
+<blockquote>
+<div><p>nuc_id of the parent</p>
+</div></blockquote>
+<p><strong>int</strong> :</p>
+<blockquote>
+<div><p>nuc_id of the daughter</p>
+</div></blockquote>
+<p><strong>str</strong> :</p>
+<blockquote>
+<div><p>decay type</p>
+</div></blockquote>
+<p><strong>float</strong> :</p>
+<blockquote>
+<div><p>half-life in seconds</p>
+</div></blockquote>
+<p><strong>float</strong> :</p>
+<blockquote>
+<div><p>half-life error in seconds</p>
+</div></blockquote>
+<p><strong>float</strong> :</p>
+<blockquote>
+<div><p>Conversion factor for gamma intensity to photons per 100 decays of the
+parent</p>
+</div></blockquote>
+<p><strong>float</strong> :</p>
+<blockquote>
+<div><p>Error in conversion factor for gamma intensity</p>
+</div></blockquote>
+<p><strong>numpy.ndarray</strong> :</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>X-ray energies and intensities in the following format:</dt>
+<dd><ul class="first last simple">
+<li>K_alpha1 energy</li>
+<li>K_alpha1 intensity (multiply by conversion factor for percentage)</li>
+<li>K_alpha2 energy</li>
+<li>K_alpha2 intensity (multiply by conversion factor for percentage)</li>
+<li>K_beta energy</li>
+<li>K_beta intensity (multiply by conversion factor for percentage)</li>
+<li>L energy</li>
+<li>L intensity (multiply by conversion factor for percentage)</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>numpy.ndarray</strong> :</p>
 <blockquote class="last">
-<div><p>List of tuples where the indices match</p>
-<ol class="arabic simple">
-<li>from_nuclide, int (id)</li>
-<li>level, float (MeV) - from_nuc&#8217;s energy level</li>
-<li>to_nuclide, int (id)</li>
-<li>half_life, float (seconds)</li>
-<li>branch_ratio, float (frac)</li>
-</ol>
+<div><dl class="docutils">
+<dt>a numpy array containing information about each gamma ray:</dt>
+<dd><ul class="first last simple">
+<li>energy in keV</li>
+<li>uncertainty in energy</li>
+<li>intensity (multiply by conversion factor for percentage)</li>
+<li>uncertainty in intensity</li>
+<li>electron conversion intensity</li>
+<li>uncertainty in electron conversion intensity</li>
+<li>total transition intensity</li>
+<li>total transition intensity error</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.ensdf.origen_data">
+<tt class="descclassname">pyne.ensdf.</tt><tt class="descname">origen_data</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/ensdf.html#origen_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ensdf.origen_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function parses assorted data from an ensdf file in order to collect
+the necessary information to generate data for origen input decks.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote>
+<div><p>Name of ENSDF formatted file</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>decaylist</strong> : list</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>This is a list of tuples containing:</dt>
+<dd><ul class="first last simple">
+<li>parent nuc_id</li>
+<li>half life of parent</li>
+<li>parent energy level</li>
+<li>half life of daughter</li>
+<li>energy level of daughter</li>
+<li>decay type of parent</li>
+<li>percent of beta + percent of electron capture decays to daughter</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>branchlist</strong> : list</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>This is a list of tuples containing:</dt>
+<dd><ul class="first last simple">
+<li>parent nuc_id</li>
+<li>energy level of parent</li>
+<li>half life of parent</li>
+<li>dictionary of branching ratios</li>
+</ul>
+</dd>
+</dl>
 </div></blockquote>
 </td>
 </tr>
@@ -206,7 +317,7 @@ only parsing out half-life data is supported.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2013, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

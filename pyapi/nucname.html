@@ -102,10 +102,10 @@ be expressed as &#8216;922350000&#8217;.  This is th canonical form for nuclides
 the nuclide is metastable, the letter <em>M</em> is concatenated to the end.  For
 example, &#8216;H-1&#8217; and &#8216;Am242M&#8217; are both valid.  Note that nucname will always
 return name form with the dash removed and all letters uppercase.</li>
-<li><strong>zzaaam</strong>: This type places the charge of the nucleus out front, then has three
-digits for the atomic mass number, and ends with a metastable flag (0 = ground,
-1 = first excited state, 2 = second excited state, etc).  Uranium-235 here would
-be expressed as &#8216;922350&#8217;.</li>
+<li><strong>zzzaaa</strong>: This type places the charge of the nucleus out front, then has three
+digits for the atomic mass.  It contains no information about the excited state.</li>
+<li><strong>zzllaaam</strong>: This type places the two digit atomic mass followed by the redundant
+two character elemental abreviation, followed by the elements ZZZ and exited state.</li>
 <li><strong>SZA</strong>: This type places three state digits out front, the charge of the nucleus in
 the middle, and then has three digits for the atomic mass number. Uranium-235M here
 would be expressed as &#8216;1092235&#8217;.</li>
@@ -128,13 +128,15 @@ for &#8216;AM242M&#8217;.</li>
 <li><strong>ALARA</strong>: In ALARA format, elements are denoted by the lower case atomic symbol. Isotopes are
 specified by appending a semicolon and A-number. For example, &#8220;fe&#8221; and &#8220;fe:56&#8221; represent
 elemental iron and iron-56 respectively. No metastable flag exists.</li>
+<li><strong>Groundstate</strong>:  In Groundstate format, the nuclide is stored in a form similar to the standard id
+form, but the last four digits are zero to eliminate the information about the nuclides state.</li>
 </ol>
 </div></blockquote>
 <p>All functionality may be found in the <tt class="docutils literal"><span class="pre">nucname</span></tt> package:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 </pre></div>
 </div>
-<p>This contains several zzaaam, name, MCNP and Serpent converter function as
+<p>This contains several zzaaam, zzzaaa, zzllaaam, name, MCNP, Groundstate and Serpent converter function as
 well as other helpful module attributes.</p>
 <div class="section" id="naming-convention-casting-functions">
 <span id="name-cast"></span><h2>Naming Convention Casting Functions<a class="headerlink" href="#naming-convention-casting-functions" title="Permalink to this headline">¶</a></h2>
@@ -205,6 +207,56 @@ well as other helpful module attributes.</p>
 <tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in zzaaam form.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="pyne.nucname.zzzaaa">
+<tt class="descclassname">pyne.nucname.</tt><tt class="descname">zzzaaa</tt><big>(</big><em>nuc</em><big>)</big><a class="headerlink" href="#pyne.nucname.zzzaaa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a nuclide to its zzzaaa form (95242).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<blockquote>
+<div><p>Input nuclide.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<blockquote class="last">
+<div><p>Output nuclide in zzzaaa form.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="function">
+<dt id="pyne.nucname.zzllaaam">
+<tt class="descclassname">pyne.nucname.</tt><tt class="descname">zzllaaam</tt><big>(</big><em>nuc</em><big>)</big><a class="headerlink" href="#pyne.nucname.zzllaaam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a nuclide to its zzllaaam form (95-Am-241m).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<blockquote>
+<div><p>Input nuclide.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
+<blockquote class="last">
+<div><p>Output nuclide in zzllaaam form.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -342,6 +394,31 @@ the meaning. Thus Am-242m = 95242 and Am-242 = 95642.</p>
 </table>
 </dd></dl>
 
+<hr class="docutils" />
+<dl class="function">
+<dt id="pyne.nucname.groundstate">
+<tt class="descclassname">pyne.nucname.</tt><tt class="descname">groundstate</tt><big>(</big><em>nuc</em><big>)</big><a class="headerlink" href="#pyne.nucname.groundstate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a nuclide to its Groundstate form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<blockquote>
+<div><p>Input nuclide.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<blockquote class="last">
+<div><p>Output nuclide in Groundstate form.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="id-conversion-functions">
 <h2>Id Conversion Functions<a class="headerlink" href="#id-conversion-functions" title="Permalink to this headline">¶</a></h2>
@@ -371,6 +448,58 @@ the canonical identifier form.</p>
 </dd></dl>
 
 <hr class="docutils" />
+<dl class="function">
+<dt id="pyne.nucname.zzzaaa_to_id">
+<tt class="descclassname">pyne.nucname.</tt><tt class="descname">zzzaaa_to_id</tt><big>(</big><em>nuc</em><big>)</big><a class="headerlink" href="#pyne.nucname.zzzaaa_to_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a nuclide directly from ZZZAAA form (95242) to
+the canonical identifier form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<blockquote>
+<div><p>Input nuclide in ZZZAAA form.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<blockquote class="last">
+<div><p>Output nuclide in identifier form.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>&#8212;</p>
+<dl class="function">
+<dt id="pyne.nucname.zzllaaam_to_id">
+<tt class="descclassname">pyne.nucname.</tt><tt class="descname">zzllaaam_to_id</tt><big>(</big><em>nuc</em><big>)</big><a class="headerlink" href="#pyne.nucname.zzllaaam_to_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a nuclide directly from ZZLLAAAM form (95-Am-241m) to
+the canonical identifier form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<blockquote>
+<div><p>Input nuclide in ZZLLAAAM form.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<blockquote class="last">
+<div><p>Output nuclide in identifier form.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>&#8212;</p>
 <dl class="function">
 <dt id="pyne.nucname.mcnp_to_id">
 <tt class="descclassname">pyne.nucname.</tt><tt class="descname">mcnp_to_id</tt><big>(</big><em>nuc</em><big>)</big><a class="headerlink" href="#pyne.nucname.mcnp_to_id" title="Permalink to this definition">¶</a></dt>
@@ -779,7 +908,7 @@ and Fission Products.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2013, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

@@ -127,14 +127,14 @@ to discretize its data to the custom destination form.</p>
 <p>The following methods may be overridden in DataSource subclasses as a potential
 optimization:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="mf">300.0</span><span class="p">):</span>
-    <span class="c"># loads the entire data source into memory.  This prevents </span>
+    <span class="c"># loads the entire data source into memory.  This prevents</span>
     <span class="c"># excessive queries to disk.  This does not return anything.</span>
     <span class="k">pass</span>
 
-<span class="c"># a class attribute that specificies whether the data source uses </span>
-<span class="c"># temperature information.  If the data source does not use such </span>
-<span class="c"># info, the keys in the rxcache dictionary are shortend to just the </span>
-<span class="c"># (nuc, rx) pair.  Accessing (nuc, rx, temp) data will defer to the </span>
+<span class="c"># a class attribute that specificies whether the data source uses</span>
+<span class="c"># temperature information.  If the data source does not use such</span>
+<span class="c"># info, the keys in the rxcache dictionary are shortend to just the</span>
+<span class="c"># (nuc, rx) pair.  Accessing (nuc, rx, temp) data will defer to the</span>
 <span class="c"># (nuc, rx) pair.</span>
 <span class="n">_USES_TEMP</span> <span class="o">=</span> <span class="bp">True</span>
 </pre></div>
@@ -412,44 +412,76 @@ must exist for this data source to exist.</p>
 </tbody>
 </table>
 <dl class="method">
-<dt id="pyne.xs.data_source.ENDFDataSource.discretize">
-<tt class="descname">discretize</tt><big>(</big><em>nuc</em>, <em>rx</em>, <em>nuc_i</em>, <em>temp=300.0</em>, <em>src_phi_g=None</em>, <em>dst_phi_g=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#ENDFDataSource.discretize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.ENDFDataSource.discretize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Discretizes the reaction channel.</p>
+<dt id="pyne.xs.data_source.ENDFDataSource.reaction">
+<tt class="descname">reaction</tt><big>(</big><em>nuc</em>, <em>rx</em>, <em>nuc_i=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#ENDFDataSource.reaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.ENDFDataSource.reaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get reaction data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
-<div><p>Nuclide to discretize.</p>
+<div><p>Nuclide containing the reaction.</p>
 </div></blockquote>
 <p><strong>rx</strong> : int or str</p>
 <blockquote>
-<div><p>Reaction to discretize.</p>
+<div><p>Desired reaction</p>
 </div></blockquote>
-<p><strong>nuc_i</strong> : int</p>
+<p><strong>nuc_i</strong> : int or str</p>
 <blockquote>
-<div><p>Isotope to discretize.</p>
+<div><p>Nuclide containing the reaction. Defaults to nuc.</p>
 </div></blockquote>
-<p><strong>temp</strong> : float</p>
+<p><strong>group_bounds</strong> : tuple</p>
 <blockquote>
-<div><p>Temperature - not used in this, but preserved for API compatibility</p>
-</div></blockquote>
-<p><strong>src_phi_g</strong> : array-like</p>
-<blockquote>
-<div><p>Source group flux - not used in this, but preserved for API
-compatibility</p>
-</div></blockquote>
-<p><strong>dst_phi_g</strong> : array-like</p>
-<blockquote>
-<div><p>Destination group flux - not used in this, but preserved for API
-compatibility</p>
+<div><p>Low and high energy bounds of the new group.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dst_sigma</strong> : array</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>rxdict</strong> : dict</p>
 <blockquote class="last">
-<div><p>An array with the group cross-sections in order of decreasing energy.</p>
+<div><p>Dictionary containing source group structure, energy values, cross-
+section data, and interpolation data.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.xs.data_source.ENDFDataSource.discretize">
+<tt class="descname">discretize</tt><big>(</big><em>nuc</em>, <em>rx</em>, <em>temp=300.0</em>, <em>src_phi_g=None</em>, <em>dst_phi_g=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#ENDFDataSource.discretize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.ENDFDataSource.discretize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discretizes the reaction channel from the source group structure to that
+of the destination weighted by the group fluxes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<blockquote>
+<div><p>A nuclide.</p>
+</div></blockquote>
+<p><strong>rx</strong> : int or str</p>
+<blockquote>
+<div><p>Reaction id or name.</p>
+</div></blockquote>
+<p><strong>temp</strong> : float, optional</p>
+<blockquote>
+<div><p>Temperature [K] of material, defaults to 300.0.</p>
+</div></blockquote>
+<p><strong>src_phi_g</strong> : array-like, optional</p>
+<blockquote>
+<div><p>Group fluxes for this data source, length src_ngroups.</p>
+</div></blockquote>
+<p><strong>dst_phi_g</strong> : array-like, optional</p>
+<blockquote>
+<div><p>Group fluxes for the destiniation structure, length dst_ngroups.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dst_sigma</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>Destination cross section data, length dst_ngroups.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -528,7 +560,7 @@ compatibility</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2013, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

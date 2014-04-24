@@ -93,7 +93,7 @@ if(ga_enabled){
 <p>This module implements an ALARA-like chain-based transmutation solver.</p>
 <dl class="class">
 <dt id="pyne.transmute.chainsolve.Transmuter">
-<em class="property">class </em><tt class="descclassname">pyne.transmute.chainsolve.</tt><tt class="descname">Transmuter</tt><big>(</big><em>t=0.0</em>, <em>phi=0.0</em>, <em>temp=300.0</em>, <em>tol=1e-07</em>, <em>rxs=None</em>, <em>log=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/transmute/chainsolve.html#Transmuter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.transmute.chainsolve.Transmuter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.transmute.chainsolve.</tt><tt class="descname">Transmuter</tt><big>(</big><em>t=0.0</em>, <em>phi=0.0</em>, <em>temp=300.0</em>, <em>tol=1e-07</em>, <em>rxs=None</em>, <em>log=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/transmute/chainsolve.html#Transmuter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.transmute.chainsolve.Transmuter" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for transmuting materials using an ALARA-like chain solver.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -123,9 +123,17 @@ children.  This set should thus not include fission.  If None, then the
 reactions from EAF are used.</p>
 </div></blockquote>
 <p><strong>log</strong> : file-like or None</p>
-<blockquote class="last">
+<blockquote>
 <div><p>The log file object should be written. A None imples the log is 
 not desired.</p>
+</div></blockquote>
+<p><strong>args</strong> : tuple, optional</p>
+<blockquote>
+<div><p>Other arguments ignored for compatibility with other Transmuters.</p>
+</div></blockquote>
+<p><strong>kwargs</strong> : dict, optional</p>
+<blockquote class="last">
+<div><p>Other keyword arguments ignored for compatibility with other Transmuters.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -133,13 +141,13 @@ not desired.</p>
 </table>
 <dl class="method">
 <dt id="pyne.transmute.chainsolve.Transmuter.transmute">
-<tt class="descname">transmute</tt><big>(</big><em>x</em>, <em>t=None</em>, <em>phi=None</em>, <em>tol=None</em>, <em>log=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/transmute/chainsolve.html#Transmuter.transmute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.transmute.chainsolve.Transmuter.transmute" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">transmute</tt><big>(</big><em>x</em>, <em>t=None</em>, <em>phi=None</em>, <em>tol=None</em>, <em>log=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/transmute/chainsolve.html#Transmuter.transmute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.transmute.chainsolve.Transmuter.transmute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transmutes a material into its daughters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : Marterial or similar</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : Material or similar</p>
 <blockquote>
 <div><p>Input material for transmutation.</p>
 </div></blockquote>
@@ -244,7 +252,7 @@ not desired.</p>
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2013, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

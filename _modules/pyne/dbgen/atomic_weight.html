@@ -81,17 +81,17 @@ if(ga_enabled){
             
   <h1>Source code for pyne.dbgen.atomic_weight</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;This module provides a way to grab and store raw data for atomic weights.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">pkgutil</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
 
-<span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
-<span class="kn">from</span> <span class="nn">pyne.dbgen.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
-<span class="kn">from</span> <span class="nn">pyne.dbgen.isotopic_abundance</span> <span class="kn">import</span> <span class="n">get_isotopic_abundances</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">nucname</span>
+<span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
+<span class="kn">from</span> <span class="nn">.isotopic_abundance</span> <span class="kn">import</span> <span class="n">get_isotopic_abundances</span>
 
 <span class="c"># Note that since ground state and meta-stable isotopes are of the same atomic weight, </span>
 <span class="c"># the meta-stables have been discluded from the following data sets.</span>
@@ -221,15 +221,15 @@ if(ga_enabled){
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s">&#39;atomic_weight&#39;</span><span class="p">):</span>
-                <span class="k">print</span> <span class="s">&quot;skipping atomic weights data table creation; already exists.&quot;</span>
-                <span class="k">return</span> 
+                <span class="k">print</span><span class="p">(</span><span class="s">&quot;skipping atomic weights data table creation; already exists.&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
 
     <span class="c"># Then grab mass data</span>
-    <span class="k">print</span> <span class="s">&quot;Copying AME 2012 atomic mass data.&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Copying AME 2012 atomic mass data.&quot;</span><span class="p">)</span>
     <span class="n">copy_atomic_mass_adjustment</span><span class="p">(</span><span class="n">build_dir</span><span class="p">)</span>
 
     <span class="c"># Make atomic weight table once we have the array</span>
-    <span class="k">print</span> <span class="s">&quot;Making atomic weight data table.&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Making atomic weight data table.&quot;</span><span class="p">)</span>
     <span class="n">make_atomic_weight_table</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="p">)</span>
 </pre></div></div>
 
@@ -281,7 +281,7 @@ if(ga_enabled){
     </div>
 
     <div class="footer">
-        &copy; Copyright 2011-2013, The PyNE Development Team.
+        &copy; Copyright 2011-2014, The PyNE Development Team.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){

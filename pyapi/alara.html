@@ -1,0 +1,437 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ALARA Input and Output Interfaces – pyne.alara &mdash; PyNE 0.4-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
+    <link rel="up" title="Python API" href="index.html" />
+    <link rel="next" title="Mesh-based Rigourous 2-Step Activation – pyne.r2s" href="r2s.html" />
+    <link rel="prev" title="MCNP Input and Output Interfaces – pyne.mcnp" href="mcnp.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="r2s.html" title="Mesh-based Rigourous 2-Step Activation – pyne.r2s"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="mcnp.html" title="MCNP Input and Output Interfaces – pyne.mcnp"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Python API</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="alara-input-and-output-interfaces-pyne-alara">
+<span id="pyne-alara"></span><h1>ALARA Input and Output Interfaces &#8211; <a class="reference internal" href="#module-pyne.alara" title="pyne.alara"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.alara</span></tt></a><a class="headerlink" href="#alara-input-and-output-interfaces-pyne-alara" title="Permalink to this headline">¶</a></h1>
+<p>This is a module for reading and writing ALARA input to and from PyNE Mesh
+objects. The functionality of the module can be obtained by importing as such:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">alara</span>
+</pre></div>
+</div>
+<div class="section" id="module-pyne.alara">
+<span id="alara-api"></span><h2>ALARA API<a class="headerlink" href="#module-pyne.alara" title="Permalink to this headline">¶</a></h2>
+<p>This module contains functions relevant to the ALARA activation code.</p>
+<dl class="function">
+<dt id="pyne.alara.irradiation_blocks">
+<tt class="descclassname">pyne.alara.</tt><tt class="descname">irradiation_blocks</tt><big>(</big><em>material_lib</em>, <em>element_lib</em>, <em>data_library</em>, <em>cooling</em>, <em>flux_file</em>, <em>irr_time</em>, <em>output = &quot;number_density&quot;</em>, <em>truncation=1E-12</em>, <em>impurity = (5E-6</em>, <em>1E-3)</em>, <em>dump_file = &quot;dump_file&quot;</em><big>)</big><a class="reference internal" href="../_modules/pyne/alara.html#irradiation_blocks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.alara.irradiation_blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns a string of the irradation-related input blocks. This 
+function is meant to be used with files created by the mesh_to_geom 
+function, in order to append the remaining input blocks to form a complete
+ALARA input file. Only the simplest irradiation schedule is supported: a 
+single pulse of time &lt;irr_time&gt;. The notation in this function is consistent 
+with the ALARA users&#8217; guide, found at:</p>
+<p><a class="reference external" href="http://alara.engr.wisc.edu/users.guide.html/">http://alara.engr.wisc.edu/users.guide.html/</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>material_lib</strong> : str</p>
+<blockquote>
+<div><p>Path to material library.</p>
+</div></blockquote>
+<p><strong>element_lib</strong> : str</p>
+<blockquote>
+<div><p>Path to element library.</p>
+</div></blockquote>
+<p><strong>data_library</strong> : str</p>
+<blockquote>
+<div><p>The data_library card (see ALARA user&#8217;s guide).</p>
+</div></blockquote>
+<p><strong>cooling</strong> : str or iterable of str</p>
+<blockquote>
+<div><p>Cooling times for which output is requested. Given in ALARA form (e.g.
+&#8220;1 h&#8221;, &#8220;0.5 y&#8221;). Note that &#8220;shutdown&#8221; is always implicitly included.</p>
+</div></blockquote>
+<p><strong>flux_file</strong> : str</p>
+<blockquote>
+<div><p>Path to the &#8220;fluxin&#8221; file.</p>
+</div></blockquote>
+<p><strong>irr_time</strong> : str</p>
+<blockquote>
+<div><p>The duration of the single pulse irradiation. Given in the ALARA form
+(e.g. &#8220;1 h&#8221;, &#8220;0.5 y&#8221;).</p>
+</div></blockquote>
+<p><strong>output</strong> : str or iterable of str, optional.</p>
+<blockquote>
+<div><p>The requested output blocks (see ALARA users&#8217; guide).</p>
+</div></blockquote>
+<p><strong>truncation</strong> : float, optional</p>
+<blockquote>
+<div><p>The chain truncation value (see ALARA users&#8217; guide).</p>
+</div></blockquote>
+<p><strong>impurity</strong> : tuple of two floats, optional</p>
+<blockquote>
+<div><p>The impurity parameters (see ALARA users&#8217; guide).</p>
+</div></blockquote>
+<p><strong>dump_file: str, optional</strong> :</p>
+<blockquote>
+<div><p>Path to the dump file.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>s</strong> : str</p>
+<blockquote class="last">
+<div><p>Irradition-related ALARA input blocks.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.alara.mesh_to_fluxin">
+<tt class="descclassname">pyne.alara.</tt><tt class="descname">mesh_to_fluxin</tt><big>(</big><em>flux_mesh</em>, <em>flux_tag</em>, <em>fluxin='fluxin.out'</em>, <em>reverse=False</em><big>)</big><a class="reference internal" href="../_modules/pyne/alara.html#mesh_to_fluxin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.alara.mesh_to_fluxin" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function creates an ALARA fluxin file from fluxes tagged on a PyNE
+Mesh object. Fluxes are printed in the order of the flux_mesh.__iter__().</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>flux_mesh</strong> : PyNE Mesh object</p>
+<blockquote>
+<div><p>Contains the mesh with fluxes tagged on each volume element.</p>
+</div></blockquote>
+<p><strong>flux_tag</strong> : string</p>
+<blockquote>
+<div><p>The name of the tag of the flux mesh. Flux values for different energy
+groups are assumed to be represented as vector tags.</p>
+</div></blockquote>
+<p><strong>fluxin</strong> : string</p>
+<blockquote>
+<div><p>The name of the ALARA fluxin file to be output.</p>
+</div></blockquote>
+<p><strong>reverse</strong> : bool</p>
+<blockquote class="last">
+<div><p>If true, fluxes will be printed in the reverse order as they appear in
+the flux vector tagged on the mesh.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.alara.mesh_to_geom">
+<tt class="descclassname">pyne.alara.</tt><tt class="descname">mesh_to_geom</tt><big>(</big><em>mesh</em>, <em>geom_file</em>, <em>matlib_file</em><big>)</big><a class="reference internal" href="../_modules/pyne/alara.html#mesh_to_geom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.alara.mesh_to_geom" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function reads the materials of a PyNE mesh object and prints the
+geometry and materials portion of an ALARA input file, as well as a
+corresponding matlib file. If the mesh is structured, xyz ordering is used
+(z changing fastest). If the mesh is unstructured iMesh.iterate order is
+used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
+<blockquote>
+<div><p>The Mesh object containing the materials to be printed.</p>
+</div></blockquote>
+<p><strong>geom_file</strong> : str</p>
+<blockquote>
+<div><p>The name of the file to print the geometry and material blocks.</p>
+</div></blockquote>
+<p><strong>matlib_file</strong> : str</p>
+<blockquote class="last">
+<div><p>The name of the file to print the matlib.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.alara.num_density_to_mesh">
+<tt class="descclassname">pyne.alara.</tt><tt class="descname">num_density_to_mesh</tt><big>(</big><em>lines</em>, <em>time</em>, <em>m</em><big>)</big><a class="reference internal" href="../_modules/pyne/alara.html#num_density_to_mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.alara.num_density_to_mesh" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This function reads ALARA output containing number density information and </dt>
+<dd>creates material objects which are then added to a supplied PyNE Mesh object. 
+The volumes within ALARA are assummed to appear in the same order as the 
+idx on the Mesh object.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lines</strong> : list or str</p>
+<blockquote>
+<div><p>ALARA output from ALARA run with &#8216;number_density&#8217; in the &#8216;output&#8217; block
+of the input file. Lines can either be a filename or the equivalent to
+calling readlines() on an ALARA output file. If reading in ALARA output
+from stdout, call split(&#8216;</p>
+</div></blockquote>
+<p><strong>&#8216;) before passing it in as the lines parameter.</strong> :</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>time <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">The decay time for which number densities are requested (e.g. &#8216;1 h&#8217;,
+&#8216;shutdown&#8217;, etc.)</p>
+</dd>
+<dt>m <span class="classifier-delimiter">:</span> <span class="classifier">PyNE Mesh</span></dt>
+<dd><p class="first last">Mesh object for which mats will be applied to.</p>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.alara.photon_source_hdf5_to_mesh">
+<tt class="descclassname">pyne.alara.</tt><tt class="descname">photon_source_hdf5_to_mesh</tt><big>(</big><em>mesh</em>, <em>filename</em>, <em>tags</em><big>)</big><a class="reference internal" href="../_modules/pyne/alara.html#photon_source_hdf5_to_mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.alara.photon_source_hdf5_to_mesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function reads in an hdf5 file produced by photon_source_to_hdf5
+and tags the requested data to the mesh of a PyNE Mesh object. Any
+combinations of nuclides and decay times are allowed. The photon source
+file is assumed to be in mesh.__iter__() order</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh</p>
+<blockquote>
+<div><p>The object containing the imesh instance to be tagged.</p>
+</div></blockquote>
+<p><strong>filename</strong> : str</p>
+<blockquote>
+<div><p>The path of the hdf5 version of the photon source file.</p>
+</div></blockquote>
+<p><strong>tags: dict</strong> :</p>
+<blockquote class="last">
+<div><p>A dictionary were the keys are tuples with two values. The first is a
+string denoting an nuclide in any form that is understood by
+pyne.nucname (e.g. &#8216;1001&#8217;, &#8216;U-235&#8217;, &#8216;242Am&#8217;) or &#8216;TOTAL&#8217; for all
+nuclides. The second is a string denoting the decay time as it appears
+in the file (e.g. &#8216;shutdown&#8217;, &#8216;1 h&#8217; &#8216;3 d&#8217;). The values of the
+dictionary are the requested tag names for the combination of nuclide
+and decay time. For example if one wanted tags for the photon source
+densities from U235 at shutdown and from all nuclides at 1 hour, the
+dictionary could be:</p>
+<p>tags = {(&#8216;U-235&#8217;, &#8216;shutdown&#8217;) : &#8216;tag1&#8217;, (&#8216;TOTAL&#8217;, &#8216;1 h&#8217;) : &#8216;tag2&#8217;}</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.alara.photon_source_to_hdf5">
+<tt class="descclassname">pyne.alara.</tt><tt class="descname">photon_source_to_hdf5</tt><big>(</big><em>filename</em>, <em>chunkshape=(10000</em>, <em>)</em><big>)</big><a class="reference internal" href="../_modules/pyne/alara.html#photon_source_to_hdf5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.alara.photon_source_to_hdf5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a plaintext photon source file to an HDF5 version for
+quick later use.</p>
+<p>This function produces a single HDF5 file named &lt;filename&gt;.h5 containing the 
+table headings:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>idx <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The volume element index assuming the volume elements appear in xyz
+order (z changing fastest) within the photon source file in the case of
+a structured mesh or imesh.iterate() order for an unstructured mesh.</dd>
+<dt>nuc <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The nuclide name as it appears in the photon source file.</dd>
+<dt>time <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The decay time as it appears in the photon source file.</dd>
+<dt>phtn_src <span class="classifier-delimiter">:</span> <span class="classifier">1D array of floats</span></dt>
+<dd>Contains the photon source density for each energy group.</dd>
+</dl>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote>
+<div><p>The path to the file</p>
+</div></blockquote>
+<p><strong>chunkshape</strong> : tuple of int</p>
+<blockquote class="last">
+<div><p>A 1D tuple of the HDF5 chunkshape.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ALARA Input and Output Interfaces &#8211; <tt class="docutils literal"><span class="pre">pyne.alara</span></tt></a><ul>
+<li><a class="reference internal" href="#module-pyne.alara">ALARA API</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mcnp.html"
+                        title="previous chapter">MCNP Input and Output Interfaces &#8211; <tt class="docutils literal"><span class="pre">pyne.mcnp</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="r2s.html"
+                        title="next chapter">Mesh-based Rigourous 2-Step Activation &#8211; <tt class="docutils literal"><span class="pre">pyne.r2s</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/pyapi/alara.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="r2s.html" title="Mesh-based Rigourous 2-Step Activation – pyne.r2s"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="mcnp.html" title="MCNP Input and Output Interfaces – pyne.mcnp"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >Python API</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2014, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>
