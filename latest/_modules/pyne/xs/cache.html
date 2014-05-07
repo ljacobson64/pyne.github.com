@@ -82,6 +82,9 @@ if(ga_enabled){
   <h1>Source code for pyne.xs.cache</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;This module provides a cross section cache which automatically extracts </span>
 <span class="sd">cross-sections from provided nuclear data sets.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">MutableMapping</span>
 
@@ -93,6 +96,10 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">partial_energy_matrix</span><span class="p">,</span> <span class="n">phi_g</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">data_source</span>
 
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+  <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">str</span>
 
 <span class="k">def</span> <span class="nf">_same_arr_or_none</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> 
     <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">b</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>

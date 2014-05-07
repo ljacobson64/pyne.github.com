@@ -109,13 +109,17 @@ if(ga_enabled){
 <li><a class="reference external" href="http://sphinx-doc.org/">Sphinx</a></li>
 <li><a class="reference external" href="https://github.com/numfocus/scisphinx">SciSphinx</a></li>
 <li><a class="reference external" href="http://michaeljones.github.io/breathe/">breathe</a></li>
+<li><a class="reference external" href="https://code.google.com/p/prettytable/">PrettyTable</a></li>
 </ol>
 </div></blockquote>
 </div>
 <div class="section" id="binary">
 <h3>Binary<a class="headerlink" href="#binary" title="Permalink to this headline">¶</a></h3>
-<p>A binary distribution of PyNE is hopefully coming soon.  Until then, please
-install from source.</p>
+<p>A binary distribution of PyNE is currently available for windows only on
+32-bit python using conda. In order to install use the following command:</p>
+<div class="highlight-python"><pre>conda install -c https://conda.binstar.org/batesca pyne_win32py27</pre>
+</div>
+<p>Conda binaries are coming soon for other platforms.</p>
 </div>
 <div class="section" id="source">
 <span id="install-source"></span><h3>Source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h3>
@@ -134,9 +138,30 @@ prevents the developers from distributing it with PyNE.  However, the
 <tt class="docutils literal"><span class="pre">nuc_data_make</span></tt> program (which is installed by <tt class="docutils literal"><span class="pre">setup.py</span></tt>) will
 do its best to find relevant nuclear data elsewhere on your machine
 or from public sources on the internet.</p>
+<div class="section" id="conda-install-instructions">
+<h4>Conda Install Instructions<a class="headerlink" href="#conda-install-instructions" title="Permalink to this headline">¶</a></h4>
+<p>On mac and linux PyNE can be installed via the package manager conda.
+After installing anaconda or miniconda from
+<a class="reference external" href="http://continuum.io/downloads">the Continuum downloads page</a>
+add conda&#8217;s binary directory to your bash profile by adding:</p>
+<div class="highlight-python"><pre>export PATH=/path/to/anaconda/bin:$PATH</pre>
+</div>
+<p>to your .bashrc or .bash_profile. Then in a new shell:</p>
+<div class="highlight-python"><pre>conda install conda-build jinja2 nose setuptools pytables hdf5 scipy</pre>
+</div>
+<p>on linux you may also need to run:</p>
+<div class="highlight-python"><pre>conda install patchelf</pre>
+</div>
+<p>Then dowload the latest conda-recipes <a class="reference external" href="https://github.com/conda/conda-recipes/archive/master.zip">here</a></p>
+<p>cd to the conda-recipes directory and run:</p>
+<div class="highlight-python"><pre>conda build pyne
+conda install $(conda build --output pyne)
+nuc_data_make</pre>
+</div>
+</div>
 <div class="section" id="mac-osx-specific-instructions">
 <h4>Mac OSX Specific Instructions<a class="headerlink" href="#mac-osx-specific-instructions" title="Permalink to this headline">¶</a></h4>
-<p>The instructions are based on using the homebrew <a class="reference external" href="http://brew.sh/">http://brew.sh/</a> package manager
+<p>These instructions are based on using the homebrew <a class="reference external" href="http://brew.sh/">http://brew.sh/</a> package manager
 Install command line tools from <a class="reference external" href="https://developer.apple.com/downloads/">https://developer.apple.com/downloads/</a>
 you will need to create an account in order to download:</p>
 <div class="highlight-python"><pre>ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
@@ -164,14 +189,6 @@ pip install tables</pre>
 <div class="highlight-python"><pre>cd Downloads/pyne-staging
 python setup.py install</pre>
 </div>
-<p>It may be necessary to add the pyne library path to the
-<tt class="docutils literal"><span class="pre">DYLD_FALLBACK_LIBRARY_PATH</span></tt> environment variable <em>before</em> running
-<tt class="docutils literal"><span class="pre">nuc_data_make</span></tt>. To do this, add the following lines to your
-<tt class="docutils literal"><span class="pre">~/.bashrc</span></tt> file where <tt class="docutils literal"><span class="pre">/path/to/pyne/lib</span></tt> is the absolute path to the
-directory containing libpyne.dylib:</p>
-<div class="highlight-python"><pre>DYLD_FALLBACK_LIBRARY_PATH="${DYLD_FALLBACK_LIBRARY_PATH}:/path/to/pyne/lib"
-export DYLD_FALLBACK_LIBRARY_PATH</pre>
-</div>
 <p>Once those lines have been added, run the following command before running
 <tt class="docutils literal"><span class="pre">nuc_data_make</span></tt>:</p>
 <div class="highlight-python"><pre>source ~/.bashrc</pre>
@@ -197,6 +214,7 @@ export DYLD_FALLBACK_LIBRARY_PATH</pre>
 <li><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li><a class="reference internal" href="#binary">Binary</a></li>
 <li><a class="reference internal" href="#source">Source</a><ul>
+<li><a class="reference internal" href="#conda-install-instructions">Conda Install Instructions</a></li>
 <li><a class="reference internal" href="#mac-osx-specific-instructions">Mac OSX Specific Instructions</a></li>
 </ul>
 </li>

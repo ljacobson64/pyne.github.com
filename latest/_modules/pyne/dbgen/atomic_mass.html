@@ -85,6 +85,8 @@ if(ga_enabled){
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">pkgutil</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
@@ -92,6 +94,8 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
 <span class="kn">from</span> <span class="nn">.isotopic_abundance</span> <span class="kn">import</span> <span class="n">get_isotopic_abundances</span>
+
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <span class="c"># Note that since ground state and meta-stable isotopes are of the same atomic mass, </span>
 <span class="c"># the meta-stables have been discluded from the following data sets.</span>

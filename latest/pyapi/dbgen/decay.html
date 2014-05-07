@@ -36,7 +36,7 @@
     <link rel="top" title="PyNE 0.4-dev" href="../../index.html" />
     <link rel="up" title="Nuclear Data Generation – pyne.dbgen" href="index.html" />
     <link rel="next" title="Neutron Scattering Lengths – pyne.dbgen.scattering_lengths" href="scattering_lengths.html" />
-    <link rel="prev" title="Atomic Weights – pyne.dbgen.atomic_weight" href="atomic_weight.html" /> <script type="text/javascript">
+    <link rel="prev" title="Atomic Mass – pyne.dbgen.atomic_mass" href="atomic_mass.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -71,13 +71,13 @@ if(ga_enabled){
           <a href="scattering_lengths.html" title="Neutron Scattering Lengths – pyne.dbgen.scattering_lengths"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="atomic_weight.html" title="Atomic Weights – pyne.dbgen.atomic_weight"
+          <a href="atomic_mass.html" title="Atomic Mass – pyne.dbgen.atomic_mass"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../../gallery/index.html">Gallery</a> | </li>
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../index.html" >Python API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Nuclear Data Generation &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.dbgen</span></tt></a> &raquo;</li> 
+          <li><a href="index.html" accesskey="U">Nuclear Data Generation &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.dbgen</span></tt></a> &raquo;</li> 
       </ul>
     </div>
     </div>
@@ -120,6 +120,34 @@ if not already present.</p>
 <dl class="function">
 <dt id="pyne.dbgen.decay.make_atomic_decay_table">
 <tt class="descclassname">pyne.dbgen.decay.</tt><tt class="descname">make_atomic_decay_table</tt><big>(</big><em>nuc_data</em>, <em>build_dir=''</em><big>)</big><a class="reference internal" href="../../_modules/pyne/dbgen/decay.html#make_atomic_decay_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.dbgen.decay.make_atomic_decay_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes atomic decay table in the nuc_data library.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
+<blockquote>
+<div><p>Path to nuclide data file.</p>
+</div></blockquote>
+<p><strong>build_dir</strong> : str</p>
+<blockquote class="last">
+<div><p>Directory to place xray data file in.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.dbgen.decay.make_decay">
+<tt class="descclassname">pyne.dbgen.decay.</tt><tt class="descname">make_decay</tt><big>(</big><em>args</em><big>)</big><a class="reference internal" href="../../_modules/pyne/dbgen/decay.html#make_decay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.dbgen.decay.make_decay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controller function for adding decay data.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.dbgen.decay.make_decay_half_life_table">
+<tt class="descclassname">pyne.dbgen.decay.</tt><tt class="descname">make_decay_half_life_table</tt><big>(</big><em>nuc_data</em>, <em>build_dir=''</em><big>)</big><a class="reference internal" href="../../_modules/pyne/dbgen/decay.html#make_decay_half_life_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.dbgen.decay.make_decay_half_life_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes a decay table in the nuc_data library.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -140,15 +168,67 @@ if not already present.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyne.dbgen.decay.make_decay">
-<tt class="descclassname">pyne.dbgen.decay.</tt><tt class="descname">make_decay</tt><big>(</big><em>args</em><big>)</big><a class="reference internal" href="../../_modules/pyne/dbgen/decay.html#make_decay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.dbgen.decay.make_decay" title="Permalink to this definition">¶</a></dt>
-<dd><p>Controller function for adding decay data.</p>
+<dt id="pyne.dbgen.decay.parse_decay_data">
+<tt class="descclassname">pyne.dbgen.decay.</tt><tt class="descname">parse_decay_data</tt><big>(</big><em>build_dir=''</em><big>)</big><a class="reference internal" href="../../_modules/pyne/dbgen/decay.html#parse_decay_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.dbgen.decay.parse_decay_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds and returns a list of nuclide decay data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>build_dir</strong> : str</p>
+<blockquote>
+<div><p>build_nuc_data directory containing ENSDF folder</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>all_decay_array</strong> : np.ndarray</p>
+<blockquote>
+<div><p>array of decay data</p>
+</div></blockquote>
+<p><strong>all_gammas_array</strong> : np.ndarray</p>
+<blockquote>
+<div><p>array of gamma ray data</p>
+</div></blockquote>
+<p><strong>all_alphas_array</strong> : np.ndarray</p>
+<blockquote>
+<div><p>array of alpha decay data</p>
+</div></blockquote>
+<p><strong>all_betas_array</strong> : np.ndarray</p>
+<blockquote>
+<div><p>array of beta decay data</p>
+</div></blockquote>
+<p><strong>all_ecbp_array</strong> : np.ndarray</p>
+<blockquote class="last">
+<div><p>array of electron capture and beta plus decay data</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyne.dbgen.decay.parse_decay">
-<tt class="descclassname">pyne.dbgen.decay.</tt><tt class="descname">parse_decay</tt><big>(</big><em>build_dir=''</em><big>)</big><a class="reference internal" href="../../_modules/pyne/dbgen/decay.html#parse_decay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.dbgen.decay.parse_decay" title="Permalink to this definition">¶</a></dt>
+<dt id="pyne.dbgen.decay.parse_level_data">
+<tt class="descclassname">pyne.dbgen.decay.</tt><tt class="descname">parse_level_data</tt><big>(</big><em>build_dir=''</em><big>)</big><a class="reference internal" href="../../_modules/pyne/dbgen/decay.html#parse_level_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.dbgen.decay.parse_level_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds and returns a list of nuclide decay data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>build_dir</strong> : str</p>
+<blockquote>
+<div><p>build_nuc_data directory containing ENSDF folder</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>level_list_array</strong> : np.ndarray</p>
+<blockquote class="last">
+<div><p>array of level data</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -172,8 +252,8 @@ if not already present.</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="atomic_weight.html"
-                        title="previous chapter">Atomic Weights &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.dbgen.atomic_weight</span></tt></a></p>
+  <p class="topless"><a href="atomic_mass.html"
+                        title="previous chapter">Atomic Mass &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.dbgen.atomic_mass</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="scattering_lengths.html"
                         title="next chapter">Neutron Scattering Lengths &#8211; <tt class="docutils literal"><span class="pre">pyne.dbgen.scattering_lengths</span></tt></a></p>
@@ -217,13 +297,13 @@ if not already present.</p>
           <a href="scattering_lengths.html" title="Neutron Scattering Lengths – pyne.dbgen.scattering_lengths"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="atomic_weight.html" title="Atomic Weights – pyne.dbgen.atomic_weight"
+          <a href="atomic_mass.html" title="Atomic Mass – pyne.dbgen.atomic_mass"
              >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../../gallery/index.html">Gallery</a> | </li>
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../index.html" >Python API</a> &raquo;</li>
-          <li><a href="index.html" >Nuclear Data Generation &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.dbgen</span></tt></a> &raquo;</li> 
+          <li><a href="index.html" >Nuclear Data Generation &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.dbgen</span></tt></a> &raquo;</li> 
       </ul>
     </div>
     </div>

@@ -83,7 +83,13 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="kn">as</span> <span class="nn">urllib2</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">from</span> <span class="nn">distutils.dir_util</span> <span class="kn">import</span> <span class="n">mkpath</span><span class="p">,</span> <span class="n">remove_tree</span>
 
@@ -95,11 +101,14 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">pyne.dbgen.materials_library</span> <span class="kn">import</span> <span class="n">make_materials_library</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.scattering_lengths</span> <span class="kn">import</span> <span class="n">make_scattering_lengths</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.simple_xs</span> <span class="kn">import</span> <span class="n">make_simple_xs</span>
+<span class="kn">from</span> <span class="nn">pyne.dbgen.q_val</span> <span class="kn">import</span> <span class="n">make_q_value</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.cinder</span> <span class="kn">import</span> <span class="n">make_cinder</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.eaf</span> <span class="kn">import</span> <span class="n">make_eaf</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen</span> <span class="kn">import</span> <span class="n">wimsdfpy</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen</span> <span class="kn">import</span> <span class="n">ndsfpy</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.hashtools</span> <span class="kn">import</span> <span class="n">check_hashes</span>
+
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <span class="c"># Thanks to http://patorjk.com/software/taag/</span>
 <span class="c"># and http://www.chris.com/ascii/index.php?art=creatures/dragons (Jeff Ferris)</span>
@@ -136,7 +145,7 @@ if(ga_enabled){
 <span class="k">def</span> <span class="nf">_fetch_prebuilt</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">build_dir</span>
     <span class="n">prebuilt_nuc_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;prebuilt_nuc_data.h5&#39;</span><span class="p">)</span>
-    <span class="n">prebuilt_nuc_data_url</span> <span class="o">=</span> <span class="s">&quot;http://s3.amazonaws.com/pyne/prebuilt_nuc_data.h5&quot;</span>
+    <span class="n">prebuilt_nuc_data_url</span> <span class="o">=</span> <span class="s">&quot;http://data.pyne.io/prebuilt_nuc_data.h5&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">prebuilt_nuc_data</span><span class="p">):</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;Fetching pre-built nuc_data.h5 from &quot;</span> <span class="o">+</span> <span class="n">prebuilt_nuc_data_url</span><span class="p">)</span>
@@ -158,13 +167,14 @@ if(ga_enabled){
                   <span class="p">(</span><span class="s">&#39;simple_xs&#39;</span><span class="p">,</span> <span class="n">make_simple_xs</span><span class="p">),</span>
                   <span class="p">(</span><span class="s">&#39;cinder&#39;</span><span class="p">,</span> <span class="n">make_cinder</span><span class="p">),</span>
                   <span class="p">(</span><span class="s">&#39;materials&#39;</span><span class="p">,</span> <span class="n">make_materials_library</span><span class="p">),</span>
+                  <span class="p">(</span><span class="s">&#39;q_values&#39;</span><span class="p">,</span> <span class="n">make_q_value</span><span class="p">),</span>
                   <span class="p">(</span><span class="s">&#39;eaf&#39;</span><span class="p">,</span> <span class="n">make_eaf</span><span class="p">),</span>
                   <span class="p">(</span><span class="s">&#39;wimsd_fpy&#39;</span><span class="p">,</span> <span class="n">wimsdfpy</span><span class="o">.</span><span class="n">make_fpy</span><span class="p">),</span>
                   <span class="p">(</span><span class="s">&#39;nds_fpy&#39;</span><span class="p">,</span> <span class="n">ndsfpy</span><span class="o">.</span><span class="n">make_fpy</span><span class="p">)</span>
                   <span class="p">]</span>
     <span class="n">make_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">make_funcs</span><span class="p">)</span>
     <span class="n">make_open</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;atomic_mass&#39;</span><span class="p">,</span> <span class="s">&#39;scattering_lengths&#39;</span><span class="p">,</span> <span class="s">&#39;simple_xs&#39;</span><span class="p">,</span> <span class="s">&#39;materials&#39;</span><span class="p">,</span>
-                     <span class="s">&#39;wimsd_fpy&#39;</span><span class="p">,</span> <span class="s">&#39;nds_fpy&#39;</span><span class="p">])</span>
+                     <span class="s">&#39;wimsd_fpy&#39;</span><span class="p">,</span> <span class="s">&#39;nds_fpy&#39;</span><span class="p">,</span> <span class="s">&#39;q_values&#39;</span><span class="p">])</span>
 
     <span class="c"># Parse the command line arguments</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">&#39;Make a nuclear data library.&#39;</span><span class="p">)</span>

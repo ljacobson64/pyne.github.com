@@ -84,12 +84,17 @@ if(ga_enabled){
 <span class="sd">lengths.  This data comes from Neutron News, Vol. 3, No. 3, 1992, pp. 29-37 via </span>
 <span class="sd">a NIST webpage (http://www.ncnr.nist.gov/resources/n-lengths/list.html).  Please</span>
 <span class="sd">contact Alan Munter, &lt;alan.munter@nist.gov&gt; for more information.&quot;&quot;&quot;</span>
-
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="kn">as</span> <span class="nn">urllib2</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib2</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
@@ -97,6 +102,7 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
 
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <div class="viewcode-block" id="grab_scattering_lengths"><a class="viewcode-back" href="../../../pyapi/dbgen/scattering_lengths.html#pyne.dbgen.scattering_lengths.grab_scattering_lengths">[docs]</a><span class="k">def</span> <span class="nf">grab_scattering_lengths</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s">&#39;scattering_lengths.html&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the scattering cross-section lengths for neutrons from the NIST website</span>

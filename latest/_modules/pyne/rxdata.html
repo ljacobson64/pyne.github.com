@@ -81,10 +81,13 @@ if(ga_enabled){
             
   <h1>Source code for pyne.rxdata</h1><div class="highlight"><pre>
 <span class="kn">import</span> <span class="nn">collections</span>
-<span class="c"># import .endf as endf</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RxLib"><a class="viewcode-back" href="../../pyapi/rxdata.html#pyne.rxdata.RxLib">[docs]</a><span class="k">class</span> <span class="nc">RxLib</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;RxLib is a parent type which implements an abstract representation of</span>
+    <span class="sd">&quot;&quot;&quot;RxLib is a parent type that implements an abstract representation of</span>
 <span class="sd">    nuclear data. Eventually it will be able to represent ENDF, ACE, and other</span>
 <span class="sd">    filetypes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

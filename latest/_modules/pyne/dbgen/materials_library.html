@@ -90,13 +90,18 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+
 <span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">..data</span> <span class="kn">import</span> <span class="n">natural_abund</span><span class="p">,</span> <span class="n">natural_abund_map</span>
 <span class="kn">from</span> <span class="nn">..material</span> <span class="kn">import</span> <span class="n">Material</span>
+
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <span class="n">elemental_mats</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
@@ -186,7 +191,7 @@ if(ga_enabled){
         <span class="k">if</span> <span class="mi">0</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">elemental_mats</span><span class="p">[</span><span class="n">zz</span><span class="p">]):</span>
             <span class="k">continue</span>
         <span class="n">element</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="n">elemental_mats</span><span class="p">[</span><span class="n">zz</span><span class="p">],</span> <span class="n">mass</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> 
-                           <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">zz</span><span class="p">)})</span>
+                           <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">zz</span><span class="p">)})</span>
         <span class="n">element</span><span class="o">.</span><span class="n">write_hdf5</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">datapath</span><span class="o">=</span><span class="s">&quot;/material_library/materials&quot;</span><span class="p">,</span> 
                            <span class="n">nucpath</span><span class="o">=</span><span class="s">&quot;/material_library/nucid&quot;</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
 
@@ -194,7 +199,7 @@ if(ga_enabled){
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mats</span><span class="p">)):</span>
         <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="mf">1.0</span>
         <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">densities</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-        <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]}</span>
+        <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]}</span>
         <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">write_hdf5</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">datapath</span><span class="o">=</span><span class="s">&quot;/material_library/materials&quot;</span><span class="p">,</span> 
                            <span class="n">nucpath</span><span class="o">=</span><span class="s">&quot;/material_library/nucid&quot;</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
     </div>

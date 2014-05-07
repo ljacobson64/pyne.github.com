@@ -84,11 +84,16 @@ if(ga_enabled){
 <span class="sd">the data to PyNE&#39;s HDF5 storage.  The data here is autonatically grabbed from</span>
 <span class="sd">the IAEA. </span>
 <span class="sd">&quot;&quot;&quot;</span>
-
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="kn">as</span> <span class="nn">urllib</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib</span>
 <span class="kn">from</span> <span class="nn">gzip</span> <span class="kn">import</span> <span class="n">GzipFile</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -97,6 +102,7 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
 
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <div class="viewcode-block" id="grab_eaf_data"><a class="viewcode-back" href="../../../pyapi/dbgen/eaf.html#pyne.dbgen.eaf.grab_eaf_data">[docs]</a><span class="k">def</span> <span class="nf">grab_eaf_data</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the EAF activation data files</span>
@@ -118,7 +124,7 @@ if(ga_enabled){
     <span class="c"># Grab ENSDF files and unzip them.</span>
     <span class="c"># This link was taken from &#39;http://www-nds.iaea.org/fendl/fen-activation.htm&#39;</span>
     <span class="n">iaea_url</span> <span class="o">=</span> <span class="s">&#39;http://www-nds.iaea.org/fendl2/activation/processed/vitj_e/libout/fendlg-2.0_175-gz&#39;</span>
-    <span class="n">s3_base_url</span> <span class="o">=</span> <span class="s">&#39;http://s3.amazonaws.com/pyne/&#39;</span>
+    <span class="n">cf_base_url</span> <span class="o">=</span> <span class="s">&#39;http://data.pyne.io/&#39;</span>
     <span class="n">eaf_gzip</span> <span class="o">=</span> <span class="s">&#39;fendlg-2.0_175-gz&#39;</span>
 
     <span class="n">fpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="n">eaf_gzip</span><span class="p">)</span>
@@ -140,7 +146,7 @@ if(ga_enabled){
         <span class="n">ofile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;fendlg-2.0_175&#39;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fw</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">gf</span><span class="p">:</span>
-                <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&quot;us-ascii&quot;</span><span class="p">))</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">gf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         

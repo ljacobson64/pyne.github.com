@@ -170,7 +170,10 @@ if(ga_enabled){
 
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
 
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <div class="viewcode-block" id="IUnit"><a class="viewcode-back" href="../../../pyapi/simplesim/nestedgeom.html#pyne.simplesim.nestedgeom.IUnit">[docs]</a><span class="k">class</span> <span class="nc">IUnit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Abstract base class for tally units. The user does not use this class</span>

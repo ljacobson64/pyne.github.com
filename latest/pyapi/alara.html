@@ -35,7 +35,7 @@
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="PTrac to HDF5 Conversion – pyne.ptrac_to_hdf5" href="ptrac_to_hdf5.html" />
+    <link rel="next" title="Mesh-based Rigourous 2-Step Activation – pyne.r2s" href="r2s.html" />
     <link rel="prev" title="MCNP Input and Output Interfaces – pyne.mcnp" href="mcnp.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -68,7 +68,7 @@ if(ga_enabled){
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="ptrac_to_hdf5.html" title="PTrac to HDF5 Conversion – pyne.ptrac_to_hdf5"
+          <a href="r2s.html" title="Mesh-based Rigourous 2-Step Activation – pyne.r2s"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="mcnp.html" title="MCNP Input and Output Interfaces – pyne.mcnp"
@@ -169,8 +169,7 @@ with the ALARA users&#8217; guide, found at:</p>
 <dt id="pyne.alara.mesh_to_fluxin">
 <tt class="descclassname">pyne.alara.</tt><tt class="descname">mesh_to_fluxin</tt><big>(</big><em>flux_mesh</em>, <em>flux_tag</em>, <em>fluxin='fluxin.out'</em>, <em>reverse=False</em><big>)</big><a class="reference internal" href="../_modules/pyne/alara.html#mesh_to_fluxin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.alara.mesh_to_fluxin" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function creates an ALARA fluxin file from fluxes tagged on a PyNE
-Mesh object. Structured meshes are printed in xyz order (z changes fastest)
-and unstructured meshes are printed in the imesh.iterate() order.</p>
+Mesh object. Fluxes are printed in the order of the flux_mesh.__iter__().</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -273,8 +272,7 @@ from stdout, call split(&#8216;</p>
 <dd><p>This function reads in an hdf5 file produced by photon_source_to_hdf5
 and tags the requested data to the mesh of a PyNE Mesh object. Any
 combinations of nuclides and decay times are allowed. The photon source
-file is assumed to be in xyz order (z changes fastest) if a stuctured mesh
-is supplied and imesh.iterate() order if an unstructured mesh is supplied.</p>
+file is assumed to be in mesh.__iter__() order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -369,8 +367,8 @@ a structured mesh or imesh.iterate() order for an unstructured mesh.</dd>
   <p class="topless"><a href="mcnp.html"
                         title="previous chapter">MCNP Input and Output Interfaces &#8211; <tt class="docutils literal"><span class="pre">pyne.mcnp</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="ptrac_to_hdf5.html"
-                        title="next chapter">PTrac to HDF5 Conversion &#8211; <tt class="docutils literal"><span class="pre">pyne.ptrac_to_hdf5</span></tt></a></p>
+  <p class="topless"><a href="r2s.html"
+                        title="next chapter">Mesh-based Rigourous 2-Step Activation &#8211; <tt class="docutils literal"><span class="pre">pyne.r2s</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/alara.txt"
@@ -408,7 +406,7 @@ a structured mesh or imesh.iterate() order for an unstructured mesh.</dd>
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="ptrac_to_hdf5.html" title="PTrac to HDF5 Conversion – pyne.ptrac_to_hdf5"
+          <a href="r2s.html" title="Mesh-based Rigourous 2-Step Activation – pyne.r2s"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="mcnp.html" title="MCNP Input and Output Interfaces – pyne.mcnp"

@@ -85,16 +85,25 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="nb">basestring</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+    <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">str</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">itaps</span> <span class="kn">import</span> <span class="n">iMesh</span><span class="p">,</span> <span class="n">iBase</span><span class="p">,</span> <span class="n">iMeshExtensions</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;the PyTAPS optional dependency could not be imported. &quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s">&quot;the PyTAPS optional dependency could not be imported. &quot;</span>
                   <span class="s">&quot;Some aspects of the alara module may be incomplete.&quot;</span><span class="p">,</span>
-                  <span class="ne">ImportWarning</span><span class="p">)</span>
+                  <span class="n">VnVWarning</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">pyne.mesh</span> <span class="kn">import</span> <span class="n">Mesh</span><span class="p">,</span> <span class="n">MeshError</span>
 <span class="kn">from</span> <span class="nn">pyne.material</span> <span class="kn">import</span> <span class="n">Material</span><span class="p">,</span> <span class="n">from_atom_frac</span>
@@ -104,8 +113,7 @@ if(ga_enabled){
 <div class="viewcode-block" id="mesh_to_fluxin"><a class="viewcode-back" href="../../pyapi/alara.html#pyne.alara.mesh_to_fluxin">[docs]</a><span class="k">def</span> <span class="nf">mesh_to_fluxin</span><span class="p">(</span><span class="n">flux_mesh</span><span class="p">,</span> <span class="n">flux_tag</span><span class="p">,</span> <span class="n">fluxin</span><span class="o">=</span><span class="s">&quot;fluxin.out&quot;</span><span class="p">,</span>
                    <span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This function creates an ALARA fluxin file from fluxes tagged on a PyNE</span>
-<span class="sd">    Mesh object. Structured meshes are printed in xyz order (z changes fastest)</span>
-<span class="sd">    and unstructured meshes are printed in the imesh.iterate() order.</span>
+<span class="sd">    Mesh object. Fluxes are printed in the order of the flux_mesh.__iter__().</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -121,11 +129,6 @@ if(ga_enabled){
 <span class="sd">        the flux vector tagged on the mesh.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">tag_flux</span> <span class="o">=</span> <span class="n">flux_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">flux_tag</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">flux_mesh</span><span class="o">.</span><span class="n">structured</span><span class="p">:</span>
-        <span class="n">ves</span> <span class="o">=</span> <span class="n">flux_mesh</span><span class="o">.</span><span class="n">structured_iterate_hex</span><span class="p">(</span><span class="s">&quot;xyz&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">ves</span> <span class="o">=</span> <span class="n">flux</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Toplogy</span><span class="o">.</span><span class="n">all</span><span class="p">)</span>
 
     <span class="c"># find number of e_groups</span>
     <span class="n">e_groups</span> <span class="o">=</span> <span class="n">flux_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">flux_tag</span><span class="p">)[</span><span class="nb">list</span><span class="p">(</span>
@@ -146,7 +149,7 @@ if(ga_enabled){
         <span class="n">direction</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
     <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">ve</span> <span class="ow">in</span> <span class="n">ves</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">mat</span><span class="p">,</span> <span class="n">ve</span> <span class="ow">in</span> <span class="n">flux_mesh</span><span class="p">:</span>
         <span class="c"># print flux data to file</span>
         <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">flux_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">tag_flux</span><span class="p">[</span><span class="n">ve</span><span class="p">])</span>
@@ -238,8 +241,7 @@ if(ga_enabled){
     <span class="sd">&quot;&quot;&quot;This function reads in an hdf5 file produced by photon_source_to_hdf5</span>
 <span class="sd">    and tags the requested data to the mesh of a PyNE Mesh object. Any</span>
 <span class="sd">    combinations of nuclides and decay times are allowed. The photon source</span>
-<span class="sd">    file is assumed to be in xyz order (z changes fastest) if a stuctured mesh</span>
-<span class="sd">    is supplied and imesh.iterate() order if an unstructured mesh is supplied.</span>
+<span class="sd">    file is assumed to be in mesh.__iter__() order</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -284,13 +286,8 @@ if(ga_enabled){
             <span class="n">matched_data</span> <span class="o">=</span> <span class="n">h5f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">readWhere</span><span class="p">(</span>
                 <span class="s">&quot;(nuc == &#39;{0}&#39;) &amp; (time == &#39;{1}&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">cond</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 
-        <span class="k">if</span> <span class="n">mesh</span><span class="o">.</span><span class="n">structured</span><span class="p">:</span>
-            <span class="n">ves</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">structured_iterate_hex</span><span class="p">(</span><span class="s">&quot;xyz&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">ves</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">imesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">)</span>
-
         <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ve</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ves</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">ve</span> <span class="ow">in</span> <span class="n">mesh</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">matched_data</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
                 <span class="n">tag_handles</span><span class="p">[</span><span class="n">tags</span><span class="p">[</span><span class="n">cond</span><span class="p">]][</span><span class="n">ve</span><span class="p">]</span> <span class="o">=</span> <span class="n">matched_data</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
                 <span class="n">idx</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -326,12 +323,7 @@ if(ga_enabled){
     <span class="n">mixture</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="c"># mixture blocks</span>
     <span class="n">matlib</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="c"># ALARA material library string</span>
 
-    <span class="k">if</span> <span class="n">mesh</span><span class="o">.</span><span class="n">structured</span><span class="p">:</span>
-        <span class="n">ves</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">structured_iterate_hex</span><span class="p">(</span><span class="s">&#39;xyz&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">ves</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ve</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ves</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">mat</span><span class="p">,</span> <span class="n">ve</span> <span class="ow">in</span> <span class="n">mesh</span><span class="p">:</span>
         <span class="n">volume</span> <span class="o">+=</span> <span class="s">&quot;    {0: 1.6E}    zone_{1}</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">elem_volume</span><span class="p">(</span><span class="n">ve</span><span class="p">),</span> <span class="n">i</span><span class="p">)</span>
         <span class="n">mat_loading</span> <span class="o">+=</span> <span class="s">&quot;    zone_{0}    mix_{0}</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         <span class="n">matlib</span> <span class="o">+=</span> <span class="s">&quot;mat_{0}    {1: 1.6E}    {2}</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">mesh</span><span class="o">.</span><span class="n">density</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
@@ -340,7 +332,7 @@ if(ga_enabled){
                     <span class="s">&quot;    material mat_{0} 1 1</span><span class="se">\n</span><span class="s">end</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
 
         <span class="k">for</span> <span class="n">nuc</span><span class="p">,</span> <span class="n">comp</span> <span class="ow">in</span> <span class="n">mesh</span><span class="o">.</span><span class="n">comp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-            <span class="n">matlib</span> <span class="o">+=</span> <span class="s">&quot;{0}    {1: 1.6E}    {2}</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alara</span><span class="p">(</span><span class="n">nuc</span><span class="p">),</span> <span class="n">comp</span><span class="p">,</span> 
+            <span class="n">matlib</span> <span class="o">+=</span> <span class="s">&quot;{0}    {1: 1.6E}    {2}</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alara</span><span class="p">(</span><span class="n">nuc</span><span class="p">),</span> <span class="n">comp</span><span class="o">*</span><span class="mf">100.0</span><span class="p">,</span> 
                                                          <span class="n">znum</span><span class="p">(</span><span class="n">nuc</span><span class="p">))</span>
         <span class="n">matlib</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
 

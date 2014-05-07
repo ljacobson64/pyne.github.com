@@ -80,41 +80,53 @@ if(ga_enabled){
           <div class="body">
             
   <h1>Source code for pyne.ensdf</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">urllib</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">to_sec</span>
+<span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span><span class="p">,</span> <span class="n">rxname</span><span class="p">,</span> <span class="n">data</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">to_sec</span>
 
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+  <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">str</span>
+    
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <span class="n">_valexp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;([0-9.]*)([Ee][+-]\d*)&#39;</span><span class="p">)</span>
 <span class="n">_val</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;(\d*)[.](\d*)&#39;</span><span class="p">)</span>
+<span class="n">_specialval</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&quot;([0-9.]*)[+]([A-Z])&quot;</span><span class="p">)</span>
 <span class="n">_errpm</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;[+](\d*)[-](\d*)&#39;</span><span class="p">)</span>
 <span class="n">_err</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;[ ]*(\d*)&#39;</span><span class="p">)</span>
 <span class="n">_base</span> <span class="o">=</span> <span class="s">&#39;([ \d]{3}[ A-Za-z]{2})&#39;</span>
 <span class="n">_ident</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;    (.{30})(.{26})(.{7})(.{6})&#39;</span><span class="p">)</span>
 <span class="n">_g</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  G (.{10})(.{2})(.{8})(.{2}).{24}(.{7})(.{2})(.{10})&#39;</span>
                 <span class="o">+</span> <span class="s">&#39;(.{2})&#39;</span><span class="p">)</span>
-<span class="n">_gc</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;[0-9A-Za-z] G (.{70})&#39;</span><span class="p">)</span>
+<span class="n">_gc</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;[0-9A-Za-z] [GE] (.{70})&#39;</span><span class="p">)</span>
 <span class="n">_beta</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  B (.{10})(.{2})(.{8})(.{2}).{10}(.{8})(.{6})&#39;</span><span class="p">)</span>
+<span class="n">_betac</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;[0-9A-Za-z] ([BE]) (.{70})&#39;</span><span class="p">)</span>
 <span class="n">_ec</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  E (.{10})(.{2})(.{8})(.{2})&#39;</span>
-                 <span class="o">+</span> <span class="s">&#39;(.{8})(.{2})(.{8})(.{6})&#39;</span><span class="p">)</span>
+                 <span class="o">+</span> <span class="s">&#39;(.{8})(.{2})(.{8})(.{6})(.{10})(.{2})&#39;</span><span class="p">)</span>
 <span class="n">_p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  P (.{10})(.{2})(.{18})(.{10})&#39;</span>
                 <span class="o">+</span> <span class="s">&#39;(.{6}).{9}(.{10})(.{2})(.{4})&#39;</span><span class="p">)</span>
 <span class="n">_norm</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  N (.{10})(.{2})(.{8})(.{2})(.{8})(.{2})(.{8})&#39;</span>
                    <span class="o">+</span> <span class="s">&#39;(.{6})(.{7})(.{2})&#39;</span><span class="p">)</span>
 <span class="n">_normp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span>
                     <span class="s">&#39; PN (.{10})(.{2})(.{8})(.{2})(.{8})(.{2})(.{7})(.{2})&#39;</span><span class="p">)</span>
+<span class="n">_q</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  Q (.{10})(.{2})(.{8})(.{2})&#39;</span>
+                <span class="o">+</span> <span class="s">&#39;(.{8})(.{2})(.{8})(.{6})&#39;</span><span class="p">)</span>
+<span class="n">_alpha</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  A (.{10})(.{2})(.{8})(.{2})(.{8})(.{2})&#39;</span><span class="p">)</span>
+<span class="n">_dp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  D(.{1})(.{10})(.{2})(.{8})(.{2})(.{8})(.{10})&#39;</span>
+                 <span class="o">+</span> <span class="s">&#39;(.{6})&#39;</span><span class="p">)</span>
 <span class="n">_decays</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;B-&#39;</span><span class="p">,</span> <span class="s">&#39;B+A&#39;</span><span class="p">,</span> <span class="s">&#39;EC&#39;</span><span class="p">,</span> <span class="s">&#39;B-A&#39;</span><span class="p">,</span> <span class="s">&#39;B+&#39;</span><span class="p">,</span> <span class="s">&#39;B+P&#39;</span><span class="p">,</span> <span class="s">&#39;B-N&#39;</span><span class="p">,</span> <span class="s">&#39;ECP&#39;</span><span class="p">,</span> <span class="s">&#39;EC2P&#39;</span><span class="p">,</span> <span class="s">&#39;N&#39;</span><span class="p">,</span>
            <span class="s">&#39;2N&#39;</span><span class="p">,</span> <span class="s">&#39;IT&#39;</span><span class="p">,</span> <span class="s">&#39;B+2P&#39;</span><span class="p">,</span> <span class="s">&#39;B-2N&#39;</span><span class="p">,</span> <span class="s">&#39;B+3P&#39;</span><span class="p">,</span> <span class="s">&#39;ECA&#39;</span><span class="p">,</span> <span class="s">&#39;P&#39;</span><span class="p">,</span> <span class="s">&#39;2P&#39;</span><span class="p">,</span> <span class="s">&#39;2B-&#39;</span><span class="p">,</span> <span class="s">&#39;SF&#39;</span><span class="p">,</span>
            <span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;2B+&#39;</span><span class="p">,</span> <span class="s">&#39;2EC&#39;</span><span class="p">,</span> <span class="s">&#39;14C&#39;</span><span class="p">]</span>
-<span class="n">_level_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  L (.{10}).{20}(.{10}).{28}([ M])([ 1-9])&#39;</span><span class="p">)</span>
-<span class="n">_level_regex2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  L (.{10})(.{2})(.{18})(.{10})(.{6})&#39;</span>
-                           <span class="o">+</span> <span class="s">&#39;(.{9})(.{10})(.{2})(.{1})([ M])([ 1-9])&#39;</span><span class="p">)</span>
+<span class="n">_level_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_base</span> <span class="o">+</span> <span class="s">&#39;  L (.{10})(.{2})(.{18})(.{10})(.{6})&#39;</span>
+                          <span class="o">+</span> <span class="s">&#39;(.{9})(.{10})(.{2})(.{1})([ M])([ 1-9])&#39;</span><span class="p">)</span>
 <span class="n">_level_cont_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;([ \d]{3}[ A-Za-z]{2})[0-9A-Za-z] L (.*)&#39;</span><span class="p">)</span>
 
 
@@ -128,77 +140,27 @@ if(ga_enabled){
         <span class="k">return</span> <span class="n">rn</span>
 
 
-<span class="k">def</span> <span class="nf">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">dstart</span><span class="p">,</span> <span class="n">dlen</span><span class="p">):</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">dstart</span><span class="p">:</span><span class="n">dstart</span> <span class="o">+</span> <span class="n">dlen</span><span class="p">])</span>
-    <span class="n">error</span> <span class="o">=</span> <span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">dstart</span> <span class="o">+</span> <span class="n">dlen</span><span class="p">:</span><span class="n">dstart</span> <span class="o">+</span> <span class="n">dlen</span> <span class="o">+</span> <span class="mi">2</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">error</span>
+<span class="k">def</span> <span class="nf">_to_id_from_level</span><span class="p">(</span><span class="n">nuc_id</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">levellist</span><span class="p">,</span> <span class="n">lmap</span><span class="p">):</span>
+    <span class="n">nid</span> <span class="o">=</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">nuc_id</span><span class="p">)</span>
+    <span class="n">gparent</span> <span class="o">=</span> <span class="n">nid</span>
+    <span class="k">if</span> <span class="n">nid</span> <span class="ow">in</span> <span class="n">lmap</span> <span class="ow">and</span> <span class="n">level</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lmap</span><span class="p">[</span><span class="n">nid</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">levellist</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">level</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="o">&gt;</span> <span class="n">levellist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">level</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="n">gparent</span> <span class="o">=</span> <span class="n">levellist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="n">level</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="o">&lt;</span> <span class="n">levellist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">]:</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">nid</span> <span class="o">//</span> <span class="mi">10000</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">(</span><span class="n">levellist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">10000</span><span class="p">):</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">gparent</span>
 
 
-<span class="k">def</span> <span class="nf">_read_variablepoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">dstart</span><span class="p">,</span> <span class="n">dlen</span><span class="p">):</span>
-    <span class="n">sub</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">dstart</span><span class="p">:</span><span class="n">dstart</span> <span class="o">+</span> <span class="n">dlen</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="n">error</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">_getvalue</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">error</span> <span class="o">=</span> <span class="n">_getvalue</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">error</span>
-
-
-<span class="k">def</span> <span class="nf">_build_xray_table</span><span class="p">():</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">105</span><span class="p">,</span> <span class="mi">26</span><span class="p">))</span>
-    <span class="n">medfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;mednew.dat&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">medfile</span><span class="p">):</span>
-        <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="s">&#39;http://www.nndc.bnl.gov/nndcscr/ensdf_pgm/&#39;</span>
-                           <span class="o">+</span> <span class="s">&#39;analysis/radlst/mednew.dat&#39;</span><span class="p">,</span> <span class="n">medfile</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">medfile</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">Z</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
-            <span class="n">k_shell_fluor</span><span class="p">,</span> <span class="n">k_shell_fluor_error</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-            <span class="n">l_shell_fluor</span><span class="p">,</span> <span class="n">l_shell_fluor_error</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-            <span class="c">#Probability of creating L-shell vacancy by filling K-shell vacancy</span>
-            <span class="n">prob</span><span class="p">,</span> <span class="n">prob_error</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-            <span class="n">k_shell_be</span><span class="p">,</span> <span class="n">k_shell_be_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-            <span class="n">li_shell_be</span><span class="p">,</span> <span class="n">li_shell_be_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-            <span class="n">mi_shell_be</span><span class="p">,</span> <span class="n">mi_shell_be_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-            <span class="n">ni_shell_be</span><span class="p">,</span> <span class="n">ni_shell_be_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">Kb_to_Ka</span><span class="p">,</span> <span class="n">Kb_to_Ka_err</span> <span class="o">=</span> <span class="n">_read_variablepoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-            <span class="n">Ka2_to_Ka1</span><span class="p">,</span> <span class="n">Ka2_to_Ka1_err</span> <span class="o">=</span> <span class="n">_read_variablepoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-            <span class="n">L_auger</span> <span class="o">=</span> <span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">29</span><span class="p">:</span><span class="mi">36</span><span class="p">])</span>
-            <span class="n">K_auger</span> <span class="o">=</span> <span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">36</span><span class="p">:</span><span class="mi">42</span><span class="p">])</span>
-            <span class="n">Ka1_X_ray_en</span><span class="p">,</span> <span class="n">Ka1_X_ray_en_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-            <span class="n">Ka2_X_ray_en</span><span class="p">,</span> <span class="n">Ka2_X_ray_en_err</span> <span class="o">=</span> <span class="n">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-            <span class="n">Kb_X_ray_en</span> <span class="o">=</span> <span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">65</span><span class="p">:</span><span class="mi">69</span><span class="p">])</span>
-            <span class="n">L_X_ray_en</span> <span class="o">=</span> <span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">70</span><span class="p">:</span><span class="mi">76</span><span class="p">])</span>
-            <span class="n">dat</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">,</span> <span class="n">k_shell_fluor</span><span class="p">,</span> <span class="n">k_shell_fluor_error</span><span class="p">,</span> <span class="n">l_shell_fluor</span><span class="p">,</span> \
-                     <span class="n">l_shell_fluor_error</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">k_shell_be</span><span class="p">,</span> <span class="n">k_shell_be_err</span><span class="p">,</span> \
-                     <span class="n">li_shell_be</span><span class="p">,</span> <span class="n">li_shell_be_err</span><span class="p">,</span> <span class="n">mi_shell_be</span><span class="p">,</span> \
-                     <span class="n">mi_shell_be_err</span><span class="p">,</span> <span class="n">ni_shell_be</span><span class="p">,</span> <span class="n">ni_shell_be_err</span><span class="p">,</span>\
-                     <span class="n">Kb_to_Ka</span><span class="p">,</span> <span class="n">Kb_to_Ka_err</span><span class="p">,</span> <span class="n">Ka2_to_Ka1</span><span class="p">,</span> <span class="n">Ka2_to_Ka1_err</span><span class="p">,</span> \
-                     <span class="n">L_auger</span><span class="p">,</span> <span class="n">K_auger</span><span class="p">,</span> <span class="n">Ka1_X_ray_en</span><span class="p">,</span> <span class="n">Ka1_X_ray_en_err</span><span class="p">,</span> \
-                     <span class="n">Ka2_X_ray_en</span><span class="p">,</span> <span class="n">Ka2_X_ray_en_err</span><span class="p">,</span> <span class="n">Kb_X_ray_en</span><span class="p">,</span> <span class="n">L_X_ray_en</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">dat</span>
-
-
-<span class="k">def</span> <span class="nf">_to_id</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_to_id</span><span class="p">(</span><span class="n">nuc</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;NN&#39;</span> <span class="ow">in</span> <span class="n">nuc</span><span class="p">:</span>
         <span class="n">nucid</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="n">nuc</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&#39;Neutron data not supported!&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">None</span>
-    <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="s">&#39;M&#39;</span><span class="p">:</span>
-        <span class="n">state</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
-            <span class="n">state</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">state</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">nucid</span> <span class="o">+=</span> <span class="n">state</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s">&#39;Neutron data not supported!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
     <span class="k">return</span> <span class="n">nucid</span>
 
 
@@ -225,86 +187,6 @@ if(ga_enabled){
     <span class="k">return</span> <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span>
 
 
-<span class="n">_decay_to</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;</span><span class="si">%E</span><span class="s">C&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">10000000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">,</span>
-    <span class="s">&#39;%B+&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">10000000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">,</span>
-    <span class="s">&#39;</span><span class="si">%E</span><span class="s">C+%B+&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">10000000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">,</span>
-    <span class="s">&#39;%B-&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">10000000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">,</span>
-    <span class="s">&#39;%IT&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">,</span>
-    <span class="s">&#39;%A&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">20040000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">,</span>
-    <span class="s">&#39;%P&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">10010000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">,</span>
-    <span class="s">&#39;%N&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">10000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">,</span>
-<span class="p">}</span>
-
-
-<div class="viewcode-block" id="half_life"><a class="viewcode-back" href="../../pyapi/ensdf.html#pyne.ensdf.half_life">[docs]</a><span class="k">def</span> <span class="nf">half_life</span><span class="p">(</span><span class="n">ensdf</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Grabs the half-lives from an ENSDF file.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    ensdf : str or file-like object</span>
-<span class="sd">        ENSDF file to inspect for half-life data</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    data : list of 5-tuples</span>
-<span class="sd">        List of tuples where the indices match</span>
-
-<span class="sd">        1. from_nuclide, int (id)</span>
-<span class="sd">        2. level, float (MeV) - from_nuc&#39;s energy level</span>
-<span class="sd">        3. to_nuclide, int (id)</span>
-<span class="sd">        4. half_life, float (seconds)</span>
-<span class="sd">        5. branch_ratio, float (frac)</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ensdf</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ensdf</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">lines</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-        <span class="n">level_l</span> <span class="o">=</span> <span class="n">_level_regex2</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">level_l</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">level</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">from_nuc</span> <span class="o">=</span> <span class="n">_parse_level_record</span><span class="p">(</span><span class="n">level_l</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">half_lifev</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="ow">and</span> <span class="n">from_nuc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">from_nuc</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">from_nuc</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">level</span> <span class="o">=</span> <span class="mf">0.0</span>
-            <span class="k">continue</span>
-        <span class="n">levelc</span> <span class="o">=</span> <span class="n">_level_cont_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">levelc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">from_nuc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">half_lifev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">dat</span> <span class="o">=</span> <span class="n">_parse_level_continuation_record</span><span class="p">(</span><span class="n">levelc</span><span class="p">)</span>
-                <span class="n">dat</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">_decay_to</span><span class="p">[</span><span class="n">key</span><span class="p">](</span><span class="n">from_nuc</span><span class="p">),</span>
-                             <span class="n">_getvalue</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">rn</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">)</span>
-                            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">dat</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">_decay_to</span><span class="p">])</span>
-                <span class="n">data</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">from_nuc</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">to_nuc</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">br</span><span class="p">)</span>
-                         <span class="k">for</span> <span class="n">to_nuc</span><span class="p">,</span> <span class="n">br</span> <span class="ow">in</span> <span class="n">dat</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="mf">0.0</span> <span class="o">&lt;</span> <span class="n">br</span><span class="p">]</span>
-                <span class="k">continue</span>
-    
-    
-    <span class="c"># Hack to calculate metastable state number, make sure it doesn&#39;t go over</span>
-    <span class="c"># 10, and then change the from_nuc value, and remove all other states</span>
-    <span class="c"># FIXME: while the renaming bases on level should still happen, the limit</span>
-    <span class="c"># of the 10 lowest levels should be removed when id is removed.</span>
-    <span class="n">nuclvl</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="n">from_nuc</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">to_nuc</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">br</span> <span class="o">=</span> <span class="n">row</span>
-        <span class="k">if</span> <span class="n">from_nuc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nuclvl</span><span class="p">:</span>
-            <span class="n">nuclvl</span><span class="p">[</span><span class="n">from_nuc</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="n">nuclvl</span><span class="p">[</span><span class="n">from_nuc</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">nuc</span> <span class="ow">in</span> <span class="n">nuclvl</span><span class="p">:</span>
-        <span class="n">nuclvl</span><span class="p">[</span><span class="n">nuc</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">lvl</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lvl</span> <span class="ow">in</span>
-                            <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">nuclvl</span><span class="p">[</span><span class="n">nuc</span><span class="p">])[:</span><span class="mi">10</span><span class="p">])])</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">nuclvl</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]],)</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">nuclvl</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">nuclvl</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]])]</span>
-
-    <span class="k">return</span> <span class="n">data</span>
-
-</div>
 <span class="k">def</span> <span class="nf">_get_val_err</span><span class="p">(</span><span class="n">valstr</span><span class="p">,</span> <span class="n">errstr</span><span class="p">):</span>
     <span class="n">pm</span> <span class="o">=</span> <span class="n">_errpm</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">errstr</span><span class="p">)</span>
     <span class="n">err</span> <span class="o">=</span> <span class="n">_err</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">errstr</span><span class="p">)</span>
@@ -343,33 +225,56 @@ if(ga_enabled){
 <span class="k">def</span> <span class="nf">_parse_level_record</span><span class="p">(</span><span class="n">l_rec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This Parses and ENSDF level record</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    g : re.MatchObject</span>
 <span class="sd">        regular expression MatchObject</span>
-<span class="sd">        </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    e : float</span>
-<span class="sd">        Level energy in MeV</span>
+<span class="sd">        Level energy in keV</span>
 <span class="sd">    tfinal : float</span>
 <span class="sd">        Half life in seconds</span>
 <span class="sd">    from_nuc : int</span>
 <span class="sd">        nuc id of nuclide</span>
+<span class="sd">    state : int</span>
+<span class="sd">        metastable state of level</span>
+<span class="sd">    special : str</span>
+<span class="sd">        A-Z character denoting a group of known levels with no reference</span>
+<span class="sd">        to the ground state</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">e</span><span class="p">,</span> <span class="n">de</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">lm</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&quot;([A-Z])&quot;</span><span class="p">,</span> <span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">spv</span> <span class="o">=</span> <span class="n">_specialval</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">special</span> <span class="o">=</span> <span class="s">&#39; &#39;</span>
+    <span class="k">if</span> <span class="n">lm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">special</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">de</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">elif</span> <span class="n">spv</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">e</span><span class="p">,</span> <span class="n">de</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">spv</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+        <span class="n">special</span> <span class="o">=</span> <span class="n">spv</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">e</span><span class="p">,</span> <span class="n">de</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
     <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span> <span class="o">=</span> <span class="n">_to_time</span><span class="p">(</span><span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
-    <span class="n">from_nuc</span> <span class="o">=</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">11</span><span class="p">),</span> <span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">e</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">e</span> <span class="o">*=</span> <span class="mf">1.0E-3</span>
-    <span class="k">return</span> <span class="n">e</span><span class="p">,</span> <span class="n">tfinal</span><span class="p">,</span> <span class="n">from_nuc</span>
+    <span class="n">from_nuc</span> <span class="o">=</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">l_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="s">&#39;M&#39;</span><span class="p">:</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">e</span><span class="p">,</span> <span class="n">tfinal</span><span class="p">,</span> <span class="n">from_nuc</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">special</span>
 
 
 <span class="k">def</span> <span class="nf">_parse_level_continuation_record</span><span class="p">(</span><span class="n">lc_rec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This Parses and ENSDF level record</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    g : re.MatchObject</span>
@@ -387,9 +292,10 @@ if(ga_enabled){
     <span class="k">for</span> <span class="n">raw_child</span> <span class="ow">in</span> <span class="n">raw_children</span><span class="p">:</span>
         <span class="k">if</span> <span class="s">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">raw_child</span><span class="p">:</span>
             <span class="n">rx</span><span class="p">,</span> <span class="n">br</span> <span class="o">=</span> <span class="n">raw_child</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;=&#39;</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">br</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="k">if</span> <span class="s">&#39;%&#39;</span> <span class="ow">in</span> <span class="n">rx</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">&#39;%&#39;</span> <span class="ow">in</span> <span class="n">rx</span> <span class="ow">and</span> <span class="ow">not</span> <span class="s">&#39;?&#39;</span> <span class="ow">in</span> <span class="n">br</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">br</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">dat</span><span class="p">[</span><span class="n">rx</span><span class="p">]</span> <span class="o">=</span> <span class="n">br</span>
     <span class="k">return</span> <span class="n">dat</span>
 
@@ -414,16 +320,14 @@ if(ga_enabled){
 <span class="sd">            * electron conversion intensity</span>
 <span class="sd">            * uncertainty in electron conversion intensity</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
     <span class="n">en</span><span class="p">,</span> <span class="n">en_err</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
     <span class="n">inten</span><span class="p">,</span> <span class="n">inten_err</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
     <span class="n">conv</span><span class="p">,</span> <span class="n">conv_err</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
     <span class="n">tti</span><span class="p">,</span> <span class="n">tti_err</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
-    <span class="n">dat</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">en</span><span class="p">,</span> <span class="n">en_err</span><span class="p">,</span> <span class="n">inten</span><span class="p">,</span> <span class="n">inten_err</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="n">conv_err</span><span class="p">,</span> <span class="n">tti</span><span class="p">,</span> <span class="n">tti_err</span>
-    <span class="k">return</span> <span class="n">dat</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">en</span><span class="p">,</span> <span class="n">en_err</span><span class="p">,</span> <span class="n">inten</span><span class="p">,</span> <span class="n">inten_err</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="n">conv_err</span><span class="p">,</span> <span class="n">tti</span><span class="p">,</span> <span class="n">tti_err</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_gamma_continuation_record</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">gammaray</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_parse_gamma_continuation_record</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">inten</span><span class="p">,</span> <span class="n">tti</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This parses an ENSDF gamma continuation record</span>
 
@@ -433,15 +337,21 @@ if(ga_enabled){
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
         <span class="n">entry</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;AP&#39;</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">)</span>
         <span class="n">entry</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;EL1C+EL2C&#39;</span><span class="p">,</span> <span class="s">&#39;LC&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s">&#39;C+&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">&#39;+=&#39;</span> <span class="ow">in</span> <span class="n">entry</span> <span class="ow">or</span> <span class="s">&#39;EAV&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">tsplit</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
-        <span class="n">greff</span> <span class="o">=</span> <span class="n">gammaray</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s">&#39;C=&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
+            <span class="n">tsplit</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tsplit</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;=&#39;</span><span class="p">)</span>
+            <span class="n">tsplit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsplit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
+        <span class="n">greff</span> <span class="o">=</span> <span class="n">inten</span>
         <span class="k">if</span> <span class="s">&#39;/T&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
             <span class="n">tsplit</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/T&#39;</span><span class="p">)</span>
-            <span class="n">greff</span> <span class="o">=</span> <span class="n">gammaray</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">greff</span><span class="p">):</span>
-                <span class="n">greff</span> <span class="o">=</span> <span class="n">gammaray</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">greff</span> <span class="o">=</span> <span class="n">tti</span>
+            <span class="k">if</span> <span class="n">greff</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">greff</span> <span class="o">=</span> <span class="n">inten</span>
+        <span class="k">if</span> <span class="n">greff</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">greff</span> <span class="o">=</span> <span class="mf">1.0</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tsplit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">conv</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="n">err</span> <span class="o">=</span> <span class="bp">None</span>
@@ -488,6 +398,24 @@ if(ga_enabled){
     <span class="k">return</span> <span class="n">en</span><span class="p">,</span> <span class="n">en_err</span><span class="p">,</span> <span class="n">ib</span><span class="p">,</span> <span class="n">dib</span><span class="p">,</span> <span class="n">logft</span><span class="p">,</span> <span class="n">dft</span>
 
 
+<span class="k">def</span> <span class="nf">_parse_beta_continuation_record</span><span class="p">(</span><span class="n">bc_rec</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This parse the beta continuation record for EAV</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">bc_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;$&#39;</span><span class="p">)</span>
+    <span class="n">eav</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">eav_err</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">&#39;EAV&#39;</span> <span class="ow">in</span> <span class="n">entry</span> <span class="ow">and</span> <span class="s">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">eav</span><span class="p">,</span> <span class="n">eav_err</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dat</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">eav</span> <span class="o">=</span> <span class="n">_getvalue</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">eav</span><span class="p">,</span> <span class="n">eav_err</span>
+
+
 <span class="k">def</span> <span class="nf">_parse_ec_record</span><span class="p">(</span><span class="n">e_rec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This parses an ENSDF electron capture + b+ record</span>
@@ -520,7 +448,8 @@ if(ga_enabled){
     <span class="n">ib</span><span class="p">,</span> <span class="n">dib</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">e_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">e_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
     <span class="n">ie</span><span class="p">,</span> <span class="n">die</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">e_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">e_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
     <span class="n">logft</span><span class="p">,</span> <span class="n">dft</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">e_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">e_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">en</span><span class="p">,</span> <span class="n">en_err</span><span class="p">,</span> <span class="n">ib</span><span class="p">,</span> <span class="n">dib</span><span class="p">,</span> <span class="n">ie</span><span class="p">,</span> <span class="n">die</span><span class="p">,</span> <span class="n">logft</span><span class="p">,</span> <span class="n">dft</span>
+    <span class="n">tti</span><span class="p">,</span> <span class="n">dtti</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">e_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">e_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">en</span><span class="p">,</span> <span class="n">en_err</span><span class="p">,</span> <span class="n">ib</span><span class="p">,</span> <span class="n">dib</span><span class="p">,</span> <span class="n">ie</span><span class="p">,</span> <span class="n">die</span><span class="p">,</span> <span class="n">logft</span><span class="p">,</span> <span class="n">dft</span><span class="p">,</span> <span class="n">tti</span><span class="p">,</span> <span class="n">dtti</span>
 
 
 <span class="k">def</span> <span class="nf">_parse_normalization_record</span><span class="p">(</span><span class="n">n_rec</span><span class="p">):</span>
@@ -542,7 +471,7 @@ if(ga_enabled){
 <span class="sd">        Uncertainty in nr</span>
 <span class="sd">    nt : float</span>
 <span class="sd">        Multiplier for converting relative transition intensity to transitions</span>
-<span class="sd">        per 100 decays of the parent through the decay branch or to photons </span>
+<span class="sd">        per 100 decays of the parent through the decay branch or to photons</span>
 <span class="sd">        per 100 neutron captures for (n,g).</span>
 <span class="sd">    nt_err : float</span>
 <span class="sd">        Uncertainty in nt</span>
@@ -626,45 +555,108 @@ if(ga_enabled){
     <span class="n">e</span><span class="p">,</span> <span class="n">e_err</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">p_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">p_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
     <span class="n">j</span> <span class="o">=</span> <span class="n">p_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
     <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span> <span class="o">=</span> <span class="n">_to_time</span><span class="p">(</span><span class="n">p_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">p_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">e_err</span>
+    <span class="k">return</span> <span class="n">p_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">e_err</span>
 
 
-<span class="k">def</span> <span class="nf">_update_xrays</span><span class="p">(</span><span class="n">conv</span><span class="p">,</span> <span class="n">xrays</span><span class="p">,</span> <span class="n">nuc_id</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_parse_qvalue_record</span><span class="p">(</span><span class="n">q_rec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Update X-ray data for a given decay</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">nucname</span><span class="o">.</span><span class="n">znum</span><span class="p">(</span><span class="n">nuc_id</span><span class="p">)</span>
-    <span class="n">xka1</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">xka2</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">xkb</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">xl</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">if</span> <span class="s">&#39;K&#39;</span> <span class="ow">in</span> <span class="n">conv</span> <span class="ow">and</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;K&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">conv</span><span class="p">[</span><span class="s">&#39;K&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]):</span>
-            <span class="n">xk</span> <span class="o">=</span> <span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;K&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">xka</span> <span class="o">=</span> <span class="n">xk</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">])</span>
-            <span class="n">xka1</span> <span class="o">=</span> <span class="n">xka</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">])</span>
-            <span class="n">xka2</span> <span class="o">=</span> <span class="n">xka</span> <span class="o">-</span> <span class="n">xka1</span>
-            <span class="n">xkb</span> <span class="o">=</span> <span class="n">xk</span> <span class="o">-</span> <span class="n">xka</span>
-            <span class="k">if</span> <span class="s">&#39;L&#39;</span> <span class="ow">in</span> <span class="n">conv</span> <span class="ow">and</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]):</span>
-                    <span class="n">xl</span> <span class="o">=</span> <span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*</span> \
-                         <span class="p">(</span><span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;K&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">xl</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">xl</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">elif</span> <span class="s">&#39;L&#39;</span> <span class="ow">in</span> <span class="n">conv</span> <span class="ow">and</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]):</span>
-                <span class="n">xl</span> <span class="o">=</span> <span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">elif</span> <span class="s">&#39;L&#39;</span> <span class="ow">in</span> <span class="n">conv</span> <span class="ow">and</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]):</span>
-            <span class="n">xl</span> <span class="o">=</span> <span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="sd">    This parses and ENSDF q-value record</span>
 
-    <span class="n">xrays</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">xka1</span> <span class="o">+</span> <span class="n">xrays</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                      <span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">22</span><span class="p">],</span> <span class="n">xka2</span> <span class="o">+</span> <span class="n">xrays</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
-                      <span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span> <span class="n">xkb</span> <span class="o">+</span> <span class="n">xrays</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
-                      <span class="n">_xraydat</span><span class="p">[</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span> <span class="n">xl</span> <span class="o">+</span> <span class="n">xrays</span><span class="p">[</span><span class="mi">7</span><span class="p">]])</span>
-    <span class="k">return</span> <span class="n">xrays</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    q_rec : re.MatchObject</span>
+<span class="sd">        regular expression MatchObject</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    qminus : float</span>
+<span class="sd">        total energy for B- decay (if qminus &gt; 0 B- decay is possible)</span>
+<span class="sd">    dqminus : float</span>
+<span class="sd">        standard uncertainty in qminus</span>
+<span class="sd">    sn : float</span>
+<span class="sd">        neutron separation energy in keV</span>
+<span class="sd">    dsn : float</span>
+<span class="sd">        standard uncertainty in sn</span>
+<span class="sd">    sp : float</span>
+<span class="sd">        neutron separation energy in keV</span>
+<span class="sd">    dsp : float</span>
+<span class="sd">        standard uncertainty in sp</span>
+<span class="sd">    qa : float</span>
+<span class="sd">        total energy available for alpha decay of the ground state</span>
+<span class="sd">    dqa : float</span>
+<span class="sd">        standard uncertainty in qa</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">qminus</span><span class="p">,</span> <span class="n">dqminus</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">q_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">q_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">sn</span><span class="p">,</span> <span class="n">dsn</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">q_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">q_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">sp</span><span class="p">,</span> <span class="n">dsp</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">q_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">q_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+    <span class="n">qa</span><span class="p">,</span> <span class="n">dqa</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">q_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">q_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">qminus</span><span class="p">,</span> <span class="n">dqminus</span><span class="p">,</span> <span class="n">sn</span><span class="p">,</span> <span class="n">dsn</span><span class="p">,</span> <span class="n">sp</span><span class="p">,</span> <span class="n">dsp</span><span class="p">,</span> <span class="n">qa</span><span class="p">,</span> <span class="n">dqa</span>
+
+
+<span class="k">def</span> <span class="nf">_parse_alpha_record</span><span class="p">(</span><span class="n">a_rec</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This parses and ENSDF alpha record</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    q_rec : re.MatchObject</span>
+<span class="sd">        regular expression MatchObject</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    e : float</span>
+<span class="sd">        energy of alpha particle</span>
+<span class="sd">    de : float</span>
+<span class="sd">        standard uncertainty in energy</span>
+<span class="sd">    ia : float</span>
+<span class="sd">        intensity of the decay branch in percent</span>
+<span class="sd">    dia : float</span>
+<span class="sd">        standard uncertainty in intensity</span>
+<span class="sd">    hf : float</span>
+<span class="sd">        hindrance factor</span>
+<span class="sd">    dhf : float</span>
+<span class="sd">        standard uncertainty in hindrance factor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">e</span><span class="p">,</span> <span class="n">de</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">a_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">a_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">ia</span><span class="p">,</span> <span class="n">dia</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">a_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">a_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">hf</span><span class="p">,</span> <span class="n">dhf</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">a_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">a_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">e</span><span class="p">,</span> <span class="n">de</span><span class="p">,</span> <span class="n">ia</span><span class="p">,</span> <span class="n">dia</span><span class="p">,</span> <span class="n">hf</span><span class="p">,</span> <span class="n">dhf</span>
+
+
+<span class="k">def</span> <span class="nf">_parse_delayed_particle_record</span><span class="p">(</span><span class="n">dp_rec</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This parses and ENSDF delayed particle record</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dp_rec : re.MatchObject</span>
+<span class="sd">        regular expression MatchObject</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ptype : str</span>
+<span class="sd">        symbol for delayed particle</span>
+<span class="sd">    e : float</span>
+<span class="sd">        particle energy</span>
+<span class="sd">    de : float</span>
+<span class="sd">        standard uncertainty in energy</span>
+<span class="sd">    ip : float</span>
+<span class="sd">        intensity of delayed particle in percent</span>
+<span class="sd">    dip : float</span>
+<span class="sd">        standard uncertainty in intensity</span>
+<span class="sd">    ei : float</span>
+<span class="sd">        energy level of the intermediate</span>
+<span class="sd">    t : float</span>
+<span class="sd">        half-life of the transition (in seconds)</span>
+<span class="sd">    dt : float</span>
+<span class="sd">        standard uncertainty in half-life</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ptype</span> <span class="o">=</span> <span class="n">dp_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">e</span><span class="p">,</span> <span class="n">de</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">dp_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">dp_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">ip</span><span class="p">,</span> <span class="n">dip</span> <span class="o">=</span> <span class="n">_get_val_err</span><span class="p">(</span><span class="n">dp_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">dp_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+    <span class="n">ei</span> <span class="o">=</span> <span class="n">_getvalue</span><span class="p">(</span><span class="n">dp_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+    <span class="n">t</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">_to_time</span><span class="p">(</span><span class="n">dp_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">dp_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ptype</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">de</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">dip</span><span class="p">,</span> <span class="n">ei</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dt</span>
 
 
 <span class="k">def</span> <span class="nf">_parse_decay_dataset</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">decay_s</span><span class="p">):</span>
@@ -684,30 +676,110 @@ if(ga_enabled){
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">gammarays</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">conv</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">betas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">alphas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ecbp</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">ident</span> <span class="o">=</span> <span class="n">_ident</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">daughter</span> <span class="o">=</span> <span class="n">ident</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">daughter_id</span> <span class="o">=</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">daughter</span><span class="p">)</span>
     <span class="n">parent</span> <span class="o">=</span> <span class="n">ident</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;(&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">parents</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">pfinal</span> <span class="o">=</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pfinal</span> <span class="o">=</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">5</span><span class="p">])</span>
     <span class="n">tfinal</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="n">tfinalerr</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="n">nrbr</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">nbbr</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="n">nrbr_err</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="n">xrays</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-    <span class="n">gamma</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">nbbr_err</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">nb_err</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">br_err</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">nb</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">br</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">special</span> <span class="o">=</span> <span class="s">&quot; &quot;</span>
     <span class="n">goodgray</span> <span class="o">=</span> <span class="bp">False</span>
-
+    <span class="n">parent2</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="n">level_l</span> <span class="o">=</span> <span class="n">_level_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">level_l</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">level</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">from_nuc</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">special</span> <span class="o">=</span> <span class="n">_parse_level_record</span><span class="p">(</span><span class="n">level_l</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="n">b_rec</span> <span class="o">=</span> <span class="n">_beta</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">b_rec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">_parse_beta_record</span><span class="p">(</span><span class="n">b_rec</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parent2</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">parent2</span> <span class="o">=</span> <span class="n">parent</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">e</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">e</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">level</span>
+            <span class="n">bparent</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">id_from_level</span><span class="p">(</span><span class="n">_to_id</span><span class="p">(</span><span class="n">parent2</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+            <span class="n">bdaughter</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">id_from_level</span><span class="p">(</span><span class="n">_to_id</span><span class="p">(</span><span class="n">daughter</span><span class="p">),</span> <span class="n">level</span><span class="p">)</span>
+            <span class="n">betas</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">bparent</span><span class="p">,</span> <span class="n">bdaughter</span><span class="p">,</span> <span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dat</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+        <span class="n">bc_rec</span> <span class="o">=</span> <span class="n">_betac</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bc_rec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">bcdat</span> <span class="o">=</span> <span class="n">_parse_beta_continuation_record</span><span class="p">(</span><span class="n">bc_rec</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">bcdat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">bc_rec</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;B&#39;</span><span class="p">:</span>
+                    <span class="n">betas</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">bcdat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ecbp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">bcdat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">bggc</span> <span class="o">=</span> <span class="n">_gc</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                    <span class="n">conv</span> <span class="o">=</span> <span class="n">_parse_gamma_continuation_record</span><span class="p">(</span><span class="n">bggc</span><span class="p">,</span> <span class="n">dat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                                                            <span class="n">dat</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="s">&#39;K&#39;</span> <span class="ow">in</span> <span class="n">conv</span><span class="p">:</span>
+                        <span class="n">ecbp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;K&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="s">&#39;L&#39;</span> <span class="ow">in</span> <span class="n">conv</span><span class="p">:</span>
+                        <span class="n">ecbp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="s">&#39;M&#39;</span> <span class="ow">in</span> <span class="n">conv</span><span class="p">:</span>
+                        <span class="n">ecbp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;M&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">a_rec</span> <span class="o">=</span> <span class="n">_alpha</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">a_rec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">_parse_alpha_record</span><span class="p">(</span><span class="n">a_rec</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parent2</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">parent2</span> <span class="o">=</span> <span class="n">parent</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">e</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">e</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">level</span>
+            <span class="n">aparent</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">id_from_level</span><span class="p">(</span><span class="n">_to_id</span><span class="p">(</span><span class="n">parent2</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+            <span class="n">adaughter</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">id_from_level</span><span class="p">(</span><span class="n">_to_id</span><span class="p">(</span><span class="n">daughter</span><span class="p">),</span> <span class="n">level</span><span class="p">)</span>
+            <span class="n">alphas</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">aparent</span><span class="p">,</span> <span class="n">adaughter</span><span class="p">,</span> <span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dat</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+        <span class="n">ec_rec</span> <span class="o">=</span> <span class="n">_ec</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ec_rec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">_parse_ec_record</span><span class="p">(</span><span class="n">ec_rec</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parent2</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">parent2</span> <span class="o">=</span> <span class="n">parent</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">e</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">e</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">level</span>
+            <span class="n">ecparent</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">id_from_level</span><span class="p">(</span><span class="n">_to_id</span><span class="p">(</span><span class="n">parent2</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+            <span class="n">ecdaughter</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">id_from_level</span><span class="p">(</span><span class="n">_to_id</span><span class="p">(</span><span class="n">daughter</span><span class="p">),</span> <span class="n">level</span><span class="p">)</span>
+            <span class="n">ecbp</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ecparent</span><span class="p">,</span> <span class="n">ecdaughter</span><span class="p">,</span> <span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">dat</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+                         <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="k">continue</span>
         <span class="n">g_rec</span> <span class="o">=</span> <span class="n">_g</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">g_rec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">dat</span> <span class="o">=</span> <span class="n">_parse_gamma_record</span><span class="p">(</span><span class="n">g_rec</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">gamma</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">gamma</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="c">#store old atomic data</span>
-                <span class="n">xrays</span> <span class="o">=</span> <span class="n">_update_xrays</span><span class="p">(</span><span class="n">conv</span><span class="p">,</span> <span class="n">xrays</span><span class="p">,</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">daughter</span><span class="p">))</span>
-                <span class="c">#clear conversion data</span>
-                <span class="n">conv</span> <span class="o">=</span> <span class="p">{}</span>
-
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">gparent</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">gdaughter</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">gparent</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">id_from_level</span><span class="p">(</span><span class="n">_to_id</span><span class="p">(</span><span class="n">daughter</span><span class="p">),</span> <span class="n">level</span><span class="p">,</span> <span class="n">special</span><span class="p">)</span>
+                    <span class="n">dlevel</span> <span class="o">=</span> <span class="n">level</span> <span class="o">-</span> <span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">gdaughter</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">id_from_level</span><span class="p">(</span><span class="n">_to_id</span><span class="p">(</span><span class="n">daughter</span><span class="p">),</span> <span class="n">dlevel</span><span class="p">,</span> <span class="n">special</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">parent2</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">gp2</span> <span class="o">=</span> <span class="n">pfinal</span>
+                    <span class="n">e</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">gp2</span> <span class="o">=</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">parent2</span><span class="p">)</span>
+                <span class="n">dat</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gp2</span><span class="p">)</span>
+                <span class="n">dat</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gdaughter</span><span class="p">)</span>
+                <span class="n">dat</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gparent</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                    <span class="n">dat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
                 <span class="n">gammarays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span>
                 <span class="n">goodgray</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="k">else</span><span class="p">:</span>
@@ -715,11 +787,14 @@ if(ga_enabled){
             <span class="k">continue</span>
         <span class="n">gc_rec</span> <span class="o">=</span> <span class="n">_gc</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">gc_rec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">goodgray</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
-            <span class="n">conv_temp</span> <span class="o">=</span> <span class="n">conv</span>
-            <span class="n">conv</span> <span class="o">=</span> <span class="n">_parse_gamma_continuation_record</span><span class="p">(</span><span class="n">gc_rec</span><span class="p">,</span> <span class="n">gammarays</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">gamma</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">gamma</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">conv</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">conv_temp</span><span class="p">)</span>
+            <span class="n">conv</span> <span class="o">=</span> <span class="n">_parse_gamma_continuation_record</span><span class="p">(</span><span class="n">gc_rec</span><span class="p">,</span> <span class="n">gammarays</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+                                                    <span class="n">gammarays</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">6</span><span class="p">])</span>
+            <span class="k">if</span> <span class="s">&#39;K&#39;</span> <span class="ow">in</span> <span class="n">conv</span><span class="p">:</span>
+                <span class="n">gammarays</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;K&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s">&#39;L&#39;</span> <span class="ow">in</span> <span class="n">conv</span><span class="p">:</span>
+                <span class="n">gammarays</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s">&#39;M&#39;</span> <span class="ow">in</span> <span class="n">conv</span><span class="p">:</span>
+                <span class="n">gammarays</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">conv</span><span class="p">[</span><span class="s">&#39;M&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">continue</span>
         <span class="n">n_rec</span> <span class="o">=</span> <span class="n">_norm</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">n_rec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -733,26 +808,136 @@ if(ga_enabled){
             <span class="k">if</span> <span class="n">nrbr2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">nrbr</span> <span class="o">=</span> <span class="n">nrbr2</span>
                 <span class="n">nrbr_err</span> <span class="o">=</span> <span class="n">nrbr_err2</span>
+            <span class="k">if</span> <span class="n">nbbr</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">nb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">br</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">nbbr</span> <span class="o">=</span> <span class="n">nb</span> <span class="o">*</span> <span class="n">br</span>
+            <span class="k">if</span> <span class="n">nbbr_err</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">nb_err</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">br_err</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">nbbr_err</span> <span class="o">=</span> <span class="p">(</span><span class="n">br_err</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">nb_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
             <span class="k">continue</span>
         <span class="n">p_rec</span> <span class="o">=</span> <span class="n">_p</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">p_rec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">e_err</span> <span class="o">=</span> <span class="n">_parse_parent_record</span><span class="p">(</span><span class="n">p_rec</span><span class="p">)</span>
+            <span class="n">parent2</span><span class="p">,</span> <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">e_err</span> <span class="o">=</span> <span class="n">_parse_parent_record</span><span class="p">(</span><span class="n">p_rec</span><span class="p">)</span>
             <span class="k">continue</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">gammarays</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">gammas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gammarays</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">gamma</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">xrays</span> <span class="o">=</span> <span class="n">_update_xrays</span><span class="p">(</span><span class="n">conv</span><span class="p">,</span> <span class="n">xrays</span><span class="p">,</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">daughter</span><span class="p">))</span>
-        <span class="n">pfinal</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;(&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">parents</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">gammarays</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">betas</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ecbp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c">#FIXME: Handle uneven errors</span>
+        <span class="k">if</span> <span class="n">tfinalerr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tfinalerr</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">tfinalerr</span> <span class="o">=</span> <span class="n">tfinalerr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">pfinal</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span>
                 <span class="n">pfinal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_to_id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">pfinal</span> <span class="o">=</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">pfinal</span><span class="p">,</span> <span class="n">_to_id</span><span class="p">(</span><span class="n">daughter</span><span class="p">),</span> <span class="n">decay_s</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span><span class="p">,</span> \
-               <span class="n">nrbr</span><span class="p">,</span> <span class="n">nrbr_err</span><span class="p">,</span> <span class="n">xrays</span><span class="p">,</span> <span class="n">gammas</span>
+        <span class="k">return</span> <span class="n">pfinal</span><span class="p">,</span> <span class="n">daughter_id</span><span class="p">,</span> <span class="n">rxname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="n">decay_s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()),</span> \
+               <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span><span class="p">,</span> \
+               <span class="n">br</span><span class="p">,</span> <span class="n">nrbr</span><span class="p">,</span> <span class="n">nrbr_err</span><span class="p">,</span> <span class="n">nbbr</span><span class="p">,</span> <span class="n">nbbr_err</span><span class="p">,</span> <span class="n">gammarays</span><span class="p">,</span> <span class="n">alphas</span><span class="p">,</span> \
+               <span class="n">betas</span><span class="p">,</span> <span class="n">ecbp</span>
     <span class="k">return</span> <span class="bp">None</span>
+
+
+<span class="k">def</span> <span class="nf">levels</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">levellist</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">lmap</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">lcount</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">badlist</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;ecsf&quot;</span><span class="p">,</span> <span class="s">&quot;34si&quot;</span><span class="p">,</span> <span class="s">&quot;|b{+-}fission&quot;</span><span class="p">,</span> <span class="s">&quot;{+24}ne&quot;</span><span class="p">,</span>
+           <span class="s">&quot;{+22}ne&quot;</span><span class="p">,</span> <span class="s">&quot;24ne&quot;</span><span class="p">,</span> <span class="s">&quot;b-f&quot;</span><span class="p">,</span> <span class="s">&quot;{+20}o&quot;</span><span class="p">,</span> <span class="s">&quot;2|e&quot;</span><span class="p">,</span> <span class="s">&quot;b++ec&quot;</span><span class="p">,</span>
+           <span class="s">&quot;ecp+ec2p&quot;</span><span class="p">,</span> <span class="s">&quot;ecf&quot;</span><span class="p">,</span> <span class="s">&quot;mg&quot;</span><span class="p">,</span> <span class="s">&quot;ne&quot;</span><span class="p">,</span> <span class="s">&quot;{+20}ne&quot;</span><span class="p">,</span> <span class="s">&quot;{+25}ne&quot;</span><span class="p">,</span>
+           <span class="s">&quot;{+28}mg&quot;</span><span class="p">,</span> <span class="s">&quot;sf(+ec+b+)&quot;</span><span class="p">]</span>
+    <span class="n">special</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">levellist</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">levellist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">lmap</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">lmap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dat</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">datasets</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="mi">80</span> <span class="o">*</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+        <span class="n">ident</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">_ident</span><span class="p">,</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">ident</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="s">&#39;ADOPTED LEVELS&#39;</span> <span class="ow">in</span> <span class="n">ident</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">leveln</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">brs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">level_found</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="n">level_l</span> <span class="o">=</span> <span class="n">_level_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">level_l</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">brs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">brs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                            <span class="n">goodkey</span> <span class="o">=</span> <span class="bp">True</span>
+                            <span class="n">keystrip</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;%&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">badlist</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">keystrip</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
+                                    <span class="n">goodkey</span> <span class="o">=</span> <span class="bp">False</span>
+                            <span class="k">if</span> <span class="n">goodkey</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                                <span class="n">rx</span> <span class="o">=</span> <span class="n">rxname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="n">keystrip</span><span class="p">)</span>
+                                <span class="n">levellist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">nuc_id</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;(&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">state</span><span class="p">,</span> <span class="n">special</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">level_found</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                        <span class="n">levellist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">nuc_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">special</span><span class="p">))</span>
+                    <span class="n">brs</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="n">level</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">from_nuc</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">special</span> <span class="o">=</span> \
+                        <span class="n">_parse_level_record</span><span class="p">(</span><span class="n">level_l</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">from_nuc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">nuc_id</span> <span class="o">=</span> <span class="n">from_nuc</span> <span class="o">+</span> <span class="n">leveln</span>
+                        <span class="k">if</span> <span class="n">leveln</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">lmap</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">nuc_id</span><span class="p">:</span> <span class="n">lcount</span><span class="p">})</span>
+                        <span class="n">leveln</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">lcount</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">level_found</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">level_found</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="k">continue</span>
+                <span class="n">levelc</span> <span class="o">=</span> <span class="n">_level_cont_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">levelc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">brs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_parse_level_continuation_record</span><span class="p">(</span><span class="n">levelc</span><span class="p">))</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">brs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">brs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">goodkey</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="n">keystrip</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;%&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">badlist</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">keystrip</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
+                            <span class="n">goodkey</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="k">if</span> <span class="n">goodkey</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                        <span class="n">rx</span> <span class="o">=</span> <span class="n">rxname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="n">keystrip</span><span class="p">)</span>
+                        <span class="n">levellist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">nuc_id</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;(&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">state</span><span class="p">,</span> <span class="n">special</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">level_found</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">levellist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">nuc_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">special</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">levellist</span>
+
+
+<span class="k">def</span> <span class="nf">decays</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">decaylist</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">decaylist</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">decaylist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dat</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">datasets</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="mi">80</span> <span class="o">*</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+        <span class="n">ident</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">_ident</span><span class="p">,</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">ident</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="s">&#39;DECAY&#39;</span> <span class="ow">in</span> <span class="n">ident</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">decay_s</span> <span class="o">=</span> <span class="n">ident</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">decay</span> <span class="o">=</span> <span class="n">_parse_decay_dataset</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">decay_s</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">decay</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decay</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">decay</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="n">dc</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">decay</span><span class="p">))</span>
+                        <span class="n">dc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span>
+                        <span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">dc</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span>
+                            <span class="n">gamma</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span>
+                        <span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="n">dc</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span>
+                            <span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span>
+                        <span class="k">for</span> <span class="n">beta</span> <span class="ow">in</span> <span class="n">dc</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span>
+                            <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span>
+                        <span class="k">for</span> <span class="n">ecbp</span> <span class="ow">in</span> <span class="n">dc</span><span class="p">[</span><span class="mi">13</span><span class="p">]:</span>
+                            <span class="n">ecbp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span>
+                        <span class="n">decaylist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">dc</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">decaylist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">decay</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">decaylist</span>
 
 
 <div class="viewcode-block" id="origen_data"><a class="viewcode-back" href="../../pyapi/ensdf.html#pyne.ensdf.origen_data">[docs]</a><span class="k">def</span> <span class="nf">origen_data</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -813,13 +998,14 @@ if(ga_enabled){
                 <span class="n">e_rec</span> <span class="o">=</span> <span class="n">_ec</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">e_rec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="n">en</span><span class="p">,</span> <span class="n">en_err</span><span class="p">,</span> <span class="n">ib</span><span class="p">,</span> <span class="n">dib</span><span class="p">,</span> <span class="n">ie</span><span class="p">,</span> <span class="n">die</span><span class="p">,</span> <span class="n">logft</span><span class="p">,</span> \
-                    <span class="n">dft</span> <span class="o">=</span> <span class="n">_parse_ec_record</span><span class="p">(</span><span class="n">e_rec</span><span class="p">)</span>
+                    <span class="n">dft</span><span class="p">,</span> <span class="n">tti</span><span class="p">,</span> <span class="n">dtti</span> <span class="o">=</span> <span class="n">_parse_ec_record</span><span class="p">(</span><span class="n">e_rec</span><span class="p">)</span>
                     <span class="k">continue</span>
                 <span class="n">p_rec</span> <span class="o">=</span> <span class="n">_p</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">p_rec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">e_err</span> <span class="o">=</span> <span class="n">_parse_parent_record</span><span class="p">(</span><span class="n">p_rec</span><span class="p">)</span>
+                    <span class="n">parent2</span><span class="p">,</span> <span class="n">tfinal</span><span class="p">,</span> <span class="n">tfinalerr</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">e_err</span> <span class="o">=</span> \
+                        <span class="n">_parse_parent_record</span><span class="p">(</span><span class="n">p_rec</span><span class="p">)</span>
                     <span class="k">continue</span>
-                <span class="n">level_l</span> <span class="o">=</span> <span class="n">_level_regex2</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="n">level_l</span> <span class="o">=</span> <span class="n">_level_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">level_l</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">newlevel</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ib</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">ie</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">):</span>
                         <span class="c">#save old level data</span>
@@ -829,7 +1015,8 @@ if(ga_enabled){
                             <span class="n">ie</span> <span class="o">=</span> <span class="mf">0.0</span>
                         <span class="n">decaylist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_to_id</span><span class="p">(</span><span class="n">parent</span><span class="p">),</span> <span class="n">tfinal</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span>
                                           <span class="n">half_lifev</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="p">(</span><span class="n">ib</span> <span class="o">+</span> <span class="n">ie</span><span class="p">)))</span>
-                    <span class="n">level</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">from_nuc</span> <span class="o">=</span> <span class="n">_parse_level_record</span><span class="p">(</span><span class="n">level_l</span><span class="p">)</span>
+                    <span class="n">level</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">from_nuc</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">special</span> <span class="o">=</span> \
+                        <span class="n">_parse_level_record</span><span class="p">(</span><span class="n">level_l</span><span class="p">)</span>
                     <span class="n">newlevel</span> <span class="o">=</span> <span class="bp">True</span>
                     <span class="k">continue</span>
             <span class="k">if</span> <span class="n">newlevel</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ib</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">ie</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">):</span>
@@ -846,14 +1033,15 @@ if(ga_enabled){
             <span class="n">brs</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">levelc_found</span> <span class="o">=</span> <span class="bp">False</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-                <span class="n">level_l</span> <span class="o">=</span> <span class="n">_level_regex2</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="n">level_l</span> <span class="o">=</span> <span class="n">_level_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">level_l</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">levelc_found</span> <span class="ow">and</span> <span class="n">half_lifev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                         <span class="n">levelc_found</span> <span class="o">=</span> <span class="bp">False</span>
                         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">brs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                             <span class="n">branchlist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pid</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">brs</span><span class="p">))</span>
                         <span class="n">brs</span> <span class="o">=</span> <span class="p">{}</span>
-                    <span class="n">level</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">from_nuc</span> <span class="o">=</span> <span class="n">_parse_level_record</span><span class="p">(</span><span class="n">level_l</span><span class="p">)</span>
+                    <span class="n">level</span><span class="p">,</span> <span class="n">half_lifev</span><span class="p">,</span> <span class="n">from_nuc</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">special</span> <span class="o">=</span> \
+                        <span class="n">_parse_level_record</span><span class="p">(</span><span class="n">level_l</span><span class="p">)</span>
                     <span class="k">continue</span>
                 <span class="n">levelc</span> <span class="o">=</span> <span class="n">_level_cont_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">levelc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -898,6 +1086,44 @@ if(ga_enabled){
                     <span class="n">decaylist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fin</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">decaylist</span>
+
+
+<span class="k">def</span> <span class="nf">_level_dlist_gen</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This compiles a list of decay types in an ensdf file</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f : str</span>
+<span class="sd">        Name of ENSDF formatted file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    decaylist : list</span>
+<span class="sd">        list of decay types in the ENSDF file eg. [&#39;B+&#39;,&#39;B-&#39;,&#39;A&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dat</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">datasets</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="mi">80</span> <span class="o">*</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+        <span class="n">ident</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">_ident</span><span class="p">,</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">ident</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s">&#39;ADOPTED LEVELS&#39;</span> <span class="ow">in</span> <span class="n">ident</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                <span class="c">#print ident.group(2)</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                    <span class="n">levelc</span> <span class="o">=</span> <span class="n">_level_cont_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">levelc</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">ddict</span> <span class="o">=</span> <span class="n">_parse_level_continuation_record</span><span class="p">(</span><span class="n">levelc</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ddict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                        <span class="n">keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">keys</span>
 
 
 <div class="viewcode-block" id="gamma_rays"><a class="viewcode-back" href="../../pyapi/ensdf.html#pyne.ensdf.gamma_rays">[docs]</a><span class="k">def</span> <span class="nf">gamma_rays</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
@@ -973,10 +1199,7 @@ if(ga_enabled){
                         <span class="k">if</span> <span class="n">decay</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                             <span class="n">decaylist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">decay</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">decaylist</span>
-
-</div>
-<span class="n">_xraydat</span> <span class="o">=</span> <span class="n">_build_xray_table</span><span class="p">()</span>
-</pre></div>
+</pre></div></div>
 
           </div>
         </div>

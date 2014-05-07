@@ -118,12 +118,15 @@ if(ga_enabled){
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">definition</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">cards</span>
+
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <div class="viewcode-block" id="IInputFile"><a class="viewcode-back" href="../../../pyapi/simplesim/inputfile.html#pyne.simplesim.inputfile.IInputFile">[docs]</a><span class="k">class</span> <span class="nc">IInputFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class is not used directly by the user. Abstract base class for</span>
@@ -407,7 +410,7 @@ if(ga_enabled){
         <span class="bp">self</span><span class="o">.</span><span class="n">_write_user_literal</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_data_literal</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_write_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_write_comment</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">comment</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_write_card</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>

@@ -89,6 +89,465 @@ if(ga_enabled){
             
   <div class="section" id="enrichement-libpyne-enrichment">
 <h1>Enrichement &#8211; <tt class="docutils literal"><span class="pre">libpyne_enrichment</span></tt><a class="headerlink" href="#enrichement-libpyne-enrichment" title="Permalink to this headline">¶</a></h1>
+<div class="line-block" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade">
+<div class="line"><em>class</em> <strong>pyne::enrichment::Cascade</strong></div>
+<div class="line"><em>#include &lt;enrichment_cascade.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>A set of physical parameters used to specify an enrichment cascade. </p>
+<p></p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="pyne::enrichment::Cascade::Cascade"></span><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a981ffad71f94952d56879f45d35226e0"></span><div class="line-block">
+<div class="line"> <strong>Cascade</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default constructors </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::Cascade::~Cascade"></span><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a29927a64b5d1d64b1c3db423b05ece9d"></span><div class="line-block">
+<div class="line"> <strong>~Cascade</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default destructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::Cascade::_reset_xjs"></span><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a83d3c438c3f9bc23069470cda6543c58"></span><div class="line-block">
+<div class="line">void <strong>_reset_xjs</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Sets <a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a40bd847719e323d5a1fbab988aa9ed51"><em>x_feed_j</em></a> to <a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a2f10dd5529b00a38bd8ecaf49253de28"><em>j</em></a>-th value of <a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1aae3046a386de4474b63a7c0629a4faac"><em>mat_feed</em></a>. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a5dee52c73a4da9bb13bab8e83583412e"></span>double <strong>alpha</strong></p>
+<blockquote>
+<div><p>stage separation factor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1aa81f85d2b30d009aa3baef9dd660b8cf"></span>double <strong>Mstar</strong></p>
+<blockquote>
+<div><p>mass separation factor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a2f10dd5529b00a38bd8ecaf49253de28"></span>int <strong>j</strong></p>
+<blockquote>
+<div><p>Component to enrich (U-235), id form. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1aab8dcf752865d036f95153f812fdc8d2"></span>int <strong>k</strong></p>
+<blockquote>
+<div><p>Component to de-enrich, or strip (U-238), id form. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a9061e7809e7de48072097cf680bb1a67"></span>double <strong>N</strong></p>
+<blockquote>
+<div><p>number of enriching stages </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a9a337df5a380a86cf1d814c817fcaa37"></span>double <strong>M</strong></p>
+<blockquote>
+<div><p>number of stripping stages </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a40bd847719e323d5a1fbab988aa9ed51"></span>double <strong>x_feed_j</strong></p>
+<blockquote>
+<div><p>enrichment of the <a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a2f10dd5529b00a38bd8ecaf49253de28"><em>j</em></a>-th isotope in the feed stream </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1ae1247279b655305c5878ed79c956da3d"></span>double <strong>x_prod_j</strong></p>
+<blockquote>
+<div><p>enrichment of the <a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a2f10dd5529b00a38bd8ecaf49253de28"><em>j</em></a>-th isotope in the product stream </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a448b12f981c8c76ca2e7f9c2dcce6b59"></span>double <strong>x_tail_j</strong></p>
+<blockquote>
+<div><p>enrichment of the <a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a2f10dd5529b00a38bd8ecaf49253de28"><em>j</em></a>-th isotope in the tails stream </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1aae3046a386de4474b63a7c0629a4faac"></span>pyne::Material <strong>mat_feed</strong></p>
+<blockquote>
+<div><p>feed material </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1ad415496eff31b2be0d2ad49184575153"></span>pyne::Material <strong>mat_prod</strong></p>
+<blockquote>
+<div><p>product material </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a2e59a65a0b177c6b14f058bdd573ecbe"></span>pyne::Material <strong>mat_tail</strong></p>
+<blockquote>
+<div><p>tails material </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a27b9e65481638d8a632f06e8fd54177b"></span>double <strong>l_t_per_feed</strong></p>
+<blockquote>
+<div><p>Total flow rate per feed rate. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1a241ee887e3dd9483e5fb18084cb40951"></span>double <strong>swu_per_feed</strong></p>
+<blockquote>
+<div><p>This is the SWU for 1 kg of Feed material. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade_1aaa665cb5f6c5616ce39fe392c428a323"></span>double <strong>swu_per_prod</strong></p>
+<blockquote>
+<div><p>This is the SWU for 1 kg of Product material. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_enrichment_infinite_loop_error">
+<div class="line"><em>class</em> <strong>pyne::enrichment::EnrichmentInfiniteLoopError</strong></div>
+<div class="line"><em>#include &lt;enrichment.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Custom exception for when an enrichment solver has entered an infinite loop. </p>
+<p></p>
+<em>Private Functions</em><blockquote>
+<div><p><span class="target" id="pyne::enrichment::EnrichmentInfiniteLoopError::whatC"></span><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_enrichment_infinite_loop_error_1af7200a03db7d59941dc6c9d5a45e58bd"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns a moderately helpful error message. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_enrichment_iteration_limit">
+<div class="line"><em>class</em> <strong>pyne::enrichment::EnrichmentIterationLimit</strong></div>
+<div class="line"><em>#include &lt;enrichment.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p></p>
+<p>Custom exception for when an enrichment solver has reached its maximum number of iterations. </p>
+<em>Private Functions</em><blockquote>
+<div><p><span class="target" id="pyne::enrichment::EnrichmentIterationLimit::whatC"></span><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_enrichment_iteration_limit_1a9ab0741ac1943d4a72399206a83cad25"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns a moderately helpful error message. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_enrichment_iteration_na_n">
+<div class="line"><em>class</em> <strong>pyne::enrichment::EnrichmentIterationNaN</strong></div>
+<div class="line"><em>#include &lt;enrichment.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Custom exception for when an enrichment solver iteration has produced a NaN. </p>
+<p></p>
+<em>Private Functions</em><blockquote>
+<div><p><span class="target" id="pyne::enrichment::EnrichmentIterationNaN::whatC"></span><span class="target" id="pyne_enrichmentclasspyne_1_1enrichment_1_1_enrichment_iteration_na_n_1a0321a3bbed28d585027fbeb241b112cb"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns a moderately helpful error message. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_enrichmentnamespacepyne">
+<div class="line"><em>namespace</em> <strong>pyne</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<div class="line-block" id="pyne_enrichmentnamespacepyne_1_1enrichment">
+<div class="line"><em>namespace</em> <strong>pyne::enrichment</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+<em>Unnamed Group</em><blockquote>
+<div><p><span class="target" id="pyne::enrichment::solve_numeric__CascadeR.double.i"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1a79100582182569778db08c56fe064762"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a> <strong>solve_numeric</strong>(<a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a>  &amp; orig_casc, double tolerance = 1.0E-7, int max_iter = 100)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Numeric Solver Functions <div class="highlight-python"><pre> These functions enable the numeric cascade solver.</pre>
+</div>
+ Finds the total flow rate (L) over the feed flow rate (F), the number of enriching stages (N), and the number of stripping stages (M). <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A cascade whose N &amp; M coorespond to the L/F value. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">orig_casc</span></tt> - <p>Original input cascade. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">tolerance</span></tt> - <p>Maximum numerical error allowed in L/F, N, and M. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">max_iter</span></tt> - <p>Maximum number of iterations for to perform. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::_recompute_nm__CascadeR.double"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1a19f834163164c5b5f4725fae89ac2e22"></span><div class="line-block">
+<div class="line">void <strong>_recompute_nm</strong>(<a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a>  &amp; casc, double tolerance = 1.0E-7)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>So,ves for valid stage numbers N &amp;nd M of a casc. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">casc</span></tt> - <p><a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a> instance, modified in-place. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">tolerance</span></tt> - <p>Maximum numerical error allowed in N and M. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::_recompute_prod_tail_mats__CascadeR"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1ade92dd071c84c71de42599bda809af26"></span><div class="line-block">
+<div class="line">void <strong>_recompute_prod_tail_mats</strong>(<a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a>  &amp; casc)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>This function takes a given initial guess number of enriching and stripping stages for a given composition of fuel with a given jth key component, knowing the values that are desired in both Product and Tails streams. Having this it solves for what the actual N and M stage numbers are and also what the product and waste streams compositions are. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">casc</span></tt> - <p><a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a> instance, modified in-place. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::_norm_comp_secant__CascadeR.double.i"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1a86e0f065bfeb7a91ff334dcec5771ec0"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a> <strong>_norm_comp_secant</strong>(<a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a>  &amp; casc, double tolerance = 1.0E-7, int max_iter = 100)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>This function solves the whole system of equations. It uses _recompute_prod_tail_mats() to find the roots for the enriching and stripping stage numbers. It then checks to see if the product and waste streams meet their target enrichments for the jth component like they should. If they don&#8217;t then it trys other values of N and M varied by the Secant method. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A cascade whose N &amp; M coorespond to the L/F value. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">casc</span></tt> - <p>Input cascade. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">tolerance</span></tt> - <p>Maximum numerical error allowed in L/F, N, and M. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">max_iter</span></tt> - <p>Maximum number of iterations for to perform. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::_deltaU_i_OverG__CascadeR.i"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1ab8f3f7b06c2d2d0ec291aaa9c0aef0f6"></span><div class="line-block">
+<div class="line">double <strong>_deltaU_i_OverG</strong>(<a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a>  &amp; casc, int i)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Solves for a stage separative power relevant to the ith component per unit of flow G. This is taken from Equation 31 divided by G from the paper &#8220;Wood, Houston G., Borisevich, V. D. and Sulaberidze, G. A., &#8216;On a Criterion Efficiency for Multi-Isotope Mixtures Separation&#8217;, Separation Science and Technology, 34:3, 343 - 357&#8221; To link to this article: DOI: 10.1081/SS-100100654 URL:  <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">casc</span></tt> - <p>Input cascade. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">i</span></tt> - <p>nuclide in id form. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+</div></blockquote>
+<em>Multicomponent Functions</em><blockquote>
+<div><p>Finds a value of Mstar by minimzing the seperative power. Note that Mstar on <em>orig_casc</em> represents an intial guess at what Mstar might be. This is the final function that actually solves for an optimized M* that makes the cascade! <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A cascade whose N &amp; M coorespond to the L/F value. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">orig_casc</span></tt> - <p>Original input cascade. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">solver</span></tt> - <p>flag for solver to use, may be &#8216;symbolic&#8217; or &#8216;numeric&#8217;. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">tolerance</span></tt> - <p>Maximum numerical error allowed in L/F, N, and M. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">max_iter</span></tt> - <p>Maximum number of iterations for to perform. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><span class="target" id="pyne::enrichment::multicomponent__CascadeR.cP.double.i"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1a8b4e7672f56dd3e03b0a26ba61efbd7e"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a> <strong>multicomponent</strong>(<a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a>  &amp; orig_casc, char * solver, double tolerance = 1.0E-7, int max_iter = 100)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::multicomponent__CascadeR.ss.double.i"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1a6d18da574e8d08362d4ff26785e21955"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a> <strong>multicomponent</strong>(<a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a>  &amp; orig_casc, std::string solver = &#8220;symbolic&#8221;, double tolerance = 1.0E-7, int max_iter = 100)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Functions</em><blockquote>
+<div><p><span class="target" id="pyne::enrichment::_fill_default_uranium_cascade"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1a1d6fe4d37e26323376c72cb56a3bcf69"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a> <strong>_fill_default_uranium_cascade</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Greates a cascade instance with default values for a uranium enrichment. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::prod_per_feed__double.double.double"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1ae198e1b1919eeebccd2f1b1bf60ef3db"></span><div class="line-block">
+<div class="line">double <strong>prod_per_feed</strong>(double x_feed, double x_prod, double x_tail)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Computes the product per feed mass ratio for feed, product, and tails enrichments <em>x_feed</em>, <em>x_prod</em>, and <em>x_tails</em>. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::tail_per_feed__double.double.double"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1a86ccc9aa699994c1bfc44ba2b6104acb"></span><div class="line-block">
+<div class="line">double <strong>tail_per_feed</strong>(double x_feed, double x_prod, double x_tail)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Computes the tails per feed mass ratio for feed, product, and tails enrichments <em>x_feed</em>, <em>x_prod</em>, and <em>x_tails</em>. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::tail_per_prod__double.double.double"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1a34832108a2dfff7dafd33e85ca4eeded"></span><div class="line-block">
+<div class="line">double <strong>tail_per_prod</strong>(double x_feed, double x_prod, double x_tail)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Computes the tails per product mass ratio for feed, product, and tails enrichments <em>x_feed</em>, <em>x_prod</em>, and <em>x_tails</em>. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::alphastar_i__double.double.double"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1acf0727db431f65a3296233ef49456044"></span><div class="line-block">
+<div class="line">double <strong>alphastar_i</strong>(double alpha, double Mstar, double M_i)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Computes the nuclide-specific stage separation factor from the overall stage separation factor <em>alpha</em>, the key mass <em>Mstar</em>, and the nulide&#8217;s atomic mass <em>M_i</em>. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::enrichment::solve_symbolic__CascadeR"></span><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1a2267de07a4eada77e995a1c16b259841"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a> <strong>solve_symbolic</strong>(<a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a>  &amp; orig_casc)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>A multicomponent enrichment cascade solver using a symbolic solution to the mass flow rate equations. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>A cascade solved for new N, M, and total flow rates. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">orig_casc</span></tt> - <p>The original state of the cascade. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+</div></blockquote>
+<em>Variables</em><blockquote>
+<div><p><span class="target" id="pyne_enrichmentnamespacepyne_1_1enrichment_1afbb88d4edefafe717d1e4860d9d90567"></span><a class="reference internal" href="#pyne_enrichmentclasspyne_1_1enrichment_1_1_cascade"><em>Cascade</em></a> <strong>default_uranium_cascade</strong></p>
+<blockquote>
+<div><p>a cascade instance with default values for a uranium enrichment. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_enrichmentenrichment_8h">
+<div class="line"><em>file</em> <strong>enrichment.h</strong></div>
+<div class="line"><em>#include &#8220;enrichment_symbolic.h&#8221;</em></div>
+<div class="line"><em>#include &lt;string&gt;</em></div>
+<div class="line"><em>#include &lt;string.h&gt;</em></div>
+<div class="line"><em>#include &lt;sstream&gt;</em></div>
+<div class="line"><em>#include &lt;cctype&gt;</em></div>
+<div class="line"><em>#include &lt;stdlib.h&gt;</em></div>
+<div class="line"><em>#include &lt;iostream&gt;</em></div>
+<div class="line"><em>#include &lt;cmath&gt;</em></div>
+<div class="line"><em>#include &lt;exception&gt;</em></div>
+<div class="line"><em>#include &lt;sys/stat.h&gt;</em></div>
+<div class="line"><em>#include &lt;sys/types.h&gt;</em></div>
+<div class="line"><em>#include &lt;cstdlib&gt;</em></div>
+<div class="line"><em>#include &lt;vector&gt;</em></div>
+<div class="line"><em>#include &lt;algorithm&gt;</em></div>
+<div class="line"><em>#include &lt;map&gt;</em></div>
+<div class="line"><em>#include &lt;set&gt;</em></div>
+<div class="line"><em>#include &lt;stdio.h&gt;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/pyne.h&#8221;</em></div>
+<div class="line"><em>#include &lt;utility&gt;</em></div>
+<div class="line"><em>#include &lt;limits&gt;</em></div>
+<div class="line"><em>#include &lt;float.h&gt;</em></div>
+<div class="line"><em>#include &lt;math.h&gt;</em></div>
+<div class="line"><em>#include &#8220;hdf5.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;hdf5_hl.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/h5wrap.h&#8221;</em></div>
+<div class="line"><em>#include &lt;fstream&gt;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/extra_types.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/nucname.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/rxname.h&#8221;</em></div>
+<div class="line"><em>#include &lt;/home/scopatz/pyne/cpp/json/json-forwards.h&gt;</em></div>
+<div class="line"><em>#include &lt;/home/scopatz/pyne/cpp/json/json.h&gt;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/data.h&#8221;</em></div>
+</div>
+<blockquote>
+<div><p>Top-level enrichment functionality. </p>
+<p><dl class="docutils">
+<dt><strong>Author</strong></dt>
+<dd>Anthony Scopatz (scopatz&#64;gmail.com) </dd>
+</dl>
+</p>
+</div></blockquote>
+<div class="line-block" id="pyne_enrichmentenrichment__cascade_8h">
+<div class="line"><em>file</em> <strong>enrichment_cascade.h</strong></div>
+<div class="line"><em>#include &#8220;pyne.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;nucname.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;data.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;material.h&#8221;</em></div>
+</div>
+<blockquote>
+<div><p>A container representing enrichment cascades. </p>
+<p><dl class="docutils">
+<dt><strong>Author</strong></dt>
+<dd>Anthony Scopatz (scopatz&#64;gmail.com) </dd>
+</dl>
+</p>
+</div></blockquote>
+<div class="line-block" id="pyne_enrichmentenrichment__symbolic_8h">
+<div class="line"><em>file</em> <strong>enrichment_symbolic.h</strong></div>
+<div class="line"><em>#include &lt;math.h&gt;</em></div>
+<div class="line"><em>#include &#8220;enrichment_cascade.h&#8221;</em></div>
+</div>
+<blockquote>
+<div><p>A multicomponent enrichment cascade solver using a symbolic solution to the mass flow rate equations. </p>
+<p><dl class="docutils">
+<dt><strong>Author</strong></dt>
+<dd>Anthony Scopatz (scopatz&#64;gmail.com) </dd>
+</dl>
+</p>
+</div></blockquote>
+<div class="line-block" id="pyne_enrichmentdir_df511e5bd85cec96854b39d5e1c27aa8">
+<div class="line"><em>dir</em> <strong>/home/scopatz/pyne/cpp</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
 </div>
 
 

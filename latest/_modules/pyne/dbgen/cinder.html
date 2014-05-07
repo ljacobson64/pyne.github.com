@@ -83,9 +83,13 @@ if(ga_enabled){
 <span class="sd">&quot;&quot;&quot;This module provides a way to locate, parse, and store CINDER cross sections.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">io</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
@@ -93,6 +97,11 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">failure</span>
 <span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+  <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">str</span>
+
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <div class="viewcode-block" id="grab_cinder_dat"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.grab_cinder_dat">[docs]</a><span class="k">def</span> <span class="nf">grab_cinder_dat</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">datapath</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the cinder.dat file from the DATAPATH directory if not already present.&quot;&quot;&quot;</span>
@@ -187,8 +196,17 @@ if(ga_enabled){
     <span class="n">G_g</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
 
     <span class="k">return</span> <span class="n">nuclides</span><span class="p">,</span> <span class="n">G_n</span><span class="p">,</span> <span class="n">G_p</span><span class="p">,</span> <span class="n">G_g</span>
-
-
+</div>
+<div class="viewcode-block" id="safe_decode"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.safe_decode">[docs]</a><span class="k">def</span> <span class="nf">safe_decode</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">encs</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="s">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s">&#39;latin-1&#39;</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;Tries to decode a bytes array in a few different ways.&quot;&quot;&quot;</span>
+    <span class="n">enc</span><span class="p">,</span> <span class="n">encs</span> <span class="o">=</span> <span class="n">encs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">encs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span> <span class="k">if</span> <span class="n">enc</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">b</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">encs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">safe_decode</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">encs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span>
 </div>
 <div class="viewcode-block" id="make_mg_group_structure"><a class="viewcode-back" href="../../../pyapi/dbgen/cinder.html#pyne.dbgen.cinder.make_mg_group_structure">[docs]</a><span class="k">def</span> <span class="nf">make_mg_group_structure</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Add the energy group bounds arrays to the hdf5 library.</span>
@@ -208,8 +226,9 @@ if(ga_enabled){
 
     <span class="c"># Read in cinder data file</span>
     <span class="n">cinder_dat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;cinder.dat&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">raw_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">safe_decode</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
 
     <span class="c"># Get group sizes</span>
     <span class="n">nuclides</span><span class="p">,</span> <span class="n">G_n</span><span class="p">,</span> <span class="n">G_p</span><span class="p">,</span> <span class="n">G_g</span> <span class="o">=</span> <span class="n">get_group_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
@@ -261,8 +280,9 @@ if(ga_enabled){
 
     <span class="c"># Read in cinder data file</span>
     <span class="n">cinder_dat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;cinder.dat&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">raw_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">safe_decode</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
 
     <span class="c"># Get group sizes</span>
     <span class="n">nuclides</span><span class="p">,</span> <span class="n">G_n</span><span class="p">,</span> <span class="n">G_p</span><span class="p">,</span> <span class="n">G_g</span> <span class="o">=</span> <span class="n">get_group_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
@@ -349,8 +369,9 @@ if(ga_enabled){
 
     <span class="c"># Read in cinder data file</span>
     <span class="n">cinder_dat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;cinder.dat&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">raw_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">safe_decode</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
 
     <span class="c"># Get group sizes</span>
     <span class="n">nuclides</span><span class="p">,</span> <span class="n">G_n</span><span class="p">,</span> <span class="n">G_p</span><span class="p">,</span> <span class="n">G_g</span> <span class="o">=</span> <span class="n">get_group_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
@@ -436,8 +457,9 @@ if(ga_enabled){
 
     <span class="c"># Read in cinder data file</span>
     <span class="n">cinder_dat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;cinder.dat&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">raw_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">safe_decode</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
 
     <span class="c"># Get group sizes</span>
     <span class="n">nuclides</span><span class="p">,</span> <span class="n">G_n</span><span class="p">,</span> <span class="n">G_p</span><span class="p">,</span> <span class="n">G_g</span> <span class="o">=</span> <span class="n">get_group_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
@@ -611,8 +633,9 @@ if(ga_enabled){
 
     <span class="c"># Read in cinder data file</span>
     <span class="n">cinder_dat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;cinder.dat&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">raw_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">safe_decode</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
 
     <span class="c"># get the info table</span>
     <span class="n">info_table</span> <span class="o">=</span> <span class="n">parse_neutron_fp_info</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
@@ -700,8 +723,9 @@ if(ga_enabled){
 
     <span class="c"># Read in cinder data file</span>
     <span class="n">cinder_dat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;cinder.dat&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">raw_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">safe_decode</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
 
     <span class="c"># Grab photon info table</span>
     <span class="n">info_table</span> <span class="o">=</span> <span class="n">grab_photon_fp_info</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
@@ -747,8 +771,9 @@ if(ga_enabled){
 
     <span class="c"># Read in cinder data file</span>
     <span class="n">cinder_dat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;cinder.dat&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">raw_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">safe_decode</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
 
     <span class="c"># Get group sizes</span>
     <span class="n">N_n</span><span class="p">,</span> <span class="n">N_g</span> <span class="o">=</span> <span class="n">get_fp_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
@@ -816,8 +841,9 @@ if(ga_enabled){
 
     <span class="c"># Read in cinder data file</span>
     <span class="n">cinder_dat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_dir</span><span class="p">,</span> <span class="s">&#39;cinder.dat&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cinder_dat</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">raw_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">safe_decode</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
 
     <span class="c"># Get group sizes</span>
     <span class="n">N_n</span><span class="p">,</span> <span class="n">N_g</span> <span class="o">=</span> <span class="n">get_fp_sizes</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>

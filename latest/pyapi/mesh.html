@@ -97,7 +97,7 @@ if(ga_enabled){
 
 <dl class="class">
 <dt id="pyne.mesh.Mesh">
-<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">Mesh</tt><big>(</big><em>mesh=None</em>, <em>mesh_file=None</em>, <em>structured=False</em>, <em>structured_coords=None</em>, <em>structured_set=None</em>, <em>structured_ordering='xyz'</em>, <em>mats=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">Mesh</tt><big>(</big><em>mesh=None</em>, <em>mesh_file=None</em>, <em>structured=False</em>, <em>structured_coords=None</em>, <em>structured_set=None</em>, <em>structured_ordering='xyz'</em>, <em>mats=()</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class houses an iMesh instance and contains methods for various mesh
 operations. Special methods exploit the properties of structured mesh.</p>
 <p class="rubric">Attributes</p>
@@ -158,7 +158,8 @@ a structured mesh.</p>
 </div></blockquote>
 <p><strong>mats</strong> : MaterialLibrary or dict or Materials or None, optional</p>
 <blockquote class="last">
-<div><p>This is a mapping of volume element handles to Material objects.</p>
+<div><p>This is a mapping of volume element handles to Material objects.  If 
+mats is None, then no empty materials are created for the mesh.</p>
 <dl class="docutils">
 <dt>Unstructured mesh instantiation:</dt>
 <dd><ul class="first last simple">
@@ -304,6 +305,12 @@ When they are the same, the iterator (0, 1, 2, ... N-1) is returned.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyne.mesh.Mesh.iter_ve">
+<tt class="descname">iter_ve</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.iter_ve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.iter_ve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an iterator that yields on the volume elements.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyne.mesh.Mesh.mul">
 <tt class="descname">mul</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.mul"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.mul" title="Permalink to this definition">¶</a></dt>
 <dd><p>Multiplies the common tags of other to the mesh object.</p>
@@ -438,6 +445,31 @@ for more details.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyne.mesh.Mesh.ve_center">
+<tt class="descname">ve_center</tt><big>(</big><em>ve</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.ve_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.ve_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the point at the center of any tetrahedral or hexahedral mesh
+volume element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>ve</strong> : iMesh entity handle</p>
+<blockquote>
+<div><p>Any mesh volume element.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>center</strong> : tuple</p>
+<blockquote class="last">
+<div><p>The (x, y, z) coordinates of the center of the mesh volume element.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyne.mesh.Mesh.write_hdf5">
 <tt class="descname">write_hdf5</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.write_hdf5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.write_hdf5" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes the mesh to an hdf5 file.</p>
@@ -518,7 +550,7 @@ features to this process.</p>
 Tags of this are untyped and may have any size.  Use this for catch-all tags.
 This makes the following expressions equivalent for a given material property
 name:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>It also adds slicing, fancy indexing, boolean masking, and broadcasting

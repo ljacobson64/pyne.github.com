@@ -107,21 +107,21 @@ classes.</p>
 available to use.</p>
 <dl class="class">
 <dt id="pyne.mcnp.MeshTally">
-<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">MeshTally</tt><big>(</big><em>f</em>, <em>tally_number</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#MeshTally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.MeshTally" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">MeshTally</tt><big>(</big><em>f</em>, <em>tally_number</em>, <em>tag_names=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#MeshTally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.MeshTally" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class stores all information from all single MCNP mesh tally that
 exists within some meshtal file. Header information is stored as attributes
 and the &#8220;mesh&#8221; attribute is a MOAB mesh with all result and relative error
 data tagged. This class inherits from StatMesh, exposing all statistical
 mesh manipulation methods.</p>
 <p class="rubric">Notes</p>
-<p>All Mesh attributes are also present via a super() call to
-Mesh.__init__().</p>
+<p>All Mesh/StatMesh attributes are also present via a super() call to
+StatMesh.__init__().</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
+<col width="13%" />
 <col width="14%" />
-<col width="15%" />
-<col width="71%" />
+<col width="72%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>tally_number</td>
@@ -130,7 +130,8 @@ Mesh.__init__().</p>
 </tr>
 <tr class="row-even"><td>particle</td>
 <td>string</td>
-<td>Either &#8220;n&#8221; for a neutron mesh tally or &#8220;p&#8221; for a photon mesh tally.</td>
+<td>Either &#8220;neutron&#8221; for a neutron mesh tally or &#8220;photon&#8221; for a photon mesh
+tally.</td>
 </tr>
 <tr class="row-odd"><td>dose_response</td>
 <td>bool</td>
@@ -157,27 +158,52 @@ Mesh.__init__().</p>
 <td>An iMesh instance tagged with all results and
 relative errors</td>
 </tr>
+<tr class="row-odd"><td>tag_names</td>
+<td>iterable</td>
+<td>Four strs that specify the tag names for the results, relative errors,
+total results, and relative errors of the total results.</td>
+</tr>
 </tbody>
 </table>
-<p>Create MeshTally object from a filestream (f) open to the second
-line of a mesh tally header (the neutron/photon line). The
-&#8220;tally_number&#8221; is the MCNP fmesh4 tally number (e.g. 4, 14, 24).
-MeshTally objects should be instantiated only through the
-Meshtal class.</p>
+<p>Create MeshTally object from a filestream open to the second
+line of a mesh tally header (the neutron/photon line). MeshTally objects
+should be instantiated only through the Meshtal class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>f</strong> : filestream</p>
+<blockquote>
+<div><p>Open to the neutron/photon line.</p>
+</div></blockquote>
+<p><strong>tally number</strong> : int</p>
+<blockquote>
+<div><p>The MCNP fmesh4 tally number (e.g. 4, 14, 24).</p>
+</div></blockquote>
+<p><strong>tag_names</strong> : iterable, optional</p>
+<blockquote class="last">
+<div><p>Four strs that specify the tag names for the results, relative 
+errors, total results and relative errors of the total results.
+This should come from the Meshtal.tags attribute dict.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyne.mcnp.Meshtal">
-<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">Meshtal</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Meshtal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Meshtal" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">Meshtal</tt><big>(</big><em>filename</em>, <em>tags=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Meshtal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Meshtal" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class stores all the information from an MCNP meshtal file with
 single or multiple fmesh4 neutron or photon tallies. The &#8220;tally&#8221; attribute
 provides key/value access to invidial MeshTally objects.</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="15%" />
-<col width="10%" />
-<col width="75%" />
+<col width="11%" />
+<col width="8%" />
+<col width="81%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>filename</td>
@@ -206,9 +232,36 @@ provides key/value access to invidial MeshTally objects.</p>
 (e.g. 4, 14, 24) as keys and
 MeshTally objects as values.</td>
 </tr>
+<tr class="row-odd"><td>tags</td>
+<td>dict</td>
+<td>Maps integer tally numbers to iterables containing four strs, the
+results tag name, the relative error tag name, the total results
+tag name, and the total relative error tag name. If tags is None
+the tags are named &#8216;x_result&#8217;, &#8216;x_rel_error&#8217;, &#8216;x_result_total&#8217;,
+or &#8216;x_rel_error_total&#8217; where x is n or p for neutrons or photons.</td>
+</tr>
 </tbody>
 </table>
-<p>Instantiate a Meshtal object from a meshtal file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote>
+<div><p>MCNP meshtal file.</p>
+</div></blockquote>
+<p><strong>tags</strong> : dict, optional</p>
+<blockquote class="last">
+<div><p>Maps integer tally numbers to iterables containing four strs: the
+results tag name, the relative error tag name, the total results
+tag name, and the total relative error tag name. If tags is None
+the tags are named &#8216;x_result&#8217;, &#8216;x_rel_error&#8217;, &#8216;x_result_total&#8217;, 
+&#8216;x_rel_error_total&#8217; where x is n or p for neutrons or photons.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">

@@ -89,6 +89,440 @@ if(ga_enabled){
             
   <div class="section" id="h5wrap-an-hdf5-wrapper-header-only">
 <h1>h5wrap: An HDF5 Wrapper (header only)<a class="headerlink" href="#h5wrap-an-hdf5-wrapper-header-only" title="Permalink to this headline">¶</a></h1>
+<div class="line-block" id="pyne_h5wrapclassh5wrap_1_1_file_not_h_d_f5">
+<div class="line"><em>class</em> <strong>h5wrap::FileNotHDF5</strong></div>
+<div class="line"><em>#include &lt;h5wrap.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Custom exception for when an existing file is not in a valid HDF5 format. </p>
+<p></p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="h5wrap::FileNotHDF5::FileNotHDF5"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_file_not_h_d_f5_1a3fa40cb39abaa241e80ee97a13e69815"></span><div class="line-block">
+<div class="line"> <strong>FileNotHDF5</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default constructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::FileNotHDF5::~FileNotHDF5"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_file_not_h_d_f5_1a55276b2bc97da82f25a0718327b00742"></span><div class="line-block">
+<div class="line"> <strong>~FileNotHDF5</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default destructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::FileNotHDF5::FileNotHDF5__ss"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_file_not_h_d_f5_1ac6f9e6588f3a55f26fe6cd13ab75425b"></span><div class="line-block">
+<div class="line"> <strong>FileNotHDF5</strong>(std::string fname)</div>
+</div>
+</p>
+<blockquote>
+<div><p>constructor with the filename </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::FileNotHDF5::whatC"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_file_not_h_d_f5_1afce2273e3c8d54802598bdc30cdedec2"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>helpful error message that includes the filename </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Private Members</em><blockquote>
+<div><p><span class="target" id="pyne_h5wrapclassh5wrap_1_1_file_not_h_d_f5_1a2f840fbfe976234384939bac829f2c59"></span>std::string <strong>filename</strong></p>
+<blockquote>
+<div><p>the file which is not in HDF5 format. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_h5wrapclassh5wrap_1_1_group_not_found">
+<div class="line"><em>class</em> <strong>h5wrap::GroupNotFound</strong></div>
+<div class="line"><em>#include &lt;h5wrap.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Custom exception for when a group cannot be found in an HDF5 file. </p>
+<p></p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="h5wrap::GroupNotFound::GroupNotFound"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_group_not_found_1accc7d7bea9e86968335a46ee39d7d543"></span><div class="line-block">
+<div class="line"> <strong>GroupNotFound</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default constructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::GroupNotFound::~GroupNotFound"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_group_not_found_1a79dea7d1d5e3ffd7a7e83b4a2636398a"></span><div class="line-block">
+<div class="line"> <strong>~GroupNotFound</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default destructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::GroupNotFound::GroupNotFound__ss.ss"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_group_not_found_1a74f7e8f6efcf33503f5fec62eead40c3"></span><div class="line-block">
+<div class="line"> <strong>GroupNotFound</strong>(std::string fname, std::string gname)</div>
+</div>
+</p>
+<blockquote>
+<div><p>constructor with the filename and the groupname </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::GroupNotFound::whatC"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_group_not_found_1a76766dc5fda0a07564379db454df87d0"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>helpful error message that includes the filename and the groupname </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Private Members</em><blockquote>
+<div><p><span class="target" id="pyne_h5wrapclassh5wrap_1_1_group_not_found_1ae713b952f03f5062c52cfdeebc97e424"></span>std::string <strong>filename</strong></p>
+<blockquote>
+<div><p>the HDF5 file </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_h5wrapclassh5wrap_1_1_group_not_found_1a2afab20f82a990a8522d21b47ece0f75"></span>std::string <strong>groupname</strong></p>
+<blockquote>
+<div><p>the group in the hierarchy </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_h5wrapclassh5wrap_1_1_h_d_f5_bounds_error">
+<div class="line"><em>class</em> <strong>h5wrap::HDF5BoundsError</strong></div>
+<div class="line"><em>#include &lt;h5wrap.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Custom exception for HDF5 indexing errors. </p>
+<p></p>
+<em>Private Functions</em><blockquote>
+<div><p><span class="target" id="h5wrap::HDF5BoundsError::whatC"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_h_d_f5_bounds_error_1a15fe9f70657f5f0e358f4f3a45b3ab0a"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>returns error message. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_h5wrapclassh5wrap_1_1_homogenous_type_table">
+<div class="line">template &lt; typename T &gt;</div>
+<div class="line"><em>class</em> <strong>h5wrap::HomogenousTypeTable</strong></div>
+<div class="line"><em>#include &lt;h5wrap.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p></p>
+<p>A class representing a high-level table contruct whose columns all have the same type <em>T</em> in C/C++ (and the analogous type in HDF5). </p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="h5wrap::HomogenousTypeTable:T:::HomogenousTypeTable"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_homogenous_type_table_1a4abe000d3595d0ff78354bc5131b1ca7"></span><div class="line-block">
+<div class="line"> <strong>HomogenousTypeTable</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default constructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::HomogenousTypeTable:T:::~HomogenousTypeTable"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_homogenous_type_table_1aa339bef26857f755e42035d4e054d7c7"></span><div class="line-block">
+<div class="line"> <strong>~HomogenousTypeTable</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default destructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::HomogenousTypeTable:T:::HomogenousTypeTable__hid_t.ss.hid_t"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_homogenous_type_table_1a2fd7306656d5a16b4a44b50a9271eab3"></span><div class="line-block">
+<div class="line"> <strong>HomogenousTypeTable</strong>(hid_t h5file, std::string data_path, hid_t dtype = H5T_NATIVE_DOUBLE)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor to load in data upon initialization. <em>T</em> should roughly match <em>dtype</em>. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">h5file</span></tt> - <p>HDF5 file id for an open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">data_path</span></tt> - <p>path to the data in the open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">dtype</span></tt> - <p>HDF5 data type for the data set at <em>data_path</em>. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::HomogenousTypeTable:T:::subscript-operator__ss"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_homogenous_type_table_1a961e0edb817f203b00367202d3c278b4"></span><div class="line-block">
+<div class="line">std::vector&lt; T &gt; <strong>operator[]</strong>(std::string col_name)</div>
+</div>
+</p>
+<blockquote>
+<div><p>index into the table by column name (string) </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::HomogenousTypeTable:T:::subscript-operator__i"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_homogenous_type_table_1a777f6bdc03111b5a7d8fde59e184e26c"></span><div class="line-block">
+<div class="line">std::map&lt; std::string, T &gt; <strong>operator[]</strong>(int m)</div>
+</div>
+</p>
+<blockquote>
+<div><p>index into the table by row </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_h5wrapclassh5wrap_1_1_homogenous_type_table_1a6da460e4b94719f9ff5fe0d17e8859d7"></span>std::string <strong>path</strong></p>
+<blockquote>
+<div><p>path in file to the data </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_h5wrapclassh5wrap_1_1_homogenous_type_table_1ab0e03ddbee134e775ea6fa389897fc8b"></span>int <strong>shape</strong>[2]</p>
+<blockquote>
+<div><p>table shape, rows x columns. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_h5wrapclassh5wrap_1_1_homogenous_type_table_1a8b60fa54475f44bea26caab0137d8507"></span>std::vector&lt; std::string &gt; <strong>cols</strong></p>
+<blockquote>
+<div><p></p>
+<p>column names </p>
+</div></blockquote>
+<p><span class="target" id="pyne_h5wrapclassh5wrap_1_1_homogenous_type_table_1a06c1889b5469abf303923b17b78a381b"></span>std::map&lt; std::string, std::vector&lt; T &gt; &gt; <strong>data</strong></p>
+<blockquote>
+<div><p>mapping from column names to column data </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_h5wrapclassh5wrap_1_1_path_not_found">
+<div class="line"><em>class</em> <strong>h5wrap::PathNotFound</strong></div>
+<div class="line"><em>#include &lt;h5wrap.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Custom exception for when a path is not found in an HDF5 file. </p>
+<p></p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="h5wrap::PathNotFound::PathNotFound"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_path_not_found_1a7b05229fb4f02920732f22622af1f08e"></span><div class="line-block">
+<div class="line"> <strong>PathNotFound</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default constructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::PathNotFound::~PathNotFound"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_path_not_found_1acf9696ccdfb4a4c63454dbfc1dcde060"></span><div class="line-block">
+<div class="line"> <strong>~PathNotFound</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default destructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::PathNotFound::PathNotFound__ss.ss"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_path_not_found_1aaedd26703acced17206eb8dabd4c5274"></span><div class="line-block">
+<div class="line"> <strong>PathNotFound</strong>(std::string fname, std::string pname)</div>
+</div>
+</p>
+<blockquote>
+<div><p>constructor with the filename and the pathname </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::PathNotFound::whatC"></span><span class="target" id="pyne_h5wrapclassh5wrap_1_1_path_not_found_1ad454d14e0f9f44f4357a5c33a7017b88"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>helpful error message that includes the filename and the pathname </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Private Members</em><blockquote>
+<div><p><span class="target" id="pyne_h5wrapclassh5wrap_1_1_path_not_found_1a32f63118da4c2d08c5a6565e7deb87fb"></span>std::string <strong>filename</strong></p>
+<blockquote>
+<div><p>the HDF5 file </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_h5wrapclassh5wrap_1_1_path_not_found_1aeb9b76a01261b9175b82b681c6d47646"></span>std::string <strong>path</strong></p>
+<blockquote>
+<div><p>the path in the file </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_h5wrapnamespaceh5wrap">
+<div class="line"><em>namespace</em> <strong>h5wrap</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+<em>Functions</em><blockquote>
+<div><p><span class="target" id="h5wrap::get_array_index__hid_t.i.hid_t"></span><span class="target" id="pyne_h5wrapnamespaceh5wrap_1a857d46d3b2aaafe0f583d9d332031d00"></span><div class="line-block">
+<div class="line">template &lt; typename T &gt;</div>
+<div class="line">T <strong>get_array_index</strong>(hid_t dset, int n, hid_t dtype = H5T_NATIVE_DOUBLE)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Retrieves the <em>nth</em> index out of the dataset <em>dset</em> (which has an HDF5 datatype <em>dtype</em>). The value is returned as the C/C++ type given by <em>T</em>. </p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::h5_array_to_cpp_set__hid_t.ss.hid_t"></span><span class="target" id="pyne_h5wrapnamespaceh5wrap_1ab8c97f180ec4885c15b275a41447912f"></span><div class="line-block">
+<div class="line">template &lt; typename T &gt;</div>
+<div class="line">std::set&lt; T &gt; <strong>h5_array_to_cpp_set</strong>(hid_t h5file, std::string data_path, hid_t dtype = H5T_NATIVE_DOUBLE)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Reads in data from an HDF5 file as a C++ set. <em>T</em> should roughly match <em>dtype</em>. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>an in memory set of type <em>T</em>. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">h5file</span></tt> - <p>HDF5 file id for an open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">data_path</span></tt> - <p>path to the data in the open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">dtype</span></tt> - <p>HDF5 data type for the data set at <em>data_path</em>. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::h5_array_to_cpp_vector_1d__hid_t.ss.hid_t"></span><span class="target" id="pyne_h5wrapnamespaceh5wrap_1ab927484b5e446d3325d8fc88b00f3e85"></span><div class="line-block">
+<div class="line">template &lt; typename T &gt;</div>
+<div class="line">std::vector&lt; T &gt; <strong>h5_array_to_cpp_vector_1d</strong>(hid_t h5file, std::string data_path, hid_t dtype = H5T_NATIVE_DOUBLE)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Reads in data from an HDF5 file as a 1 dimiensional vector. <em>T</em> should roughly match <em>dtype</em>. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>an in memory 1D vector of type <em>T</em>. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">h5file</span></tt> - <p>HDF5 file id for an open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">data_path</span></tt> - <p>path to the data in the open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">dtype</span></tt> - <p>HDF5 data type for the data set at <em>data_path</em>. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::h5_array_to_cpp_vector_2d__hid_t.ss.hid_t"></span><span class="target" id="pyne_h5wrapnamespaceh5wrap_1a0cc2fdb859631d95b9fe1dd85954f359"></span><div class="line-block">
+<div class="line">template &lt; typename T &gt;</div>
+<div class="line">std::vector&lt; std::vector&lt; T &gt; &gt; <strong>h5_array_to_cpp_vector_2d</strong>(hid_t h5file, std::string data_path, hid_t dtype = H5T_NATIVE_DOUBLE)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Reads in data from an HDF5 file as a 2 dimiensional vector. <em>T</em> should roughly match <em>dtype</em>. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>an in memory 2D vector of type <em>T</em>. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">h5file</span></tt> - <p>HDF5 file id for an open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">data_path</span></tt> - <p>path to the data in the open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">dtype</span></tt> - <p>HDF5 data type for the data set at <em>data_path</em>. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::h5_array_to_cpp_vector_3d__hid_t.ss.hid_t"></span><span class="target" id="pyne_h5wrapnamespaceh5wrap_1a30f0c9d34b6e369db5807362b8e1c1be"></span><div class="line-block">
+<div class="line">template &lt; typename T &gt;</div>
+<div class="line">std::vector&lt; std::vector&lt; std::vector&lt; T &gt; &gt; &gt; <strong>h5_array_to_cpp_vector_3d</strong>(hid_t h5file, std::string data_path, hid_t dtype = H5T_NATIVE_DOUBLE)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Reads in data from an HDF5 file as a 3 dimiensional vector. <em>T</em> should roughly match <em>dtype</em>. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>an in memory 3D vector of type <em>T</em>. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">h5file</span></tt> - <p>HDF5 file id for an open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">data_path</span></tt> - <p>path to the data in the open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">dtype</span></tt> - <p>HDF5 data type for the data set at <em>data_path</em>. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::_get_PYTABLES_COMPLEX128"></span><span class="target" id="pyne_h5wrapnamespaceh5wrap_1a2ddc38d8445aba6996a31fc0dde6b7bf"></span><div class="line-block">
+<div class="line">hid_t <strong>_get_PYTABLES_COMPLEX128</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Create an HDF5 data type for complex 128 bit data, which happens to match the complex data type that is used by PyTables ^_~. </p>
+</div></blockquote>
+<p><span class="target" id="h5wrap::path_exists__hid_t.ss"></span><span class="target" id="pyne_h5wrapnamespaceh5wrap_1ae8e8e2bdbaffb31ee8066260d3c68518"></span><div class="line-block">
+<div class="line">bool <strong>path_exists</strong>(hid_t h5file, std::string path)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Determines if a path exists in an hdf5 file. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>true or false </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">h5file</span></tt> - <p>HDF5 file id for an open file. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">path</span></tt> - <p>path to the data in the open file. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</div></blockquote>
+</div></blockquote>
+<em>Variables</em><blockquote>
+<div><p><span class="target" id="pyne_h5wrapnamespaceh5wrap_1aa0a7a6e386ae2cd2a5f560c892031800"></span>hid_t <strong>PYTABLES_COMPLEX128</strong></p>
+<blockquote>
+<div><p>The HDF5 id for a complex data type compatible with PyTables generated data. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_h5wraph5wrap_8h">
+<div class="line"><em>file</em> <strong>h5wrap.h</strong></div>
+<div class="line"><em>#include &lt;iostream&gt;</em></div>
+<div class="line"><em>#include &lt;fstream&gt;</em></div>
+<div class="line"><em>#include &lt;string&gt;</em></div>
+<div class="line"><em>#include &lt;map&gt;</em></div>
+<div class="line"><em>#include &lt;vector&gt;</em></div>
+<div class="line"><em>#include &lt;set&gt;</em></div>
+<div class="line"><em>#include &lt;stdio.h&gt;</em></div>
+<div class="line"><em>#include &lt;stdlib.h&gt;</em></div>
+<div class="line"><em>#include &lt;exception&gt;</em></div>
+<div class="line"><em>#include &#8220;hdf5.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;extra_types.h&#8221;</em></div>
+</div>
+<blockquote>
+<div><p>Provides some HDF5 helper functionality in its own namespace. </p>
+<p><dl class="docutils">
+<dt><strong>Author</strong></dt>
+<dd>Anthony Scopatz (scopatz&#64;gmail.com) </dd>
+</dl>
+</p>
+</div></blockquote>
+<div class="line-block" id="pyne_h5wrapdir_df511e5bd85cec96854b39d5e1c27aa8">
+<div class="line"><em>dir</em> <strong>/home/scopatz/pyne/cpp</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
 </div>
 
 

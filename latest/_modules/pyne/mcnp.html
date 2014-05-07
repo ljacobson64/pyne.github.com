@@ -93,38 +93,44 @@ if(ga_enabled){
 <span class="sd">available to use.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">struct</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">linecache</span>
-<span class="kn">import</span> <span class="nn">tables</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tables</span>
 
 <span class="kn">from</span> <span class="nn">pyne.material</span> <span class="kn">import</span> <span class="n">Material</span>
 <span class="kn">from</span> <span class="nn">pyne.material</span> <span class="kn">import</span> <span class="n">MultiMaterial</span>
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">pyne.binaryreader</span> <span class="kn">import</span> <span class="n">_BinaryReader</span><span class="p">,</span> <span class="n">_FortranRecord</span>
 
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
+
 <span class="c"># Mesh specific imports</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">itaps</span> <span class="kn">import</span> <span class="n">iMesh</span>
     <span class="n">HAVE_PYTAPS</span> <span class="o">=</span> <span class="bp">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;the PyTAPS optional dependency could not be imported. &quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s">&quot;the PyTAPS optional dependency could not be imported. &quot;</span>
                   <span class="s">&quot;Some aspects of the mcnp module may be incomplete.&quot;</span><span class="p">,</span>
-                  <span class="ne">ImportWarning</span><span class="p">)</span>
+                  <span class="n">VnVWarning</span><span class="p">)</span>
     <span class="n">HAVE_PYTAPS</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="kn">from</span> <span class="nn">pyne.mesh</span> <span class="kn">import</span> <span class="n">Mesh</span><span class="p">,</span> <span class="n">StatMesh</span><span class="p">,</span> <span class="n">MeshError</span>
+<span class="kn">from</span> <span class="nn">pyne.mesh</span> <span class="kn">import</span> <span class="n">Mesh</span><span class="p">,</span> <span class="n">StatMesh</span><span class="p">,</span> <span class="n">MeshError</span><span class="p">,</span> <span class="n">IMeshTag</span>
 
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">cmp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Mctal</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -332,12 +338,11 @@ if(ga_enabled){
                 <span class="k">break</span>
 
         <span class="k">return</span> <span class="n">track_data</span>
-
-<span class="c">#    def __eq__(self, other):</span>
-<span class="c">#        &quot;&quot;&quot; Compare two surface sources</span>
-<span class="c">#        &quot;&quot;&quot;</span>
-<span class="c">#        return self.__dict__ == other.__dict__</span>
 </div>
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">rtn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cmp__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rtn</span> <span class="o">==</span> <span class="mi">0</span>
+
     <span class="k">def</span> <span class="nf">__cmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Comparison is not completely robust. Tracklists are not compared!!!</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -517,7 +522,8 @@ if(ga_enabled){
         <span class="c"># no known case of their actual utility is known currently</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">njsw</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">njsw</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">niwr</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_fortran_record</span><span class="p">()</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Extra info in header not handled: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s">&quot;Extra info in header not handled: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="p">),</span>
+                          <span class="ne">RuntimeWarning</span><span class="p">)</span>
 
         <span class="c"># read summary table record</span>
         <span class="n">summary_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fortran_record</span><span class="p">()</span>
@@ -557,17 +563,20 @@ if(ga_enabled){
         <span class="sd">&quot;&quot;&quot;Write the header part of the header to the surface source file&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s">&#39;SF_00001&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kod</span><span class="p">:</span>
             <span class="n">rec</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">kod</span><span class="p">]</span>
-            <span class="n">newrecord</span> <span class="o">=</span> <span class="n">_FortranRecord</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rec</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rec</span><span class="p">)))</span>
+            <span class="n">joinrec</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+            <span class="n">newrecord</span> <span class="o">=</span> <span class="n">_FortranRecord</span><span class="p">(</span><span class="n">joinrec</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">joinrec</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">put_fortran_record</span><span class="p">(</span><span class="n">newrecord</span><span class="p">)</span>
 
             <span class="n">rec</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ver</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loddat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">idtm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">probid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">aid</span><span class="p">]</span>
-            <span class="n">newrecord</span> <span class="o">=</span> <span class="n">_FortranRecord</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rec</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rec</span><span class="p">)))</span>
+            <span class="n">joinrec</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+            <span class="n">newrecord</span> <span class="o">=</span> <span class="n">_FortranRecord</span><span class="p">(</span><span class="n">joinrec</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">joinrec</span><span class="p">))</span>
             <span class="n">newrecord</span><span class="o">.</span><span class="n">put_int</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">knod</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">put_fortran_record</span><span class="p">(</span><span class="n">newrecord</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">rec</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">kod</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ver</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loddat</span><span class="p">,</span>
                    <span class="bp">self</span><span class="o">.</span><span class="n">idtm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">probid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">aid</span><span class="p">]</span>
-            <span class="n">newrecord</span> <span class="o">=</span> <span class="n">_FortranRecord</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rec</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rec</span><span class="p">)))</span>
+            <span class="n">joinrec</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+            <span class="n">newrecord</span> <span class="o">=</span> <span class="n">_FortranRecord</span><span class="p">(</span><span class="n">joinrec</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">joinrec</span><span class="p">))</span>
             <span class="n">newrecord</span><span class="o">.</span><span class="n">put_int</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">knod</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">put_fortran_record</span><span class="p">(</span><span class="n">newrecord</span><span class="p">)</span>
         <span class="k">return</span>
@@ -1059,7 +1068,7 @@ if(ga_enabled){
             <span class="k">if</span> <span class="ow">not</span> <span class="n">directory</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">):</span>
                 <span class="n">directory</span> <span class="o">=</span> <span class="n">directory</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span>
 
-        <span class="k">return</span> <span class="s">&quot;{0} {0} {1} {2} {3} {4} {5} {6} {7}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">return</span> <span class="s">&quot;{0} {0} {1} {2} {3} {4} {5:.11e} {6} {7}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">serpent_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">zaid</span><span class="p">,</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">metastable</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">awr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">temperature</span><span class="o">/</span><span class="mf">8.6173423e-11</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filetype</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
@@ -1187,20 +1196,21 @@ if(ga_enabled){
         <span class="k">if</span> <span class="n">auto</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">raw_format</span><span class="p">:</span>
             <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;&#39;</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">EOFError</span>
 
-            <span class="n">length</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endianness</span> <span class="o">+</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">number</span> <span class="o">=</span> <span class="n">length</span> <span class="o">/</span> <span class="n">format_length</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endianness</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span> <span class="o">+</span> <span class="n">b</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="n">length</span> <span class="o">//</span> <span class="n">format_length</span>
 
             <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endianness</span> <span class="o">+</span> <span class="n">format</span><span class="o">*</span><span class="n">number</span> <span class="o">+</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">b</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">endianness</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> 
+                                <span class="p">(</span><span class="n">format</span><span class="o">*</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">b</span><span class="s">&#39;i&#39;</span><span class="p">]),</span> <span class="n">b</span><span class="p">)</span>
             <span class="n">length2</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">bytes_to_read</span> <span class="o">=</span> <span class="n">number</span> <span class="o">*</span> <span class="n">format_length</span> <span class="o">+</span> <span class="mi">8</span>
             <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">bytes_to_read</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;&#39;</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">EOFError</span>
 
             <span class="n">fmt_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endianness</span> <span class="o">+</span> <span class="s">&quot;i&quot;</span>
@@ -1209,7 +1219,7 @@ if(ga_enabled){
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">fmt_string</span> <span class="o">+=</span> <span class="n">format</span> <span class="o">*</span> <span class="n">number</span> <span class="o">+</span> <span class="s">&quot;i&quot;</span>
 
-            <span class="n">tmp</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">fmt_string</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">fmt_string</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">b</span><span class="p">)</span>
             <span class="n">length</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">length2</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -1218,7 +1228,7 @@ if(ga_enabled){
 
         <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">:</span>
             <span class="c"># return just one string</span>
-            <span class="k">return</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">b</span><span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="c"># just return the number and not a tuple containing just the number</span>
             <span class="k">return</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1335,7 +1345,7 @@ if(ga_enabled){
 
         <span class="bp">self</span><span class="o">.</span><span class="n">next_event</span> <span class="o">=</span> <span class="n">evt_line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variable_ids</span><span class="p">[</span><span class="n">e</span><span class="p">])):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variable_ids</span><span class="p">[</span><span class="n">e</span><span class="p">])):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_ids</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_mappings</span><span class="p">:</span>
                 <span class="n">ptrac_event</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">variable_mappings</span><span class="p">[</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">variable_ids</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="n">i</span><span class="p">]]]</span> <span class="o">=</span> \
@@ -1462,7 +1472,7 @@ if(ga_enabled){
     <span class="c"># Check to see it material is definted my mass or atom fracs.</span>
     <span class="c"># Do this by comparing the first non-zero fraction to the rest</span>
     <span class="c"># If atom fracs, convert.</span>
-    <span class="n">nucvecvals</span> <span class="o">=</span> <span class="n">nucvec</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="n">nucvecvals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nucvec</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
     <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">isatom</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">nucvecvals</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
     <span class="k">while</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">nucvecvals</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>
@@ -1472,7 +1482,7 @@ if(ga_enabled){
         <span class="k">if</span> <span class="n">isatom</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">value</span><span class="p">):</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;Mixed atom and mass fractions not supported.&#39;</span>
             <span class="s">&#39; See material defined on line {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mat_line</span><span class="p">)</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="c"># apply all data to material object</span>
     <span class="k">if</span> <span class="n">isatom</span><span class="p">:</span>
@@ -1482,29 +1492,28 @@ if(ga_enabled){
         <span class="c"># set nucvec attribute to the nucvec dict from above</span>
         <span class="n">mat</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="n">nucvec</span><span class="o">=</span><span class="n">nucvec</span><span class="p">)</span>
 
-    <span class="n">mat</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;table_ids&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table_ids</span>
-    <span class="n">mat</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;mat_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_string</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">mat</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;table_ids&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table_ids</span>
+    <span class="n">mat</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;mat_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_string</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
 
     <span class="c"># collect metadata, if present</span>
-    <span class="n">attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">,</span> <span class="s">&#39;comments&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">]</span>
+    <span class="n">mds</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">,</span> <span class="s">&#39;comments&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">]</span>
     <span class="n">line_index</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">attrs_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span><span class="p">)</span>
+    <span class="n">mds_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span><span class="p">)</span>
     <span class="c"># while reading non-empty comment lines</span>
-    <span class="k">while</span> <span class="n">attrs_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="s">&#39;cC&#39;</span><span class="p">)</span> \
-            <span class="ow">and</span> <span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]:</span>
-        <span class="k">if</span> <span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]</span> \
-                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">possible_attr</span> <span class="o">=</span> <span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">possible_attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">possible_attr</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;comments&#39;</span><span class="p">:</span>
+    <span class="k">while</span> <span class="n">mds_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="s">&#39;cC&#39;</span><span class="p">)</span> \
+            <span class="ow">and</span> <span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]</span> \
+                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">possible_md</span> <span class="o">=</span> <span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">possible_md</span> <span class="ow">in</span> <span class="n">mds</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">possible_md</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;comments&#39;</span><span class="p">:</span>
                     <span class="n">comments_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
-                        <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
                     <span class="n">comment_index</span> <span class="o">=</span> <span class="mi">1</span>
                     <span class="n">comment_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span>
                         <span class="n">filename</span><span class="p">,</span> <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span> <span class="o">+</span> <span class="n">comment_index</span><span class="p">)</span>
                     <span class="k">while</span> <span class="n">comment_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]:</span>
-                        <span class="k">if</span> <span class="n">comment_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> \
-                                <span class="n">attrs</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">comment_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">mds</span><span class="p">:</span>
                             <span class="k">break</span>
                         <span class="n">comments_string</span> <span class="o">+=</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                             <span class="n">comment_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span>
@@ -1513,13 +1522,13 @@ if(ga_enabled){
                             <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span>
                                               <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span> <span class="o">+</span>
                                               <span class="n">comment_index</span><span class="p">)</span>
-                    <span class="n">mat</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">possible_attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments_string</span>
+                    <span class="n">mat</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">possible_md</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments_string</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">mat</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">possible_attr</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                        <span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">mat</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">possible_md</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                        <span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="c"># set metadata</span>
         <span class="n">line_index</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">attrs_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span><span class="p">)</span>
+        <span class="n">mds_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span><span class="p">)</span>
 
     <span class="c"># Check all the densities. If they are atom densities, convert them to mass</span>
     <span class="c"># densities. If they are mass densities they willl be negative, so make</span>
@@ -1545,7 +1554,7 @@ if(ga_enabled){
                 <span class="n">mat2</span><span class="o">.</span><span class="n">comp</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">comp</span>
                 <span class="n">mat2</span><span class="o">.</span><span class="n">atoms_per_molecule</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">atoms_per_molecule</span>
                 <span class="n">mat2</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">mass</span>
-                <span class="n">mat2</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">attrs</span>
+                <span class="n">mat2</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">metadata</span>
                 <span class="n">mat2</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="n">density</span>
                 <span class="n">mat_dict</span><span class="p">[</span><span class="n">mat2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="n">finished_mat</span> <span class="o">=</span> <span class="n">MultiMaterial</span><span class="p">(</span><span class="n">mat_dict</span><span class="p">)</span>
@@ -1966,10 +1975,25 @@ if(ga_enabled){
 <span class="sd">        A dictionary with MCNP fmesh4 tally numbers</span>
 <span class="sd">        (e.g. 4, 14, 24) as keys and</span>
 <span class="sd">        MeshTally objects as values.</span>
+<span class="sd">    tags : dict</span>
+<span class="sd">        Maps integer tally numbers to iterables containing four strs, the</span>
+<span class="sd">        results tag name, the relative error tag name, the total results</span>
+<span class="sd">        tag name, and the total relative error tag name. If tags is None</span>
+<span class="sd">        the tags are named &#39;x_result&#39;, &#39;x_rel_error&#39;, &#39;x_result_total&#39;,</span>
+<span class="sd">        or &#39;x_rel_error_total&#39; where x is n or p for neutrons or photons.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Instantiate a Meshtal object from a meshtal file.</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            MCNP meshtal file.</span>
+<span class="sd">        tags : dict, optional</span>
+<span class="sd">            Maps integer tally numbers to iterables containing four strs: the</span>
+<span class="sd">            results tag name, the relative error tag name, the total results</span>
+<span class="sd">            tag name, and the total relative error tag name. If tags is None</span>
+<span class="sd">            the tags are named &#39;x_result&#39;, &#39;x_rel_error&#39;, &#39;x_result_total&#39;, </span>
+<span class="sd">            &#39;x_rel_error_total&#39; where x is n or p for neutrons or photons.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_PYTAPS</span><span class="p">:</span>
@@ -1977,6 +2001,7 @@ if(ga_enabled){
                                <span class="s">&quot;unable to create Meshtal.&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">tally</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="n">tags</span>
 
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_read_meshtal_head</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -1988,7 +2013,7 @@ if(ga_enabled){
 
         <span class="n">line_1</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
         <span class="c">#set mcnp version</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line_1</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">line_1</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
         <span class="c">#get version date (&quot;ld&quot; in MCNP User&#39;s Manual)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ld</span> <span class="o">=</span> <span class="n">line_1</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">:]</span>
 
@@ -2007,8 +2032,12 @@ if(ga_enabled){
 
         <span class="k">while</span> <span class="n">line</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="s">&#39;Mesh&#39;</span><span class="p">,</span> <span class="s">&#39;Tally&#39;</span><span class="p">,</span> <span class="s">&#39;Number&#39;</span><span class="p">]:</span>
-                <span class="n">tally_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">tally_number</span><span class="p">]</span> <span class="o">=</span> <span class="n">MeshTally</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tally_number</span><span class="p">)</span>
+                <span class="n">tally_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">])</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">tally_num</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">tally_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">MeshTally</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tally_num</span><span class="p">,</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">tally_num</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">tally_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">MeshTally</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tally_num</span><span class="p">)</span>
 
             <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
 
@@ -2025,7 +2054,8 @@ if(ga_enabled){
 <span class="sd">    tally_number : int</span>
 <span class="sd">        The MCNP tally number. Must end in 4 (e.g. 4, 14, 214).</span>
 <span class="sd">    particle : string</span>
-<span class="sd">        Either &quot;n&quot; for a neutron mesh tally or &quot;p&quot; for a photon mesh tally.</span>
+<span class="sd">        Either &quot;neutron&quot; for a neutron mesh tally or &quot;photon&quot; for a photon mesh</span>
+<span class="sd">        tally.</span>
 <span class="sd">    dose_response : bool</span>
 <span class="sd">        True is the tally is modified by a dose response function.</span>
 <span class="sd">    x_bounds : list of floats</span>
@@ -2039,20 +2069,32 @@ if(ga_enabled){
 <span class="sd">    mesh :</span>
 <span class="sd">        An iMesh instance tagged with all results and</span>
 <span class="sd">        relative errors</span>
+<span class="sd">    tag_names : iterable</span>
+<span class="sd">        Four strs that specify the tag names for the results, relative errors,</span>
+<span class="sd">        total results, and relative errors of the total results.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    All Mesh attributes are also present via a super() call to</span>
-<span class="sd">    Mesh.__init__().</span>
+<span class="sd">    All Mesh/StatMesh attributes are also present via a super() call to</span>
+<span class="sd">    StatMesh.__init__().</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">tally_number</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create MeshTally object from a filestream (f) open to the second</span>
-<span class="sd">        line of a mesh tally header (the neutron/photon line). The</span>
-<span class="sd">        &quot;tally_number&quot; is the MCNP fmesh4 tally number (e.g. 4, 14, 24).</span>
-<span class="sd">        MeshTally objects should be instantiated only through the</span>
-<span class="sd">        Meshtal class.</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">tally_number</span><span class="p">,</span> <span class="n">tag_names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create MeshTally object from a filestream open to the second</span>
+<span class="sd">        line of a mesh tally header (the neutron/photon line). MeshTally objects</span>
+<span class="sd">        should be instantiated only through the Meshtal class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        f : filestream</span>
+<span class="sd">            Open to the neutron/photon line.</span>
+<span class="sd">        tally number : int</span>
+<span class="sd">            The MCNP fmesh4 tally number (e.g. 4, 14, 24).</span>
+<span class="sd">        tag_names : iterable, optional</span>
+<span class="sd">            Four strs that specify the tag names for the results, relative </span>
+<span class="sd">            errors, total results and relative errors of the total results.</span>
+<span class="sd">            This should come from the Meshtal.tags attribute dict.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_PYTAPS</span><span class="p">:</span>
@@ -2062,6 +2104,15 @@ if(ga_enabled){
         <span class="bp">self</span><span class="o">.</span><span class="n">tally_number</span> <span class="o">=</span> <span class="n">tally_number</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_read_meshtally_head</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_read_column_order</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">tag_names</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;{0}_result&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span> 
+                              <span class="s">&quot;{0}_rel_error&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span>
+                              <span class="s">&quot;{0}_result_total&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span>
+                              <span class="s">&quot;{0}_rel_error_total&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span> <span class="o">=</span> <span class="n">tag_names</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_mesh</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_read_meshtally_head</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
@@ -2070,9 +2121,9 @@ if(ga_enabled){
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
         <span class="k">if</span> <span class="p">(</span><span class="s">&#39;neutron&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">particle</span> <span class="o">=</span> <span class="s">&#39;n&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">particle</span> <span class="o">=</span> <span class="s">&#39;neutron&#39;</span>
         <span class="k">elif</span> <span class="p">(</span><span class="s">&#39;photon&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">particle</span> <span class="o">=</span> <span class="s">&#39;p&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">particle</span> <span class="o">=</span> <span class="s">&#39;photon&#39;</span>
 
         <span class="c">#determine if meshtally flux-to-dose conversion factors are being used.</span>
         <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
@@ -2137,18 +2188,15 @@ if(ga_enabled){
             <span class="n">rel_error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel_error_row</span>
 
         <span class="c">#Tag results and error vector to mesh</span>
-        <span class="n">tag_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">createTag</span><span class="p">(</span>
-            <span class="s">&quot;{0}_result&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span> <span class="n">num_e_groups</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-        <span class="n">tag_rel_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">createTag</span><span class="p">(</span>
-            <span class="s">&quot;{0}_rel_error&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span> <span class="n">num_e_groups</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-        <span class="n">res_vol_elements</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structured_iterate_hex</span><span class="p">(</span><span class="s">&quot;xyz&quot;</span><span class="p">))</span>
-        <span class="n">err_vol_elements</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structured_iterate_hex</span><span class="p">(</span><span class="s">&quot;xyz&quot;</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">res_ve</span><span class="p">,</span> <span class="n">err_ve</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">izip</span><span class="p">(</span><span class="n">res_vol_elements</span><span class="p">,</span>
-                                                <span class="n">err_vol_elements</span><span class="p">,</span>
-                                                <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_vol_elements</span><span class="p">)):</span>
-            <span class="n">tag_result</span><span class="p">[</span><span class="n">res_ve</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
-            <span class="n">tag_rel_error</span><span class="p">[</span><span class="n">err_ve</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
-
+        <span class="n">res_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="n">num_e_groups</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">rel_err_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="n">num_e_groups</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">num_e_groups</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">res_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">rel_err_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="n">rel_err_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">rel_error</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        
         <span class="c">#If &quot;total&quot; data exists (i.e. if there is more than</span>
         <span class="c">#1 energy group) get it and tag it onto the mesh.</span>
         <span class="k">if</span> <span class="n">num_e_groups</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -2160,16 +2208,11 @@ if(ga_enabled){
                 <span class="n">rel_error</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_column_idx</span><span class="p">[</span><span class="s">&quot;Rel_Error&quot;</span><span class="p">]]))</span>
 
-            <span class="n">tag_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">createTag</span><span class="p">(</span>
-                <span class="s">&quot;{0}_total_result&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-            <span class="n">tag_rel_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">createTag</span><span class="p">(</span>
-                <span class="s">&quot;{0}_total_rel_error&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+            <span class="n">res_tot_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">rel_err_tot_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="n">res_tot_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">result</span>
+            <span class="n">rel_err_tot_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">rel_error</span>
 
-            <span class="n">res_vol_elements</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structured_iterate_hex</span><span class="p">(</span><span class="s">&quot;xyz&quot;</span><span class="p">))</span>
-            <span class="n">err_vol_elements</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structured_iterate_hex</span><span class="p">(</span><span class="s">&quot;xyz&quot;</span><span class="p">))</span>
-
-            <span class="n">tag_result</span><span class="p">[</span><span class="n">res_vol_elements</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
-            <span class="n">tag_rel_error</span><span class="p">[</span><span class="n">err_vol_elements</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel_error</span>
 </div>
 <div class="viewcode-block" id="mesh_to_geom"><a class="viewcode-back" href="../../pyapi/mcnp.html#pyne.mcnp.mesh_to_geom">[docs]</a><span class="k">def</span> <span class="nf">mesh_to_geom</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">frac_type</span><span class="o">=</span><span class="s">&#39;mass&#39;</span><span class="p">,</span> <span class="n">title_card</span><span class="o">=</span><span class="s">&quot;Generated from PyNE Mesh&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This function reads a structured Mesh object and returns the geometry</span>
@@ -2254,7 +2297,7 @@ if(ga_enabled){
     <span class="n">mat_cards</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">iter_structured_idx</span><span class="p">(</span><span class="s">&#39;xyz&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
-        <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;mat_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;mat_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">mat_cards</span> <span class="o">+=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="n">frac_type</span><span class="o">=</span><span class="n">frac_type</span><span class="p">)</span>
   
     <span class="k">return</span> <span class="n">mat_cards</span>

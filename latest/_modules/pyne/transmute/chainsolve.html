@@ -82,6 +82,9 @@ if(ga_enabled){
   <h1>Source code for pyne.transmute.chainsolve</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;This module implements an ALARA-like chain-based transmutation solver.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span>
@@ -96,6 +99,8 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">pyne.xs.data_source</span> <span class="kn">import</span> <span class="n">NullDataSource</span><span class="p">,</span> <span class="n">EAFDataSource</span>
 <span class="kn">from</span> <span class="nn">pyne.xs.cache</span> <span class="kn">import</span> <span class="n">XSCache</span>
 <span class="kn">from</span> <span class="nn">pyne.xs.channels</span> <span class="kn">import</span> <span class="n">sigma_a</span>
+
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Transmuter"><a class="viewcode-back" href="../../../pyapi/transmute/chainsolve.html#pyne.transmute.chainsolve.Transmuter">[docs]</a><span class="k">class</span> <span class="nc">Transmuter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A class for transmuting materials using an ALARA-like chain solver.&quot;&quot;&quot;</span>
@@ -270,7 +275,7 @@ if(ga_enabled){
         <span class="n">xscache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xscache</span>
         <span class="n">sig_a</span> <span class="o">=</span> <span class="n">sigma_a</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">xs_cache</span><span class="o">=</span><span class="n">xscache</span><span class="p">)</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">from_barns</span><span class="p">(</span><span class="n">sig_a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&#39;cm2&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">xscache</span><span class="p">[</span><span class="s">&#39;phi_g&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">decay</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">decay</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">decay_const</span><span class="p">(</span><span class="n">nuc</span><span class="p">)):</span>
             <span class="n">d</span> <span class="o">+=</span> <span class="n">data</span><span class="o">.</span><span class="n">decay_const</span><span class="p">(</span><span class="n">nuc</span><span class="p">)</span> 
         <span class="k">return</span> <span class="n">d</span>
 

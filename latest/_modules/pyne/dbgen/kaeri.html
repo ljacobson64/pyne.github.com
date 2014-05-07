@@ -83,10 +83,23 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="kn">as</span> <span class="nn">urllib2</span>
+    <span class="kn">from</span> <span class="nn">urllib.error</span> <span class="kn">import</span> <span class="n">URLError</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib2</span>
+    <span class="kn">from</span> <span class="nn">urllib2</span> <span class="kn">import</span> <span class="n">URLError</span>
 
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+  <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">str</span>
 
 <div class="viewcode-block" id="grab_kaeri_nuclide"><a class="viewcode-back" href="../../../pyapi/dbgen/kaeri.html#pyne.dbgen.kaeri.grab_kaeri_nuclide">[docs]</a><span class="k">def</span> <span class="nf">grab_kaeri_nuclide</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs a nuclide file from KAERI from the web and places </span>
@@ -124,7 +137,7 @@ if(ga_enabled){
         <span class="k">try</span><span class="p">:</span>
             <span class="n">kaeri_html</span> <span class="o">=</span> <span class="n">hdl</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="n">read_in</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">except</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">URLError</span><span class="p">:</span>
+        <span class="k">except</span> <span class="n">URLError</span><span class="p">:</span>
             <span class="n">hdl</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">print</span><span class="p">(</span><span class="s">&quot;    getting {0} and placing in {1}, attempt {2}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nuc</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
