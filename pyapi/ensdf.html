@@ -35,7 +35,7 @@
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="Cross Section Interface – pyne.xs" href="xs/index.html" />
+    <link rel="next" title="CCCC Formats – pyne.cccc" href="cccc.html" />
     <link rel="prev" title="ENDF File Support – pyne.endf" href="endf.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -68,7 +68,7 @@ if(ga_enabled){
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="xs/index.html" title="Cross Section Interface – pyne.xs"
+          <a href="cccc.html" title="CCCC Formats – pyne.cccc"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="endf.html" title="ENDF File Support – pyne.endf"
@@ -90,8 +90,9 @@ if(ga_enabled){
   <div class="section" id="ensdf-file-support-pyne-ensdf">
 <span id="pyne-ensdf"></span><h1>ENSDF File Support &#8211; <a class="reference internal" href="#module-pyne.ensdf" title="pyne.ensdf"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.ensdf</span></tt></a><a class="headerlink" href="#ensdf-file-support-pyne-ensdf" title="Permalink to this headline">¶</a></h1>
 <p>Pyne should nominally contain support for reading and writing
-Evaluated Nuclear Structure Data Files (ENSDF).  However, currently
-only parsing out half-life data is supported.</p>
+Evaluated Nuclear Structure Data Files (ENSDF).  Currently it
+can parse most of the level and decay datasets. This data can
+be accessed via the <tt class="docutils literal"><span class="pre">pyne.data</span></tt> module.</p>
 <p>All functionality may be found in the <tt class="docutils literal"><span class="pre">ensdf</span></tt> module:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">ensdf</span>
 </pre></div>
@@ -264,8 +265,8 @@ the necessary information to generate data for origen input decks.</p>
   <p class="topless"><a href="endf.html"
                         title="previous chapter">ENDF File Support &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.endf</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="xs/index.html"
-                        title="next chapter">Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a></p>
+  <p class="topless"><a href="cccc.html"
+                        title="next chapter">CCCC Formats &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.cccc</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/ensdf.txt"
@@ -303,7 +304,7 @@ the necessary information to generate data for origen input decks.</p>
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="xs/index.html" title="Cross Section Interface – pyne.xs"
+          <a href="cccc.html" title="CCCC Formats – pyne.cccc"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="endf.html" title="ENDF File Support – pyne.endf"

@@ -115,7 +115,11 @@ if(ga_enabled){
 </div>
 <div class="section" id="binary">
 <h3>Binary<a class="headerlink" href="#binary" title="Permalink to this headline">¶</a></h3>
-<p>A binary distribution of PyNE is currently available for windows only on
+<p>Binary distributions of the latest release (0.4) for mac and linux (64-bit)
+using the conda package manager can be installed by running the command:</p>
+<div class="highlight-python"><pre>conda install -c https://conda.binstar.org/batesca pyne</pre>
+</div>
+<p>A binary distribution of PyNE is also available for windows on
 32-bit python using conda. In order to install use the following command:</p>
 <div class="highlight-python"><pre>conda install -c https://conda.binstar.org/batesca pyne_win32py27</pre>
 </div>
@@ -124,7 +128,7 @@ if(ga_enabled){
 <div class="section" id="source">
 <span id="install-source"></span><h3>Source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h3>
 <p>Installing PyNE from source is a two-step process.  First, download and
-unzip the source (<a class="reference external" href="https://github.com/pyne/pyne/zipball/0.3">zip</a>, <a class="reference external" href="https://github.com/pyne/pyne/tarball/0.3">tar</a>).  Then run the following commands from
+unzip the source (<a class="reference external" href="https://github.com/pyne/pyne/zipball/0.4">zip</a>, <a class="reference external" href="https://github.com/pyne/pyne/tarball/0.4">tar</a>).  Then run the following commands from
 the unzipped directory:</p>
 <div class="highlight-python"><pre>cd pyne/
 python setup.py install --user
@@ -141,7 +145,8 @@ or from public sources on the internet.</p>
 <div class="section" id="conda-install-instructions">
 <h4>Conda Install Instructions<a class="headerlink" href="#conda-install-instructions" title="Permalink to this headline">¶</a></h4>
 <p>On mac and linux PyNE can be installed via the package manager conda.
-After installing anaconda or miniconda from <a class="reference external" href="http://continuum.io/downloads">http://continuum.io/downloads</a>
+After installing anaconda or miniconda from
+<a class="reference external" href="http://continuum.io/downloads">the Continuum downloads page</a>
 add conda&#8217;s binary directory to your bash profile by adding:</p>
 <div class="highlight-python"><pre>export PATH=/path/to/anaconda/bin:$PATH</pre>
 </div>
@@ -151,10 +156,7 @@ add conda&#8217;s binary directory to your bash profile by adding:</p>
 <p>on linux you may also need to run:</p>
 <div class="highlight-python"><pre>conda install patchelf</pre>
 </div>
-<dl class="docutils">
-<dt>Then dowload the latest conda-recipes:</dt>
-<dd><a class="reference external" href="https://github.com/conda/conda-recipes/archive/master.zip">https://github.com/conda/conda-recipes/archive/master.zip</a></dd>
-</dl>
+<p>Then dowload the latest conda-recipes <a class="reference external" href="https://github.com/conda/conda-recipes/archive/master.zip">here</a></p>
 <p>cd to the conda-recipes directory and run:</p>
 <div class="highlight-python"><pre>conda build pyne
 conda install $(conda build --output pyne)

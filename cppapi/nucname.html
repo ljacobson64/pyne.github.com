@@ -346,6 +346,38 @@ if(ga_enabled){
 <blockquote>
 <div><p></p>
 <p></p>
+<em>State Map functions</em><blockquote>
+<div><p>These convert from/to decay state ids (used in decay data) to metastable ids (the PyNE default) </p>
+<p><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a5310f5a86bfb1ad5acdf61bd6401d7ac"></span>std::map&lt; int, int &gt; <strong>state_id_map</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::nucname::_load_state_map"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1aa0f5efb8d3be5214acf8440dae8d4280"></span><div class="line-block">
+<div class="line">void <strong>_load_state_map</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::nucname::state_id_to_id__i"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a91e9f43c7bfd01149545704c0a0d003a"></span><div class="line-block">
+<div class="line">int <strong>state_id_to_id</strong>(int state)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::nucname::id_to_state_id__i"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1aacc2935da529ea5f25324c17a3fba2d4"></span><div class="line-block">
+<div class="line">int <strong>id_to_state_id</strong>(int nuc_id)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
 <em>isnuclide functions</em><blockquote>
 <div><p>These functions test if an input <em>nuc</em> is a valid nuclide. <dl class="docutils">
 <dt><strong>Return</strong></dt>
@@ -1202,15 +1234,8 @@ if(ga_enabled){
 <p></p>
 </div></blockquote>
 </div></blockquote>
-<em>Unnamed Group</em><blockquote>
-<div><p><span class="target" id="pyne::nucname::groundstate__i"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a81937700730c53c357f2902b9f7efa15"></span><div class="line-block">
-<div class="line">int <strong>groundstate</strong>(int nuc)</div>
-</div>
-</p>
-<blockquote>
-<div><p></p>
-<p><p>State Form Functions</p>
-<p>This form stores the nuclide in id form, but removes the state information about the nuclide. I is in the same form as ID, but the four last digits are all zeros. <dl class="docutils">
+<em>Ground State Form Functions</em><blockquote>
+<div><p>This form stores the nuclide in id form, but removes the state information about the nuclide. I is in the same form as ID, but the four last digits are all zeros. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>a integer groundstate id </dd>
 <dt><strong>Parameters</strong></dt>
@@ -1221,7 +1246,13 @@ if(ga_enabled){
 </dd>
 </dl>
 </p>
+<p><span class="target" id="pyne::nucname::groundstate__i"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a81937700730c53c357f2902b9f7efa15"></span><div class="line-block">
+<div class="line">int <strong>groundstate</strong>(int nuc)</div>
+</div>
 </p>
+<blockquote>
+<div><p></p>
+<p></p>
 </div></blockquote>
 <p><span class="target" id="pyne::nucname::groundstate__cP"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a363ed4d7a830a42161630743650a0d39"></span><div class="line-block">
 <div class="line">int <strong>groundstate</strong>(char * nuc)</div>

@@ -93,7 +93,6 @@ if(ga_enabled){
 <span class="sd">available to use.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">collections</span>
@@ -102,26 +101,29 @@ if(ga_enabled){
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">linecache</span>
-<span class="kn">import</span> <span class="nn">tables</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tables</span>
 
 <span class="kn">from</span> <span class="nn">pyne.material</span> <span class="kn">import</span> <span class="n">Material</span>
 <span class="kn">from</span> <span class="nn">pyne.material</span> <span class="kn">import</span> <span class="n">MultiMaterial</span>
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">pyne.binaryreader</span> <span class="kn">import</span> <span class="n">_BinaryReader</span><span class="p">,</span> <span class="n">_FortranRecord</span>
 
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
+
 <span class="c"># Mesh specific imports</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">itaps</span> <span class="kn">import</span> <span class="n">iMesh</span>
     <span class="n">HAVE_PYTAPS</span> <span class="o">=</span> <span class="bp">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;the PyTAPS optional dependency could not be imported. &quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s">&quot;the PyTAPS optional dependency could not be imported. &quot;</span>
                   <span class="s">&quot;Some aspects of the mcnp module may be incomplete.&quot;</span><span class="p">,</span>
-                  <span class="ne">ImportWarning</span><span class="p">)</span>
+                  <span class="n">VnVWarning</span><span class="p">)</span>
     <span class="n">HAVE_PYTAPS</span> <span class="o">=</span> <span class="bp">False</span>
 
 <span class="kn">from</span> <span class="nn">pyne.mesh</span> <span class="kn">import</span> <span class="n">Mesh</span><span class="p">,</span> <span class="n">StatMesh</span><span class="p">,</span> <span class="n">MeshError</span><span class="p">,</span> <span class="n">IMeshTag</span>
@@ -520,7 +522,7 @@ if(ga_enabled){
         <span class="c"># no known case of their actual utility is known currently</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">njsw</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">njsw</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">niwr</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_fortran_record</span><span class="p">()</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;Extra info in header not handled: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="p">),</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s">&quot;Extra info in header not handled: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="p">),</span>
                           <span class="ne">RuntimeWarning</span><span class="p">)</span>
 
         <span class="c"># read summary table record</span>
@@ -1480,7 +1482,7 @@ if(ga_enabled){
         <span class="k">if</span> <span class="n">isatom</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">value</span><span class="p">):</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;Mixed atom and mass fractions not supported.&#39;</span>
             <span class="s">&#39; See material defined on line {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mat_line</span><span class="p">)</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="c"># apply all data to material object</span>
     <span class="k">if</span> <span class="n">isatom</span><span class="p">:</span>
@@ -1490,29 +1492,28 @@ if(ga_enabled){
         <span class="c"># set nucvec attribute to the nucvec dict from above</span>
         <span class="n">mat</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="n">nucvec</span><span class="o">=</span><span class="n">nucvec</span><span class="p">)</span>
 
-    <span class="n">mat</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;table_ids&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table_ids</span>
-    <span class="n">mat</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;mat_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_string</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">mat</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;table_ids&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table_ids</span>
+    <span class="n">mat</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;mat_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_string</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
 
     <span class="c"># collect metadata, if present</span>
-    <span class="n">attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">,</span> <span class="s">&#39;comments&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">]</span>
+    <span class="n">mds</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">,</span> <span class="s">&#39;comments&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">]</span>
     <span class="n">line_index</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">attrs_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span><span class="p">)</span>
+    <span class="n">mds_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span><span class="p">)</span>
     <span class="c"># while reading non-empty comment lines</span>
-    <span class="k">while</span> <span class="n">attrs_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="s">&#39;cC&#39;</span><span class="p">)</span> \
-            <span class="ow">and</span> <span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]:</span>
-        <span class="k">if</span> <span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]</span> \
-                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">possible_attr</span> <span class="o">=</span> <span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">possible_attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">possible_attr</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;comments&#39;</span><span class="p">:</span>
+    <span class="k">while</span> <span class="n">mds_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="s">&#39;cC&#39;</span><span class="p">)</span> \
+            <span class="ow">and</span> <span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]</span> \
+                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">possible_md</span> <span class="o">=</span> <span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">possible_md</span> <span class="ow">in</span> <span class="n">mds</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">possible_md</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;comments&#39;</span><span class="p">:</span>
                     <span class="n">comments_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
-                        <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
                     <span class="n">comment_index</span> <span class="o">=</span> <span class="mi">1</span>
                     <span class="n">comment_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span>
                         <span class="n">filename</span><span class="p">,</span> <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span> <span class="o">+</span> <span class="n">comment_index</span><span class="p">)</span>
                     <span class="k">while</span> <span class="n">comment_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]:</span>
-                        <span class="k">if</span> <span class="n">comment_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> \
-                                <span class="n">attrs</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">comment_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">mds</span><span class="p">:</span>
                             <span class="k">break</span>
                         <span class="n">comments_string</span> <span class="o">+=</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                             <span class="n">comment_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span>
@@ -1521,13 +1522,13 @@ if(ga_enabled){
                             <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span>
                                               <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span> <span class="o">+</span>
                                               <span class="n">comment_index</span><span class="p">)</span>
-                    <span class="n">mat</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">possible_attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments_string</span>
+                    <span class="n">mat</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">possible_md</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments_string</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">mat</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">possible_attr</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                        <span class="n">attrs_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">mat</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">possible_md</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                        <span class="n">mds_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="c"># set metadata</span>
         <span class="n">line_index</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">attrs_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span><span class="p">)</span>
+        <span class="n">mds_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mat_line</span> <span class="o">-</span> <span class="n">line_index</span><span class="p">)</span>
 
     <span class="c"># Check all the densities. If they are atom densities, convert them to mass</span>
     <span class="c"># densities. If they are mass densities they willl be negative, so make</span>
@@ -1553,7 +1554,7 @@ if(ga_enabled){
                 <span class="n">mat2</span><span class="o">.</span><span class="n">comp</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">comp</span>
                 <span class="n">mat2</span><span class="o">.</span><span class="n">atoms_per_molecule</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">atoms_per_molecule</span>
                 <span class="n">mat2</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">mass</span>
-                <span class="n">mat2</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">attrs</span>
+                <span class="n">mat2</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">metadata</span>
                 <span class="n">mat2</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="n">density</span>
                 <span class="n">mat_dict</span><span class="p">[</span><span class="n">mat2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="n">finished_mat</span> <span class="o">=</span> <span class="n">MultiMaterial</span><span class="p">(</span><span class="n">mat_dict</span><span class="p">)</span>
@@ -1975,14 +1976,15 @@ if(ga_enabled){
 <span class="sd">        (e.g. 4, 14, 24) as keys and</span>
 <span class="sd">        MeshTally objects as values.</span>
 <span class="sd">    tags : dict</span>
-<span class="sd">        Maps integer tally numbers to iterables containing four strs: the</span>
+<span class="sd">        Maps integer tally numbers to iterables containing four strs, the</span>
 <span class="sd">        results tag name, the relative error tag name, the total results</span>
 <span class="sd">        tag name, and the total relative error tag name. If tags is None</span>
 <span class="sd">        the tags are named &#39;x_result&#39;, &#39;x_rel_error&#39;, &#39;x_result_total&#39;, </span>
 <span class="sd">        &#39;x_rel_error_total&#39; where x is n or p for neutrons or photons.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">meshes_have_mats</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        filename : str</span>
@@ -1993,6 +1995,9 @@ if(ga_enabled){
 <span class="sd">            tag name, and the total relative error tag name. If tags is None</span>
 <span class="sd">            the tags are named &#39;x_result&#39;, &#39;x_rel_error&#39;, &#39;x_result_total&#39;, </span>
 <span class="sd">            &#39;x_rel_error_total&#39; where x is n or p for neutrons or photons.</span>
+<span class="sd">        meshes_have_mats : bool</span>
+<span class="sd">             If false, Meshtally objects will be created without PyNE material</span>
+<span class="sd">             material objects. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_PYTAPS</span><span class="p">:</span>
@@ -2001,6 +2006,7 @@ if(ga_enabled){
 
         <span class="bp">self</span><span class="o">.</span><span class="n">tally</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="n">tags</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_meshes_have_mats</span> <span class="o">=</span> <span class="n">meshes_have_mats</span>
 
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_read_meshtal_head</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -2034,9 +2040,11 @@ if(ga_enabled){
                 <span class="n">tally_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">])</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">tally_num</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">tally_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">MeshTally</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tally_num</span><span class="p">,</span>
-                                                      <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">tally_num</span><span class="p">])</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">tally_num</span><span class="p">],</span>
+                                            <span class="n">mesh_has_mats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_meshes_have_mats</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">tally_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">MeshTally</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tally_num</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">tally_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">MeshTally</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tally_num</span><span class="p">,</span>
+                                            <span class="n">mesh_has_mats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_meshes_have_mats</span><span class="p">)</span>
 
             <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
 
@@ -2079,7 +2087,7 @@ if(ga_enabled){
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">tally_number</span><span class="p">,</span> <span class="n">tag_names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">tally_number</span><span class="p">,</span> <span class="n">tag_names</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mesh_has_mats</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create MeshTally object from a filestream open to the second</span>
 <span class="sd">        line of a mesh tally header (the neutron/photon line). MeshTally objects</span>
 <span class="sd">        should be instantiated only through the Meshtal class.</span>
@@ -2094,6 +2102,9 @@ if(ga_enabled){
 <span class="sd">            Four strs that specify the tag names for the results, relative </span>
 <span class="sd">            errors, total results and relative errors of the total results.</span>
 <span class="sd">            This should come from the Meshtal.tags attribute dict.</span>
+<span class="sd">        mesh_has_mats : bool</span>
+<span class="sd">             If false, Meshtally objects will be created without PyNE material</span>
+<span class="sd">             objects. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_PYTAPS</span><span class="p">:</span>
@@ -2112,7 +2123,7 @@ if(ga_enabled){
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span> <span class="o">=</span> <span class="n">tag_names</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_create_mesh</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_mesh</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mesh_has_mats</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_read_meshtally_head</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the particle type, spacial and energy bounds, and whether or</span>
@@ -2158,14 +2169,15 @@ if(ga_enabled){
             <span class="s">&#39;Rslt * &#39;</span><span class="p">,</span> <span class="s">&#39;Rslt_*_&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_column_idx</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">column_names</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">column_names</span><span class="p">))))</span>
 
-    <span class="k">def</span> <span class="nf">_create_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_create_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">mesh_has_mats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Instantiate a Mesh object and tag the iMesh instance</span>
 <span class="sd">           with results and relative errors.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="n">mats</span> <span class="o">=</span> <span class="p">()</span> <span class="k">if</span> <span class="n">mesh_has_mats</span> <span class="ow">is</span> <span class="bp">True</span> <span class="k">else</span> <span class="bp">None</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">MeshTally</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">structured_coords</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">,</span>
                                         <span class="bp">self</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_bounds</span><span class="p">],</span>
-                                        <span class="n">structured</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                                        <span class="n">structured</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mats</span><span class="o">=</span><span class="n">mats</span><span class="p">)</span>
 
         <span class="n">num_vol_elements</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_bounds</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>\
             <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_bounds</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -2296,7 +2308,7 @@ if(ga_enabled){
     <span class="n">mat_cards</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">iter_structured_idx</span><span class="p">(</span><span class="s">&#39;xyz&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
-        <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;mat_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;mat_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">mat_cards</span> <span class="o">+=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="n">frac_type</span><span class="o">=</span><span class="n">frac_type</span><span class="p">)</span>
   
     <span class="k">return</span> <span class="n">mat_cards</span>

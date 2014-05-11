@@ -35,8 +35,8 @@
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
     <link rel="up" title="Developer’s Guide" href="index.html" />
-    <link rel="next" title="Simple Simulation Input – pyne.simplesim" href="simplesim.html" />
-    <link rel="prev" title="How to Unit Test" href="unittest.html" /> <script type="text/javascript">
+    <link rel="next" title="How to Test PyNE" href="testing.html" />
+    <link rel="prev" title="Developer’s Guide" href="index.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -68,10 +68,10 @@ if(ga_enabled){
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="simplesim.html" title="Simple Simulation Input – pyne.simplesim"
+          <a href="testing.html" title="How to Test PyNE"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="unittest.html" title="How to Unit Test"
+          <a href="index.html" title="Developer’s Guide"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
@@ -186,7 +186,8 @@ with geometries.</p>
 <li>Code must have associated tests and adequate documentation.</li>
 <li>The <em>only</em> exceptions to not having tests and documentation are when merging in and
 slowly integrating legacy code or code not originally originally written for pyne.</li>
-<li>Without both tests and documentation, the code must be marked as experimental.</li>
+<li>Without both tests and documentation, the code must be marked as experimental.
+It should issue a <tt class="docutils literal"><span class="pre">pyne.utils.VnVWarning</span></tt>.</li>
 <li>Have <em>extreme</em> empathy for your users.</li>
 <li>Be selfish. Since you will be writing tests you will be your first user.</li>
 <li>Nothing says &#8220;I &lt;3 PyNE&#8221; quite like an ASCII art dragon.</li>
@@ -657,11 +658,11 @@ as opposed to returning integer error codes or custom exception mechanisms.</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="unittest.html"
-                        title="previous chapter">How to Unit Test</a></p>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Developer&#8217;s Guide</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="simplesim.html"
-                        title="next chapter">Simple Simulation Input &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.simplesim</span></tt></a></p>
+  <p class="topless"><a href="testing.html"
+                        title="next chapter">How to Test PyNE</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/devsguide/style_guide.txt"
@@ -699,10 +700,10 @@ as opposed to returning integer error codes or custom exception mechanisms.</p>
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="simplesim.html" title="Simple Simulation Input – pyne.simplesim"
+          <a href="testing.html" title="How to Test PyNE"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="unittest.html" title="How to Unit Test"
+          <a href="index.html" title="Developer’s Guide"
              >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>

@@ -84,6 +84,8 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="kn">as</span> <span class="nn">urllib</span>
@@ -97,6 +99,7 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">ensdf</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
 
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">_readpoint</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">dstart</span><span class="p">,</span> <span class="n">dlen</span><span class="p">):</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">ensdf</span><span class="o">.</span><span class="n">_getvalue</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">dstart</span><span class="p">:</span><span class="n">dstart</span> <span class="o">+</span> <span class="n">dlen</span><span class="p">])</span>
@@ -161,7 +164,8 @@ if(ga_enabled){
 
 
 <div class="viewcode-block" id="grab_ensdf_decay"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.grab_ensdf_decay">[docs]</a><span class="k">def</span> <span class="nf">grab_ensdf_decay</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Grabs the ENSDF decay data files</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Grabs the ENSDF decay data files</span>
 <span class="sd">    if not already present.</span>
 
 <span class="sd">    Parameters</span>
@@ -302,7 +306,9 @@ if(ga_enabled){
 
 
 <div class="viewcode-block" id="parse_level_data"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.parse_level_data">[docs]</a><span class="k">def</span> <span class="nf">parse_level_data</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Builds and returns a list of nuclide decay data.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds and returns a list of nuclide decay data.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    build_dir : str</span>
@@ -327,7 +333,9 @@ if(ga_enabled){
 
 </div>
 <div class="viewcode-block" id="parse_decay_data"><a class="viewcode-back" href="../../../pyapi/dbgen/decay.html#pyne.dbgen.decay.parse_decay_data">[docs]</a><span class="k">def</span> <span class="nf">parse_decay_data</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Builds and returns a list of nuclide decay data.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds and returns a list of nuclide decay data.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    build_dir : str</span>

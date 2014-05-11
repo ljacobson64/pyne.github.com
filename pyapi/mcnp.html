@@ -35,7 +35,7 @@
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="ALARA Input and Output Interfaces – pyne.alara" href="alara.html" />
+    <link rel="next" title="Serpent Support – pyne.serpent" href="serpent.html" />
     <link rel="prev" title="Mesh-based Variance Reduction – pyne.variancereduction" href="variancereduction.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -68,7 +68,7 @@ if(ga_enabled){
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="alara.html" title="ALARA Input and Output Interfaces – pyne.alara"
+          <a href="serpent.html" title="Serpent Support – pyne.serpent"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="variancereduction.html" title="Mesh-based Variance Reduction – pyne.variancereduction"
@@ -107,7 +107,7 @@ classes.</p>
 available to use.</p>
 <dl class="class">
 <dt id="pyne.mcnp.MeshTally">
-<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">MeshTally</tt><big>(</big><em>f</em>, <em>tally_number</em>, <em>tag_names=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#MeshTally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.MeshTally" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">MeshTally</tt><big>(</big><em>f</em>, <em>tally_number</em>, <em>tag_names=None</em>, <em>mesh_has_mats=False</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#MeshTally"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.MeshTally" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class stores all information from all single MCNP mesh tally that
 exists within some meshtal file. Header information is stored as attributes
 and the &#8220;mesh&#8221; attribute is a MOAB mesh with all result and relative error
@@ -181,10 +181,15 @@ should be instantiated only through the Meshtal class.</p>
 <div><p>The MCNP fmesh4 tally number (e.g. 4, 14, 24).</p>
 </div></blockquote>
 <p><strong>tag_names</strong> : iterable, optional</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Four strs that specify the tag names for the results, relative 
 errors, total results and relative errors of the total results.
 This should come from the Meshtal.tags attribute dict.</p>
+</div></blockquote>
+<p><strong>mesh_has_mats</strong> : bool</p>
+<blockquote class="last">
+<div><p>If false, Meshtally objects will be created without PyNE material
+objects.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -194,7 +199,7 @@ This should come from the Meshtal.tags attribute dict.</p>
 
 <dl class="class">
 <dt id="pyne.mcnp.Meshtal">
-<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">Meshtal</tt><big>(</big><em>filename</em>, <em>tags=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Meshtal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Meshtal" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">Meshtal</tt><big>(</big><em>filename</em>, <em>tags=None</em>, <em>meshes_have_mats=False</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Meshtal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Meshtal" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class stores all the information from an MCNP meshtal file with
 single or multiple fmesh4 neutron or photon tallies. The &#8220;tally&#8221; attribute
 provides key/value access to invidial MeshTally objects.</p>
@@ -208,12 +213,17 @@ provides key/value access to invidial MeshTally objects.</p>
 <div><p>MCNP meshtal file.</p>
 </div></blockquote>
 <p><strong>tags</strong> : dict, optional</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Maps integer tally numbers to iterables containing four strs: the
 results tag name, the relative error tag name, the total results
 tag name, and the total relative error tag name. If tags is None
 the tags are named &#8216;x_result&#8217;, &#8216;x_rel_error&#8217;, &#8216;x_result_total&#8217;, 
 &#8216;x_rel_error_total&#8217; where x is n or p for neutrons or photons.</p>
+</div></blockquote>
+<p><strong>meshes_have_mats</strong> : bool</p>
+<blockquote class="last">
+<div><p>If false, Meshtally objects will be created without PyNE material
+material objects.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -861,8 +871,8 @@ mat_from_mcnp.</p>
   <p class="topless"><a href="variancereduction.html"
                         title="previous chapter">Mesh-based Variance Reduction &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.variancereduction</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="alara.html"
-                        title="next chapter">ALARA Input and Output Interfaces &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.alara</span></tt></a></p>
+  <p class="topless"><a href="serpent.html"
+                        title="next chapter">Serpent Support &#8211; <tt class="docutils literal"><span class="pre">pyne.serpent</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/mcnp.txt"
@@ -900,7 +910,7 @@ mat_from_mcnp.</p>
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="alara.html" title="ALARA Input and Output Interfaces – pyne.alara"
+          <a href="serpent.html" title="Serpent Support – pyne.serpent"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="variancereduction.html" title="Mesh-based Variance Reduction – pyne.variancereduction"

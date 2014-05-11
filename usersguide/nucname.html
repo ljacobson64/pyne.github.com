@@ -95,7 +95,7 @@ three pieces of information that <em>should</em> be included in a radionuclide&#
 <ol class="arabic simple">
 <li><strong>Z Number</strong>: The number of protons.</li>
 <li><strong>A Number</strong>: The number of nucleons (neutrons + protons).</li>
-<li><strong>Excitation Level</strong>: The internal energy state of the nucleus.</li>
+<li><strong>Metastable Level</strong>: The metastable state of the nucleus as defined by ENSDF.</li>
 </ol>
 <p>Some common naming conventions exist.  The following are the ones currently
 supported by PyNE.  Functions to convert between forms may be seen in <a class="reference internal" href="../pyapi/nucname.html#name-cast"><em>Naming Convention Casting Functions</em></a>.</p>
@@ -130,18 +130,24 @@ the valid cinder notation for &#8216;AM242M&#8217;.</li>
 <li><strong>ALARA</strong>: In ALARA format, elements are denoted by the lower case atomic symbol. Isotopes are
 specified by appending a semicolon and A-number. For example, &#8220;fe&#8221; and &#8220;fe:56&#8221; represent
 elemental iron and iron-56 respectively. No metastable flag exists.</li>
+<li><strong>state_id</strong>: The state id naming convention uses the form zzzaaassss. It is different from the
+canonical zzzaaammmm form in that ssss refers to a list of states by ordered by energy. This is
+derived from the levels listed in the ENSDF files for a given nuclide. Using this form is
+dangerous as it may change with new releases of ENSDF data.</li>
+<li><strong>Groundstate</strong>:  In Groundstate format, the nuclide is stored in a form similar to the standard
+id form, but the last four digits are zero to eliminate the information about the nuclides state.</li>
 </ol>
 </div></blockquote>
 <p>If there are more conventions that you would like to see supported, please contact the <a class="reference internal" href="../dev_team.html#dev-team"><em>PyNE Development Team</em></a>.</p>
 <div class="section" id="canonical-form">
 <h2>Canonical Form<a class="headerlink" href="#canonical-form" title="Permalink to this headline">¶</a></h2>
-<p>The <tt class="docutils literal"><span class="pre">zzaaam</span></tt> integer form of nuclide names is the fundamental form of nuclide naming because
+<p>The <tt class="docutils literal"><span class="pre">zzzaaammmm</span></tt> integer form of nuclide names is the fundamental form of nuclide naming because
 it accurately captures all of the needed information in the smallest amount of space.  Given that the
 Z-number may be up to three digits, A-numbers are always three digits, and the excitation level is
-one digit, all possible nuclides are represented on the range <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">zzaaam</span> <span class="pre">&lt;</span> <span class="pre">10000000</span></tt>.  This
+one digit, all possible nuclides are represented on the range <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">zzzaaammmm</span> <span class="pre">&lt;</span> <span class="pre">10000000000</span></tt>.  This
 falls well within 32 bit integers (but sadly outside of the smaller 16 bit ints).</p>
 <p>On the other hand, <tt class="docutils literal"><span class="pre">name</span></tt> string representations may be anywhere from two characters (16 bits)
-up to six characters (48 bits).  So in general, <tt class="docutils literal"><span class="pre">zzaaam</span></tt> is smaller by 50%.  Other forms do
+up to six characters (48 bits).  So in general, <tt class="docutils literal"><span class="pre">zzzaaammmm</span></tt> is smaller by 50%.  Other forms do
 not necessarily contain all of the required information (<tt class="docutils literal"><span class="pre">MCNP</span></tt>) or require additional storage
 space (<tt class="docutils literal"><span class="pre">Serpent</span></tt>).  It may seem pedantic to quibble over the number of bits per nuclide name,
 but these identifiers are used everywhere throughout nuclear code, so it behooves us to be as small
@@ -149,7 +155,7 @@ and fast as possible.</p>
 <p>The other distinct advantage that integer forms have is that you can natively perform arithmetic
 on them.  For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Am-242m</span>
-<span class="n">nuc</span> <span class="o">=</span> <span class="mi">942421</span>
+<span class="n">nuc</span> <span class="o">=</span> <span class="mi">942420001</span>
 
 <span class="c"># Z-number</span>
 <span class="n">zz</span> <span class="o">=</span> <span class="n">nuc</span><span class="o">/</span><span class="mi">10000</span>
@@ -161,9 +167,9 @@ on them.  For example:</p>
 <span class="n">m</span> <span class="o">=</span> <span class="n">nuc</span><span class="o">%</span><span class="mi">10</span>
 </pre></div>
 </div>
-<p>Code internal to PyNE use <tt class="docutils literal"><span class="pre">zzaaam</span></tt>, and except for human readability, you should too!
+<p>Code internal to PyNE use <tt class="docutils literal"><span class="pre">zzzaaammmm</span></tt>, and except for human readability, you should too!
 Natural elements are specified in this form by having zero A-number and excitation flags
-(<tt class="docutils literal"><span class="pre">zzaaam('U')</span> <span class="pre">==</span> <span class="pre">920000</span></tt>).</p>
+(<tt class="docutils literal"><span class="pre">zzzaaammmm('U')</span> <span class="pre">==</span> <span class="pre">920000</span></tt>).</p>
 </div>
 <div class="section" id="examples-of-use">
 <h2>Examples of Use<a class="headerlink" href="#examples-of-use" title="Permalink to this headline">¶</a></h2>

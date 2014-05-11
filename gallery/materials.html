@@ -1799,13 +1799,24 @@ In&nbsp;[1]:
 <div class="output">
 
 
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>
+-c:1: VnVWarning: pyne.nucname is not yet V&amp;V compliant.
+-c:1: VnVWarning: pyne.data is not yet V&amp;V compliant.
+-c:1: VnVWarning: pyne.material is not yet V&amp;V compliant.
+
+</pre>
+</div>
+</div>
+
 <div class="output_area"><div class="prompt output_prompt">
     Out[1]:</div>
 
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-pyne.material.Material({922350: 0.04, 922380: 0.96}, 42.0, -1.0, -1.0, {})
+pyne.material.Material({922350000: 0.04, 922380000: 0.96}, 42.0, -1.0, -1.0, {})
 </pre>
 </div>
 
@@ -1842,18 +1853,18 @@ In&nbsp;[2]:
 <pre>
 Material:
 mass = 9.0
-density= -1.0
+density = -1.0
 atoms per molecule = -1.0
 -------------------------
 H1     0.111111111111
 O16    0.111111111111
-TM169  0.111111111111
+Tm169  0.111111111111
 U235   0.111111111111
 U238   0.111111111111
-PU239  0.111111111111
-PU241  0.111111111111
-AM242  0.111111111111
-CM244  0.111111111111
+Pu239  0.111111111111
+Pu241  0.111111111111
+Am242  0.111111111111
+Cm244  0.111111111111
 
 </pre>
 </div>
@@ -1897,7 +1908,7 @@ In&nbsp;[3]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-{922350: 1.68, 922380: 40.32}
+{922350000: 1.68, 922380000: 40.32}
 </pre>
 </div>
 
@@ -1932,7 +1943,7 @@ In&nbsp;[4]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-{10010: 0.111111111111, 80160: 0.111111111111, 691690: 0.111111111111, 922350: 0.111111111111, 922380: 0.111111111111, 942390: 0.111111111111, 942410: 0.111111111111, 952420: 0.111111111111, 962440: 0.111111111111}
+{10010000: 0.1111111111111111, 80160000: 0.1111111111111111, 691690000: 0.1111111111111111, 922350000: 0.1111111111111111, 922380000: 0.1111111111111111, 942390000: 0.1111111111111111, 942410000: 0.1111111111111111, 952420000: 0.1111111111111111, 962440000: 0.1111111111111111}
 </pre>
 </div>
 
@@ -2011,7 +2022,7 @@ In&nbsp;[6]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-pyne.material.Material({10010: 0.111111111111, 80160: 0.111111111111, 691690: 0.111111111111, 922350: 0.111111111111, 922380: 0.111111111111, 942390: 0.111111111111, 942410: 0.111111111111, 952420: 0.111111111111, 962440: 0.111111111111}, 2.0, -1.0, -1.0, {})
+pyne.material.Material({10010000: 0.11111111111111108, 80160000: 0.11111111111111108, 691690000: 0.11111111111111108, 922350000: 0.11111111111111108, 922380000: 0.11111111111111108, 942390000: 0.11111111111111108, 942410000: 0.11111111111111108, 952420000: 0.11111111111111108, 962440000: 0.11111111111111108}, 2.0, -1.0, -1.0, {})
 </pre>
 </div>
 
@@ -2079,18 +2090,18 @@ In&nbsp;[8]:
 <pre>
 Material:
 mass = 60.0
-density= -1.0
+density = -1.0
 atoms per molecule = -1.0
 -------------------------
 H1     0.0333333333333
 O16    0.0333333333333
-TM169  0.0333333333333
+Tm169  0.0333333333333
 U235   0.0613333333333
 U238   0.705333333333
-PU239  0.0333333333333
-PU241  0.0333333333333
-AM242  0.0333333333333
-CM244  0.0333333333333
+Pu239  0.0333333333333
+Pu241  0.0333333333333
+Am242  0.0333333333333
+Cm244  0.0333333333333
 
 </pre>
 </div>
@@ -2135,7 +2146,7 @@ In&nbsp;[9]:
 <pre>
 Material:
 mass = 10.0
-density= -1.0
+density = -1.0
 atoms per molecule = -1.0
 -------------------------
 H2     3.0
@@ -2182,7 +2193,7 @@ In&nbsp;[10]:
 <pre>
 Material:
 mass = 10.0
-density= -1.0
+density = -1.0
 atoms per molecule = -1.0
 -------------------------
 H2     0.166666666667
@@ -2213,7 +2224,7 @@ In&nbsp;[11]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">leu</span><span class="o">.</span><span class="n">comp</span><span class="p">[</span><span class="mi">922350</span><span class="p">]</span>
+<div class="highlight"><pre><span class="n">leu</span><span class="o">.</span><span class="n">comp</span><span class="p">[</span><span class="mi">922350000</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -2298,7 +2309,7 @@ In&nbsp;[13]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-pyne.material.Material({922350: 0.0736, 922380: 0.8464, 942390: 0.04, 942410: 0.04}, 50.0, -1.0, -1.0, {})
+pyne.material.Material({922350000: 0.07359999999999998, 922380000: 0.8464, 942390000: 0.03999999999999998, 942410000: 0.03999999999999998}, 50.0, -1.0, -1.0, {})
 </pre>
 </div>
 
@@ -2315,7 +2326,7 @@ In&nbsp;[14]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">other_mat</span><span class="p">[:</span><span class="mi">920000</span><span class="p">]</span> <span class="o">=</span> <span class="mf">42.0</span>
+<div class="highlight"><pre><span class="n">other_mat</span><span class="p">[:</span><span class="mi">920000000</span><span class="p">]</span> <span class="o">=</span> <span class="mf">42.0</span>
 <span class="k">print</span> <span class="n">other_mat</span>
 </pre></div>
 
@@ -2331,12 +2342,12 @@ In&nbsp;[14]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Material:
-mass = 50.3333333333
-density= -1.0
+mass = 84.0
+density = -1.0
 atoms per molecule = -1.0
 -------------------------
-H2     0.834437086093
-U235   0.165562913907
+H2     0.5
+U235   0.5
 
 </pre>
 </div>
@@ -2371,7 +2382,7 @@ In&nbsp;[15]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-pyne.material.Material({10010: 0.166666666667, 922350: 0.166666666667, 922380: 0.166666666667, 942390: 0.166666666667, 942410: 0.166666666667, 952420: 0.166666666667}, 0.666666666667, -1.0, -1.0, {})
+pyne.material.Material({10010000: 0.16666666666666663, 922350000: 0.16666666666666663, 922380000: 0.16666666666666663, 942390000: 0.16666666666666663, 942410000: 0.16666666666666663, 952420000: 0.16666666666666663}, 0.666666666667, -1.0, -1.0, {})
 </pre>
 </div>
 
@@ -2424,7 +2435,7 @@ In&nbsp;[16]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-237.9290388038301
+237.92903775287186
 </pre>
 </div>
 
@@ -2450,7 +2461,7 @@ In&nbsp;[17]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">h2o</span> <span class="o">=</span> <span class="n">Material</span><span class="p">({</span><span class="mi">10010</span><span class="p">:</span> <span class="mf">0.11191487328808077</span><span class="p">,</span> <span class="mi">80160</span><span class="p">:</span> <span class="mf">0.8880851267119192</span><span class="p">})</span>
+<div class="highlight"><pre><span class="n">h2o</span> <span class="o">=</span> <span class="n">Material</span><span class="p">({</span><span class="mi">10010000</span><span class="p">:</span> <span class="mf">0.11191487328808077</span><span class="p">,</span> <span class="mi">80160000</span><span class="p">:</span> <span class="mf">0.8880851267119192</span><span class="p">})</span>
 <span class="n">h2o</span><span class="o">.</span><span class="n">molecular_mass</span><span class="p">()</span>
 </pre></div>
 
@@ -2486,7 +2497,7 @@ In&nbsp;[18]:
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="n">h2o</span><span class="o">.</span><span class="n">molecular_mass</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
-<span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_mol</span>
+<span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_molecule</span>
 </pre></div>
 
 </div>
@@ -2546,7 +2557,7 @@ In&nbsp;[19]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-{10010: 2.0, 80160: 1.0}
+{10010000: 2.0, 80160000: 1.0}
 </pre>
 </div>
 
@@ -2563,7 +2574,7 @@ In&nbsp;[20]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_mol</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+<div class="highlight"><pre><span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_molecule</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
 <span class="n">h2o</span><span class="o">.</span><span class="n">to_atom_frac</span><span class="p">()</span>
 </pre></div>
 
@@ -2581,7 +2592,7 @@ In&nbsp;[20]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-{10010: 0.666666666667, 80160: 0.333333333333}
+{10010000: 0.6666666666666666, 80160000: 0.3333333333333333}
 </pre>
 </div>
 
@@ -2612,7 +2623,7 @@ In&nbsp;[21]:
 <span class="n">h2o</span><span class="o">.</span><span class="n">from_atom_frac</span><span class="p">(</span><span class="n">h2o_atoms</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="n">h2o</span><span class="o">.</span><span class="n">comp</span>
-<span class="k">print</span> <span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_mol</span>
+<span class="k">print</span> <span class="n">h2o</span><span class="o">.</span><span class="n">atoms_per_molecule</span>
 <span class="k">print</span> <span class="n">h2o</span><span class="o">.</span><span class="n">mass</span>
 <span class="k">print</span> <span class="n">h2o</span><span class="o">.</span><span class="n">molecular_mass</span><span class="p">()</span>
 </pre></div>
@@ -2628,10 +2639,10 @@ In&nbsp;[21]:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-{10010: 0.111914873288, 80160: 0.888085126712}
+{10010: 0.1111425112195276, 80160000: 0.8888574887804724}
 3.0
-18.010564684
-18.010564684
+17.9949146196
+17.9949146196
 
 </pre>
 </div>
@@ -2674,13 +2685,13 @@ In&nbsp;[22]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Material:
-mass = 269.918868043
-density= -1.0
+mass = 269.918866992
+density = -1.0
 atoms per molecule = 3.0
 ------------------------
-O16    0.118516461895
-U235   0.0352593415242
-U238   0.846224196581
+O16    0.118516462356
+U235   0.0352593415057
+U238   0.846224196138
 
 </pre>
 </div>
@@ -2734,7 +2745,7 @@ In&nbsp;[23]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-pyne.material.Material({922350: 0.05, 922380: 0.95}, 15.0, -1.0, -1.0, {&quot;units&quot;:&quot;kg&quot;})
+pyne.material.Material({922350000: 0.05, 922380000: 0.95}, 15.0, -1.0, -1.0, {})
 </pre>
 </div>
 
@@ -2767,9 +2778,8 @@ In&nbsp;[24]:
 <pre>
 Material:
 mass = 15.0
-density= -1.0
+density = -1.0
 atoms per molecule = -1.0
-units = kg
 -------------------------
 U235   0.05
 U238   0.95
@@ -2789,7 +2799,7 @@ In&nbsp;[25]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">leu</span><span class="o">.</span><span class="n">attrs</span>
+<div class="highlight"><pre><span class="n">leu</span><span class="o">.</span><span class="n">metadata</span>
 </pre></div>
 
 </div>
@@ -2806,7 +2816,7 @@ In&nbsp;[25]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-{&quot;units&quot;:&quot;kg&quot;}
+{}
 </pre>
 </div>
 
@@ -2823,11 +2833,11 @@ In&nbsp;[26]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">leu</span><span class="o">.</span><span class="n">attrs</span>
-<span class="n">a</span><span class="p">[</span><span class="s">&#39;comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Anthony made this material.&#39;</span><span class="p">]</span>
-<span class="n">leu</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;And then Katy made it better!&#39;</span><span class="p">)</span>
-<span class="n">a</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
-<span class="n">leu</span><span class="o">.</span><span class="n">attrs</span>
+<div class="highlight"><pre><span class="n">m</span> <span class="o">=</span> <span class="n">leu</span><span class="o">.</span><span class="n">metadata</span>
+<span class="n">m</span><span class="p">[</span><span class="s">&#39;comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Anthony made this material.&#39;</span><span class="p">]</span>
+<span class="n">leu</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;And then Katy made it better!&#39;</span><span class="p">)</span>
+<span class="n">m</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">leu</span><span class="o">.</span><span class="n">metadata</span>
 </pre></div>
 
 </div>
@@ -2844,7 +2854,7 @@ In&nbsp;[26]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-{&quot;comments&quot;:[&quot;Anthony made this material.&quot;,&quot;And then Katy made it better!&quot;],&quot;id&quot;:42,&quot;units&quot;:&quot;kg&quot;}
+{&quot;comments&quot;:[&quot;Anthony made this material.&quot;,&quot;And then Katy made it better!&quot;],&quot;id&quot;:42}
 </pre>
 </div>
 
@@ -2861,8 +2871,8 @@ In&nbsp;[27]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">leu</span><span class="o">.</span><span class="n">attr</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;solar mass&#39;</span><span class="p">}</span>
-<span class="n">leu</span><span class="o">.</span><span class="n">attr</span>
+<div class="highlight"><pre><span class="n">leu</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;solar mass&#39;</span><span class="p">}</span>
+<span class="n">leu</span><span class="o">.</span><span class="n">metadata</span>
 </pre></div>
 
 </div>
@@ -2879,7 +2889,7 @@ In&nbsp;[27]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-{&apos;units&apos;: &apos;solar mass&apos;}
+{&quot;units&quot;:&quot;solar mass&quot;}
 </pre>
 </div>
 
@@ -2896,7 +2906,7 @@ In&nbsp;[28]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">a</span>
+<div class="highlight"><pre><span class="n">m</span>
 </pre></div>
 
 </div>
@@ -2913,7 +2923,7 @@ In&nbsp;[28]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-{&quot;comments&quot;:[&quot;Anthony made this material.&quot;,&quot;And then Katy made it better!&quot;],&quot;id&quot;:42,&quot;units&quot;:&quot;kg&quot;}
+{&quot;units&quot;:&quot;solar mass&quot;}
 </pre>
 </div>
 
@@ -2930,8 +2940,8 @@ In&nbsp;[29]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">leu</span><span class="o">.</span><span class="n">attr</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;not solar masses&#39;</span>
-<span class="n">leu</span><span class="o">.</span><span class="n">attr</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span>
+<div class="highlight"><pre><span class="n">leu</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;not solar masses&#39;</span>
+<span class="n">leu</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -2948,7 +2958,7 @@ In&nbsp;[29]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-&apos;not solar masses&apos;
+u&apos;not solar masses&apos;
 </pre>
 </div>
 
@@ -2966,21 +2976,6 @@ In&nbsp;[29]:
 <p>As you can see from the above, the attrs interface provides a view into the underlying JSON object. This can be manipulated directly or by renaming it to another variable. Additionally, <code>attrs</code> can be replaced with a new object of the appropriate type. Doing so invalidates any previous views into this container.</p>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">
-In&nbsp;[29]:
-</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class="highlight"><pre> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
 </div>
     </div>
   </div>

@@ -35,7 +35,7 @@
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="Binning Functions – pyne.bins" href="bins.html" />
+    <link rel="next" title="Cross Section Interface – pyne.xs" href="xs/index.html" />
     <link rel="prev" title="Materials – pyne.material" href="material.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -68,7 +68,7 @@ if(ga_enabled){
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="bins.html" title="Binning Functions – pyne.bins"
+          <a href="xs/index.html" title="Cross Section Interface – pyne.xs"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="material.html" title="Materials – pyne.material"
@@ -97,7 +97,7 @@ if(ga_enabled){
 
 <dl class="class">
 <dt id="pyne.mesh.Mesh">
-<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">Mesh</tt><big>(</big><em>mesh=None</em>, <em>mesh_file=None</em>, <em>structured=False</em>, <em>structured_coords=None</em>, <em>structured_set=None</em>, <em>structured_ordering='xyz'</em>, <em>mats=()</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">Mesh</tt><big>(</big><em>mesh=None</em>, <em>structured=False</em>, <em>structured_coords=None</em>, <em>structured_set=None</em>, <em>structured_ordering='xyz'</em>, <em>mats=()</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class houses an iMesh instance and contains methods for various mesh
 operations. Special methods exploit the properties of structured mesh.</p>
 <p class="rubric">Attributes</p>
@@ -132,10 +132,10 @@ a structured mesh.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : iMesh instance, optional</p>
-<p><strong>mesh_file</strong> : str, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : iMesh instance or str, optional</p>
 <blockquote>
-<div><p>File name of file containing iMesh instance.</p>
+<div><p>Either an iMesh instance or a file name of file containing an 
+iMesh instance.</p>
 </div></blockquote>
 <p><strong>structured</strong> : bool, optional</p>
 <blockquote>
@@ -192,12 +192,6 @@ in self.dims.</p>
 </tbody>
 </table>
 <dl class="method">
-<dt id="pyne.mesh.Mesh.add">
-<tt class="descname">add</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the common tags of other to the mesh object.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="pyne.mesh.Mesh.cell_fracs_to_mats">
 <tt class="descname">cell_fracs_to_mats</tt><big>(</big><em>cell_fracs</em>, <em>cell_mats</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.cell_fracs_to_mats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.cell_fracs_to_mats" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function uses the output from dagmc.discretize_geom() and 
@@ -252,12 +246,6 @@ material each cell is made of.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyne.mesh.Mesh.div">
-<tt class="descname">div</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.div"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.div" title="Permalink to this definition">¶</a></dt>
-<dd><p>Divides the common tags of other to the mesh object.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="pyne.mesh.Mesh.elem_volume">
 <tt class="descname">elem_volume</tt><big>(</big><em>ve</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.elem_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.elem_volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the volume of a hexahedral or tetrahedral volume element</p>
@@ -308,12 +296,6 @@ When they are the same, the iterator (0, 1, 2, ... N-1) is returned.</p>
 <dt id="pyne.mesh.Mesh.iter_ve">
 <tt class="descname">iter_ve</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.iter_ve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.iter_ve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator that yields on the volume elements.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyne.mesh.Mesh.mul">
-<tt class="descname">mul</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.mul"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.mul" title="Permalink to this definition">¶</a></dt>
-<dd><p>Multiplies the common tags of other to the mesh object.</p>
 </dd></dl>
 
 <dl class="method">
@@ -394,12 +376,6 @@ and the available keyword arguments.</p>
 <dd><p>Get an iterator over the vertices of the mesh</p>
 <p>See structured_iterate_hex() for an explanation of the order argument
 and the available keyword arguments.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyne.mesh.Mesh.sub">
-<tt class="descname">sub</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.sub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.sub" title="Permalink to this definition">¶</a></dt>
-<dd><p>Substracts the common tags of other to the mesh object.</p>
 </dd></dl>
 
 <dl class="method">
@@ -550,7 +526,7 @@ features to this process.</p>
 Tags of this are untyped and may have any size.  Use this for catch-all tags.
 This makes the following expressions equivalent for a given material property
 name:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
@@ -580,8 +556,8 @@ metadata attributes.</p>
   <p class="topless"><a href="material.html"
                         title="previous chapter">Materials &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.material</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="bins.html"
-                        title="next chapter">Binning Functions &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.bins</span></tt></a></p>
+  <p class="topless"><a href="xs/index.html"
+                        title="next chapter">Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/mesh.txt"
@@ -619,7 +595,7 @@ metadata attributes.</p>
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="bins.html" title="Binning Functions – pyne.bins"
+          <a href="xs/index.html" title="Cross Section Interface – pyne.xs"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="material.html" title="Materials – pyne.material"
