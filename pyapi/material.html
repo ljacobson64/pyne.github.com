@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Materials – pyne.material &mdash; PyNE 0.4-dev</title>
+    <title>Materials – pyne.material &mdash; PyNE 0.5-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4-dev',
+        VERSION:     '0.5-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +32,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
     <link rel="next" title="PyNE Mesh – pyne.mesh" href="mesh.html" />
     <link rel="prev" title="Basic Nuclear Data – pyne.data" href="data.html" /> <script type="text/javascript">
@@ -114,7 +113,7 @@ have two main attributes which define them.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>comp</strong> : dict or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>comp</strong> : dict or str</p>
 <blockquote>
 <div><p>This is the input nuclide component dictionary.  This dictionary need
 not be normalized; Material initialization will automatically
@@ -168,7 +167,7 @@ attributes as ALARA valid comments.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>s</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>s</strong> : str</p>
 <blockquote class="last">
 <div><p>The MCNP material card.</p>
 </div></blockquote>
@@ -192,13 +191,13 @@ comprised of only the non-specified nuclides.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
 <blockquote>
 <div><p>Nuclides to be taken out of the current material.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new material object that only has the members not given in
 nuc_sequence.  The mass of the submaterial is calculated based on
@@ -223,7 +222,7 @@ returns a submaterial.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
 <blockquote>
 <div><p>Lower bound on nuclide range.</p>
 </div></blockquote>
@@ -233,7 +232,7 @@ returns a submaterial.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that does not contain nuclides on the
 given range.</p>
@@ -252,7 +251,7 @@ given range.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>val</strong> : jsoncpp.Value</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>val</strong> : jsoncpp.Value</p>
 <blockquote class="last">
 <div><p>An object-type JSON value.</p>
 </div></blockquote>
@@ -271,7 +270,7 @@ with their natural isotopic distributions.  This function returns a copy.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newmat</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newmat</strong> : Material</p>
 <blockquote class="last">
 <div><p>A copied and expanded material.</p>
 </div></blockquote>
@@ -282,6 +281,16 @@ with their natural isotopic distributions.  This function returns a copy.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyne.material.Material.fluka">
+<tt class="descname">fluka</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.fluka" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a fluka material card
+Parameters none
+&#8212;&#8212;&#8212;-</p>
+<blockquote>
+<div>The sequential material id starting from 26 unless predefined</div></blockquote>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyne.material.Material.from_atom_frac">
 <tt class="descname">from_atom_frac</tt><big>(</big><em>atom_fracs</em><big>)</big><a class="headerlink" href="#pyne.material.Material.from_atom_frac" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads the material composition based on a mapping of atom fractions.</p>
@@ -289,7 +298,7 @@ with their natural isotopic distributions.  This function returns a copy.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : dict</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : dict</p>
 <blockquote class="last">
 <div><p>Dictionary that maps nuclides or materials to atom fractions for
 the material.  The keys may be intergers, strings, or materials.
@@ -329,7 +338,7 @@ This is possible because Materials are hashable.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>Path to HDF5 file that contains the data to read in.</p>
 </div></blockquote>
@@ -364,14 +373,15 @@ nuclides.</p>
 several extendable array datasets.  One array is entitled &#8220;Mass&#8221; while
 the other datasets are nuclide names in name form (&#8220;U235&#8221;, &#8220;NP237&#8221;,
 <em>etc</em>).  For example:</p>
-<div class="highlight-python"><pre>file.h5 (file)
+<div class="highlight-python"><div class="highlight"><pre>file.h5 (file)
     |-- material (group)
         |-- Mass (array)
         |-- H1 (array)
         |-- O16 (array)
         |-- U235 (array)
         |-- PU239 (array)
-        |-- ...</pre>
+        |-- ...
+</pre></div>
 </div>
 <p>The arrays are all of length N, where each row typically represents a
 different fuel cycle pass.  The sum of all of the nuclide arrays should
@@ -380,14 +390,15 @@ sum to one, like Material.comp. This method is deprecated.</p>
 materials.  It consists of a table which stores the material
 information and an array that stores the nuclides (id) which index
 the comp array:</p>
-<div class="highlight-python"><pre>file.h5 (file)
+<div class="highlight-python"><div class="highlight"><pre>file.h5 (file)
     |-- material (table)
         |-- mass (double col)
         |-- density (double col)
         |-- atoms_per_molecule (double col)
         |-- comp (double array col, len of nuc_zz)
     |-- nuc_zz (int array)
-    |-- material_attr (variable length char array)</pre>
+    |-- material_attr (variable length char array)
+</pre></div>
 </div>
 <p>The material table has a string attribute called &#8216;nucpath&#8217; which holds
 the path to the nuclide array inside this HDF5 file.  The same nucpath
@@ -410,7 +421,7 @@ Initialization is therefore a two-step process:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>Path to text file that contains the data to read in.</p>
 </div></blockquote>
@@ -428,7 +439,7 @@ Initialization is therefore a two-step process:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>Path to text file that contains the data to read in.</p>
 </div></blockquote>
@@ -440,19 +451,21 @@ Initialization is therefore a two-step process:</p>
 <p>The text representation of Materials are nuclide identifiers in the
 first column and mass or weight values in the second column.  For
 example, for natural uranium:</p>
-<div class="highlight-python"><pre>922340  0.000055
+<div class="highlight-python"><div class="highlight"><pre>922340  0.000055
 U235    0.00720
-92238   0.992745</pre>
+92238   0.992745
+</pre></div>
 </div>
 <p>Data in this file must be whitespace separated.  Any valid nuclide
 naming scheme may be used for the nuclide identifiers.  Moreover,
 material metadata may be optionally supplied:</p>
-<div class="highlight-python"><pre>Name    NatU
+<div class="highlight-python"><div class="highlight"><pre>Name    NatU
 Mass    42.0
 APerM   1
 922340  0.000055
 U235    0.00720
-92238   0.992745</pre>
+92238   0.992745
+</pre></div>
 </div>
 <p class="rubric">Examples</p>
 <p>This method loads data into a pre-existing Material.
@@ -502,7 +515,7 @@ Initialization is therefore a two-step process:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>json</strong> : jsoncpp.Value</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>json</strong> : jsoncpp.Value</p>
 <blockquote class="last">
 <div><p>An object-type JSON value.</p>
 </div></blockquote>
@@ -522,7 +535,7 @@ current value of the density attribute.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>num_dens</strong> : float, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>num_dens</strong> : float, optional</p>
 <blockquote>
 <div><p>The number density from which to compute the mass density in units
 of [1/cc].</p>
@@ -534,7 +547,7 @@ for water is 3.0.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>density</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>density</strong> : float</p>
 <blockquote class="last">
 <div><p>The density attr [g/cc].</p>
 </div></blockquote>
@@ -546,28 +559,12 @@ for water is 3.0.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.mcnp">
-<tt class="descname">mcnp</tt><big>(</big><em>self</em>, <em>frac_type='mass'</em><big>)</big><a class="headerlink" href="#pyne.material.Material.mcnp" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns an MCNP material card in string form. Relevant
-attributes are added as MCNP valid comments.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>frac_type</strong> : str, optional</p>
+<tt class="descname">mcnp</tt><big>(</big><em>frac_type</em><big>)</big><a class="headerlink" href="#pyne.material.Material.mcnp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an mcnp card
+Parameters
+&#8212;&#8212;&#8212;-</p>
 <blockquote>
-<div><p>Either &#8216;mass&#8217; or &#8216;atom&#8217;. Speficies whether mass or atom fractions
-are used to describe material composition.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>s</strong> : str</p>
-<blockquote class="last">
-<div><p>The MCNP material card.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<div>int 0 means use &#8220;mass&#8221; as the frac_type</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -579,14 +576,14 @@ material.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>atoms_per_molecule</strong> : double, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>atoms_per_molecule</strong> : double, optional</p>
 <blockquote>
 <div><p>Number of atoms to per molecule of material.  Needed to obtain
 proper scaling.  For example, this value for water is 3.0.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mol_mass</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>mol_mass</strong> : float</p>
 <blockquote class="last">
 <div><p>Molecular mass in [amu].</p>
 </div></blockquote>
@@ -605,11 +602,11 @@ nuctopic vector.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>nucvec</strong> : dict</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>nucvec</strong> : dict</p>
 <blockquote class="last">
 <div><p>For a Material mat,</p>
 <div class="math">
-<p><img src="../_images/math/495fec41f9f75e228227f5af0356cc874f1f6c44.png" alt="\mbox{nucvec[nuc]} = \mbox{mat.comp[nuc]} \times \mbox{mat.mass}"/></p>
+<p><img src="../_images/math/32c5864f3f5918fc37e50753cde0795d0f3b1ec0.png" alt="\mbox{nucvec[nuc]} = \mbox{mat.comp[nuc]} \times \mbox{mat.mass}"/></p>
 </div></div></blockquote>
 </td>
 </tr>
@@ -641,7 +638,7 @@ density is computed using the current value of the density attribute.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mass_dens</strong> : float, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mass_dens</strong> : float, optional</p>
 <blockquote>
 <div><p>The mass density from which to compute the number density in units
 of [g/cc].</p>
@@ -653,7 +650,7 @@ for water is 3.0.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>num_dens</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>num_dens</strong> : float</p>
 <blockquote class="last">
 <div><p>The number density [1/cc] of the material.</p>
 </div></blockquote>
@@ -684,7 +681,7 @@ material.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
 <blockquote>
 <div><p>Nuctopes &#8211;OR&#8211; elements to be taken from current stream.
 Members of this list must be integers.  For example, [922350, 942390]
@@ -696,7 +693,7 @@ would take U-235 and Pu-239.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new material object whose members in nuc_sequence have the
 cooresponding mass value.  The mass of the submaterial is
@@ -718,7 +715,7 @@ a new mass weight value.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
 <blockquote>
 <div><p>Lower bound on nuclide range.</p>
 </div></blockquote>
@@ -732,7 +729,7 @@ a new mass weight value.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has nuclides on the given range.</p>
 </div></blockquote>
@@ -755,7 +752,7 @@ a new mass weight value.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Actinide members.</p>
 </div></blockquote>
@@ -774,7 +771,7 @@ only the nuclides of the specified element.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has members of the given element.</p>
 </div></blockquote>
@@ -793,7 +790,7 @@ stream.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Fission Product members.</p>
 </div></blockquote>
@@ -811,7 +808,7 @@ stream.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Lanthanide members.</p>
 </div></blockquote>
@@ -830,7 +827,7 @@ stream.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Minor Actinide members.</p>
 </div></blockquote>
@@ -849,7 +846,7 @@ of only the specified nuclides.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_sequence</strong> : sequence</p>
 <blockquote>
 <div><p>Nuctopes &#8211;OR&#8211; elements to be taken from current stream.
 Members of this list must be integers.  For example, [922350, 942390]
@@ -857,7 +854,7 @@ would take U-235 and Pu-239.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only
 has the members given in nuc_sequence.  The mass of the submaterial
@@ -882,7 +879,7 @@ original material.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Plutonium members.</p>
 </div></blockquote>
@@ -901,7 +898,7 @@ of values.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>lower</strong> : nuclide-name, optional</p>
 <blockquote>
 <div><p>Lower bound on nuclide range.</p>
 </div></blockquote>
@@ -911,7 +908,7 @@ of values.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has nuclides on the given range.</p>
 </div></blockquote>
@@ -930,7 +927,7 @@ stream.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Transuranic members.</p>
 </div></blockquote>
@@ -948,7 +945,7 @@ stream.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>submaterial</strong> : Material</p>
 <blockquote class="last">
 <div><p>A new mass stream object that only has Uranium members.</p>
 </div></blockquote>
@@ -966,7 +963,7 @@ stream.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : mapping</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : mapping</p>
 <blockquote class="last">
 <div><p>Dictionary-like object that maps nuclides to atom fractions in the
 material.</p>
@@ -979,7 +976,7 @@ material.</p>
 
 <dl class="method">
 <dt id="pyne.material.Material.update">
-<tt class="descname">update</tt><big>(</big><span class="optional">[</span><em>E</em><span class="optional">]</span>, <em>**F</em><big>)</big> &rarr; None.  Update D from mapping/iterable E and F.<a class="headerlink" href="#pyne.material.Material.update" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">update</tt><big>(</big><span class="optional">[</span><em>E</em>, <span class="optional">]</span><em>**F</em><big>)</big> &rarr; None.  Update D from mapping/iterable E and F.<a class="headerlink" href="#pyne.material.Material.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>If E present and has a .keys() method, does:     for k in E: D[k] = E[k]
 If E present and lacks .keys() method, does:     for (k, v) in E: D[k] = v
 In either case, this is followed by: for k, v in F.items(): D[k] = v</p>
@@ -999,7 +996,7 @@ to the file with the supplied filename.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>The file to append the material definition to.</p>
 </div></blockquote>
@@ -1018,7 +1015,7 @@ from_hdf5() method).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>Path to HDF5 file to write the data out to.  If the file does not
 exist, it will be created.</p>
@@ -1078,7 +1075,7 @@ table:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>Path to text file to write the data to.  If the file already
 exists, it will be overwritten.</p>
@@ -1104,7 +1101,7 @@ attributes to the file with the supplied filename.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>The file to append the material definition to.</p>
 </div></blockquote>
@@ -1127,7 +1124,7 @@ are used to describe material composition.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>Path to text file to write the data to.  If the file already
 exists, it will be overwritten.</p>
@@ -1158,7 +1155,7 @@ exists, it will be overwritten.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : dict</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>atom_fracs</strong> : dict</p>
 <blockquote>
 <div><p>Dictionary that maps nuclides or materials to atom fractions for the
 material.  The keys may be intergers, strings, or materials. The values
@@ -1189,7 +1186,7 @@ arbitrary metadata about the material.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
 <blockquote class="last">
 <div><p>A material generated from atom fractions.</p>
 </div></blockquote>
@@ -1197,7 +1194,7 @@ arbitrary metadata about the material.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <dl class="last docutils">
 <dt><a class="reference internal" href="#pyne.material.Material.from_atom_frac" title="pyne.material.Material.from_atom_frac"><tt class="xref py py-obj docutils literal"><span class="pre">Material.from_atom_frac</span></tt></a></dt>
@@ -1232,7 +1229,7 @@ This is possible because Materials are hashable.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>Path to HDF5 file that contains the data to read in.</p>
 </div></blockquote>
@@ -1254,7 +1251,7 @@ the HDF5 file.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
 <blockquote class="last">
 <div><p>A material found in the HDF5 file.</p>
 </div></blockquote>
@@ -1262,7 +1259,7 @@ the HDF5 file.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <dl class="last docutils">
 <dt><a class="reference internal" href="#pyne.material.Material.from_hdf5" title="pyne.material.Material.from_hdf5"><tt class="xref py py-obj docutils literal"><span class="pre">Material.from_hdf5</span></tt></a></dt>
@@ -1285,7 +1282,7 @@ the HDF5 file.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>Path to text file that contains the data to read in.</p>
 </div></blockquote>
@@ -1310,7 +1307,7 @@ arbitrary metadata about the material.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
 <blockquote class="last">
 <div><p>A material found in the HDF5 file.</p>
 </div></blockquote>
@@ -1318,7 +1315,7 @@ arbitrary metadata about the material.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <dl class="last docutils">
 <dt><a class="reference internal" href="#pyne.material.Material.from_text" title="pyne.material.Material.from_text"><tt class="xref py py-obj docutils literal"><span class="pre">Material.from_text</span></tt></a></dt>
@@ -1345,7 +1342,7 @@ prefernces between several sources (multiple libraries).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lib</strong> : dict-like, str, or None, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>lib</strong> : dict-like, str, or None, optional</p>
 <blockquote>
 <div><p>The data to intialize the material library with.  If this is a 
 string, it is interpreted as a path to a file.</p>
@@ -1375,7 +1372,7 @@ string, it is interpreted as a path to a file.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>file</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>file</strong> : str</p>
 <blockquote>
 <div><p>A path to an HDF5 file.</p>
 </div></blockquote>
@@ -1401,7 +1398,7 @@ string, it is interpreted as a path to a file.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>file</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>file</strong> : str</p>
 <blockquote class="last">
 <div><p>A path to a JSON file.</p>
 </div></blockquote>
@@ -1460,7 +1457,7 @@ string, it is interpreted as a path to a file.</p>
 
 <dl class="method">
 <dt id="pyne.material.MaterialLibrary.update">
-<tt class="descname">update</tt><big>(</big><span class="optional">[</span><em>E</em><span class="optional">]</span>, <em>**F</em><big>)</big> &rarr; None.  Update D from mapping/iterable E and F.<a class="headerlink" href="#pyne.material.MaterialLibrary.update" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">update</tt><big>(</big><span class="optional">[</span><em>E</em>, <span class="optional">]</span><em>**F</em><big>)</big> &rarr; None.  Update D from mapping/iterable E and F.<a class="headerlink" href="#pyne.material.MaterialLibrary.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>If E present and has a .keys() method, does:     for k in E: D[k] = E[k]
 If E present and lacks .keys() method, does:     for (k, v) in E: D[k] = v
 In either case, this is followed by: for k, v in F.items(): D[k] = v</p>
@@ -1479,7 +1476,7 @@ In either case, this is followed by: for k, v in F.items(): D[k] = v</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>file</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>file</strong> : str</p>
 <blockquote>
 <div><p>A path to an HDF5 file.</p>
 </div></blockquote>
@@ -1505,7 +1502,7 @@ In either case, this is followed by: for k, v in F.items(): D[k] = v</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>file</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>file</strong> : str</p>
 <blockquote class="last">
 <div><p>A path to a JSON file.</p>
 </div></blockquote>
@@ -1541,7 +1538,7 @@ In either case, this is followed by: for k, v in F.items(): D[k] = v</p>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="data.html"
-                        title="previous chapter">Basic Nuclear Data &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.data</span></tt></a></p>
+                        title="previous chapter">Basic Nuclear Data &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.data</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="mesh.html"
                         title="next chapter">PyNE Mesh &#8211; <tt class="docutils literal"><span class="pre">pyne.mesh</span></tt></a></p>
@@ -1597,7 +1594,7 @@ In either case, this is followed by: for k, v in F.items(): D[k] = v</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

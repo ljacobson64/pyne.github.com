@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Enrichement – libpyne_enrichment &mdash; PyNE 0.4-dev</title>
+    <title>Enrichement – libpyne_enrichment &mdash; PyNE 0.5-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4-dev',
+        VERSION:     '0.5-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +32,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
     <link rel="up" title="C++ API" href="index.html" />
     <link rel="next" title="Extra Data Types (header only)" href="extra_types.html" />
     <link rel="prev" title="Materials – libpyne_material" href="material.html" /> <script type="text/javascript">
@@ -258,7 +257,7 @@ if(ga_enabled){
 <div class="line"><em>namespace</em> <strong>pyne</strong></div>
 </div>
 <blockquote>
-<div><p></p>
+<div><p>A container representing enrichment cascades. </p>
 <p></p>
 </div></blockquote>
 <div class="line-block" id="pyne_enrichmentnamespacepyne_1_1enrichment">
@@ -274,7 +273,8 @@ if(ga_enabled){
 </p>
 <blockquote>
 <div><p></p>
-<p>Numeric Solver Functions <div class="highlight-python"><pre> These functions enable the numeric cascade solver.</pre>
+<p>Numeric Solver Functions <div class="highlight-python"><div class="highlight"><pre> These functions enable the numeric cascade solver.
+</pre></div>
 </div>
  Finds the total flow rate (L) over the feed flow rate (F), the number of enriching stages (N), and the number of stripping stages (M). <dl class="docutils">
 <dt><strong>Return</strong></dt>
@@ -489,7 +489,7 @@ if(ga_enabled){
 <div class="line"><em>#include &lt;map&gt;</em></div>
 <div class="line"><em>#include &lt;set&gt;</em></div>
 <div class="line"><em>#include &lt;stdio.h&gt;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/pyne.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/utils.h&#8221;</em></div>
 <div class="line"><em>#include &lt;utility&gt;</em></div>
 <div class="line"><em>#include &lt;limits&gt;</em></div>
 <div class="line"><em>#include &lt;float.h&gt;</em></div>
@@ -515,18 +515,14 @@ if(ga_enabled){
 </div></blockquote>
 <div class="line-block" id="pyne_enrichmentenrichment__cascade_8h">
 <div class="line"><em>file</em> <strong>enrichment_cascade.h</strong></div>
-<div class="line"><em>#include &#8220;pyne.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;utils.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;nucname.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;data.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;material.h&#8221;</em></div>
 </div>
 <blockquote>
-<div><p>A container representing enrichment cascades. </p>
-<p><dl class="docutils">
-<dt><strong>Author</strong></dt>
-<dd>Anthony Scopatz (scopatz&#64;gmail.com) </dd>
-</dl>
-</p>
+<div><p></p>
+<p></p>
 </div></blockquote>
 <div class="line-block" id="pyne_enrichmentenrichment__symbolic_8h">
 <div class="line"><em>file</em> <strong>enrichment_symbolic.h</strong></div>
@@ -617,7 +613,7 @@ if(ga_enabled){
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

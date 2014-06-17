@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nuclear Data – libpyne_data &mdash; PyNE 0.4-dev</title>
+    <title>Nuclear Data – libpyne_data &mdash; PyNE 0.5-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4-dev',
+        VERSION:     '0.5-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +32,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
     <link rel="up" title="C++ API" href="index.html" />
     <link rel="next" title="Materials – libpyne_material" href="material.html" />
     <link rel="prev" title="Reaction Naming – libpyne_rxname" href="rxname.html" /> <script type="text/javascript">
@@ -380,6 +379,56 @@ if(ga_enabled){
 <p><span class="target" id="pyne_datastructpyne_1_1decay__struct_1a9018f86440a2d08bbc0265fa58763aae"></span>double <strong>beta_branch_ratio_error</strong></p>
 <blockquote>
 <div><p>beta branching ratio error of this decay [fraction] </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_datastructpyne_1_1dose__struct">
+<div class="line"><em>struct</em> <strong>pyne::dose_struct</strong></div>
+<div class="line"><em>#include &lt;data.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>A struct matching the dose factor table in nuc_data.h5. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><p><span class="target" id="pyne_datastructpyne_1_1dose__struct_1add9d6d64f1686fd86608cc9b57e98e99"></span>int <strong>nuc</strong></p>
+<blockquote>
+<div><p>nuclide in id form </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1dose__struct_1a10f4ca38562000f4e363b03cc7db6295"></span>double <strong>ext_air_dose</strong></p>
+<blockquote>
+<div><p>nuclide ext_air dose factor [mrem/h per Ci/m^3] </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1dose__struct_1a90105045e29fd906f23751fdcd18c85e"></span>double <strong>ratio</strong></p>
+<blockquote>
+<div><p>ratio of external air dose factor to dose factor due to inhalation </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1dose__struct_1a6e739a3ce777b485fc64cf2b6c4cc32e"></span>double <strong>ext_soil_dose</strong></p>
+<blockquote>
+<div><p>nuclide ext_soil dose factor [mrem/h per Ci/m^2] </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1dose__struct_1a4fe79a99e851c9dc2cdae56a62115850"></span>double <strong>ingest_dose</strong></p>
+<blockquote>
+<div><p>nuclide dose factor due to ingestion [mrem/pCi] </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1dose__struct_1a7917bb1dba3d7cf31cb6276f689a0fa4"></span>double <strong>fluid_frac</strong></p>
+<blockquote>
+<div><p>fraction of activity abosorbed in body fluids </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1dose__struct_1a8c1a88f435f3545cdd6dcbc94d62f0d2"></span>double <strong>inhale_dose</strong></p>
+<blockquote>
+<div><p>nuclide dose factor due to inhalation [mrem/pCi] </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datastructpyne_1_1dose__struct_1a475ab022bf8ec63a446fa5817d020893"></span>char <strong>lung_mod</strong></p>
+<blockquote>
+<div><p>model of lung used (time of biological half life D, W, or Y) </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
@@ -877,7 +926,12 @@ if(ga_enabled){
 </div></blockquote>
 <p><span class="target" id="pyne_datanamespacepyne_1a186a21d47612e2c50c47f44e72190440"></span>std::map&lt; int, double &gt; <strong>q_val_map</strong></p>
 <blockquote>
-<div><p>Mapping from nuclides in id form to their q_values. </p>
+<div><p></p>
+<p>Mapping from nuclides in id form to their q_values and the fraction of Q that comes from gammas. </p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a6c03d8d2c2a8254259d8aef8d13d8ea4"></span>std::map&lt; int, double &gt; <strong>gamma_frac_map</strong></p>
+<blockquote>
+<div><p></p>
 <p></p>
 </div></blockquote>
 <p><span class="target" id="pyne::_load_q_val_map"></span><span class="target" id="pyne_datanamespacepyne_1a4bc2d6406c60d62e570ace1b1710af0a"></span><div class="line-block">
@@ -896,12 +950,12 @@ if(ga_enabled){
 <div><p>Returns the q_value of a nuclide <em>nuc</em>. </p>
 <p>This function will first try to find the q_value data in the q_val_map. If this map is empty, it will load the data from disk. If the nuclide simply cannot be found, the default value returned is 0.0. </p>
 </div></blockquote>
-<p><span class="target" id="pyne::q_val__cP"></span><span class="target" id="pyne_datanamespacepyne_1a9301ba19c96a2938ca53fa5b9a6afccd"></span><div class="line-block">
-<div class="line">double <strong>q_val</strong>(char * nuc)</div>
+<p><span class="target" id="pyne::q_val__cCP"></span><span class="target" id="pyne_datanamespacepyne_1a61a485205f26fb413a232e093af4af96"></span><div class="line-block">
+<div class="line">double <strong>q_val</strong>(const char * nuc)</div>
 </div>
 </p>
 <blockquote>
-<div><p>Returns the q_value of a nuclide <em>nuc</em>. </p>
+<div><p></p>
 <p></p>
 </div></blockquote>
 <p><span class="target" id="pyne::q_val__ss"></span><span class="target" id="pyne_datanamespacepyne_1a256eaa2fcfedbcef6205ea2f3ced15fb"></span><div class="line-block">
@@ -909,7 +963,229 @@ if(ga_enabled){
 </div>
 </p>
 <blockquote>
-<div><p>Returns the q_value of a nuclide <em>nuc</em>. </p>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_frac__i"></span><span class="target" id="pyne_datanamespacepyne_1aef2fb37465ee46726235ea5b16ccad52"></span><div class="line-block">
+<div class="line">double <strong>gamma_frac</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_frac__cCP"></span><span class="target" id="pyne_datanamespacepyne_1a6f6f8aeab28c0e355bfcd6e73b2d0147"></span><div class="line-block">
+<div class="line">double <strong>gamma_frac</strong>(const char * nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::gamma_frac__ss"></span><span class="target" id="pyne_datanamespacepyne_1a65ee3d70d7060637571f65249dc116f9"></span><div class="line-block">
+<div class="line">double <strong>gamma_frac</strong>(std::string nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Dose Factor Data</em><blockquote>
+<div><p><span class="target" id="pyne_datanamespacepyne_1a0444f3d99ae0bd30542884db3474afd9"></span>typedef struct  <a class="reference internal" href="#pyne_datastructpyne_1_1dose__struct"><em>pyne::dose_struct</em></a> <strong>dose_struct</strong></p>
+<blockquote>
+<div><p>A struct matching the dose factor table in nuc_data.h5. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1add109336f81261457c2fcb15a4ed4792"></span>std::map&lt; int,  <a class="reference internal" href="#pyne_datastructpyne_1_1dose__struct"><em>dose_struct</em></a>  &gt; <strong>epa_dose_map</strong></p>
+<blockquote>
+<div><p>Mapping from int to <a class="reference internal" href="#pyne_datastructpyne_1_1dose__struct"><em>dose_struct</em></a> for 3 sources. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a050585172e682bcad6095c53f6d7a1af"></span>std::map&lt; int,  <a class="reference internal" href="#pyne_datastructpyne_1_1dose__struct"><em>dose_struct</em></a>  &gt; <strong>doe_dose_map</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_datanamespacepyne_1a76b47e1ae8a4375871a248fde26832ed"></span>std::map&lt; int,  <a class="reference internal" href="#pyne_datastructpyne_1_1dose__struct"><em>dose_struct</em></a>  &gt; <strong>genii_dose_map</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::_load_dose_map__std::map:i.dose_struct:R.ss"></span><span class="target" id="pyne_datanamespacepyne_1aea97e501b0569be93996cc45b55128aa"></span><div class="line-block">
+<div class="line">void <strong>_load_dose_map</strong>(std::map&lt; int,  <a class="reference internal" href="#pyne_datastructpyne_1_1dose__struct"><em>dose_struct</em></a>  &gt; &amp; dm, std::string source_path)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Loads the dose factor data from the nuc_data.h5 file into memory according to the user-input source. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::ext_air_dose__i.i"></span><span class="target" id="pyne_datanamespacepyne_1a01d3b4d7c1486b00dc025800d010f3c0"></span><div class="line-block">
+<div class="line">double <strong>ext_air_dose</strong>(int nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns the dose factors of a nuclide. </p>
+<p>These functions will first try to find the dose factor data in the dose_maps. If the maps are empty, it will load the data from disk. If the nuclide simply cannot be found, the default value returned is -1. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::ext_air_dose__cCP.i"></span><span class="target" id="pyne_datanamespacepyne_1ab6717bdb001fad4f4cacaff218d974f1"></span><div class="line-block">
+<div class="line">double <strong>ext_air_dose</strong>(const char * nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ext_air_dose__ss.i"></span><span class="target" id="pyne_datanamespacepyne_1a09b2b4735e133e9e4dbf7bc4747634e4"></span><div class="line-block">
+<div class="line">double <strong>ext_air_dose</strong>(std::string nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ext_soil_dose__i.i"></span><span class="target" id="pyne_datanamespacepyne_1a09838b0682aec7c3b6b5d79ab95ed743"></span><div class="line-block">
+<div class="line">double <strong>ext_soil_dose</strong>(int nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ext_soil_dose__cCP.i"></span><span class="target" id="pyne_datanamespacepyne_1a9867f11c3b7e789debe84e2ff01d1ec3"></span><div class="line-block">
+<div class="line">double <strong>ext_soil_dose</strong>(const char * nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ext_soil_dose__ss.i"></span><span class="target" id="pyne_datanamespacepyne_1ab93a398d022c1356b6d1604ce1235cf3"></span><div class="line-block">
+<div class="line">double <strong>ext_soil_dose</strong>(std::string nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ingest_dose__i.i"></span><span class="target" id="pyne_datanamespacepyne_1a887bcaf7058c4b8aba27ba942fe7819a"></span><div class="line-block">
+<div class="line">double <strong>ingest_dose</strong>(int nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ingest_dose__cCP.i"></span><span class="target" id="pyne_datanamespacepyne_1a9531d11f025d049ca7c44ba15ea4c94c"></span><div class="line-block">
+<div class="line">double <strong>ingest_dose</strong>(const char * nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::ingest_dose__ss.i"></span><span class="target" id="pyne_datanamespacepyne_1ad7515a09e37864e74599a14b18d76598"></span><div class="line-block">
+<div class="line">double <strong>ingest_dose</strong>(std::string nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::inhale_dose__i.i"></span><span class="target" id="pyne_datanamespacepyne_1ab1b598dc77d5c5f0c33f4d3d6d14a454"></span><div class="line-block">
+<div class="line">double <strong>inhale_dose</strong>(int nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::inhale_dose__cCP.i"></span><span class="target" id="pyne_datanamespacepyne_1a3dd875f3600663760bc0b85276ccc599"></span><div class="line-block">
+<div class="line">double <strong>inhale_dose</strong>(const char * nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::inhale_dose__ss.i"></span><span class="target" id="pyne_datanamespacepyne_1a5c1b2d84762f22e82b5bf1a635355f8a"></span><div class="line-block">
+<div class="line">double <strong>inhale_dose</strong>(std::string nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::dose_ratio__i.i"></span><span class="target" id="pyne_datanamespacepyne_1a4655c8375ca45fc1823d7bfe97af57cf"></span><div class="line-block">
+<div class="line">double <strong>dose_ratio</strong>(int nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::dose_ratio__cCP.i"></span><span class="target" id="pyne_datanamespacepyne_1a3e5fc0be5bb33de9fac10539d98e48d2"></span><div class="line-block">
+<div class="line">double <strong>dose_ratio</strong>(const char * nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::dose_ratio__ss.i"></span><span class="target" id="pyne_datanamespacepyne_1a3021833a41df2153adb79307d90ac8ba"></span><div class="line-block">
+<div class="line">double <strong>dose_ratio</strong>(std::string nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::dose_fluid_frac__i.i"></span><span class="target" id="pyne_datanamespacepyne_1a992f871d617c59866ae989364c63aba5"></span><div class="line-block">
+<div class="line">double <strong>dose_fluid_frac</strong>(int nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::dose_fluid_frac__cCP.i"></span><span class="target" id="pyne_datanamespacepyne_1a8c25424a3e19e6fcdf50ef1905cc54c9"></span><div class="line-block">
+<div class="line">double <strong>dose_fluid_frac</strong>(const char * nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::dose_fluid_frac__ss.i"></span><span class="target" id="pyne_datanamespacepyne_1a62f4dd3afb44041c8aa08a3876b06ffa"></span><div class="line-block">
+<div class="line">double <strong>dose_fluid_frac</strong>(std::string nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::dose_lung_model__i.i"></span><span class="target" id="pyne_datanamespacepyne_1af1a30dbc37511cb3602b88fb6636fdb6"></span><div class="line-block">
+<div class="line">std::string <strong>dose_lung_model</strong>(int nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::dose_lung_model__cCP.i"></span><span class="target" id="pyne_datanamespacepyne_1a7dce80db3f4bda2a2236f76642aa172f"></span><div class="line-block">
+<div class="line">std::string <strong>dose_lung_model</strong>(const char * nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::dose_lung_model__ss.i"></span><span class="target" id="pyne_datanamespacepyne_1ab04364b0134b606b988222cac7a4bb7e"></span><div class="line-block">
+<div class="line">std::string <strong>dose_lung_model</strong>(std::string nuc, int source)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
@@ -1807,37 +2083,6 @@ if(ga_enabled){
 <p></p>
 </div></blockquote>
 </div></blockquote>
-<em>Gamma Fraction of Q Values Data</em><blockquote>
-<div><p><span class="target" id="pyne_datanamespacepyne_1a6c03d8d2c2a8254259d8aef8d13d8ea4"></span>std::map&lt; int, double &gt; <strong>gamma_frac_map</strong></p>
-<blockquote>
-<div><p>Mapping from nuclides in id form to the fraction of Q that comes from gammas. </p>
-<p></p>
-</div></blockquote>
-<p><span class="target" id="pyne::gamma_frac__i"></span><span class="target" id="pyne_datanamespacepyne_1aef2fb37465ee46726235ea5b16ccad52"></span><div class="line-block">
-<div class="line">double <strong>gamma_frac</strong>(int nuc)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Returns the natural abundance of a nuclide <em>nuc</em>. </p>
-<p>This follows the same the basic rules for finding or computing the fraction of Q that comes from gammas as the q_val() functions do. If the nuclide cannot be found, the default value returned is 0.0. </p>
-</div></blockquote>
-<p><span class="target" id="pyne::gamma_frac__cP"></span><span class="target" id="pyne_datanamespacepyne_1acb84faf7b60b278c7fcc0a24eb936617"></span><div class="line-block">
-<div class="line">double <strong>gamma_frac</strong>(char * nuc)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Returns the gamma_frac of a nuclide <em>nuc</em>. </p>
-<p></p>
-</div></blockquote>
-<p><span class="target" id="pyne::gamma_frac__ss"></span><span class="target" id="pyne_datanamespacepyne_1a65ee3d70d7060637571f65249dc116f9"></span><div class="line-block">
-<div class="line">double <strong>gamma_frac</strong>(std::string nuc)</div>
-</div>
-</p>
-<blockquote>
-<div><p>Returns the gamma_frac of a nuclide <em>nuc</em>. </p>
-<p></p>
-</div></blockquote>
-</div></blockquote>
 <em>Functions</em><blockquote>
 <div><p><span class="target" id="pyne::simple_xs__i.i.ss"></span><span class="target" id="pyne_datanamespacepyne_1abde9d0cbfe70fd1a75a7cb2d1f59e1f1"></span><div class="line-block">
 <div class="line">double <strong>simple_xs</strong>(int nuc, int rx, std::string energy)</div>
@@ -1910,7 +2155,7 @@ if(ga_enabled){
 <div class="line"><em>#include &lt;vector&gt;</em></div>
 <div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/extra_types.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;extra_types.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;pyne.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;utils.h&#8221;</em></div>
 <div class="line"><em>#include &lt;string.h&gt;</em></div>
 <div class="line"><em>#include &lt;sstream&gt;</em></div>
 <div class="line"><em>#include &lt;cctype&gt;</em></div>
@@ -1920,7 +2165,7 @@ if(ga_enabled){
 <div class="line"><em>#include &lt;cstdlib&gt;</em></div>
 <div class="line"><em>#include &lt;algorithm&gt;</em></div>
 <div class="line"><em>#include &#8220;nucname.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/pyne.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/utils.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;rxname.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/nucname.h&#8221;</em></div>
 </div>
@@ -2008,7 +2253,7 @@ if(ga_enabled){
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

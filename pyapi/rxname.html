@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Reaction Names – pyne.rxname &mdash; PyNE 0.4-dev</title>
+    <title>Reaction Names – pyne.rxname &mdash; PyNE 0.5-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4-dev',
+        VERSION:     '0.5-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +32,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
     <link rel="next" title="Basic Nuclear Data – pyne.data" href="data.html" />
     <link rel="prev" title="Nuclide Naming Module – pyne.nucname" href="nucname.html" /> <script type="text/javascript">
@@ -184,8 +183,8 @@ interfaces.</p>
 other reaction canonical forms and the naming conventions and IDs
 used here.  The most widespread of these are arguably the MT
 numbers.  MT numbers are a strict subset of the reactions used here.
-Further information may be found at <a class="reference internal" href="#nndc">[NNDC]</a>, <a class="reference internal" href="#nea">[NEA]</a>, <a class="reference internal" href="#t2">[T2]</a>, and
-<a class="reference internal" href="#jaea">[JAEA]</a>.</p>
+Further information may be found at <a class="reference internal" href="#nndc" id="id1">[NNDC]</a>, <a class="reference internal" href="#nea" id="id2">[NEA]</a>, <a class="reference internal" href="#t2" id="id3">[T2]</a>, and
+<a class="reference internal" href="#jaea" id="id4">[JAEA]</a>.</p>
 </div></blockquote>
 <p>The rxname module implements a suite of functions for computing or
 retrieving reaction names and their associated data described above.
@@ -256,7 +255,7 @@ the <tt class="docutils literal"><span class="pre">_docs</span></tt> array at th
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : str or int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : str or int</p>
 <blockquote>
 <div><p>parent nuclide name or id.</p>
 </div></blockquote>
@@ -270,7 +269,7 @@ the <tt class="docutils literal"><span class="pre">_docs</span></tt> array at th
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>to_nuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>to_nuc</strong> : int</p>
 <blockquote class="last">
 <div><p>a nuclide identifier.</p>
 </div></blockquote>
@@ -288,7 +287,7 @@ the <tt class="docutils literal"><span class="pre">_docs</span></tt> array at th
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
 <blockquote>
 <div><p>name, abbreviation, id, MT number, or from nuclide.</p>
 </div></blockquote>
@@ -302,7 +301,7 @@ the <tt class="docutils literal"><span class="pre">_docs</span></tt> array at th
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>d</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>d</strong> : str</p>
 <blockquote class="last">
 <div><p>a reaction docstring.</p>
 </div></blockquote>
@@ -329,7 +328,7 @@ MT numbers.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
 <blockquote>
 <div><p>name, abbreviation, id, MT number, or from nuclide.</p>
 </div></blockquote>
@@ -343,7 +342,7 @@ MT numbers.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>rxid</strong> : int or long</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rxid</strong> : int or long</p>
 <blockquote class="last">
 <div><p>a unique reaction identifier.</p>
 </div></blockquote>
@@ -361,7 +360,7 @@ MT numbers.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
 <blockquote>
 <div><p>name, abbreviation, id, MT number, or from nuclide.</p>
 </div></blockquote>
@@ -375,7 +374,7 @@ MT numbers.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>lab</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>lab</strong> : str</p>
 <blockquote class="last">
 <div><p>a reaction label.</p>
 </div></blockquote>
@@ -393,7 +392,7 @@ MT numbers.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
 <blockquote>
 <div><p>name, abbreviation, id, MT number, or from nuclide.</p>
 </div></blockquote>
@@ -407,7 +406,7 @@ MT numbers.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mtnum</strong> : int or long</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>mtnum</strong> : int or long</p>
 <blockquote class="last">
 <div><p>a unique MT number.</p>
 </div></blockquote>
@@ -426,7 +425,7 @@ convention and may be used as a variable in most languages.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : str, int, or long</p>
 <blockquote>
 <div><p>name, abbreviation, id, MT number, or from nuclide.</p>
 </div></blockquote>
@@ -440,7 +439,7 @@ convention and may be used as a variable in most languages.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>n</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>n</strong> : str</p>
 <blockquote class="last">
 <div><p>a unique reaction name.</p>
 </div></blockquote>
@@ -458,7 +457,7 @@ convention and may be used as a variable in most languages.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : str or int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : str or int</p>
 <blockquote>
 <div><p>child nuclide name or id.</p>
 </div></blockquote>
@@ -472,7 +471,7 @@ convention and may be used as a variable in most languages.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
 <blockquote class="last">
 <div><p>a nuclide identifier.</p>
 </div></blockquote>
@@ -1574,10 +1573,10 @@ excited state</td>     </tr> </table>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="nucname.html"
-                        title="previous chapter">Nuclide Naming Module &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.nucname</span></tt></a></p>
+                        title="previous chapter">Nuclide Naming Module &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.nucname</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="data.html"
-                        title="next chapter">Basic Nuclear Data &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.data</span></tt></a></p>
+                        title="next chapter">Basic Nuclear Data &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.data</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/rxname.txt"
@@ -1630,7 +1629,7 @@ excited state</td>     </tr> </table>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>C++ API &mdash; PyNE 0.4-dev</title>
+    <title>C++ API &mdash; PyNE 0.5-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4-dev',
+        VERSION:     '0.5-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +32,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
     <link rel="next" title="PyNE Globals – libpyne" href="pyne.html" />
     <link rel="prev" title="TAPE9 Utility – pyne.cli.tape9" href="../pyapi/cli/tape9.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
@@ -113,64 +112,35 @@ to Python.  The differences lie largely in that C functions are strongly typed,
 whereas PyNE&#8217;s wrappers take heavy advantage of Python&#8217;s duck typing.  For most use
 cases, the <a class="reference internal" href="../usersguide/index.html#usersguide"><em>User&#8217;s Guide</em></a>, the <a class="reference internal" href="../pyapi/index.html#pyapi"><em>Python API</em></a>, and the header files should be
 sufficient to describe the C++ API.</p>
-<p>All PyNE shared objects are installed into the <tt class="file docutils literal"><span class="pre">pyne/lib/</span></tt> directory.  The
-headers for both C/C++ and Cython are always installed into the
-<tt class="file docutils literal"><span class="pre">pyne/includes/</span></tt> directory. Unfortunately, where <tt class="file docutils literal"><span class="pre">pyne/</span></tt> is located
-often changes from one system to another. However, these locations may be found from
-the <tt class="docutils literal"><span class="pre">pyne_config</span></tt> module.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">pyne_config</span>
+<p>PyNE creates a single shared object called <tt class="docutils literal"><span class="pre">libpyne.so</span></tt> (or equivalent) and is
+installed into Python&#8217;s <tt class="docutils literal"><span class="pre">&lt;prefix&gt;/lib</span></tt> directory.  The
+headers for C/C++ are installed into the <tt class="file docutils literal"><span class="pre">&lt;prefix&gt;/include/pyne</span></tt> directory.
+Unfortunately, where <tt class="file docutils literal"><span class="pre">&lt;prefix&gt;</span></tt> is located changes based on the Python
+interpreter and arguments passed to <tt class="docutils literal"><span class="pre">setup.py</span></tt> at install time.
+These often change from one system to another. However, these locations may be
+found from either the <tt class="docutils literal"><span class="pre">pyne</span></tt> or the <tt class="docutils literal"><span class="pre">pyne_config</span></tt> module.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">lib</span><span class="p">,</span> <span class="n">includes</span>
 
-<span class="gp">In [2]: </span><span class="n">pyne_config</span><span class="o">.</span><span class="n">lib</span>
-<span class="gr">Out[2]: </span><span class="s">&#39;/usr/lib64/python2.7/site-packages/site-packages/pyne/lib&#39;</span>
+<span class="gp">In [2]: </span><span class="n">lib</span>
+<span class="gr">Out[2]: </span><span class="s">&#39;/usr/lib64&#39;</span>
 
-<span class="gp">In [3]: </span><span class="n">pyne_config</span><span class="o">.</span><span class="n">includes</span>
-<span class="gr">Out[3]: </span><span class="s">&#39;/usr/lib64/python2.7/site-packages/site-packages/pyne/include&#39;</span>
+<span class="gp">In [3]: </span><span class="n">includes</span>
+<span class="gr">Out[3]: </span><span class="s">&#39;/usr/include&#39;</span>
 </pre></div>
 </div>
-<p>The following table displays the C++ shared objects that are currently built (in Linux)
-and which names to use when dynamically linking to them.  For an example of how to
-link please refer to PyNE&#8217;s own <a class="reference external" href="https://github.com/pyne/pyne/blob/staging/setup.py">setup.py</a> file.  Additionally, feel free to contact
-the authors if you require additional assistance.</p>
-<table border="1" class="docutils">
-<caption>Pure C++ Shared Object Libraries</caption>
-<colgroup>
-<col width="21%" />
-<col width="44%" />
-<col width="35%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Module</th>
-<th class="head">Filename</th>
-<th class="head">Link With</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>pyne</td>
-<td>libpyne.so</td>
-<td>&#8216;pyne&#8217;</td>
-</tr>
-<tr class="row-odd"><td>nucname</td>
-<td>libpyne_nucname.so</td>
-<td>&#8216;pyne_nucname&#8217;</td>
-</tr>
-<tr class="row-even"><td>data</td>
-<td>libpyne_data.so</td>
-<td>&#8216;pyne_data&#8217;</td>
-</tr>
-<tr class="row-odd"><td>rxname</td>
-<td>libpyne_rxname.so</td>
-<td>&#8216;pyne_rxname&#8217;</td>
-</tr>
-<tr class="row-even"><td>material</td>
-<td>libpyne_material.so</td>
-<td>&#8216;pyne_material&#8217;</td>
-</tr>
-<tr class="row-odd"><td>enrichment</td>
-<td>libpyne_enrichment.so</td>
-<td>&#8216;pyne_enrichment&#8217;</td>
-</tr>
-</tbody>
-</table>
+<p>Therefore to link against pyne, add the following options to your linker:</p>
+<div class="highlight-bash"><div class="highlight"><pre>-lpyne -L<span class="k">$(</span>python -c <span class="s1">&#39;import pyne; print(pyne.lib)&#39;</span><span class="k">)</span>
+</pre></div>
+</div>
+<p>To include pyne from other C/C++ code, use the top-level pyne header:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &quot;pyne/pyne.h&quot;</span>
+</pre></div>
+</div>
+<p>And be sure that the include directory is on your <tt class="docutils literal"><span class="pre">C_INLCUDE_PATH</span></tt> and
+<tt class="docutils literal"><span class="pre">CPLUS_INLCUDE_PATH</span></tt>.  You can do so from your compiler with:</p>
+<div class="highlight-bash"><div class="highlight"><pre>-I<span class="k">$(</span>python -c <span class="s1">&#39;import pyne; print(pyne.includes)&#39;</span><span class="k">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="amalgamating-pyne-into-a-single-source-file">
 <h2>Amalgamating PyNE into a Single Source File<a class="headerlink" href="#amalgamating-pyne-into-a-single-source-file" title="Permalink to this headline">¶</a></h2>
@@ -281,7 +251,7 @@ version of pyne.</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

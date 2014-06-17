@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ENDF Tokenization &mdash; PyNE 0.4-dev</title>
+    <title>ENDF Tokenization &mdash; PyNE 0.5-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4-dev',
+        VERSION:     '0.5-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,9 +32,9 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
     <link rel="up" title="Developer’s Guide" href="index.html" />
-    <link rel="next" title="PyNE Development Team" href="../dev_team.html" />
+    <link rel="next" title="Building Conda Binaries" href="binaries.html" />
     <link rel="prev" title="Release Instructions" href="release.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
@@ -68,7 +67,7 @@ if(ga_enabled){
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="../dev_team.html" title="PyNE Development Team"
+          <a href="binaries.html" title="Building Conda Binaries"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="release.html" title="Release Instructions"
@@ -92,8 +91,8 @@ if(ga_enabled){
 <p>Here is the implementation of the ENDF tokenizer. The bulk of the work is done
 by endftod() called in the third-to-last-line: it gets hit once for every data
 point in an ENDF file. So we want to make sure it runs quickly.</p>
-<div class="highlight-python"><pre>def fromendf_tok_conv(char * s):
-    """A replacement for numpy.fromstring().
+<div class="highlight-python"><div class="highlight"><pre>def fromendf_tok_conv(char * s):
+    &quot;&quot;&quot;A replacement for numpy.fromstring().
 
     Parameters
     ----------
@@ -105,7 +104,7 @@ point in an ENDF file. So we want to make sure it runs quickly.</p>
     data : ndarray, 1d, float64
         Will always return a 1d float64 array.  You must reshape to the
         appropriate shape.
-    """
+    &quot;&quot;&quot;
     cdef int i, num_entries
     cdef char entry[12]
     cdef long pos = 0
@@ -118,7 +117,8 @@ point in an ENDF file. So we want to make sure it runs quickly.</p>
         strncpy(entry, s+pos, 11)
         cdata[i] = endftod(entry)
         i += 1
-    return cdata</pre>
+    return cdata
+</pre></div>
 </div>
 <p>One might wonder why we are using endftod() to convert from ENDF to float
 instead of the more conventional atof(). The reason is that atof() contains a
@@ -129,10 +129,10 @@ overhead.</p>
 <p>Compare the following two implementations of endftod(), one using
 atof() and the other using our custom endftod().</p>
 <p>This is the implementation in Cython utilizing atof():</p>
-<div class="highlight-python"><pre>def endftod(char * s):
-    """This function converts a number listed on an ENDF tape into a float or int
+<div class="highlight-python"><div class="highlight"><pre>def endftod(char * s):
+    &quot;&quot;&quot;This function converts a number listed on an ENDF tape into a float or int
     depending on whether an exponent is present.
-    """
+    &quot;&quot;&quot;
     cdef char char2 = s[2]
     cdef char char8 = s[8]
     cdef char char9 = s[9]
@@ -140,56 +140,57 @@ atof() and the other using our custom endftod().</p>
     cdef double v
     cdef int i
     for i in range(13):
-        news[i] = ' '
-    if char2 == '.' and (char9 == '+' or char9 == '-'):
+        news[i] = &#39; &#39;
+    if char2 == &#39;.&#39; and (char9 == &#39;+&#39; or char9 == &#39;-&#39;):
         strncpy(news, s, 9)
-        news[9] = 'e'
+        news[9] = &#39;e&#39;
         news[10] = s[9]
         news[11] = s[10]
         v = atof(news)
-    elif char2 == '.' and (char8 == '+' or char8 == '-'):
+    elif char2 == &#39;.&#39; and (char8 == &#39;+&#39; or char8 == &#39;-&#39;):
         strncpy(news, s, 8)
-        news[8] = 'e'
+        news[8] = &#39;e&#39;
         news[9] = s[8]
         news[10] = s[9]
         news[11] = s[10]
         v = atof(news)
     else:
         v = atof(s)
-    return v</pre>
+    return v
+</pre></div>
 </div>
 <p>This is the custom C version, endftod():</p>
-<div class="highlight-python"><pre>double pyne::endftod (char * s)
+<div class="highlight-python"><div class="highlight"><pre>double pyne::endftod (char * s)
 {
   // Converts string from ENDF to float64.
   int pos, mant, exp;
   double v, dbl_exp;
 
   mant = exp = 0;
-  if (s[2] == '.')
+  if (s[2] == &#39;.&#39;)
   // Convert an ENDF float
     {
-      if (s[9] == '+' or s[9] == '-')
+      if (s[9] == &#39;+&#39; or s[9] == &#39;-&#39;)
         {
           // All these factors of ten are from place values.
           mant = s[8] + 10 * s[7] + 100 * s[6] + 1000 * s[5] + 10000 * s[4] + \
-            100000 * s[3] + 1000000 * s[1] - 1111111 * '0';
-          exp = s[10] - '0';
+            100000 * s[3] + 1000000 * s[1] - 1111111 * &#39;0&#39;;
+          exp = s[10] - &#39;0&#39;;
           // Make the right power of 10.
           dbl_exp = (exp &amp; 01? 10.: 1) * \
                     ((exp &gt;&gt;= 1) &amp; 01? 100.: 1) * \
                     ((exp &gt;&gt;= 1) &amp; 01? 1.0e4: 1) * \
                     ((exp &gt;&gt;= 1) &amp; 01? 1.0e8: 1);
           // Adjust for powers of ten from treating mantissa as an integer.
-          dbl_exp = (s[9] == '-'? 1/dbl_exp: dbl_exp) * 1.0e-6;
+          dbl_exp = (s[9] == &#39;-&#39;? 1/dbl_exp: dbl_exp) * 1.0e-6;
           // Get mantissa sign, apply exponent.
-          v = mant * (s[0] == '-'? -1: 1) * dbl_exp;
+          v = mant * (s[0] == &#39;-&#39;? -1: 1) * dbl_exp;
         }
       else
         {
           mant = s[7] + 10 * s[6] + 100 * s[5] + 1000 * s[4] + 10000 * s[3] + \
-            100000 * s[1] - 111111 * '0';
-          exp = s[10] + 10 * s[9] - 11 * '0';
+            100000 * s[1] - 111111 * &#39;0&#39;;
+          exp = s[10] + 10 * s[9] - 11 * &#39;0&#39;;
           dbl_exp = (exp &amp; 01? 10.: 1) * \
                     ((exp &gt;&gt;= 1) &amp; 01? 100.: 1) * \
                     ((exp &gt;&gt;= 1) &amp; 01? 1.0e4: 1) * \
@@ -197,8 +198,8 @@ atof() and the other using our custom endftod().</p>
                     ((exp &gt;&gt;= 1) &amp; 01? 1.0e16: 1) * \
                     ((exp &gt;&gt;= 1) &amp; 01? 1.0e32: 1) * \
                     ((exp &gt;&gt;= 1) &amp; 01? 1.0e64: 1);
-          dbl_exp = (s[8] == '-'? 1/dbl_exp: dbl_exp) * 1.0e-5;
-          v = mant * (s[0] == '-'? -1: 1) * dbl_exp;
+          dbl_exp = (s[8] == &#39;-&#39;? 1/dbl_exp: dbl_exp) * 1.0e-5;
+          v = mant * (s[0] == &#39;-&#39;? -1: 1) * dbl_exp;
         }
     }
 
@@ -209,16 +210,17 @@ atof() and the other using our custom endftod().</p>
       v = 0;
       mant = 1; // Here we use mant for the place value about to be read in.
       pos = 10;
-      while (s[pos] != '-' and s[pos] != '+' and s[pos] != ' ' and pos &gt; 0)
+      while (s[pos] != &#39;-&#39; and s[pos] != &#39;+&#39; and s[pos] != &#39; &#39; and pos &gt; 0)
         {
-          v += mant * (s[pos] - '0');
+          v += mant * (s[pos] - &#39;0&#39;);
           mant *= 10;
           pos--;
         }
-     v *= (s[pos] == '-'? -1: 1);
+     v *= (s[pos] == &#39;-&#39;? -1: 1);
     }
   return v;
-}</pre>
+}
+</pre></div>
 </div>
 <p>The result is an approximate 40% decrease in time spent; timeit shows the atof()
 implementation to take 230ns/loop, and the custom C implementation to take
@@ -250,62 +252,62 @@ are slightly more complicated.</p>
 <p>In the case where y is a linear function of ln(x), we integrate over the region
 like this:</p>
 <div class="math">
-<p><img src="../_images/math/80057b0d4808fa769842522032ed6ff6d03bab20.png" alt="y=A\ln{x}+B \\
+<p><img src="../_images/math/bb155efecaa0505c22c944bdc5a86df90f03f4be.png" alt="y=A\ln{x}+B \\
 y_1=A\ln{x_1}+B \\
 y_2=A\ln{x_2}+B"/></p>
 </div><p>With some algebra, we get:</p>
 <div class="math">
-<p><img src="../_images/math/a76a96d2a05a0a3af4b3e5fe9519e1b7f624f6c8.png" alt="A(\ln{x_1}-\ln{x_2})=y_1-y_2 \\
+<p><img src="../_images/math/3a12223f012dc0daef45ec79ea327c3b5a8df406.png" alt="A(\ln{x_1}-\ln{x_2})=y_1-y_2 \\
 A=\frac{y_1-y_2}{\ln{(x_1/x_2)}} \\
 B=y_1-A\ln{x_1}=y_1-\frac{y_1-y_2}{\ln{(x_1/x_2)}}\ln{x_1}"/></p>
 </div><p>Then we can take the integral and plug in A and B:</p>
 <div class="math">
-<p><img src="../_images/math/05dd72d4cfbc4719677b44b3c198865376e66179.png" alt="\int_{x_1}^{x_2}A\ln{x}+B\mathrm{d}x = A(x\ln{x}-x)|_{x_1}^{x_2}+Bx|_{x_1}^{x_2} = A(x_2\ln{x_2}-x_1\ln{x_1}-x_2+x_1)+B(x_2-x_1)\\
+<p><img src="../_images/math/2dce406e7bd3560098ee775e72b0e03f70ed9837.png" alt="\int_{x_1}^{x_2}A\ln{x}+B\mathrm{d}x = A(x\ln{x}-x)|_{x_1}^{x_2}+Bx|_{x_1}^{x_2} = A(x_2\ln{x_2}-x_1\ln{x_1}-x_2+x_1)+B(x_2-x_1)\\
 \int_{x_1}^{x_2}y(x)\mathrm{d}x = \frac{y_1-y_2}{\ln{(x_1/x_2)}}(x_2\ln{x_2}-x_1\ln{x_1}-x_2+x_1) + (y_1-\frac{y_1-y_2}{\ln{(x_1/x_2)}} \ln{x_1})(x_2-x_1) \\"/></p>
 </div><p>When x is linear in ln(y), we have:</p>
 <div class="math">
-<p><img src="../_images/math/2ba40fda72ee08762060cc00876df8b033edde62.png" alt="x=A\ln{y}+B"/></p>
+<p><img src="../_images/math/28eee81740b073642245bcfca674759f8d96741d.png" alt="x=A\ln{y}+B"/></p>
 </div><p>Since A and B are arbitrary constants, we can express this relation as:</p>
 <div class="math">
-<p><img src="../_images/math/4444f438affe0d5de60de7b5ee118d5fedd7c9c7.png" alt="\ln{y}=Ax+B\\
+<p><img src="../_images/math/be375b68ae84a87d519f2c2001c5c975677b26c8.png" alt="\ln{y}=Ax+B\\
 y = e^{Ax+B}\\
 y_1 = e^{Ax_1+B}\\
 y_2 = e^{Ax_2+B}"/></p>
 </div><p>So now we can solve for A:</p>
 <div class="math">
-<p><img src="../_images/math/340cfe0a65c322ff6dca17cc4eb420fe7470a985.png" alt="\frac{y_1}{y_2} = e^{Ax_1+B-Ax_2-B} = e^{A(x_1-x_2)}\\
+<p><img src="../_images/math/389bbcd7bf0c3dc4094e155f9db20a31ebd91307.png" alt="\frac{y_1}{y_2} = e^{Ax_1+B-Ax_2-B} = e^{A(x_1-x_2)}\\
 ln{\frac{y_1}{y_2}} = A(x_1-x_2)\\
 A = \frac{\ln{(y_1/y_2)}}{x_1-x_2}"/></p>
 </div><p>Plug this in to the original relation to solve for B:</p>
 <div class="math">
-<p><img src="../_images/math/41b5274d3a4ea5b5763f834b44e7a5c686008c7e.png" alt="\ln{y_1} = Ax_1+B\\
+<p><img src="../_images/math/376458a0d62b75afba0f1a58e50f1ef47ea42e32.png" alt="\ln{y_1} = Ax_1+B\\
 B = \ln{y_1}-Ax_1\\
 B = \ln{y_1}-\frac{\ln{(y_1/y_2)}}{x_1-x_2}x_1"/></p>
-</div><p>Now we integrate <img class="math" src="../_images/math/c75a8ebb5af982892336de972f463e7ede2d3393.png" alt="e^{Ax+B}"/>. We all know this one!</p>
+</div><p>Now we integrate <img class="math" src="../_images/math/0a93664afe9a571efe03d2f32ba4593e94492813.png" alt="e^{Ax+B}"/>. We all know this one!</p>
 <div class="math">
-<p><img src="../_images/math/02873cef01db1020b48e516d696ed27067332edf.png" alt="\int_{x_1}^{x_2} e^{Ax+B} \mathrm{d}x = \frac{1}{A}e^{Ax+B}|_{x_1}^{x_2} = \frac{e^B}{A}(e^{Ax_2}-e^{Ax_1})"/></p>
+<p><img src="../_images/math/836fd18ede617e116b0b1f1b98fd3774527090f3.png" alt="\int_{x_1}^{x_2} e^{Ax+B} \mathrm{d}x = \frac{1}{A}e^{Ax+B}|_{x_1}^{x_2} = \frac{e^B}{A}(e^{Ax_2}-e^{Ax_1})"/></p>
 </div><p>Factor stuff out and you get:</p>
 <div class="math">
-<p><img src="../_images/math/42092e6de96e957c42e33a0d060a764afba26754.png" alt="\int_{x_1}^{x_2} e^{Ax+B} \mathrm{d}x = \frac{1}{A}(y_2-y_1)"/></p>
+<p><img src="../_images/math/ab296e0a458f020dd26f59187266411db8d6ca50.png" alt="\int_{x_1}^{x_2} e^{Ax+B} \mathrm{d}x = \frac{1}{A}(y_2-y_1)"/></p>
 </div><p>When ln(y) is linear in ln(x) we have:</p>
 <div class="math">
-<p><img src="../_images/math/39c8c9766acf0a1d19c1b7a5a346dd026fd92629.png" alt="\ln{y} = A\ln{x}+B"/></p>
+<p><img src="../_images/math/96b8cd55e8fe313336c0e9afd6eeeb392baafd6e.png" alt="\ln{y} = A\ln{x}+B"/></p>
 </div><p>Taking e to the power of both sides gives us:</p>
 <div class="math">
-<p><img src="../_images/math/4d9afe803c6e76c6f045e89e29ea9d0745aa3948.png" alt="y = e^Bx^A \\
+<p><img src="../_images/math/b43a2ffca4b97774149ac506a0689b5e816e8073.png" alt="y = e^Bx^A \\
 y_1 = e^Bx_1^A \\
 y_2 = e^Bx_2^A"/></p>
 </div><p>With some algebra we get:</p>
 <div class="math">
-<p><img src="../_images/math/e810d8afded6ca37c5e2b7773a05355dcac78833.png" alt="A = - \frac{\ln{y_2}-\ln{y_1}}{\ln{x_1}-\ln{x_2}} \\
+<p><img src="../_images/math/f3cac8eeba65d210772105376fae0fc3c38bb3a1.png" alt="A = - \frac{\ln{y_2}-\ln{y_1}}{\ln{x_1}-\ln{x_2}} \\
 B = - \frac{\ln{y_1}\ln{x_2} - \ln{y_2}\ln{x_1}}{\ln{x_1}-\ln{x_2}}"/></p>
 </div><p>And finally we can plug A and B into the integral:</p>
 <div class="math">
-<p><img src="../_images/math/2b7eccec232caf24d1863c7af56798e95936c470.png" alt="\int_{x_1}^{x_2}e^Bx^A\mathrm{d}x = e^B (\frac{x^{A+1}}{A+1})|_{x_1}^{x_2}"/></p>
+<p><img src="../_images/math/6b8d788e1e6e7bbd282cca7646370db3c6830945.png" alt="\int_{x_1}^{x_2}e^Bx^A\mathrm{d}x = e^B (\frac{x^{A+1}}{A+1})|_{x_1}^{x_2}"/></p>
 </div><p>The ENDF Manual also mentions a sixth one-dimensional interpolation
 law, described in detail on pp. 23-24. From this, I quote:</p>
 <div class="math">
-<p><img src="../_images/math/9cfe68d5565fb7f29e1056275b67c585a551ab9e.png" alt="\sigma = \frac{A}{E} e^{-\frac{B}{\sqrt{E-T}}}"/></p>
+<p><img src="../_images/math/109822f3383060a0fd4317f5783f221dd2d0fdc0.png" alt="\sigma = \frac{A}{E} e^{-\frac{B}{\sqrt{E-T}}}"/></p>
 </div><p>Where T = 0 for exothermic reactions with Q greater than 0 and equal
 to kinematic threshold energy for endothermic reactions with Q less
 than or equal to 0.</p>
@@ -335,8 +337,8 @@ not implement this (yet).</p>
   <p class="topless"><a href="release.html"
                         title="previous chapter">Release Instructions</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../dev_team.html"
-                        title="next chapter">PyNE Development Team</a></p>
+  <p class="topless"><a href="binaries.html"
+                        title="next chapter">Building Conda Binaries</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/devsguide/endf.txt"
@@ -374,7 +376,7 @@ not implement this (yet).</p>
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="../dev_team.html" title="PyNE Development Team"
+          <a href="binaries.html" title="Building Conda Binaries"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="release.html" title="Release Instructions"
@@ -389,7 +391,7 @@ not implement this (yet).</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

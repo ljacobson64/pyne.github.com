@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Reaction Naming – libpyne_rxname &mdash; PyNE 0.4-dev</title>
+    <title>Reaction Naming – libpyne_rxname &mdash; PyNE 0.5-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -19,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.4-dev',
+        VERSION:     '0.5-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,7 +32,7 @@
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.4-dev" href="../index.html" />
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
     <link rel="up" title="C++ API" href="index.html" />
     <link rel="next" title="Nuclear Data – libpyne_data" href="data.html" />
     <link rel="prev" title="Nuclide Naming – libpyne_nucname" href="nucname.html" /> <script type="text/javascript">
@@ -878,7 +877,7 @@ if(ga_enabled){
 </div></blockquote>
 <p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a82c07eb917d8a590e02a19a4348f56de"></span>void * <strong>_</strong></p>
 <blockquote>
-<div><p>A dummy variable used when calling _fill_maps(). </p>
+<div><p>A dummy variable used when calling #_fill_maps(). </p>
 <p></p>
 </div></blockquote>
 </div></blockquote>
@@ -893,7 +892,7 @@ if(ga_enabled){
 <div class="line"><em>#include &lt;exception&gt;</em></div>
 <div class="line"><em>#include &lt;stdlib.h&gt;</em></div>
 <div class="line"><em>#include &lt;stdio.h&gt;</em></div>
-<div class="line"><em>#include &#8220;pyne.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;utils.h&#8221;</em></div>
 <div class="line"><em>#include &lt;string.h&gt;</em></div>
 <div class="line"><em>#include &lt;sstream&gt;</em></div>
 <div class="line"><em>#include &lt;cctype&gt;</em></div>
@@ -904,20 +903,16 @@ if(ga_enabled){
 <div class="line"><em>#include &lt;vector&gt;</em></div>
 <div class="line"><em>#include &lt;algorithm&gt;</em></div>
 <div class="line"><em>#include &#8220;nucname.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/pyne.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/utils.h&#8221;</em></div>
 </div>
 <blockquote>
-<div><p>Converts between naming conventions for reaction channels. </p>
-<p><dl class="docutils">
-<dt><strong>Author</strong></dt>
-<dd>Anthony Scopatz (scopatz&#64;gmail.com) </dd>
-</dl>
-</p>
+<div><p></p>
+<p></p>
 <em>Defines</em><blockquote>
 <div><p><span class="target" id="pyne_rxnamerxname_8h_1a388727037af9698d2c0e09388876a49d"></span><strong>NUM_RX_NAMES</strong></p>
 <blockquote>
-<div><p>Number of reactions supported by default. </p>
-<p></p>
+<div><p>Converts between naming conventions for reaction channels. </p>
+<p>Number of reactions supported by default. </p>
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
@@ -2018,10 +2013,10 @@ excited state</td>     </tr> </table>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="nucname.html"
-                        title="previous chapter">Nuclide Naming &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">libpyne_nucname</span></tt></a></p>
+                        title="previous chapter">Nuclide Naming &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">libpyne_nucname</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="data.html"
-                        title="next chapter">Nuclear Data &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">libpyne_data</span></tt></a></p>
+                        title="next chapter">Nuclear Data &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">libpyne_data</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/cppapi/rxname.txt"
@@ -2074,7 +2069,7 @@ excited state</td>     </tr> </table>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

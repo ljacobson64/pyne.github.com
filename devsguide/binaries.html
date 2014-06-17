@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building Conda Binaries &mdash; PyNE 0.5-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.5-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
+    <link rel="up" title="Developer’s Guide" href="index.html" />
+    <link rel="next" title="PyNE Development Team" href="../dev_team.html" />
+    <link rel="prev" title="ENDF Tokenization" href="endf.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../dev_team.html" title="PyNE Development Team"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="endf.html" title="ENDF Tokenization"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Developer&#8217;s Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="building-conda-binaries">
+<h1>Building Conda Binaries<a class="headerlink" href="#building-conda-binaries" title="Permalink to this headline">¶</a></h1>
+<p>The basic strategy for building conda binaries is to use the recipe at
+<a class="reference external" href="https://github.com/conda/conda-recipes">https://github.com/conda/conda-recipes</a> to build pyne and change the yaml
+file to the desired branch/tag.</p>
+<p>Get the latest conda-recipes</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/conda/conda-recipes.git
+<span class="nv">$ </span><span class="nb">cd </span>conda-recipes
+</pre></div>
+</div>
+<p>Now edit the &#8220;url:&#8221; line and the version line to match the desired tag and
+version. After this build pyne, install pyne, run nuc_data_make and run the
+tests. In order to use the steps shown below you need jinja2, conda-build,
+binstar and nose installed.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>conda build pyne
+<span class="nv">$ pyneout</span><span class="o">=</span><span class="k">$(</span>conda build --output pyne<span class="k">)</span>
+<span class="nv">$ </span>conda install <span class="nv">$pyneout</span>
+<span class="nv">$ </span>nuc_data_make
+<span class="nv">$ </span><span class="nb">cd</span> ..
+<span class="nv">$ </span>git clone https://github.com/pyne/pyne.git
+<span class="nv">$ </span><span class="nb">cd </span>pyne/tests
+<span class="nv">$ </span>nosetests
+</pre></div>
+</div>
+<p>If all expected tests pass the binary should now be ready to upload to binstar.
+If you are uploading to your personal repo (a good idea so you can test on a
+clean VM before bricking the primary pyne binary) don&#8217;t specify a user.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>binstar upload <span class="nv">$pyneout</span>
+</pre></div>
+</div>
+<p>In order to upload to the primary pyne binary repo specify the user pyne (you
+need the proper priveleges to do this)</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>binstar upload -u pyne <span class="nv">$pyneout</span>
+</pre></div>
+</div>
+<p>You may need to add the &#8211;force option depending on if binstar has added support
+for multiple simultaneous versions (currently not available).</p>
+<p>The strategy is similar on windows but you need to:</p>
+<ol class="arabic simple">
+<li>Install your own copy of cmake</li>
+<li>Use mingw-get to get mingw32-make</li>
+<li>Add just mingw32-make to your path (Do not install gcc with mingw-get!)</li>
+<li>Use the pynewin branch from &#64;crbates <a class="reference external" href="https://github.com/crbates/pyne/tree/pynewin">https://github.com/crbates/pyne/tree/pynewin</a></li>
+<li>Download and install the hdf5 1.8.11 shared library version (VS9 or VS10
+32-bit)</li>
+<li>Add the hdf5 dll&#8217;s to your path</li>
+<li>Write a bld.bat script to build pyne and copy the necessary hdf5 libraries</li>
+<li>Edit the pyne meta.yaml file to include libpython and mingw and remove hdf5
+from both the build and run steps.</li>
+<li>build, test, and upload pyne</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="endf.html"
+                        title="previous chapter">ENDF Tokenization</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../dev_team.html"
+                        title="next chapter">PyNE Development Team</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/devsguide/binaries.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../dev_team.html" title="PyNE Development Team"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="endf.html" title="ENDF Tokenization"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >Developer&#8217;s Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2014, The PyNE Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>
