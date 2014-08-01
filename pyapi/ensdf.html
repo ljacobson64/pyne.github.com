@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -99,24 +100,29 @@ be accessed via the <tt class="docutils literal"><span class="pre">pyne.data</sp
 <div class="section" id="module-pyne.ensdf">
 <span id="ensdf-api"></span><h2>ENSDF API<a class="headerlink" href="#module-pyne.ensdf" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="pyne.ensdf.gamma_rays">
-<tt class="descclassname">pyne.ensdf.</tt><tt class="descname">gamma_rays</tt><big>(</big><em>f</em><big>)</big><a class="reference internal" href="../_modules/pyne/ensdf.html#gamma_rays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ensdf.gamma_rays" title="Permalink to this definition">¶</a></dt>
+<dt id="pyne.ensdf.decays">
+<tt class="descclassname">pyne.ensdf.</tt><tt class="descname">decays</tt><big>(</big><em>filename</em>, <em>decaylist=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/ensdf.html#decays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ensdf.decays" title="Permalink to this definition">¶</a></dt>
 <dd><p>This splits an ENSDF file into datasets. It then passes the dataset to the
 appropriate parser. Currently only a subset of decay datasets are
 supported. The output is a list of objects containing information
-pertaining to a particular decay. This object is described in detail in the
-_parse_decay_dataset function.</p>
+pertaining to a particular decay.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str or file</p>
 <blockquote>
-<div><p>Name of ENSDF formatted file</p>
+<div><p>Name of ENSDF formatted file or a file-like object containing ENSDF
+formatted data</p>
+</div></blockquote>
+<p><strong>decaylist</strong> : list of tuples</p>
+<blockquote>
+<div><p>This is a list object which all newly processed decays will be added
+to. If it&#8217;s None a new one will be created.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>decaylist</strong> : list of tuples</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>decaylist</strong> : list of tuples</p>
 <blockquote>
 <div><p>list of objects containing information pertaining to a particular
 decay. This information is in the following format:</p>
@@ -129,9 +135,9 @@ decay. This information is in the following format:</p>
 <blockquote>
 <div><p>nuc_id of the daughter</p>
 </div></blockquote>
-<p><strong>str</strong> :</p>
+<p><strong>int</strong> :</p>
 <blockquote>
-<div><p>decay type</p>
+<div><p>PyNE reaction id</p>
 </div></blockquote>
 <p><strong>float</strong> :</p>
 <blockquote>
@@ -143,6 +149,10 @@ decay. This information is in the following format:</p>
 </div></blockquote>
 <p><strong>float</strong> :</p>
 <blockquote>
+<div><p>branching ratio (percent)</p>
+</div></blockquote>
+<p><strong>float</strong> :</p>
+<blockquote>
 <div><p>Conversion factor for gamma intensity to photons per 100 decays of the
 parent</p>
 </div></blockquote>
@@ -150,28 +160,23 @@ parent</p>
 <blockquote>
 <div><p>Error in conversion factor for gamma intensity</p>
 </div></blockquote>
-<p><strong>numpy.ndarray</strong> :</p>
+<p><strong>float</strong> :</p>
+<blockquote>
+<div><p>Conversion factor for electron capture/beta intensity to electron
+captures/betas per 100 decays of the parent</p>
+</div></blockquote>
+<p><strong>float</strong> :</p>
+<blockquote>
+<div><p>Error in conversion factor for electron capture/beta intensity</p>
+</div></blockquote>
+<p><strong>list</strong> :</p>
 <blockquote>
 <div><dl class="docutils">
-<dt>X-ray energies and intensities in the following format:</dt>
+<dt>a list containing information about each gamma ray:</dt>
 <dd><ul class="first last simple">
-<li>K_alpha1 energy</li>
-<li>K_alpha1 intensity (multiply by conversion factor for percentage)</li>
-<li>K_alpha2 energy</li>
-<li>K_alpha2 intensity (multiply by conversion factor for percentage)</li>
-<li>K_beta energy</li>
-<li>K_beta intensity (multiply by conversion factor for percentage)</li>
-<li>L energy</li>
-<li>L intensity (multiply by conversion factor for percentage)</li>
-</ul>
-</dd>
-</dl>
-</div></blockquote>
-<p><strong>numpy.ndarray</strong> :</p>
-<blockquote class="last">
-<div><dl class="docutils">
-<dt>a numpy array containing information about each gamma ray:</dt>
-<dd><ul class="first last simple">
+<li>starting level of gamma transition in stats_id form</li>
+<li>final level of gamma transition in state_id form</li>
+<li>original parent</li>
 <li>energy in keV</li>
 <li>uncertainty in energy</li>
 <li>intensity (multiply by conversion factor for percentage)</li>
@@ -180,9 +185,58 @@ parent</p>
 <li>uncertainty in electron conversion intensity</li>
 <li>total transition intensity</li>
 <li>total transition intensity error</li>
+<li>k electron conversion intensity</li>
+<li>l electron conversion intensity</li>
+<li>m electron conversion intensity</li>
 </ul>
 </dd>
 </dl>
+</div></blockquote>
+<p><strong>list</strong> :</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>a list containing information about each alpha:</dt>
+<dd><ul class="first last simple">
+<li>parent nuclide id in state_id form</li>
+<li>child nuclide id in state_id form</li>
+<li>alpha energy</li>
+<li>alpha intensity in percent of total alphas</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>list</strong> :</p>
+<blockquote>
+<div><p>a list containing information about each beta minus from the parent
+decay:</p>
+<blockquote>
+<div><ul class="simple">
+<li>parent nuclide id in state_id form</li>
+<li>child nuclide id in state_id form</li>
+<li>beta endpoint energy</li>
+<li>beta average energy</li>
+<li>beta intensity (multiply by conversion factor for percentage)</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p><strong>list</strong> :</p>
+<blockquote class="last">
+<div><p>a list containing information about each beta plus and electron capture
+from the parent decay:</p>
+<blockquote>
+<div><ul class="simple">
+<li>parent nuclide id in state_id form</li>
+<li>child nuclide id in state_id form</li>
+<li>beta plus endpoint energy</li>
+<li>beta plus average energy</li>
+<li>beta intensity (multiply by conversion factor for percentage)</li>
+<li>electron capture intensity (multiply by conversion factor for
+percentage)</li>
+<li>k electron conversion intensity</li>
+<li>l electron conversion intensity</li>
+<li>m electron conversion intensity</li>
+</ul>
+</div></blockquote>
 </div></blockquote>
 </td>
 </tr>
@@ -191,46 +245,55 @@ parent</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyne.ensdf.origen_data">
-<tt class="descclassname">pyne.ensdf.</tt><tt class="descname">origen_data</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../_modules/pyne/ensdf.html#origen_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ensdf.origen_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function parses assorted data from an ensdf file in order to collect
-the necessary information to generate data for origen input decks.</p>
+<dt id="pyne.ensdf.levels">
+<tt class="descclassname">pyne.ensdf.</tt><tt class="descname">levels</tt><big>(</big><em>filename</em>, <em>levellist=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/ensdf.html#levels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.ensdf.levels" title="Permalink to this definition">¶</a></dt>
+<dd><p>This takes an ENSDF filename or file object and parses the ADOPTED LEVELS
+records to assign level numbers by energy. It also parses the different
+reported decay types and branching ratios.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str or file</p>
 <blockquote>
-<div><p>Name of ENSDF formatted file</p>
+<div><p>Name of ENSDF formatted file or a file-like object containing ENSDF
+formatted data</p>
+</div></blockquote>
+<p><strong>levellist</strong> : list of tuples</p>
+<blockquote>
+<div><p>This is a list object which all newly processed levels will be added
+to. If it&#8217;s None a new one will be created.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>decaylist</strong> : list</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>This is a list of tuples containing:</dt>
-<dd><ul class="first last simple">
-<li>parent nuc_id</li>
-<li>half life of parent</li>
-<li>parent energy level</li>
-<li>half life of daughter</li>
-<li>energy level of daughter</li>
-<li>decay type of parent</li>
-<li>percent of beta + percent of electron capture decays to daughter</li>
-</ul>
-</dd>
-</dl>
-</div></blockquote>
-<p><strong>branchlist</strong> : list</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>levellist</strong> : list of tuples</p>
 <blockquote class="last">
-<div><dl class="docutils">
-<dt>This is a list of tuples containing:</dt>
-<dd><ul class="first last simple">
-<li>parent nuc_id</li>
-<li>energy level of parent</li>
-<li>half life of parent</li>
-<li>dictionary of branching ratios</li>
-</ul>
+<div><p>This is a list of all the level data. Each level has base entry with a
+reaction id of 0 and additional entries for any listed decays. The
+format of each row is:
+nuc_id : int</p>
+<blockquote>
+<div><p>The state_id of the level</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>rx_id <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">The id of the decay &#8220;reaction&#8221; in PyNE reaction id form.</p>
+</dd>
+<dt>half_life <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Half life of the state in s</p>
+</dd>
+<dt>level <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">energy of the level in keV</p>
+</dd>
+<dt>branch_ratio <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">if rx_id != 0 this is the percent of decays in that channel</p>
+</dd>
+<dt>metastable <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">metastable id number of the level (if given)</p>
+</dd>
+<dt>special <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><p class="first last">single character denoting levels with unknown relation to ground
+state</p>
 </dd>
 </dl>
 </div></blockquote>
@@ -262,10 +325,10 @@ the necessary information to generate data for origen input decks.</p>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="endf.html"
-                        title="previous chapter">ENDF File Support &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.endf</span></tt></a></p>
+                        title="previous chapter">ENDF File Support &#8211; <tt class="docutils literal"><span class="pre">pyne.endf</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="cccc.html"
-                        title="next chapter">CCCC Formats &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.cccc</span></tt></a></p>
+                        title="next chapter">CCCC Formats &#8211; <tt class="docutils literal"><span class="pre">pyne.cccc</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/pyapi/ensdf.txt"
@@ -318,7 +381,7 @@ the necessary information to generate data for origen input decks.</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

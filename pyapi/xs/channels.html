@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -76,7 +77,7 @@ if(ga_enabled){
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../index.html" >Python API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Cross Section Interface &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
+          <li><a href="index.html" accesskey="U">Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
       </ul>
     </div>
     </div>
@@ -102,7 +103,7 @@ ratios, etc.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
 <blockquote>
 <div><p>A nuclide or nuclide-atom fraction mapping.</p>
 </div></blockquote>
@@ -126,7 +127,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sigma_f_g</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sigma_f_g</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>The fission cross-section, length G.</p>
 </div></blockquote>
@@ -146,7 +147,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
 <blockquote>
 <div><p>A nuclide or nuclide-atom fraction mapping.</p>
 </div></blockquote>
@@ -170,7 +171,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sig_s_gh</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sig_s_gh</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>The scattering kernel, shape GxG.</p>
 </div></blockquote>
@@ -196,12 +197,12 @@ the h-index.</p>
 <tt class="descclassname">pyne.xs.channels.</tt><tt class="descname">sigma_s</tt><big>(</big><em>nuc</em>, <em>temp=300.0</em>, <em>group_struct=None</em>, <em>phi_g=None</em>, <em>xs_cache=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/channels.html#sigma_s"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.channels.sigma_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the neutron scattering cross section for a nuclide.</p>
 <div class="math">
-<p><img src="../../_images/math/a1b61781f28a20bfe4a537cd44994cfa0b19292a.png" alt="\sigma_{s, g} = \sum_{h} \sigma_{s, g\to h}"/></p>
+<p><img src="../../_images/math/c376f8b907f4355e39b3965bfa1d5c2354d05afa.png" alt="\sigma_{s, g} = \sum_{h} \sigma_{s, g\to h}"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
 <blockquote>
 <div><p>A nuclide or nuclide-atom fraction mapping.</p>
 </div></blockquote>
@@ -225,7 +226,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sig_s_g</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sig_s_g</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>The scattering cross section, length G.</p>
 </div></blockquote>
@@ -243,7 +244,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
 <blockquote>
 <div><p>A nuclide or nuclide-atom fraction mapping.</p>
 </div></blockquote>
@@ -271,7 +272,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sigma_rx_g</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sigma_rx_g</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>The collapsed absorption reaction cross section, length G.</p>
 </div></blockquote>
@@ -279,7 +280,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition seealso">
+<div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">pyne.xs.data_source.RX_TYPES</span></tt>, <tt class="xref py py-obj docutils literal"><span class="pre">pyne.xs.data_source.RX_TYPES_MAP</span></tt></p>
 </div>
@@ -298,7 +299,7 @@ via sigma_ms = ratio * sigma_ground.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
 <blockquote>
 <div><p>A nuclide or nuclide-atom fraction mapping.</p>
 </div></blockquote>
@@ -326,7 +327,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratio_rx_g</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratio_rx_g</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>An array of the ratio of the metastable cross section for a reaction 
 to the ground state reaction.</p>
@@ -335,7 +336,7 @@ to the ground state reaction.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition seealso">
+<div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">pyne.xs.data_source.RX_TYPES</span></tt>, <tt class="xref py py-obj docutils literal"><span class="pre">pyne.xs.data_source.RX_TYPES_MAP</span></tt></p>
 </div>
@@ -351,7 +352,7 @@ to the ground state reaction.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
 <blockquote>
 <div><p>A nuclide or nuclide-atom fraction mapping.</p>
 </div></blockquote>
@@ -375,7 +376,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sigma_a_g</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sigma_a_g</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>The collapsed absorption cross section, length G.</p>
 </div></blockquote>
@@ -395,7 +396,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
 <blockquote>
 <div><p>A nuclide or nuclide-atom fraction mapping.</p>
 </div></blockquote>
@@ -423,7 +424,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>chi_g</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>chi_g</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>The fission energy spectrum, length G.</p>
 </div></blockquote>
@@ -431,7 +432,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition seealso">
+<div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <dl class="last docutils">
 <dt><a class="reference internal" href="models.html#pyne.xs.models.chi" title="pyne.xs.models.chi"><tt class="xref py py-obj docutils literal"><span class="pre">pyne.xs.models.chi</span></tt></a></dt>
@@ -445,12 +446,12 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 <tt class="descclassname">pyne.xs.channels.</tt><tt class="descname">sigma_t</tt><big>(</big><em>nuc</em>, <em>temp=300.0</em>, <em>group_struct=None</em>, <em>phi_g=None</em>, <em>xs_cache=None</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/channels.html#sigma_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.channels.sigma_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the total neutron cross section for a nuclide.</p>
 <div class="math">
-<p><img src="../../_images/math/9195150fbe6d55c112f1b1bbd62f2d7d2c648a4d.png" alt="\sigma_{t, g} = \sigma_{a, g} + \sigma_{s, g}"/></p>
+<p><img src="../../_images/math/a01bcf4bd222857d46fb4699d57aabcf57a70d5b.png" alt="\sigma_{t, g} = \sigma_{a, g} + \sigma_{s, g}"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int, str, Material, or dict-like</p>
 <blockquote>
 <div><p>A nuclide or nuclide-atom fraction mapping.</p>
 </div></blockquote>
@@ -474,7 +475,7 @@ xs_cache[&#8216;phi_g&#8217;].</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sig_t_g</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sig_t_g</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>The total cross section, length G.</p>
 </div></blockquote>
@@ -497,10 +498,10 @@ xs_cache[&#8216;phi_g&#8217;].</p>
         </a></p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="cache.html"
-                        title="previous chapter">Cross Section Cache &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.xs.cache</span></tt></a></p>
+                        title="previous chapter">Cross Section Cache &#8211; <tt class="docutils literal"><span class="pre">pyne.xs.cache</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../transmute/index.html"
-                        title="next chapter">Transmutation &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.transmute</span></tt></a></p>
+                        title="next chapter">Transmutation &#8211; <tt class="docutils literal"><span class="pre">pyne.transmute</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/pyapi/xs/channels.txt"
@@ -547,14 +548,14 @@ xs_cache[&#8216;phi_g&#8217;].</p>
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../index.html" >Python API</a> &raquo;</li>
-          <li><a href="index.html" >Cross Section Interface &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
+          <li><a href="index.html" >Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

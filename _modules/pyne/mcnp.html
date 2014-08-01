@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -1602,7 +1603,7 @@ if(ga_enabled){
 <span class="sd">        of spacial bounds in the i, j, k dimensions.</span>
 <span class="sd">    mesh : Mesh object</span>
 <span class="sd">        with a structured mesh containing all the neutron and/or</span>
-<span class="sd">        photon mass window lower bounds. These tags have the form</span>
+<span class="sd">        photon weight window lower bounds. These tags have the form</span>
 <span class="sd">        &quot;ww_X&quot; where X is n or p The mesh has rootSet tags in the form</span>
 <span class="sd">        X_e_upper_bounds.</span>
 
@@ -1955,7 +1956,7 @@ if(ga_enabled){
 </div></div>
 <div class="viewcode-block" id="Meshtal"><a class="viewcode-back" href="../../pyapi/mcnp.html#pyne.mcnp.Meshtal">[docs]</a><span class="k">class</span> <span class="nc">Meshtal</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class stores all the information from an MCNP meshtal file with</span>
-<span class="sd">    single or multiple fmesh4 neutron or photon tallies. The &quot;tally&quot; attribute</span>
+<span class="sd">    single or multiple fmesh4 neutron or photon tallies. The &#39;tally&#39; attribute</span>
 <span class="sd">    provides key/value access to invidial MeshTally objects.</span>
 
 <span class="sd">    Attributes</span>
@@ -1971,16 +1972,14 @@ if(ga_enabled){
 <span class="sd">    histories : int</span>
 <span class="sd">        Number of histories from the MCNP simulation</span>
 <span class="sd">    tally : dict</span>
-<span class="sd">        A dictionary with MCNP fmesh4 tally numbers</span>
-<span class="sd">        (e.g. 4, 14, 24) as keys and</span>
-<span class="sd">        MeshTally objects as values.</span>
+<span class="sd">        A dictionary with MCNP fmesh4 tally numbers (e.g. 4, 14, 24) as keys </span>
+<span class="sd">        and MeshTally objects as values.</span>
 <span class="sd">    tags : dict</span>
 <span class="sd">        Maps integer tally numbers to iterables containing four strs, the</span>
 <span class="sd">        results tag name, the relative error tag name, the total results</span>
 <span class="sd">        tag name, and the total relative error tag name. If tags is None</span>
 <span class="sd">        the tags are named &#39;x_result&#39;, &#39;x_rel_error&#39;, &#39;x_result_total&#39;, </span>
 <span class="sd">        &#39;x_rel_error_total&#39; where x is n or p for neutrons or photons.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">meshes_have_mats</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
@@ -2362,7 +2361,7 @@ if(ga_enabled){
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

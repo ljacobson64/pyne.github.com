@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -76,7 +77,7 @@ if(ga_enabled){
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../index.html" >Python API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Cross Section Interface &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
+          <li><a href="index.html" accesskey="U">Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
       </ul>
     </div>
     </div>
@@ -122,12 +123,12 @@ in the same direction as <strong>E_g</strong>.</li>
 This is based on the incident energy and the mass of the target.
 For a proof, use the conservation of energy and momentum.</p>
 <div class="math">
-<p><img src="../../_images/math/4929c783bc91f6716f38ea3682c3e4c0c6cbc275.png" alt="\mbox{min}(E^\prime) = \left(\frac{M_A - m_n}{M_A + m_n}\right)^2 E"/></p>
+<p><img src="../../_images/math/f13a264ea0d65bc08dadb59ccf0a75d79a101b53.png" alt="\mbox{min}(E^\prime) = \left(\frac{M_A - m_n}{M_A + m_n}\right)^2 E"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>E</strong> : float (or array)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E</strong> : float (or array)</p>
 <blockquote>
 <div><p>The incident energy of the neutron prior to scattering event [MeV].</p>
 </div></blockquote>
@@ -137,7 +138,7 @@ For a proof, use the conservation of energy and momentum.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>min_E_prime</strong> : float (or array)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>min_E_prime</strong> : float (or array)</p>
 <blockquote class="last">
 <div><p>Minimum exiting energy.</p>
 </div></blockquote>
@@ -152,12 +153,12 @@ For a proof, use the conservation of energy and momentum.</p>
 <tt class="descclassname">pyne.xs.models.</tt><tt class="descname">alpha</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.xs.models.alpha" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scattering kernel alpha value.</p>
 <div class="math">
-<p><img src="../../_images/math/ed875bba05b67cd16090ae6f5094a5a8f7fd0230.png" alt="\alpha = \frac{E^\prime + E - 2\sqrt{E^\prime E}\cos\theta}{\frac{M_A}{m_n}kT}"/></p>
+<p><img src="../../_images/math/1644c3a525c8489247aba4144590cb162e7828c6.png" alt="\alpha = \frac{E^\prime + E - 2\sqrt{E^\prime E}\cos\theta}{\frac{M_A}{m_n}kT}"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>E_prime</strong> : float (or array)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E_prime</strong> : float (or array)</p>
 <blockquote>
 <div><p>The exiting energy of the neutron after scattering event [MeV].</p>
 </div></blockquote>
@@ -179,7 +180,7 @@ For a proof, use the conservation of energy and momentum.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>a</strong> : float (or array)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>a</strong> : float (or array)</p>
 <blockquote class="last">
 <div><p>alpha value</p>
 </div></blockquote>
@@ -194,12 +195,12 @@ For a proof, use the conservation of energy and momentum.</p>
 <tt class="descclassname">pyne.xs.models.</tt><tt class="descname">alpha_at_theta_0</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.xs.models.alpha_at_theta_0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scattering kernel alpha value at the lower bound of the scattering angle.</p>
 <div class="math">
-<p><img src="../../_images/math/ead4b21a8b83aef724f547207ad14b0f75c87e64.png" alt="\alpha_{\theta=0} = \frac{E^\prime + E - 2\sqrt{E^\prime E}}{\frac{M_A}{m_n}kT}"/></p>
+<p><img src="../../_images/math/1253c079e7cc814275097de794392e6745b6364c.png" alt="\alpha_{\theta=0} = \frac{E^\prime + E - 2\sqrt{E^\prime E}}{\frac{M_A}{m_n}kT}"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>E_prime</strong> : float (or array)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E_prime</strong> : float (or array)</p>
 <blockquote>
 <div><p>The exiting energy of the neutron after scattering event [MeV].</p>
 </div></blockquote>
@@ -217,7 +218,7 @@ For a proof, use the conservation of energy and momentum.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>a</strong> : float (or array)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>a</strong> : float (or array)</p>
 <blockquote class="last">
 <div><p>alpha value with theta = 0.</p>
 </div></blockquote>
@@ -232,12 +233,12 @@ For a proof, use the conservation of energy and momentum.</p>
 <tt class="descclassname">pyne.xs.models.</tt><tt class="descname">alpha_at_theta_pi</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.xs.models.alpha_at_theta_pi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scattering kernel alpha value at the upper bound of the scattering angle.</p>
 <div class="math">
-<p><img src="../../_images/math/952fe9c0f0e62ca74e4f8326224364397ec7d2f3.png" alt="\alpha_{\theta=\pi} = \frac{E^\prime + E + 2\sqrt{E^\prime E}}{\frac{M_A}{m_n}kT}"/></p>
+<p><img src="../../_images/math/50eeb989d6de9f274167caaa98049a042dbb1b76.png" alt="\alpha_{\theta=\pi} = \frac{E^\prime + E + 2\sqrt{E^\prime E}}{\frac{M_A}{m_n}kT}"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>E_prime</strong> : float (or array)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E_prime</strong> : float (or array)</p>
 <blockquote>
 <div><p>The exiting energy of the neutron after scattering event [MeV].</p>
 </div></blockquote>
@@ -255,7 +256,7 @@ For a proof, use the conservation of energy and momentum.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>a</strong> : float (or array)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>a</strong> : float (or array)</p>
 <blockquote class="last">
 <div><p>alpha value with theta = pi.</p>
 </div></blockquote>
@@ -270,12 +271,12 @@ For a proof, use the conservation of energy and momentum.</p>
 <tt class="descclassname">pyne.xs.models.</tt><tt class="descname">beta</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.xs.models.beta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scattering kernel beta value.</p>
 <div class="math">
-<p><img src="../../_images/math/d43f4f88db4d097bc8d27cd6fd17f898030e3597.png" alt="\beta = \frac{E^\prime - E}{kT}"/></p>
+<p><img src="../../_images/math/b884552b777d165e37b7abb039cddd35943ee42c.png" alt="\beta = \frac{E^\prime - E}{kT}"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>E_prime</strong> : float (or array)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E_prime</strong> : float (or array)</p>
 <blockquote>
 <div><p>The exiting energy of the neutron after scattering event [MeV].</p>
 </div></blockquote>
@@ -289,7 +290,7 @@ For a proof, use the conservation of energy and momentum.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>b</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>b</strong> : float</p>
 <blockquote class="last">
 <div><p>beta value.</p>
 </div></blockquote>
@@ -326,7 +327,7 @@ partial_energies keyword arguments.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sigma_n</strong> : array-like of floats)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>sigma_n</strong> : array-like of floats)</p>
 <blockquote>
 <div><p>A high-fidelity cross-section.</p>
 </div></blockquote>
@@ -357,7 +358,7 @@ If present, E_g is needed as well.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sigma_g</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sigma_g</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>An array of the collapsed fission cross-section.</p>
 </div></blockquote>
@@ -373,18 +374,18 @@ If present, E_g is needed as well.</p>
 <dd><p>The inverse of the Lorentz factor sqared. Sometimes used as 
 a realitivistic correction factor for the bound scattering length.</p>
 <div class="math">
-<p><img src="../../_images/math/a4689cec16d623d0c02ebfb87b2276443aaf57e5.png" alt="\frac{1}{\gamma^2} = \left( 1 - \frac{2E}{931.46 \cdot m_n} \right)"/></p>
+<p><img src="../../_images/math/08debc8f364c4be1271aba24a4773fa9764991c1.png" alt="\frac{1}{\gamma^2} = \left( 1 - \frac{2E}{931.46 \cdot m_n} \right)"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>E</strong> : float (or array)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E</strong> : float (or array)</p>
 <blockquote>
 <div><p>The incident energy of the neutron prior to scattering event [MeV].</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>inv_g2</strong> : float (or array)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>inv_g2</strong> : float (or array)</p>
 <blockquote class="last">
 <div><p>Inverse of gamma squared.</p>
 </div></blockquote>
@@ -404,7 +405,7 @@ The group structures must have the same monotonicity. This is useful for perform
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>E_g</strong> : sequence of floats</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E_g</strong> : sequence of floats</p>
 <blockquote>
 <div><p>Lower resolution energy group structure [MeV] that is of length G+1.</p>
 </div></blockquote>
@@ -414,7 +415,7 @@ The group structures must have the same monotonicity. This is useful for perform
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pem</strong> : 2d numpy float array of fractions</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>pem</strong> : 2d numpy float array of fractions</p>
 <blockquote class="last">
 <div><p>This is a GxN sized matrix that when dotted with a high-resolution 
 flux (or cross section) produces a low-resolution flux (or cross section).</p>
@@ -435,7 +436,7 @@ Here, both of the energy arrays must be monotonic. This is useful for performing
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>E_g</strong> : 1d numpy float array</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E_g</strong> : 1d numpy float array</p>
 <blockquote>
 <div><p>Lower resolution energy group structure [MeV] that is of length G+1. 
 Ordered based on slope.</p>
@@ -453,7 +454,7 @@ monotonicly decreasing (highest-to-lowest).</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pem</strong> : 2d numpy float array of fractions</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>pem</strong> : 2d numpy float array of fractions</p>
 <blockquote class="last">
 <div><p>This is a GxN sized matrix that when dotted with a high-resolution 
 flux (or cross section) produces a low-resolution flux (or cross section).</p>
@@ -473,7 +474,7 @@ a higher resolution groups E_n, and a higher resolution flux phi_n.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>E_g</strong> : sequence of floats</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E_g</strong> : sequence of floats</p>
 <blockquote>
 <div><p>Lower resolution energy group structure [MeV] that is of length G+1.</p>
 </div></blockquote>
@@ -487,7 +488,7 @@ a higher resolution groups E_n, and a higher resolution flux phi_n.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>phi_g</strong> : numpy array of floats</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>phi_g</strong> : numpy array of floats</p>
 <blockquote class="last">
 <div><p>The flux collapsed to G energy groups.</p>
 </div></blockquote>
@@ -505,14 +506,14 @@ accounts for both one-over-v dependence and relativistic effects and the
 bound scattering length provided.  This model does not include resonances.
 This function works on both float and array values for the energy.</p>
 <div class="math">
-<p><img src="../../_images/math/0d8ff7f3599a8d29b641e08e99e2763151bdeccc.png" alt="\sigma_s(E) = 4 \pi b^2 \cdot \left( 1 - \frac{2E}{931.46 \cdot m_n} \right) \cdot
+<p><img src="../../_images/math/f4ae893c25104f236d96361b91ef0f1879b547ac.png" alt="\sigma_s(E) = 4 \pi b^2 \cdot \left( 1 - \frac{2E}{931.46 \cdot m_n} \right) \cdot
               \left( 1 + \frac{m_n}{M_A} \frac{kT}{E} \cdot e^{-\frac{M_A}{m_n}\frac{E}{kT}} \right) 
               \cdot \left( 1 - \mbox{Exp}\left[-\sqrt{\frac{0.1}{E}}\right] \right)"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>E</strong> : float or array-like</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E</strong> : float or array-like</p>
 <blockquote>
 <div><p>The incident energy of the neutron prior to the scattering event [MeV].</p>
 </div></blockquote>
@@ -530,7 +531,7 @@ This function works on both float and array values for the energy.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sig_s</strong> : float or ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sig_s</strong> : float or ndarray</p>
 <blockquote class="last">
 <div><p>The scattering cross section evaluated at the given energy.</p>
 </div></blockquote>
@@ -538,7 +539,7 @@ This function works on both float and array values for the energy.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition seealso">
+<div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <dl class="last docutils">
 <dt><a class="reference internal" href="../data.html#pyne.data.b" title="pyne.data.b"><tt class="xref py py-obj docutils literal"><span class="pre">pyne.data.b</span></tt></a></dt>
@@ -555,18 +556,18 @@ This function works on both float and array values for the energy.</p>
 <dd><p>Computes the constant scattering cross-section based on the 
 scattering length.</p>
 <div class="math">
-<p><img src="../../_images/math/cbcfacd99d59973335fa49a63941d9512df25b96.png" alt="\sigma_s = 4 \pi b^2"/></p>
+<p><img src="../../_images/math/25486a7dfa19fb2a1cb3d3ec6eecf606c32e593e.png" alt="\sigma_s = 4 \pi b^2"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>b</strong> : float (or array)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>b</strong> : float (or array)</p>
 <blockquote>
 <div><p>The bound scattering length [cm] of the target nucleus.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sig_s</strong> : float (or array)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sig_s</strong> : float (or array)</p>
 <blockquote class="last">
 <div><p>The micorscopic scattering cross-section [barns].</p>
 </div></blockquote>
@@ -574,7 +575,7 @@ scattering length.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition seealso">
+<div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <dl class="last docutils">
 <dt><a class="reference internal" href="../data.html#pyne.data.b" title="pyne.data.b"><tt class="xref py py-obj docutils literal"><span class="pre">pyne.data.b</span></tt></a></dt>
@@ -605,10 +606,10 @@ scattering length.</p>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Cross Section Interface &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.xs</span></tt></a></p>
+                        title="previous chapter">Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="data_source.html"
-                        title="next chapter">Cross Section Data Sources &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.xs.data_source</span></tt></a></p>
+                        title="next chapter">Cross Section Data Sources &#8211; <tt class="docutils literal"><span class="pre">pyne.xs.data_source</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/pyapi/xs/models.txt"
@@ -655,14 +656,14 @@ scattering length.</p>
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
 
           <li><a href="../index.html" >Python API</a> &raquo;</li>
-          <li><a href="index.html" >Cross Section Interface &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
+          <li><a href="index.html" >Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a> &raquo;</li> 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

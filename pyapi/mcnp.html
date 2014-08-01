@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -171,7 +172,7 @@ should be instantiated only through the Meshtal class.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>f</strong> : filestream</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>f</strong> : filestream</p>
 <blockquote>
 <div><p>Open to the neutron/photon line.</p>
 </div></blockquote>
@@ -200,14 +201,56 @@ objects.</p>
 <dt id="pyne.mcnp.Meshtal">
 <em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">Meshtal</tt><big>(</big><em>filename</em>, <em>tags=None</em>, <em>meshes_have_mats=False</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Meshtal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Meshtal" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class stores all the information from an MCNP meshtal file with
-single or multiple fmesh4 neutron or photon tallies. The &#8220;tally&#8221; attribute
+single or multiple fmesh4 neutron or photon tallies. The &#8216;tally&#8217; attribute
 provides key/value access to invidial MeshTally objects.</p>
 <p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="7%" />
+<col width="82%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>filename</td>
+<td>string</td>
+<td>Path to an MCNP meshtal file</td>
+</tr>
+<tr class="row-even"><td>version</td>
+<td>float</td>
+<td>The MCNP verison number</td>
+</tr>
+<tr class="row-odd"><td>ld</td>
+<td>string</td>
+<td>The MCNP verison date</td>
+</tr>
+<tr class="row-even"><td>title</td>
+<td>string</td>
+<td>Title card from the MCNP input</td>
+</tr>
+<tr class="row-odd"><td>histories</td>
+<td>int</td>
+<td>Number of histories from the MCNP simulation</td>
+</tr>
+<tr class="row-even"><td>tally</td>
+<td>dict</td>
+<td>A dictionary with MCNP fmesh4 tally numbers (e.g. 4, 14, 24) as keys
+and MeshTally objects as values.</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>dict</td>
+<td>Maps integer tally numbers to iterables containing four strs, the
+results tag name, the relative error tag name, the total results
+tag name, and the total relative error tag name. If tags is None
+the tags are named &#8216;x_result&#8217;, &#8216;x_rel_error&#8217;, &#8216;x_result_total&#8217;,
+&#8216;x_rel_error_total&#8217; where x is n or p for neutrons or photons.</td>
+</tr>
+</tbody>
+</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>MCNP meshtal file.</p>
 </div></blockquote>
@@ -307,7 +350,7 @@ MCNP. The source sites are stored in the &#8216;fso&#8217; array in MCNP.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>Path to Srctp file being worked with.</p>
 </div></blockquote>
@@ -330,7 +373,7 @@ track information in a way suitable to the use case.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>Path to surface source file being read or written.</p>
 </div></blockquote>
@@ -350,7 +393,7 @@ track information in a way suitable to the use case.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>header_string</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>header_string</strong> : str</p>
 <blockquote class="last">
 <div><p>A line-by-line listing of the contents of the SurfSrc&#8217;s header.</p>
 </div></blockquote>
@@ -368,13 +411,13 @@ track information in a way suitable to the use case.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>max_tracks</strong> : int, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>max_tracks</strong> : int, optional</p>
 <blockquote>
 <div><p>Maximum number of tracks to print. Defaults to all tracks.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>track_data</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>track_data</strong> : str</p>
 <blockquote class="last">
 <div><p>Single string with data for one track on each line.</p>
 </div></blockquote>
@@ -524,7 +567,7 @@ ni = 1, the e will look like [[]]. If ni = 2, e will look like
 <tr class="row-odd"><td>mesh</td>
 <td>Mesh object</td>
 <td>with a structured mesh containing all the neutron and/or
-photon mass window lower bounds. These tags have the form
+photon weight window lower bounds. These tags have the form
 &#8220;ww_X&#8221; where X is n or p The mesh has rootSet tags in the form
 X_e_upper_bounds.</td>
 </tr>
@@ -599,7 +642,7 @@ xsdir table lines.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>Path to xsdir file.</p>
 </div></blockquote>
@@ -615,13 +658,13 @@ xsdir table lines.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
 <blockquote>
 <div><p>The ZIAD name.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>tables</strong> : list</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>tables</strong> : list</p>
 <blockquote class="last">
 <div><p>All XsdirTable objects for a given ZIAD.</p>
 </div></blockquote>
@@ -640,7 +683,7 @@ in the xsdir.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>valid_nucs</strong> : set</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>valid_nucs</strong> : set</p>
 <blockquote class="last">
 <div><p>The valid nuclide ids.</p>
 </div></blockquote>
@@ -664,7 +707,7 @@ in the xsdir.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>The output filename.</p>
 </div></blockquote>
@@ -750,7 +793,7 @@ unresolved resonance range probability tables.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>directory</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>directory</strong> : str</p>
 <blockquote class="last">
 <div><p>The directory where Serpent data is to be stored.</p>
 </div></blockquote>
@@ -811,7 +854,7 @@ in xyz iteration order (z changing fastest).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
 <blockquote>
 <div><p>A structured Mesh object with materials and valid densities.</p>
 </div></blockquote>
@@ -826,7 +869,7 @@ definition.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>geom</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>geom</strong> : str</p>
 <blockquote class="last">
 <div><p>The title, cell, surface, and material cards of an MCNP input file in
 the proper order.</p>
@@ -868,7 +911,7 @@ mat_from_mcnp.</p>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="variancereduction.html"
-                        title="previous chapter">Mesh-based Variance Reduction &#8211; <tt class="docutils literal docutils literal"><span class="pre">pyne.variancereduction</span></tt></a></p>
+                        title="previous chapter">Mesh-based Variance Reduction &#8211; <tt class="docutils literal"><span class="pre">pyne.variancereduction</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="serpent.html"
                         title="next chapter">Serpent Support &#8211; <tt class="docutils literal"><span class="pre">pyne.serpent</span></tt></a></p>
@@ -924,7 +967,7 @@ mat_from_mcnp.</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

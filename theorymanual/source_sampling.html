@@ -1,0 +1,323 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Source Sampling &mdash; PyNE 0.5-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.5-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
+    <link rel="up" title="Theory Manual" href="index.html" />
+    <link rel="next" title="Mesh Based Variance Reduction" href="mesh_based_variance_reduction.html" />
+    <link rel="prev" title="Materials" href="materials.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="mesh_based_variance_reduction.html" title="Mesh Based Variance Reduction"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="materials.html" title="Materials"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Theory Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="source-sampling">
+<span id="id1"></span><h1>Source Sampling<a class="headerlink" href="#source-sampling" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline">¶</a></h2>
+<p>Meshes can be used to represent particle source distributions for Monte Carlo
+radiation transport. On a mesh, source intensity is discretized spatially (into
+mesh volume elements) and by energy (into energy bins). In order to randomly
+sample these distributions to select particle birth parameters (position,
+energy, statistical weight) a discrete probability density function (PDF) must be
+created, which can be sampled with pseudo-random variates. It is convenient to
+create a single PDF to describe all of phase space; in other words, each bin
+within the PDF represents the probability that a particle is born in a
+particular energy group within a particular mesh volume element.</p>
+<p>In pyne, meshes define volumetric source density <img class="math" src="../_images/math/af36faec8fe9f30065aa2bd1cc4c000f7efa1b7c.png" alt="q'"/> with units of
+<img class="math" src="../_images/math/35de86a4530d57dc8b00c7dc81825e27a50ce9c6.png" alt="\frac{particles}{time \cdot volume}"/>. In order to find the source
+intensity of a single phase space bin (of index <img class="math" src="../_images/math/174fadd07fd54c9afe288e96558c92e0c1da733a.png" alt="n"/>), the density must be
+multiplied by the volume of the mesh volume element:</p>
+<div class="math">
+<p><img src="../_images/math/a80f957763049cf201653517e711b796b0f4f434.png" alt="q(n) = q'(n) \cdot V(n)"/></p>
+</div><p>The probability <img class="math" src="../_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> that a particle is born into a particular phase space
+bin is given by the normalized PDF:</p>
+<div class="math">
+<p><img src="../_images/math/de2477bb9dd2cdebc227ee3c35e5eebd2cc9f4bb.png" alt="p(n) = \frac{q(n)}{\sum_N{\,q(n)}}"/></p>
+</div><p>where <img class="math" src="../_images/math/fc97ef67268cd4e91bacdf12b8901d7036c9a056.png" alt="N"/> is the total number of phase space bins (the number of mesh
+volume elements and energy groups). Phase-space bins can be selected from this
+PDF and all particles will have a birth weight of 1. This is known as analog
+sampling.  Alternatively, a biased source density distribution <img class="math" src="../_images/math/3c3820d777ffd3e4841beefd3d271b97688411e7.png" alt="\hat{q}'"/>
+can be specified yielding a biased PDF <img class="math" src="../_images/math/96add302fbf7e16eaef5bdd059a53f3f66614173.png" alt="\hat{p}(n)"/>. Sampling the biased
+PDF requires that particles have a statistical weight:</p>
+<div class="math">
+<p><img src="../_images/math/bab688ed8a524faca47eac1d862033275e9f8cf2.png" alt="w(n) = \frac{p(n)}{\hat{p}(n)}"/></p>
+</div><p>Once a phase space bin is selected a position must be sampled uniformly within
+the selected mesh volume element to determine the (x, y, z) birth position, and
+energy must be uniformly sampled uniformly within the selected energy bin.</p>
+</div>
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<p>The Sampler class reads <img class="math" src="../_images/math/65d55e969d15b564cc03312c6045f282995c898e.png" alt="\hat{q}"/> and optionally <img class="math" src="../_images/math/3c3820d777ffd3e4841beefd3d271b97688411e7.png" alt="\hat{q}'"/> from a
+MOAB mesh. PDFs are created using the method described above. In order to efficiently
+sample these PDFs an alias table is created [1][2]. This data structure requires an
+<img class="math" src="../_images/math/225cf199c9568a1a204e4c364ebed6a991b6a00d.png" alt="O(n^2)"/> setup step, but then allows for <img class="math" src="../_images/math/62d0effd6477f4244d585fc25f46a645378a4ceb.png" alt="O(1)"/> sampling. Monte
+Carlo radiation transport typically involves the simulation of <img class="math" src="../_images/math/d49a8ba45460b080082430b36453e3d9e8d8eca1.png" alt="10^{6}"/>
+to <img class="math" src="../_images/math/424bc9c16dd44c6587d3169db64109837aa146ec.png" alt="10^{12}"/> particles, so this expensive setup step is well-justified.</p>
+<p>In the analog sampling mode, an alias table is created from <img class="math" src="../_images/math/0615acc3725de21025457e7d6f7694dab8e2f758.png" alt="q"/>. In
+the uniform and user-specified sampling modes, an alias table is created from
+<img class="math" src="../_images/math/65d55e969d15b564cc03312c6045f282995c898e.png" alt="\hat{q}"/> and birth weights are calculated for each phase space bin. In the
+uniform sampling mode, <img class="math" src="../_images/math/65d55e969d15b564cc03312c6045f282995c898e.png" alt="\hat{q}"/> is calculated by assuming
+<img class="math" src="../_images/math/3c3820d777ffd3e4841beefd3d271b97688411e7.png" alt="\hat{q}'"/> is 1 for all phase space bins (all phase space bins are
+equiprobable).</p>
+<p>The method for uniformly sampling within a mesh volume element of Cartesian mesh
+is straightforward. A vertex of the hexahedron (<img class="math" src="../_images/math/51da37d984564162c87710ca27bea422f657fb73.png" alt="O"/>) is chosen and three
+vectors are created: <img class="math" src="../_images/math/f5ec636e755349d4409f910e27d381c6da764230.png" alt="\vec{x}"/>, <img class="math" src="../_images/math/3c7f96767f3d8afcbbdac41d0fcf82aeeb63a353.png" alt="\vec{y}"/>, and <img class="math" src="../_images/math/9139356b67352c4d52d0a531c0c6ef1ef2d41c5a.png" alt="\vec{z}"/>.
+Each vector points to an adjacent vertex (in the x, y, z, direction
+respectively) with a magnitude equal to the length of the edge connecting the
+vertex to the adjacent vertex. Three random variates are chosen (<img class="math" src="../_images/math/a3ef75cc31c88a4eb1c121de7a914b0d73882ee2.png" alt="v_1"/>,
+<img class="math" src="../_images/math/e3c09383f52ff7db11358e4aa6ca6c0307b02d76.png" alt="v_2"/>, <img class="math" src="../_images/math/0bf77c77f50a1a4ce3b9a343e5b9f3db3f179d5d.png" alt="v_3"/>) in order to randomly select a position (<img class="math" src="../_images/math/4b4cade9ca8a2c8311fafcf040bc5b15ca507f52.png" alt="P"/>)
+within the hexahedron:</p>
+<div class="math">
+<p><img src="../_images/math/c9d7b5c53519e211b96775892087b0deb93f753b.png" alt="P = O + v_1 \cdot \vec{x} + v_2 \cdot \vec{y} + v_3 \cdot \vec{z}"/></p>
+</div><p>A similar method is used for uniformly sampling within a tetrahedron, as
+described in [3].</p>
+</div>
+<div class="section" id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h2>
+<p>The Sampler class chooses the (x, y, z) position within a mesh volume element
+with no regard for what geometry cell it lies in. Cell rejection must be
+implemented within the physic-code-specific wrapper script.</p>
+</div>
+<div class="section" id="sample-calculations">
+<h2>Sample Calculations<a class="headerlink" href="#sample-calculations" title="Permalink to this headline">¶</a></h2>
+<p>This section provides the sample calculations to justify the results in the
+nosetests: test_uniform, test_bias, test_bias_spacial.</p>
+<p>Consider a mesh with two mesh volume elements with volumes (250, 750). The source on the mesh has two energy groups. The source density distribution is:</p>
+<div class="math">
+<p><img src="../_images/math/329f657e6ee17ffb57afae81a59f259679dbb188.png" alt="q' = ((2, 3), (1, 4))"/></p>
+</div><p>The source intensity  is found by multiplying by the volumes:</p>
+<div class="math">
+<p><img src="../_images/math/134eaf33c3c349f67663fbdcf118a014808095d1.png" alt="q = ((500, 750), (750, 3000))"/></p>
+</div><p>Normalizing yields the analog PDF:</p>
+<div class="math">
+<p><img src="../_images/math/ba236e11c948c67788320fe107dde05aed6196a6.png" alt="p = ((0.1, 0.15), (0.15, 0.6)"/></p>
+</div><div class="section" id="case-1-uniform-sampling">
+<h3>Case 1: Uniform Sampling<a class="headerlink" href="#case-1-uniform-sampling" title="Permalink to this headline">¶</a></h3>
+<p>For uniform sampling the biased source density distribution is:</p>
+<div class="math">
+<p><img src="../_images/math/a0fa60bc365ed8def74223da2d3c787ea2cdf716.png" alt="\hat{q}' = ((1, 1), (1, 1))"/></p>
+</div><p>The biased source intensity is found by multiplying by the volumes:</p>
+<div class="math">
+<p><img src="../_images/math/58c4f826c8cb01dfbbb38f2e517edf9beb93eabe.png" alt="\hat{q} = ((250, 250), (750, 750))"/></p>
+</div><p>Normalizing yields the biased PDF:</p>
+<div class="math">
+<p><img src="../_images/math/1aed7bc3d50197ff69065eeef0f0d3abcefe9301.png" alt="\hat{p} = ((0.125, 0.125), (0.375, 0.375)"/></p>
+</div><p>The weights of particle born from these phase space bins should then be the
+ratio of the unbiased to biased PDF values:</p>
+<div class="math">
+<p><img src="../_images/math/aa6d08baba94cf965b10df22e0854c8c63305f0e.png" alt="w = ((0.8, 1.2), (0.4, 1.6))"/></p>
+</div></div>
+<div class="section" id="case-2-user-specified-biasing">
+<h3>Case 2: User-Specified Biasing<a class="headerlink" href="#case-2-user-specified-biasing" title="Permalink to this headline">¶</a></h3>
+<p>Now consider some user-specified bias source density distribution:</p>
+<div class="math">
+<p><img src="../_images/math/1ca4dd4d0a75b1da6a9e446468d9180b0d5e874b.png" alt="\hat{q}' = ((8, 3), (5, 8))"/></p>
+</div><p>The biased source intensity is found by multiplying by the volumes:</p>
+<div class="math">
+<p><img src="../_images/math/244ea4c64ff2d9fecd46ba2bdde448482ba52344.png" alt="\hat{q} = ((2000, 750), (750, 6000))"/></p>
+</div><p>Normalizing yields the biased PDF:</p>
+<div class="math">
+<p><img src="../_images/math/dcdc2360823fd4e54cfe508c229908f7e948323b.png" alt="\hat{p} = ((0.16, 0.06), (0.3, 0.48)"/></p>
+</div><p>The weights of particle born from these phase space bins should then be the
+ratio of the unbiased to biased PDF values:</p>
+<div class="math">
+<p><img src="../_images/math/b0b63848963611f5c3cabb93c26c6273e0244e66.png" alt="w = ((0.65, 2.5), (0.5, 1.25))"/></p>
+</div></div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>[1] M. D. Vose, IEEE T. Software Eng. 17, 972 (1991)</p>
+<p>[2] A. J. Walker, Electronics Letters 10, 127 (1974); ACM TOMS 3, 253 (1977)</p>
+<dl class="docutils">
+<dt>[3] C. Rocchini and P. Cignoni, &#8220;Generating Random Points in a Tetrahedron,&#8221;</dt>
+<dd>Journal of Graphics Tools, 5, 200–202 (2001).</dd>
+</dl>
+</div>
+<div class="section" id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>[4] E. Biondo, A. Davis, A. Scopatz, P. P.H. Wilson, &#8220;Rigorous Two-Step</dt>
+<dd>Activation for Fusion Systems with PyNE,” Proc. of the 18th Topical
+Meeting of the Radiation Protection &amp; Shielding Division of ANS, Knoxville,
+TN (2014).</dd>
+<dt>[5] Relson, E. &#8220;Improved Methods For Sampling Mesh-Based Volumetric Sources In</dt>
+<dd>Monte Carlo Transport.&#8221; MS thesis University of Wisconsin, Madison WI, 2013.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Source Sampling</a><ul>
+<li><a class="reference internal" href="#theory">Theory</a></li>
+<li><a class="reference internal" href="#implementation">Implementation</a></li>
+<li><a class="reference internal" href="#assumptions">Assumptions</a></li>
+<li><a class="reference internal" href="#sample-calculations">Sample Calculations</a><ul>
+<li><a class="reference internal" href="#case-1-uniform-sampling">Case 1: Uniform Sampling</a></li>
+<li><a class="reference internal" href="#case-2-user-specified-biasing">Case 2: User-Specified Biasing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#references">References</a></li>
+<li><a class="reference internal" href="#further-reading">Further Reading</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="materials.html"
+                        title="previous chapter">Materials</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mesh_based_variance_reduction.html"
+                        title="next chapter">Mesh Based Variance Reduction</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/theorymanual/source_sampling.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="mesh_based_variance_reduction.html" title="Mesh Based Variance Reduction"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="materials.html" title="Materials"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >Theory Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2014, The PyNE Development Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

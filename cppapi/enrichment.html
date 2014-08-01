@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -273,8 +274,7 @@ if(ga_enabled){
 </p>
 <blockquote>
 <div><p></p>
-<p>Numeric Solver Functions <div class="highlight-python"><div class="highlight"><pre> These functions enable the numeric cascade solver.
-</pre></div>
+<p>Numeric Solver Functions <div class="highlight-python"><pre> These functions enable the numeric cascade solver.</pre>
 </div>
  Finds the total flow rate (L) over the feed flow rate (F), the number of enriching stages (N), and the number of stripping stages (M). <dl class="docutils">
 <dt><strong>Return</strong></dt>
@@ -489,21 +489,23 @@ if(ga_enabled){
 <div class="line"><em>#include &lt;map&gt;</em></div>
 <div class="line"><em>#include &lt;set&gt;</em></div>
 <div class="line"><em>#include &lt;stdio.h&gt;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/utils.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/utils.h&#8221;</em></div>
 <div class="line"><em>#include &lt;utility&gt;</em></div>
 <div class="line"><em>#include &lt;limits&gt;</em></div>
 <div class="line"><em>#include &lt;float.h&gt;</em></div>
 <div class="line"><em>#include &lt;math.h&gt;</em></div>
 <div class="line"><em>#include &#8220;hdf5.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;hdf5_hl.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/h5wrap.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/h5wrap.h&#8221;</em></div>
 <div class="line"><em>#include &lt;fstream&gt;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/extra_types.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/nucname.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/rxname.h&#8221;</em></div>
-<div class="line"><em>#include &lt;/home/scopatz/pyne/cpp/json/json-forwards.h&gt;</em></div>
-<div class="line"><em>#include &lt;/home/scopatz/pyne/cpp/json/json.h&gt;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/data.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/extra_types.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/nucname.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/rxname.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/json-forwards.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/json.h&#8221;</em></div>
+<div class="line"><em>#include &lt;deque&gt;</em></div>
+<div class="line"><em>#include &lt;stack&gt;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/data.h&#8221;</em></div>
 </div>
 <blockquote>
 <div><p>Top-level enrichment functionality. </p>
@@ -537,8 +539,8 @@ if(ga_enabled){
 </dl>
 </p>
 </div></blockquote>
-<div class="line-block" id="pyne_enrichmentdir_df511e5bd85cec96854b39d5e1c27aa8">
-<div class="line"><em>dir</em> <strong>/home/scopatz/pyne/cpp</strong></div>
+<div class="line-block" id="pyne_enrichmentdir_68267d1309a1af8e8297ef4c3efbcdba">
+<div class="line"><em>dir</em> <strong>/home/elliott/Research/pyne/src</strong></div>
 </div>
 <blockquote>
 <div><p></p>
@@ -557,7 +559,7 @@ if(ga_enabled){
         </a></p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="material.html"
-                        title="previous chapter">Materials &#8211; <tt class="docutils literal docutils literal"><span class="pre">libpyne_material</span></tt></a></p>
+                        title="previous chapter">Materials &#8211; <tt class="docutils literal"><span class="pre">libpyne_material</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="extra_types.html"
                         title="next chapter">Extra Data Types (header only)</a></p>
@@ -613,7 +615,7 @@ if(ga_enabled){
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -604,6 +605,38 @@ if(ga_enabled){
 <div><p></p>
 <p>Sets the composition, mass, and atoms_per_molecule of this material to those calculated from <em>atom_fracs</em>, a mapping of nuclides to atom fractions values. </p>
 </div></blockquote>
+<p><span class="target" id="pyne::Material::gammas"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1ad0e37fdf2579f44f592d1ede5edb6b02"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>gammas</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Returns a list of gamma-rays energies in keV and intensities in decays/s/atom material unnormalized </p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::xrays"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1ad71a0cdf73ccb49fbdccc82191d2d457"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>xrays</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Returns a list of x-rays average energies in keV and intensities in decays/s material unnormalized </p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::photons__b"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a65242ae4daec8a2b5ef7ab911ec4c952"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>photons</strong>(bool norm)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Returns a list of photon energies in keV and intensities in decays/s/atom material unnormalized </p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::normalize_radioactivity__std::vector:std::pair:double.double::"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a1fc327a285db459b935aa8f7ff8ec67a"></span><div class="line-block">
+<div class="line">std::vector&lt; std::pair&lt; double, double &gt; &gt; <strong>normalize_radioactivity</strong>(std::vector&lt; std::pair&lt; double, double &gt; &gt; unnormed)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Takes a list of photon energies and intensities and normalizes them so the sum of the intensities is one </p>
+</div></blockquote>
 <p><span class="target" id="pyne::Material::add-operator__X"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1afb6eed6ecc77c013bdeefb96d3fa4f69"></span><div class="line-block">
 <div class="line"><a class="reference internal" href="#pyne_materialclasspyne_1_1_material"><em>Material</em></a> <strong>operator+</strong>(double)</div>
 </div>
@@ -675,30 +708,30 @@ if(ga_enabled){
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
-<div class="line-block" id="pyne_materialstructpyne_1_1material__struct">
-<div class="line"><em>struct</em> <strong>pyne::material_struct</strong></div>
+<div class="line-block" id="pyne_materialstructpyne_1_1material__data">
+<div class="line"><em>struct</em> <strong>pyne::material_data</strong></div>
 <div class="line"><em>#include &lt;material.h&gt;</em></div>
 </div>
 <blockquote>
 <div><p></p>
 <p>A stuct for reprensenting fundemental data in a material. Useful for HDF5 representations. </p>
 <em>Public Members</em><blockquote>
-<div><p><span class="target" id="pyne_materialstructpyne_1_1material__struct_1a57c5162ae89e2a6d6858f4d2abf2b03a"></span>double <strong>mass</strong></p>
+<div><p><span class="target" id="pyne_materialstructpyne_1_1material__data_1a8e5fa2bf074f5c7770fcefca825640b9"></span>double <strong>mass</strong></p>
 <blockquote>
 <div><p>material mass </p>
 <p></p>
 </div></blockquote>
-<p><span class="target" id="pyne_materialstructpyne_1_1material__struct_1a967dce166780581748c85c02e651783b"></span>double <strong>density</strong></p>
+<p><span class="target" id="pyne_materialstructpyne_1_1material__data_1adf19d9e0612f5ea9c6093ad09c63eee4"></span>double <strong>density</strong></p>
 <blockquote>
 <div><p>material density </p>
 <p></p>
 </div></blockquote>
-<p><span class="target" id="pyne_materialstructpyne_1_1material__struct_1aed798bbdce5e353fcd874ff24a291de5"></span>double <strong>atoms_per_mol</strong></p>
+<p><span class="target" id="pyne_materialstructpyne_1_1material__data_1a135b69d35e0bc6c49a025a24cb153798"></span>double <strong>atoms_per_mol</strong></p>
 <blockquote>
 <div><p>material atoms per mole </p>
 <p></p>
 </div></blockquote>
-<p><span class="target" id="pyne_materialstructpyne_1_1material__struct_1a753b72f7d9d27c7b081a42efaae8e966"></span>double <strong>comp</strong>[]</p>
+<p><span class="target" id="pyne_materialstructpyne_1_1material__data_1a5fc15bdb605f1bcfc07bf0e84fd98289"></span>double <strong>comp</strong>[]</p>
 <blockquote>
 <div><p>array of material composition mass weights. </p>
 <p></p>
@@ -740,7 +773,7 @@ if(ga_enabled){
 <div><p>Nuclide-mass composition iter type. </p>
 <p></p>
 </div></blockquote>
-<p><span class="target" id="pyne_materialnamespacepyne_1ae4a7f9569e6a3b9618a1e56d7f5bddb6"></span>typedef struct  <a class="reference internal" href="#pyne_materialstructpyne_1_1material__struct"><em>pyne::material_struct</em></a> <strong>material_struct</strong></p>
+<p><span class="target" id="pyne_materialnamespacepyne_1a30fee8818307aa6d8d45dc33ddee6008"></span>typedef struct  <a class="reference internal" href="#pyne_materialstructpyne_1_1material__data"><em>pyne::material_data</em></a> <strong>material_data</strong></p>
 <blockquote>
 <div><p></p>
 <p>A stuct for reprensenting fundemental data in a material. Useful for HDF5 representations. </p>
@@ -767,13 +800,15 @@ if(ga_enabled){
 <div class="line"><em>#include &lt;stdio.h&gt;</em></div>
 <div class="line"><em>#include &lt;stdlib.h&gt;</em></div>
 <div class="line"><em>#include &lt;sstream&gt;</em></div>
-<div class="line"><em>#include &lt;json/json-forwards.h&gt;</em></div>
-<div class="line"><em>#include &lt;json/json.h&gt;</em></div>
-<div class="line"><em>#include &#8220;h5wrap.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;json-forwards.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;json.h&#8221;</em></div>
 <div class="line"><em>#include &lt;vector&gt;</em></div>
+<div class="line"><em>#include &lt;deque&gt;</em></div>
+<div class="line"><em>#include &lt;stack&gt;</em></div>
+<div class="line"><em>#include &#8220;h5wrap.h&#8221;</em></div>
 <div class="line"><em>#include &lt;exception&gt;</em></div>
 <div class="line"><em>#include &#8220;hdf5.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/extra_types.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/extra_types.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;utils.h&#8221;</em></div>
 <div class="line"><em>#include &lt;string.h&gt;</em></div>
 <div class="line"><em>#include &lt;cctype&gt;</em></div>
@@ -783,16 +818,16 @@ if(ga_enabled){
 <div class="line"><em>#include &lt;cstdlib&gt;</em></div>
 <div class="line"><em>#include &lt;algorithm&gt;</em></div>
 <div class="line"><em>#include &#8220;nucname.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/utils.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/utils.h&#8221;</em></div>
 <div class="line"><em>#include &#8220;data.h&#8221;</em></div>
 <div class="line"><em>#include &lt;utility&gt;</em></div>
 <div class="line"><em>#include &lt;limits&gt;</em></div>
 <div class="line"><em>#include &lt;float.h&gt;</em></div>
 <div class="line"><em>#include &lt;math.h&gt;</em></div>
 <div class="line"><em>#include &#8220;hdf5_hl.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/h5wrap.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/nucname.h&#8221;</em></div>
-<div class="line"><em>#include &#8220;/home/scopatz/pyne/cpp/rxname.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/h5wrap.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/nucname.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/rxname.h&#8221;</em></div>
 </div>
 <blockquote>
 <div><p></p>
@@ -805,8 +840,8 @@ if(ga_enabled){
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
-<div class="line-block" id="pyne_materialdir_df511e5bd85cec96854b39d5e1c27aa8">
-<div class="line"><em>dir</em> <strong>/home/scopatz/pyne/cpp</strong></div>
+<div class="line-block" id="pyne_materialdir_68267d1309a1af8e8297ef4c3efbcdba">
+<div class="line"><em>dir</em> <strong>/home/elliott/Research/pyne/src</strong></div>
 </div>
 <blockquote>
 <div><p></p>
@@ -825,10 +860,10 @@ if(ga_enabled){
         </a></p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="data.html"
-                        title="previous chapter">Nuclear Data &#8211; <tt class="docutils literal docutils literal docutils literal"><span class="pre">libpyne_data</span></tt></a></p>
+                        title="previous chapter">Nuclear Data &#8211; <tt class="docutils literal"><span class="pre">libpyne_data</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="enrichment.html"
-                        title="next chapter">Enrichement &#8211; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">libpyne_enrichment</span></tt></a></p>
+                        title="next chapter">Enrichement &#8211; <tt class="docutils literal"><span class="pre">libpyne_enrichment</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/cppapi/material.txt"
@@ -881,7 +916,7 @@ if(ga_enabled){
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
