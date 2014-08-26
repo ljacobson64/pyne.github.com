@@ -94,7 +94,7 @@ if(ga_enabled){
 cross-sections from provided nuclear data sets.</p>
 <dl class="class">
 <dt id="pyne.xs.cache.XSCache">
-<em class="property">class </em><tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">XSCache</tt><big>(</big><em>group_struct=None</em>, <em>data_source_classes=(&lt;class 'pyne.xs.data_source.CinderDataSource'&gt;</em>, <em>&lt;class 'pyne.xs.data_source.SimpleDataSource'&gt;</em>, <em>&lt;class 'pyne.xs.data_source.EAFDataSource'&gt;</em>, <em>&lt;class 'pyne.xs.data_source.NullDataSource'&gt;)</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/cache.html#XSCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.cache.XSCache" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyne.xs.cache.</tt><tt class="descname">XSCache</tt><big>(</big><em>group_struct=None</em>, <em>data_sources=(&lt;class 'pyne.xs.data_source.CinderDataSource'&gt;</em>, <em>&lt;class 'pyne.xs.data_source.SimpleDataSource'&gt;</em>, <em>&lt;class 'pyne.xs.data_source.EAFDataSource'&gt;</em>, <em>&lt;class 'pyne.xs.data_source.NullDataSource'&gt;)</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/cache.html#XSCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.cache.XSCache" title="Permalink to this definition">¶</a></dt>
 <dd><p>A lightweight multigroup cross section cache based off of python 
 dictionaries. This relies on a list of cross section data source from which
 discretized group constants may be computed from raw, underlying data.  
@@ -110,11 +110,12 @@ A default instance of this class is provided (pyne.xs.cache.xs_cache).</p>
 If the group structure is not present in the cache or is None, all cross 
 sections pulled from the sources will not be discretized or collapsed.</p>
 </div></blockquote>
-<p><strong>data_source_classes</strong> : list of DataSource classes, optional</p>
+<p><strong>data_sources</strong> : list of DataSources and DataSource classes, optional</p>
 <blockquote class="last">
-<div><p>Sequence of DataSource classes (not instances!) from which to grab cross 
+<div><p>Sequence of DataSource obejects or classes from which to grab cross 
 section data. Data from a source earlier in the sequence (eg, index 1)
-will take precednce over data later in the sequence (eg, index 5).</p>
+will take precednce over data later in the sequence (eg, index 5).
+If a class is given rather than an object, the class is instantiated.</p>
 </div></blockquote>
 </td>
 </tr>

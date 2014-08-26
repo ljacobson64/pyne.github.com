@@ -237,6 +237,12 @@ override this method.</p>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyne.xs.data_source.DataSource.load">
+<tt class="descname">load</tt><big>(</big><em>temp=300.0</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#DataSource.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.DataSource.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the entire data source into memory.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -399,7 +405,7 @@ must exist for this data source to exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>f</strong> : string, file handle</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>fh</strong> : string, file handle</p>
 <blockquote>
 <div><p>Path to ENDF file, or ENDF file itself.</p>
 </div></blockquote>
@@ -482,6 +488,55 @@ of the destination weighted by the group fluxes.</p>
 <tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dst_sigma</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>Destination cross section data, length dst_ngroups.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyne.xs.data_source.OpenMCDataSource">
+<em class="property">class </em><tt class="descclassname">pyne.xs.data_source.</tt><tt class="descname">OpenMCDataSource</tt><big>(</big><em>cross_sections=None</em>, <em>src_group_struct=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#OpenMCDataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.OpenMCDataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data source for ACE data that is listed in an OpenMC cross_sections.xml 
+file. This data source discretizes the reactions to a given group
+stucture when the reactions are loaded in. Reseting this source group
+structure will clear the reaction cache.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cross_sections</strong> : openmc.CrossSections or string or file-like, optional</p>
+<blockquote>
+<div><p>Path or file to OpenMC cross_sections.xml</p>
+</div></blockquote>
+<p><strong>src_group_struct</strong> : array-like, optional</p>
+<blockquote>
+<div><p>The group structure to discretize the ACE data to, defaults to 
+<tt class="docutils literal"><span class="pre">np.logspace(1,</span> <span class="pre">-9,</span> <span class="pre">101)</span></tt>.</p>
+</div></blockquote>
+<p><strong>kwargs</strong> : optional</p>
+<blockquote class="last">
+<div><p>Keyword arguments to be sent to DataSource base class.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyne.xs.data_source.OpenMCDataSource.load">
+<tt class="descname">load</tt><big>(</big><em>temp=300.0</em><big>)</big><a class="reference internal" href="../../_modules/pyne/xs/data_source.html#OpenMCDataSource.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.xs.data_source.OpenMCDataSource.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the entire data source into memory. This can be expensive for 
+lots of ACE data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>temp</strong> : float, optional</p>
+<blockquote class="last">
+<div><p>Temperature [K] of material, defaults to 300.0.</p>
 </div></blockquote>
 </td>
 </tr>

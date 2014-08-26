@@ -97,10 +97,10 @@ You may find them useful as well!</p>
 </div>
 <div class="section" id="module-pyne.bins">
 <span id="special-binning-functions"></span><h2>Special Binning Functions<a class="headerlink" href="#module-pyne.bins" title="Permalink to this headline">¶</a></h2>
-<p>Module for tools to generate and handle various binning structures.</p>
+<p>Tools to generate and handle various binning structures.</p>
 <dl class="function">
 <dt id="pyne.bins.ninespace">
-<tt class="descclassname">pyne.bins.</tt><tt class="descname">ninespace</tt><big>(</big><em>start</em>, <em>stop</em>, <em>num=50</em>, <em>endpoint=True</em><big>)</big><a class="reference internal" href="../_modules/pyne/bins.html#ninespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.bins.ninespace" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyne.bins.</tt><tt class="descname">ninespace</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.bins.ninespace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Splits the range into one-minus-log-uniform bins defined by num points.
 In the vernacular, the space is &#8216;split in the nines&#8217;.  Note that this assumes
 base = 10.0.</p>
@@ -145,8 +145,43 @@ length num) are returned.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyne.bins.pointwise_linear_collapse">
+<tt class="descclassname">pyne.bins.</tt><tt class="descname">pointwise_linear_collapse</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.bins.pointwise_linear_collapse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collapses pointwise data to G groups based on a linear interpolation
+between the points. This is useful for collapsing cross section data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x_g</strong> : array-like</p>
+<blockquote>
+<div><p>Group boundaries, length G+1 for G groups, must be monotonic in the 
+same direction as x.</p>
+</div></blockquote>
+<p><strong>x</strong> : array-like</p>
+<blockquote>
+<div><p>Pointwise abscissa to be collapsed, must be monotonic in the same direction
+as x_g and have the same length as y.</p>
+</div></blockquote>
+<p><strong>y</strong> : array-like</p>
+<blockquote>
+<div><p>Pointwise data to be interpolated, must have the same length as x.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>y_g</strong> : np.ndarray</p>
+<blockquote class="last">
+<div><p>The group collapsed data, length G.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyne.bins.stair_step">
-<tt class="descclassname">pyne.bins.</tt><tt class="descname">stair_step</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="../_modules/pyne/bins.html#stair_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.bins.stair_step" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyne.bins.</tt><tt class="descname">stair_step</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.bins.stair_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes a 1d data set of boundaries (x) and cell-centered values (y) 
 into stair step arrays of the same length.  The returned arrays are 
 suitable for graphing.  This is especially useful in energy vs. spectrum

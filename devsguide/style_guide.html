@@ -448,9 +448,15 @@ how you use iterators (e.g., i on the outer loop, j on the next inner loop).</p>
 <div class="section" id="member-variables">
 <h3>Member Variables<a class="headerlink" href="#member-variables" title="Permalink to this headline">¶</a></h3>
 <p>Variables that are members of a class are lowercase_with_underscores.
-Private and protected member variables start with a single leading underscore.
-Public member variables do not have a leading underscore.</p>
-<div class="highlight-c++"><div class="highlight"><pre><span class="kt">int</span> <span class="n">public_x</span><span class="p">;</span>
+Variables with leading underscores should never be used as they are technically
+reserved for the compiler by the ISO C standard.</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">//good</span>
+<span class="kt">int</span> <span class="n">public_x</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">protected_y</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">private_z</span><span class="p">;</span>
+
+<span class="c1">//bad</span>
+<span class="kt">int</span> <span class="n">public_x</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">_protected_y</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">_private_z</span><span class="p">;</span>
 </pre></div>
@@ -479,10 +485,16 @@ or function scope, which only grab the names you intend to use, are allowed.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="access-patterns">
-<h3>Access Patterns<a class="headerlink" href="#access-patterns" title="Permalink to this headline">¶</a></h3>
-<p>We are all adults here. Everything should be public.  Use private and protected
-variables only when absolutely necessary.</p>
+<div class="section" id="access-control">
+<h3>Access Control<a class="headerlink" href="#access-control" title="Permalink to this headline">¶</a></h3>
+<p>Access control is a tool. Use it as needed but not dogmatically.</p>
+<ul class="simple">
+<li>Access control may not be used to hide prototypical/unstable/untested/bad interfaces!</li>
+<li>Private and protected members must be tested through the public interface.</li>
+<li>You must be prepared to defend your choice or criticism of public, private, or
+protected for any and all members</li>
+</ul>
+<p>These rules apply to authors and reviewers equally. In the event of an impasse consider the physics.</p>
 </div>
 <div class="section" id="accessors-mutator-pattern">
 <h3>Accessors/Mutator Pattern<a class="headerlink" href="#accessors-mutator-pattern" title="Permalink to this headline">¶</a></h3>
@@ -490,13 +502,13 @@ variables only when absolutely necessary.</p>
 inlining is not guaranteed, and slows down run times.</p>
 <p>Use this pattern only if implementing a Python/Cython-like property where
 getting or setting a member variable is non-trivial. In these cases, the
-storage variable should be named with a leading underscore (even though it may be
+storage variable should be named with a trailing underscore (even though it may be
 public) and the get/set names should have the same name as the variable but without
-the leading underscore:</p>
+the trailing underscore:</p>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">class</span> <span class="nc">WithAnX</span> <span class="p">{</span>
  <span class="nl">public:</span>
   <span class="c1">// storage variable</span>
-  <span class="kt">int</span> <span class="n">_x</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">x_</span><span class="p">;</span>
 
   <span class="c1">// getter</span>
   <span class="kt">int</span> <span class="nf">x</span><span class="p">();</span>
@@ -639,7 +651,7 @@ as opposed to returning integer error codes or custom exception mechanisms.</p>
 <li><a class="reference internal" href="#member-variables">Member Variables</a></li>
 <li><a class="reference internal" href="#global-variables">Global Variables</a></li>
 <li><a class="reference internal" href="#namespaces">Namespaces</a></li>
-<li><a class="reference internal" href="#access-patterns">Access Patterns</a></li>
+<li><a class="reference internal" href="#access-control">Access Control</a></li>
 <li><a class="reference internal" href="#accessors-mutator-pattern">Accessors/Mutator Pattern</a></li>
 <li><a class="reference internal" href="#formatting">Formatting</a></li>
 <li><a class="reference internal" href="#line-length">Line Length</a></li>
