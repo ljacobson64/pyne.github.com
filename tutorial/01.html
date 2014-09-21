@@ -10827,7 +10827,7 @@ This falls well within 32 bit integers.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[1]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -10838,29 +10838,15 @@ In&nbsp;[1]:
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>-c:1: VnVWarning: pyne.nucname is not yet V&amp;V compliant.
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[6]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython"><pre><span class="n">nucname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="s">&#39;U-235&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython"><pre><span class="n">nucname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="mi">92235</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -10872,7 +10858,7 @@ In&nbsp;[2]:
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[2]:</div>
+    Out[6]:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -11194,6 +11180,38 @@ In&nbsp;[9]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
+In&nbsp;[7]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython"><pre><span class="n">nucname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[7]:</div>
+
+
+<div class="output_text output_subarea output_pyout">
+<pre>10000000</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
 In&nbsp;[10]:
 </div>
 <div class="inner_cell">
@@ -11229,7 +11247,7 @@ In&nbsp;[10]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To resolve such ambiquities when you <em>know</em> which form you are coming from, PyNE provides a suite of <code>*_to_to()</code> functions.</p>
+<p>To resolve such ambiquities when you <em>know</em> which form you are coming from, PyNE provides a suite of <code>*_to_**()</code> functions.</p>
 
 </div>
 </div>

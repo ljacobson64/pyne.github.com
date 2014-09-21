@@ -888,6 +888,56 @@ if(ga_enabled){
 <p></p>
 </div></blockquote>
 </div></blockquote>
+<em>FLUKA Form Functions</em><blockquote>
+<div><p>This is the naming convention used by the FLUKA suite of codes. The FLUKA format for entering nuclides requires some knowledge of FLUKA The nuclide in must cases should be the atomic # times 10000000. The exceptions are for FLUKA&#8217;s named isotopes See the FLUKA Manual for more information. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>the received FLUKA name </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">nuc</span></tt> - <p>a nuclide </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><span class="target" id="pyne::nucname::fluka__i"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1ac34443f2c05ca8fda7d7993e715a3f5a"></span><div class="line-block">
+<div class="line">std::string <strong>fluka</strong>(int nuc)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>FLUKA Form to Identifier Form Functions</em><blockquote>
+<div><p>This converts from the FLUKA name to the id canonical form for nuclides in PyNE. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>an integer id nuclide identifier. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">name</span></tt> - <p>a fluka name </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><span class="target" id="pyne::nucname::fluka_to_id__ss"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a9938dd663fa7160312e033ea088423b8"></span><div class="line-block">
+<div class="line">int <strong>fluka_to_id</strong>(std::string name)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::nucname::fluka_to_id__cP"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a5df41bf3c3d1b907a89c49a2485b6b68"></span><div class="line-block">
+<div class="line">int <strong>fluka_to_id</strong>(char * name)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
 <em>Serpent Form Functions</em><blockquote>
 <div><p>This is the string-based naming convention used by the Serpent suite of codes. The serpent naming convention is similar to name form. However, only the first letter in the chemical symbol is uppercase, the dash is always present, and the the meta-stable flag is lowercase. For instance, ‘Am-242m’ is the valid serpent notation for this nuclide. <dl class="docutils">
 <dt><strong>Return</strong></dt>
@@ -1254,16 +1304,16 @@ if(ga_enabled){
 <div><p></p>
 <p></p>
 </div></blockquote>
-<p><span class="target" id="pyne::nucname::groundstate__cP"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a363ed4d7a830a42161630743650a0d39"></span><div class="line-block">
-<div class="line">int <strong>groundstate</strong>(char * nuc)</div>
+<p><span class="target" id="pyne::nucname::groundstate__ss"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a1cc9dcbea2e73a8ffffed55fecff9766"></span><div class="line-block">
+<div class="line">int <strong>groundstate</strong>(std::string nuc)</div>
 </div>
 </p>
 <blockquote>
 <div><p></p>
 <p></p>
 </div></blockquote>
-<p><span class="target" id="pyne::nucname::groundstate__ss"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a1cc9dcbea2e73a8ffffed55fecff9766"></span><div class="line-block">
-<div class="line">int <strong>groundstate</strong>(std::string nuc)</div>
+<p><span class="target" id="pyne::nucname::groundstate__cP"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a363ed4d7a830a42161630743650a0d39"></span><div class="line-block">
+<div class="line">int <strong>groundstate</strong>(char * nuc)</div>
 </div>
 </p>
 <blockquote>
@@ -1340,6 +1390,22 @@ if(ga_enabled){
 <div><p>Creates standard Z number to name mapping. </p>
 <p></p>
 </div></blockquote>
+<p><span class="target" id="pyne::nucname::get_fluka_zz"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1aace9e1c0311093dc40b36331a2705973"></span><div class="line-block">
+<div class="line">name_zz_t <strong>get_fluka_zz</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Creates standard fluka-name to nucid mapping. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::nucname::get_zz_fluka"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1afa366d5c23fe94d2b44d23a3acc2e655"></span><div class="line-block">
+<div class="line">zzname_t <strong>get_zz_fluka</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Creates standard nucid to fluka-name mapping. </p>
+<p></p>
+</div></blockquote>
 <p><span class="target" id="pyne::nucname::name_to_zz_group__name_group"></span><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a5257239391f4a761c221794887cf1abf"></span><div class="line-block">
 <div class="line">zz_group <strong>name_to_zz_group</strong>(name_group eg)</div>
 </div>
@@ -1368,6 +1434,16 @@ if(ga_enabled){
 <p><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a81fdc080ebea1dbae7ff6cde4aaa14c5"></span>zzname_t <strong>zz_name</strong></p>
 <blockquote>
 <div><p>Z num to name map. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a0a02c84ba22c8146ca05c125885429b1"></span>name_zz_t <strong>fluka_zz</strong></p>
+<blockquote>
+<div><p>fluka-name to nucid map </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a081e70f4892a5313c775037ee636892a"></span>zzname_t <strong>zz_fluka</strong></p>
+<blockquote>
+<div><p>nucid to fluka-name map </p>
 <p></p>
 </div></blockquote>
 <p><span class="target" id="pyne_nucnamenamespacepyne_1_1nucname_1a57af37a790f80646b72a66a939852065"></span>name_t <strong>LAN_array</strong>[15]</p>

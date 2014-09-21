@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Building Conda Binaries &mdash; PyNE 0.5-dev</title>
+    <title>Verification and Validation &mdash; PyNE 0.5-dev</title>
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -35,8 +35,8 @@
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
     <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
     <link rel="up" title="Developer’s Guide" href="index.html" />
-    <link rel="next" title="Verification and Validation" href="vnv.html" />
-    <link rel="prev" title="ENDF Tokenization" href="endf.html" /> <script type="text/javascript">
+    <link rel="next" title="PyNE Development Team" href="../dev_team.html" />
+    <link rel="prev" title="Building Conda Binaries" href="binaries.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -68,10 +68,10 @@ if(ga_enabled){
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="vnv.html" title="Verification and Validation"
+          <a href="../dev_team.html" title="PyNE Development Team"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="endf.html" title="ENDF Tokenization"
+          <a href="binaries.html" title="Building Conda Binaries"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
@@ -87,57 +87,48 @@ if(ga_enabled){
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="building-conda-binaries">
-<h1>Building Conda Binaries<a class="headerlink" href="#building-conda-binaries" title="Permalink to this headline">¶</a></h1>
-<p>The basic strategy for building conda binaries is to use the recipe at
-<a class="reference external" href="https://github.com/conda/conda-recipes">https://github.com/conda/conda-recipes</a> to build pyne and change the yaml
-file to the desired branch/tag.</p>
-<p>Get the latest conda-recipes</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/conda/conda-recipes.git
-<span class="nv">$ </span><span class="nb">cd </span>conda-recipes
-</pre></div>
-</div>
-<p>Now edit the &#8220;url:&#8221; line and the version line to match the desired tag and
-version. After this build pyne, install pyne, run nuc_data_make and run the
-tests. In order to use the steps shown below you need jinja2, conda-build,
-binstar and nose installed.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>conda build pyne
-<span class="nv">$ pyneout</span><span class="o">=</span><span class="k">$(</span>conda build --output pyne<span class="k">)</span>
-<span class="nv">$ </span>conda install <span class="nv">$pyneout</span>
-<span class="nv">$ </span>nuc_data_make
-<span class="nv">$ </span><span class="nb">cd</span> ..
-<span class="nv">$ </span>git clone https://github.com/pyne/pyne.git
-<span class="nv">$ </span><span class="nb">cd </span>pyne/tests
-<span class="nv">$ </span>nosetests
-</pre></div>
-</div>
-<p>If all expected tests pass the binary should now be ready to upload to binstar.
-If you are uploading to your personal repo (a good idea so you can test on a
-clean VM before bricking the primary pyne binary) don&#8217;t specify a user.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>binstar upload <span class="nv">$pyneout</span>
-</pre></div>
-</div>
-<p>In order to upload to the primary pyne binary repo specify the user pyne (you
-need the proper priveleges to do this)</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>binstar upload -u pyne <span class="nv">$pyneout</span>
-</pre></div>
-</div>
-<p>You may need to add the &#8211;force option depending on if binstar has added support
-for multiple simultaneous versions (currently not available).</p>
-<p>The strategy is similar on windows but you need to:</p>
+  <div class="section" id="verification-and-validation">
+<h1>Verification and Validation<a class="headerlink" href="#verification-and-validation" title="Permalink to this headline">¶</a></h1>
+<p>Software Quality Assurance (QA) standards describe requirements for both software
+products (code, tests, documentation) and also software development practices.
+The software development practices within PyNE can be mapped to those
+prescribed by industry standards [1]. In regard to software products, due to PyNE&#8217;s status as an open-source,
+community-developed and ongoing project, the degree to which different areas of
+the codebase are rigorously verified, validated, and documented is not expected to be
+homogeneous. For this reason, PyNE code is declared Verification and
+Validation (V&amp;V) complaint on a per-module basis. Modules that are not V&amp;V
+compliant must contain Python import warnings.</p>
+<p>In order to be declared V&amp;V compliant, a module must meet the criteria
+described below. These V&amp;V criteria are internal to PyNE, but they were
+developed by adapting other QA criteria important within the nuclear
+engineering field. The Nuclear Regulatory Commission (NRC) endorses the
+American Society of Mechanical Engineers (ASME) NQA-1-2008/NQA-1a-2009 quality
+assurance standard for the licensing of power plants and reprocessing
+facilities. Since PyNE, for the most part, is a library intended to be used as
+a component within an end-user application, those who seek to use PyNE code for
+NQA-1 compliant purposes will likely evoke Part II
+Subpart 2.7 Requirement 302 &#8220;Otherwise Acquired Software&#8221; of NQA-1-2008. The PyNE V&amp;V
+criteria ensure that Requirement 302 criteria are addressed and readily
+available within PyNE documentation. In addition, the PyNE V&amp;V criteria are
+intended to correspond roughly with the Quality Rigor Level 1 Verification and
+Validation requirements as defined by the Nuclear Energy Modeling and Simulation
+(NEAMS) Program toolkit verification and validation plan <a class="reference external" href="http://www.energy.gov/sites/prod/files/2013/09/f2/NEAMS%20Software%20Verification%20and%20Validation%20Plan%20Requirements%20Version%200.pdf">[pdf]</a>.
+This will facilitate the process of formally declaring PyNE modules compliant
+with these standards, if desired by some party.</p>
+<div class="section" id="criteria-for-declaring-a-module-v-v-compliant">
+<h2>Criteria for declaring a module V&amp;V compliant<a class="headerlink" href="#criteria-for-declaring-a-module-v-v-compliant" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Install your own copy of cmake</li>
-<li>Use mingw-get to get mingw32-make</li>
-<li>Add just mingw32-make to your path (Do not install gcc with mingw-get!)</li>
-<li>Use the pynewin branch from &#64;crbates <a class="reference external" href="https://github.com/crbates/pyne/tree/pynewin">https://github.com/crbates/pyne/tree/pynewin</a></li>
-<li>Download and install the hdf5 1.8.11 shared library version (VS9 or VS10
-32-bit)</li>
-<li>Add the hdf5 dll&#8217;s to your path</li>
-<li>Write a bld.bat script to build pyne and copy the necessary hdf5 libraries</li>
-<li>Edit the pyne meta.yaml file to include libpython and mingw and remove hdf5
-from both the build and run steps.</li>
-<li>build, test, and upload pyne</li>
+<li>The module has a theory manual entry that describes or cites all non-trivial mathematics and/or physics that occur within a module, and also lists the assumptions and limitations of the module.</li>
+<li>The module is fully unit tested, with test coverage that spans the entire set of capabilities described in the theory manual.  If the expected results of unit tests require non-trivial calculations, sample calculations should be provided in the theory manual. In other words, any numbers that appear in the unit tests must be reproducible.</li>
+<li>The module has a user manual entry that describes how to use its functionality within the design basis.</li>
+<li>If modules contain significant physics (e.g. transport, transmutation), the module must be benchmarked against experimental results, with appropriate uncertainty and sensitivity analysis. In addition, regression tests must be incorporated into the CI.</li>
+<li>When removal of an import guard is proposed in a pull-request, both the requester and reviewer should be prepared to justify the decision to merge, in the event that the module falls under scrutiny.</li>
 </ol>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>[1] E. Biondo, A. Scopatz, M. Gidden, R. Slaybaugh, C. Bates, P. P.H. Wilson, <em>Quality Assurance within the PyNE Nuclear Toolkit</em>, Transactions of the American Nuclear Society, 111, <em>In Press</em>.</p>
+</div>
 </div>
 
 
@@ -149,15 +140,24 @@ from both the build and run steps.</li>
         <p class="logo"><a href="../index.html">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
         </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Verification and Validation</a><ul>
+<li><a class="reference internal" href="#criteria-for-declaring-a-module-v-v-compliant">Criteria for declaring a module V&amp;V compliant</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="endf.html"
-                        title="previous chapter">ENDF Tokenization</a></p>
+  <p class="topless"><a href="binaries.html"
+                        title="previous chapter">Building Conda Binaries</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="vnv.html"
-                        title="next chapter">Verification and Validation</a></p>
+  <p class="topless"><a href="../dev_team.html"
+                        title="next chapter">PyNE Development Team</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/devsguide/binaries.txt"
+    <li><a href="../_sources/devsguide/vnv.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -192,10 +192,10 @@ from both the build and run steps.</li>
           <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="vnv.html" title="Verification and Validation"
+          <a href="../dev_team.html" title="PyNE Development Team"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="endf.html" title="ENDF Tokenization"
+          <a href="binaries.html" title="Building Conda Binaries"
              >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>

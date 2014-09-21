@@ -10751,7 +10751,7 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1>Nuclear Data</h1>
-<p>PyNE provides a top-level interface for a variety of basic nuclear data needs. This aims to provide quick access to very high fidelity data. Values are taken from the nuc_data.h5 library.  The basic suite of data comes from public sources.  However if you have access to proprietary or export controlled data, such as CINDER cross sections, then PyNE will also attempt to provide an interface to this as well.</p>
+<p>PyNE provides a top-level interface for a variety of basic nuclear data needs. This aims to provide quick access to very high fidelity data. Values are taken from the <code>nuc_data.h5</code> library.  The basic suite of data comes from public sources.  However if you have access to proprietary or export controlled data, such as CINDER cross sections, then PyNE will also attempt to provide an interface to this as well.</p>
 <p>All functionality may be found in the data module:</p>
 
 </div>
@@ -10803,6 +10803,7 @@ In&nbsp;[1]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2>Atomic Mass [amu]</h2>
+<p>Finds the atomic mass of a nuclide</p>
 
 </div>
 </div>
@@ -10845,6 +10846,7 @@ In&nbsp;[2]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2>Natural Abundance Ratios</h2>
+<p>Finds the natural abundance of a nuclide</p>
 
 </div>
 </div>
@@ -11029,6 +11031,17 @@ In&nbsp;[7]:
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Rb decays to Kr and Sr</p>
+<hr>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
@@ -11064,7 +11077,8 @@ In&nbsp;[8]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2>Neutron Scattering Lengths [cm]</h2>
-
+<p>Finds the bound scattering length; the generic value is computed from the coherent and incoherent scattering data:</p>
+$$b = \sqrt{\left| b_{\mbox{coh}} \right|^2 + \left| b_{\mbox{inc}} \right|^2}$$
 </div>
 </div>
 </div>
@@ -11190,6 +11204,7 @@ In&nbsp;[3]:
 
 <span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">nuc_data</span><span class="p">)</span>
+<span class="c"># get a map between nucleon numbers and half-lives</span>
 <span class="n">anums</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">nucname</span><span class="o">.</span><span class="n">anum</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">decay</span><span class="o">.</span><span class="n">level_list</span><span class="p">[:][</span><span class="s">&#39;nuc_id&#39;</span><span class="p">])</span>
 <span class="c">#anums = map(nucname.anum, data.half_life_map.keys())</span>
 
@@ -11842,9 +11857,13 @@ In&nbsp;[33]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython"><pre><span class="c">#we can look up most decay data by parent or by decay energy</span>
+<div class=" highlight hl-ipython"><pre><span class="c"># we can look up most decay data by parent or by decay energy</span>
+<span class="c"># returns a list of gamma ray level pairs from ENSDF decay data from a given parent&#39;s state id.</span>
 <span class="n">decay_pairs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">gamma_from_to_byparent</span><span class="p">(</span><span class="mi">551370000</span><span class="p">)</span>
+
+<span class="c"># this resturns a list of gamma ray energies given a parent</span>
 <span class="n">energies</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">gamma_energy</span><span class="p">(</span><span class="mi">551370000</span><span class="p">)</span>
+
 <span class="k">print</span><span class="p">(</span><span class="n">energies</span><span class="p">)</span>
 </pre></div>
 
@@ -11870,31 +11889,50 @@ In&nbsp;[33]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[]:
+In&nbsp;[9]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython"><pre><span class="c"># these are just relative intensities</span>
 <span class="n">intensities</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">gamma_photon_intensity</span><span class="p">(</span><span class="mi">551370000</span><span class="p">)</span>
+
 <span class="c"># This converts the relative intensities to decays per 100 decays of the parent</span>
 <span class="n">photonbr</span><span class="p">,</span> <span class="n">photonbr_error</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decay_photon_branch_ratio</span><span class="p">(</span><span class="mi">551370000</span><span class="p">,</span><span class="mi">561370000</span><span class="p">)</span>
 <span class="n">finalintensity</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">intensities</span><span class="p">:</span>
-    <span class="c">#just compute the intensities ignore the errors (for now)</span>
+    <span class="c"># compute the intensities ignore the errors (for now)</span>
     <span class="n">finalintensity</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">photonbr</span><span class="o">*</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+     
 <span class="c"># Alpha intensities a bit trickier</span>
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">rxname</span>
 <span class="c"># This is just intensity per 100 alpha decays with no errors (yet)</span>
 <span class="n">a_intensities</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">alpha_intensity</span><span class="p">(</span><span class="mi">922290000</span><span class="p">)</span>
+
 <span class="c"># Find the alpha branch intensity</span>
 <span class="n">a_br</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">branch_ratio</span><span class="p">(</span><span class="mi">922290000</span><span class="p">,</span><span class="n">rxname</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="mi">922290000</span><span class="p">,</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;decay&#39;</span><span class="p">))</span>
-<span class="c">#Calculate the intensities of each alpha per 100 decays of the parent</span>
+
+<span class="c"># Calculate the intensities of each alpha per 100 decays of the parent</span>
 <span class="n">a_final_intensities</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">a_intensities</span><span class="p">:</span>
     <span class="n">a_final_intensities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a_br</span><span class="o">*</span><span class="n">item</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>-c:13: VnVWarning: pyne.rxname is not yet V&amp;V compliant.
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -11912,13 +11950,17 @@ In&nbsp;[]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[5]:
+In&nbsp;[10]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython"><pre><span class="c">#The default range is +- 1 keV which returns a lot of stuff</span>
+<div class=" highlight hl-ipython"><pre><span class="c"># The default range is +- 1 keV which returns a lot of stuff</span>
 <span class="n">possible_parents</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">gamma_parent</span><span class="p">(</span><span class="mf">661.657</span><span class="p">)</span>
+
+<span class="c"># this returns gamma ray level pairs based on gamma ray energy</span>
 <span class="n">from_to</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">gamma_from_to_byen</span><span class="p">(</span><span class="mf">661.657</span><span class="p">)</span>
+
+<span class="c"># a list of gamma ray  intensities from a given gamman ray energy</span>
 <span class="n">intensity_list</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">gamma_photon_intensity_byen</span><span class="p">(</span><span class="mf">661.657</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">intensity_list</span><span class="p">))</span>
 </pre></div>
@@ -11933,7 +11975,7 @@ In&nbsp;[5]:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>849
+<pre>865
 </pre>
 </div>
 </div>
@@ -11949,14 +11991,14 @@ In&nbsp;[26]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython"><pre><span class="c">#we can downselect this</span>
+<div class=" highlight hl-ipython"><pre><span class="c"># we can downselect this</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="n">hls</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">final_ints</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">parents</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">possible_parents</span><span class="p">):</span>
-    <span class="c">#gammas that don&#39;t have from to pairs get lost here</span>
+    <span class="c"># gammas that don&#39;t have from-to pairs get lost here</span>
     <span class="n">phbr</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decay_photon_branch_ratio</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">nucname</span><span class="o">.</span><span class="n">groundstate</span><span class="p">(</span><span class="n">from_to</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
     <span class="c"># Select non-zero branch ratios, intensities over 5% of all decays and half lives over 10 days</span>
     <span class="k">if</span> <span class="n">phbr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="n">intensity_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">phbr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">5.0</span><span class="p">:</span>
@@ -11964,7 +12006,8 @@ In&nbsp;[26]:
             <span class="n">parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
             <span class="n">hls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">half_life</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="bp">False</span><span class="p">))</span>
             <span class="n">final_ints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">intensity_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">phbr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="c">#now we have a managably short list</span>
+
+<span class="c"># now we have a managably short list</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">parents</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="s">&quot;possible candidate: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nucname</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
     <span class="k">print</span><span class="p">(</span><span class="s">&quot;half life: {0} s/ {1} days/ {2} years&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hls</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">hls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="mf">60.</span><span class="o">*</span><span class="mf">60.</span><span class="o">*</span><span class="mf">24.</span><span class="p">),</span><span class="n">hls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="mf">60.</span><span class="o">*</span><span class="mf">60.</span><span class="o">*</span><span class="mf">24.</span><span class="o">*</span><span class="mf">365.25</span><span class="p">)))</span>

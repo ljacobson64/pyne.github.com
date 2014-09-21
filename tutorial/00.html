@@ -10762,6 +10762,38 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h1>Good Morning!</h1>
+<ul>
+<li>Introductions</li>
+<li>Hopefully you've installed the virtual machine. <ul>
+<li>If not, go sit in the back and follow the directions in the email that we sent now...</li>
+<li>If so, open it now and open Accessories -&gt; LXTerminal</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1>Open the tutorial</h1>
+<p>You can start the tutorial by navigating to <code>~/opt/pyne/tutorial</code> and entering</p>
+<div class="highlight"><pre><span class="nv">$ </span>ipython notebook --matplotlib
+</pre></div>
+<p>This should open the tutorial in a web browser. We'll start with <code>00-intro</code>. This isn't the most up-to-date version, but it's pretty close. You can update it later today or when you get home.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1>Is PyNE Installed?</h1>
 <p>You can verify that PyNE is successfully installed by running the following: </p>
 
@@ -10771,7 +10803,7 @@ div#notebook {
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[1]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -10798,18 +10830,34 @@ In&nbsp;[1]:
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 <div class="prompt input_prompt">
+In&nbsp;[5]:
 </div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1>Have you cloned the tutorial repo?</h1>
-<div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/pyne/tutorial.git
+    <div class="input_area">
+<div class=" highlight hl-ipython"><pre><span class="k">print</span> <span class="s">&quot;hello world&quot;</span>
 </pre></div>
-<hr>
 
 </div>
 </div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>hello world
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -10823,7 +10871,7 @@ In&nbsp;[1]:
 <li>It is permissively licensed (2-clause BSD)</li>
 <li>It supports both a C++ and a Python API.</li>
 <li>The name 'PyNE' is a bit of a misnomer since most of the code base is in C++ but most daily usage happens in Python.</li>
-<li>The v0.3 code base was just released!</li>
+<li>The v0.4 code is the current stable release</li>
 <li>As an organization, PyNE was born in April 2011.  However, core parts of PyNE have existed since 2007.</li>
 </ul>
 
@@ -10905,9 +10953,9 @@ In&nbsp;[1]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1>What should you do with PyNE?</h1>
-<p>As a <strong>user</strong> you should do your work or research with PyNE.  Even if you have your own software which looks and behaves similar to some aspects of PyNE, using PyNE will mean that you no longer have to develop AND maintain that functionality.</p>
-<p>As a <strong>developer</strong> you should be selfish.  Contribute to PyNE in ways that support the work that you are doing. If a feature you want is not in PyNE right now, chances are that other people want to see that feature too!  This will help your future self as much as future other people.</p>
+<h1>What could you do with PyNE?</h1>
+<p>As a <strong>user</strong> you could do your work or research with PyNE.  Even if you have your own software that looks and behaves similarly to some aspects of PyNE, using PyNE will mean that you no longer have to develop AND maintain that functionality.</p>
+<p>As a <strong>developer</strong> you should be selfish.  Contribute to PyNE in ways that support the work that you are doing. If a feature you want is not in PyNE right now, chances are that other people want to see that feature too! This will help your future self as much as future other people.</p>
 
 </div>
 </div>
@@ -10929,7 +10977,7 @@ In&nbsp;[1]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1>Contact PyNE</h1>
-<p><strong>Website:</strong> <a href="http://pynesim.org/">http://pynesim.org/</a></p>
+<p><strong>Website:</strong> <a href="http://pyne.io/">http://pyne.io/</a></p>
 <p><strong>User's Mailing List:</strong> pyne-users@googlegroups.com</p>
 <p><strong>Developer's List:</strong> pyne-dev@googlegroups.com</p>
 

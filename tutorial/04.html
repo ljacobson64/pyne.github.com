@@ -10751,7 +10751,7 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1>Reaction Names</h1>
-<p>In the same way that nuclides have a vareity of different spelling, so to do reactions.  Once again, PyNE aims to provide a canonical form while interfacing well with external spellings - such as MT numbers.  Similar to the <code>nucname</code> module, the canonical form is given as and integer which may be discovered via the <code>id()</code> function while the human readable name is found via <code>name()</code>.</p>
+<p>In the same way that nuclides have a vareity of different spelling, so to do reactions.  Once again, PyNE aims to provide a canonical form while interfacing well with external spellings - such as MT numbers.  Similar to the <code>nucname</code> module, the canonical form is given as an integer that may be discovered via the <code>id()</code> function, while the human readable name is found via <code>name()</code>.</p>
 <p><strong>Reaction Names:</strong> The names themselves are strings chosen such
 that they are valid variable names in most programming languages
 (including Python and C/C++).  This strategy is known as <em>natural
@@ -10801,13 +10801,13 @@ particle types and their names:</p>
 </tr>
 </tbody>
 </table>
-<p>From this we can see that a reaction which produces a neutron and a
+<p>From this we can see that a reaction that produces a neutron and a
 proton is called "np".  If multiple particles of the same type are
 produced, then the number precedes the particle type.  Thus, one
 neutron and two protons are given by "n2p".  However if this would
 result in the name starting with a number, then the name is
 prepended with <code>z_</code> to indicate any incident particle.  For
-example, the reaction which yields two neutrons is "z_2n" (because
+example, a reaction yielding two neutrons is "z_2n" (because
 "2n" is not a valid variable name in most programming languages).</p>
 <p>Furthermore, if a reaction name ends in <code>_[0-9]+</code> (underscore plus
 digits), then this means that the nucleus is left in the nth excited
@@ -10823,21 +10823,21 @@ E.g. "erel_p" is the energy release from proton emission.</p>
 defining all possible reactions in a partially physically meaningful
 way, they do so using a variable length format (strings).  It is
 often advantageous to have a fixed-width format, namely for storage.
-To this end, unique unsigned 32-bit integers are given to each name.
+To this end, unique, unsigned, 32-bit integers are given to each name.
 These identifiers are computed based on a custom hash of the
 reaction name.  This hash function reserves space for MT numbers by
 not producing values below 1000.  It is recommended that the
-reaction identifiers be used for most performance critical tasks,
-rather than the names that they are calculated from.</p>
+reaction identifiers be used for most performance-critical tasks,
+rather than the names from which they are calculated.</p>
 <p><strong>Reaction Labels:</strong> Reaction labels are short, human-readable
 strings.  These do not follow the naming convention restrictions
 that the names themselves are subject to.  Additionally, labels need
 not be unique.  The labels are provided as a convenience for
-building user interfaces with.</p>
+building user interfaces.</p>
 <p><strong>Reaction Docstrings:</strong> Similar to labels, reactions also come with
-a documentation string which gives a description of the reaction in
+a documentation string that gives a description of the reaction in
 a sentence or two. These provide more help and information for a
-reaction.  This may be useful in a tool tip context for user
+reaction.  This may be useful in a tool-tip context for user
 interfaces.</p>
 <p><strong>Other Canonical Forms:</strong> This module provides mappings between
 other reaction canonical forms and the naming conventions and IDs
@@ -10856,9 +10856,9 @@ will give "a" and "d".  For a listing of all alternative names see the
 <code>altnames</code> variable.</p>
 <p>Furthermore, certain reactions may be inferred from the nuclide prior
 and post reaction.  For example, if an incident neutron hit U-235 and
-Th-232 was produced then an alpha production reaction is assumed to have
-occurred. Thus most of the functions in rxname will take a from nuclide,
-a to nuclide, and z -- the incident particle type (which defaults to "n"
+Th-232 was produced, then an alpha production reaction is assumed to have
+occurred. Thus, most of the functions in rxname will take a from nuclide,
+a to nuclide, and z -- the incident particle type (which defaults to "n",
 neutron).  Note that z may also be "decay", indicating a radioactive
 decay occurrence.</p>
 
@@ -10879,6 +10879,20 @@ In&nbsp;[1]:
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>-c:1: VnVWarning: pyne.rxname is not yet V&amp;V compliant.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -10893,7 +10907,7 @@ In&nbsp;[1]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[6]:
+In&nbsp;[2]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -10938,7 +10952,7 @@ In&nbsp;[6]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[7]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -10982,12 +10996,12 @@ absorption
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[8]:
+In&nbsp;[6]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython"><pre><span class="k">print</span> <span class="n">rxname</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">rxname</span><span class="o">.</span><span class="n">doc</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">rxname</span><span class="o">.</span><span class="n">doc</span><span class="p">(</span><span class="s">&#39;n2p&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11001,7 +11015,7 @@ In&nbsp;[8]:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>(z,p)
-(z,p) Production of p
+(z,n2p) Production of n and 2p
 </pre>
 </div>
 </div>
@@ -11024,7 +11038,7 @@ In&nbsp;[8]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[9]:
+In&nbsp;[7]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -11066,7 +11080,7 @@ In&nbsp;[9]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[11]:
+In&nbsp;[8]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -11083,11 +11097,11 @@ In&nbsp;[11]:
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[11]:</div>
+    Out[8]:</div>
 
 
 <div class="output_text output_subarea output_pyout">
-<pre>&apos;absorption&apos;</pre>
+<pre>u&apos;absorption&apos;</pre>
 </div>
 
 </div>
@@ -11175,7 +11189,7 @@ In&nbsp;[13]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>There are also <code>parent()</code> and <code>child()</code> functions which instead let you discover the parent or child from a nuclide, the reaction, and the incidnet particle type.</p>
+<p>There are also <code>parent()</code> and <code>child()</code> functions, which instead let you discover the parent or child from a nuclide, the reaction, and the incidnet particle type.</p>
 
 </div>
 </div>

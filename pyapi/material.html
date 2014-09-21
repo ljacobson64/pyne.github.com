@@ -184,6 +184,25 @@ attributes as ALARA valid comments.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pyne.material.Material.collapse_elements">
+<tt class="descname">collapse_elements</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pyne.material.Material.collapse_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collapses the elements in the material, excluding the nucids in 
+paramater set. This function returns a copy of the material.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newmat</strong> : Material</p>
+<blockquote class="last">
+<div><p>A copied and collapseed material.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyne.material.Material.del_mat">
 <tt class="descname">del_mat</tt><big>(</big><em>nuc_sequence</em><big>)</big><a class="headerlink" href="#pyne.material.Material.del_mat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes a subset of the material and returns a new material
@@ -284,8 +303,63 @@ with their natural isotopic distributions.  This function returns a copy.</p>
 <dl class="method">
 <dt id="pyne.material.Material.fluka">
 <tt class="descname">fluka</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.fluka" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a fluka material card
-Parameters none
+<dd><p>Return a fluka material record if there is only one component,
+otherwise return the compound material record and the fluka
+compound record
+Parameters 
+&#8212;&#8212;&#8212;-</p>
+<blockquote>
+<div>The sequential material id starting from 26 unless predefined</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.material.Material.fluka_compound_str">
+<tt class="descname">fluka_compound_str</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.fluka_compound_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the FLUKA MATERIAL record for the compound, and the 
+FLUKA COMPOUND record for the components
+Parameters 
+&#8212;&#8212;&#8212;-</p>
+<blockquote>
+<div>The sequential compound id starting from 26 unless predefined</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.material.Material.fluka_format_field">
+<tt class="descname">fluka_format_field</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.fluka_format_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string for a single field in the FLUKA MATERIAL record
+Parameters 
+&#8212;&#8212;&#8212;-</p>
+<blockquote>
+<div>The field value</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.material.Material.fluka_material_component">
+<tt class="descname">fluka_material_component</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.fluka_material_component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the FLUKA MATERIAL record with the given id, nucid and name. 
+Parameters 
+&#8212;&#8212;&#8212;-</p>
+<blockquote>
+<div>The sequential material id, the (single) nucid, and the fluka name</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.material.Material.fluka_material_line">
+<tt class="descname">fluka_material_line</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.fluka_material_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the FLUKA MATERIAL record with the given znum, atomic mass, id, 
+and fluka name
+Parameters 
+&#8212;&#8212;&#8212;-</p>
+<blockquote>
+<div>The znum, atomic mass, material id, and the fluka name</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.material.Material.fluka_material_str">
+<tt class="descname">fluka_material_str</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.fluka_material_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the FLUKA MATERIAL record with the given id. 
+A single-component material is expected
+Parameters 
 &#8212;&#8212;&#8212;-</p>
 <blockquote>
 <div>The sequential material id starting from 26 unless predefined</div></blockquote>
@@ -641,6 +715,16 @@ vector as mass.</p>
 <tt class="descname">normalize</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.normalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>This convenience method normalizes the mass stream by setting its
 mass = 1.0.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyne.material.Material.not_fluka_builtin">
+<tt class="descname">not_fluka_builtin</tt><big>(</big><big>)</big><a class="headerlink" href="#pyne.material.Material.not_fluka_builtin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether a string is in the fluka built-in list
+Parameters 
+&#8212;&#8212;&#8212;-</p>
+<blockquote>
+<div>A string representing a FLUKA material name</div></blockquote>
 </dd></dl>
 
 <dl class="method">

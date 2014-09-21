@@ -333,13 +333,61 @@ if(ga_enabled){
 <div><p>Return an mcnp input deck record as a string. </p>
 <p></p>
 </div></blockquote>
-<p><span class="target" id="pyne::Material::fluka"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a9d0a61e9fbab642e0892e551a31f869c"></span><div class="line-block">
-<div class="line">std::string <strong>fluka</strong>()</div>
+<p><span class="target" id="pyne::Material::fluka__i.ss"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a6bcd10072abbf3e9a8bcaa466f8be569"></span><div class="line-block">
+<div class="line">std::string <strong>fluka</strong>(int id, std::string frac_type = &#8220;mass&#8221;)</div>
 </div>
 </p>
 <blockquote>
-<div><p>Return a fluka input deck MATERIAL card as a string. </p>
+<div><p></p>
+<p>Return a fluka input deck MATERIAL card as a string </p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::not_fluka_builtin__ss"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a97461e1c6a87d91ed1293adbe43cb29e"></span><div class="line-block">
+<div class="line">bool <strong>not_fluka_builtin</strong>(std::string fluka_name)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Convenience function to tell whether a given name needs a material card. </p>
 <p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::fluka_material_str__i"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1af3f7e0865a7a8019e02c2fb3c408c2f3"></span><div class="line-block">
+<div class="line">std::string <strong>fluka_material_str</strong>(int id)</div>
+</div>
+</p>
+<blockquote>
+<div><p>High level call to get details and call material_component(..) </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::fluka_material_component__i.i.ss"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a3b7bc2f7ca3f2c05860004ea27ebcadb"></span><div class="line-block">
+<div class="line">std::string <strong>fluka_material_component</strong>(int fid, int nucid, std::string fluka_name)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Intermediate level call to prepare final info and call material_line(..) </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::fluka_material_line__i.double.i.ss"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a269b13dac00eb3ba0ff31feb5bd3b0ca"></span><div class="line-block">
+<div class="line">std::string <strong>fluka_material_line</strong>(int znum, double atomic_mass, int fid, std::string fluka_name)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Format information into a FLUKA material card. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::fluka_format_field__float"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1ab5fb8d5171b210a7c151d6bb1e180693"></span><div class="line-block">
+<div class="line">std::string <strong>fluka_format_field</strong>(float field)</div>
+</div>
+</p>
+<blockquote>
+<div><p>Convenience function to format a single fluka field. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::fluka_compound_str__i.ss"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a3dd223f881e39c1c6014c2b79c9ee39b"></span><div class="line-block">
+<div class="line">std::string <strong>fluka_compound_str</strong>(int id, std::string frac_type = &#8220;mass&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Return FLUKA compound card and the material card for the named compound but not the material cards of the components </p>
 </div></blockquote>
 <p><span class="target" id="pyne::Material::from_text__cP"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a28d8f7a7b06110a8be097c8e7b1fc59a"></span><div class="line-block">
 <div class="line">void <strong>from_text</strong>(char * filename)</div>
@@ -349,8 +397,8 @@ if(ga_enabled){
 <div><p>Reads data from a plaintext file at <em>filename</em> into this <a class="reference internal" href="#pyne_materialclasspyne_1_1_material"><em>Material</em></a> instance. </p>
 <p></p>
 </div></blockquote>
-<p><span class="target" id="pyne::Material::from_text__ss"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a0e7089d30472ba091c61cd949c625c08"></span><div class="line-block">
-<div class="line">void <strong>from_text</strong>(std::string filname)</div>
+<p><span class="target" id="pyne::Material::from_text__ss"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1af74dc1341ac435f41684c935b0c9324f"></span><div class="line-block">
+<div class="line">void <strong>from_text</strong>(std::string filename)</div>
 </div>
 </p>
 <blockquote>
@@ -452,6 +500,22 @@ if(ga_enabled){
 <blockquote>
 <div><p></p>
 <p>Returns a copy of the current material where all natural elements in the composition are expanded to their natural isotopic abundances. </p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::collapse_elements__std::set:i:"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1a57fbf76c049dfe14a7309a39f1cd6b23"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#pyne_materialclasspyne_1_1_material"><em>Material</em></a> <strong>collapse_elements</strong>(std::set&lt; int &gt; exception_znum)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::Material::collapse_elements__iPP"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1aa6350f891ab3a0f33770ed418f93617c"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#pyne_materialclasspyne_1_1_material"><em>Material</em></a> <strong>collapse_elements</strong>(int ** int_ptr_arry)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
 </div></blockquote>
 <p><span class="target" id="pyne::Material::mass_density__double.double"></span><span class="target" id="pyne_materialclasspyne_1_1_material_1ac5bbc836d8b9042297444c51506b7439"></span><div class="line-block">
 <div class="line">double <strong>mass_density</strong>(double num_dens = -1.0, double apm = -1.0)</div>
@@ -787,6 +851,18 @@ if(ga_enabled){
 <blockquote>
 <div><p></p>
 <p>Converts a <a class="reference internal" href="#pyne_materialclasspyne_1_1_material"><em>Material</em></a> to a string stream representation for canonical writing. This operator is also defined on inheritors of std::ostream </p>
+</div></blockquote>
+</div></blockquote>
+<em>Variables</em><blockquote>
+<div><p><span class="target" id="pyne_materialnamespacepyne_1af3fdce0ec8aaf5f1c4905880a20a7b76"></span>std::string <strong>fluka_mat_strings</strong>[]</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_materialnamespacepyne_1aaf3f44a98ac53e71b9470fb233649014"></span>int <strong>FLUKA_MAT_NUM</strong></p>
+<blockquote>
+<div><p></p>
+<p></p>
 </div></blockquote>
 </div></blockquote>
 </div></blockquote>
