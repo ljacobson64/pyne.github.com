@@ -144,6 +144,35 @@ well as other helpful module attributes.</p>
 <dt id="pyne.nucname.id">
 <tt class="descclassname">pyne.nucname.</tt><tt class="descname">id</tt><big>(</big><em>nuc</em><big>)</big><a class="headerlink" href="#pyne.nucname.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a nuclide to its identifier form (952420000).</p>
+<p>If the input nuclide is in id form already, then this is function does no
+work. For all other formats, the id() function provides a best-guess based
+on a heirarchy of other formats that is used to resolve ambiguities between
+naming conventions. For integer input the form resolution order is:</p>
+<blockquote>
+<div><ul class="simple">
+<li>id</li>
+<li>zz (elemental z-num only given)</li>
+<li>zzaaam</li>
+<li>cinder (aaazzzm)</li>
+<li>mcnp</li>
+<li>zzaaa</li>
+<li>sza</li>
+</ul>
+</div></blockquote>
+<p>For string (or char <a href="#id1"><span class="problematic" id="id2">*</span></a>) input the form resolution order is as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ZZ-LL-AAAM</li>
+<li>Integer form in a string representation, uses interger resolution</li>
+<li>NIST</li>
+<li>name form</li>
+<li>Serpent</li>
+<li>LL (element symbol)</li>
+</ul>
+</div></blockquote>
+<p>For well-defined situations where you know ahead of time what format the
+nuclide is in, you should use the various form_to_id() functions, rather 
+than the id() function which is meant to resolve possibly ambiquous cases.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -168,7 +197,9 @@ well as other helpful module attributes.</p>
 <dl class="function">
 <dt id="pyne.nucname.name">
 <tt class="descclassname">pyne.nucname.</tt><tt class="descname">name</tt><big>(</big><em>nuc</em><big>)</big><a class="headerlink" href="#pyne.nucname.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts a nuclide to its name form (&#8216;AM242M&#8217;).</p>
+<dd><p>Converts a nuclide to its name form (&#8216;Am242M&#8217;). The name() function 
+first converts functions to id form using the id() function. Thus the 
+form order resolution for id() also applies to here.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

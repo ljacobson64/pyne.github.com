@@ -85,19 +85,20 @@ if(ga_enabled){
 
 <span class="kn">from</span> <span class="nn">distutils.dir_util</span> <span class="kn">import</span> <span class="n">remove_tree</span>
 
-<span class="kn">from</span> <span class="nn">pyne._utils</span> <span class="kn">import</span> <span class="n">fromstring_split</span><span class="p">,</span> <span class="n">fromstring_token</span><span class="p">,</span> <span class="n">endftod</span><span class="p">,</span> <span class="n">fromendf_tok</span>
+<span class="kn">from</span> <span class="nn">pyne._utils</span> <span class="kn">import</span> <span class="n">fromstring_split</span><span class="p">,</span> <span class="n">fromstring_token</span><span class="p">,</span> <span class="n">endftod</span><span class="p">,</span>\
+                        <span class="n">use_fast_endftod</span><span class="p">,</span> <span class="n">fromendf_tok</span>
 
 <span class="k">class</span> <span class="nc">VnVWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="n">time_conv_dict</span> <span class="o">=</span> <span class="p">{</span>
-          <span class="s">&#39;as&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span> 
-		  <span class="s">&#39;attosec&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span> 
-		  <span class="s">&#39;attosecond&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span> 
+          <span class="s">&#39;as&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
+		  <span class="s">&#39;attosec&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
+		  <span class="s">&#39;attosecond&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
 		  <span class="s">&#39;attoseconds&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
-          <span class="s">&#39;fs&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span> 
-		  <span class="s">&#39;femtosec&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span> 
-		  <span class="s">&#39;femtosecond&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span> 
+          <span class="s">&#39;fs&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
+		  <span class="s">&#39;femtosec&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
+		  <span class="s">&#39;femtosecond&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
 		  <span class="s">&#39;femtoseconds&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
 		  <span class="s">&#39;ps&#39;</span><span class="p">:</span> <span class="mf">1e-12</span><span class="p">,</span>
 		  <span class="s">&#39;picosec&#39;</span><span class="p">:</span> <span class="mf">1e-12</span><span class="p">,</span>
@@ -150,7 +151,7 @@ if(ga_enabled){
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    sec_time : float</span>
-<span class="sd">        Time value in [sec]. </span>
+<span class="sd">        Time value in [sec].</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sec_time</span> <span class="o">=</span> <span class="n">input_time</span> <span class="o">*</span> <span class="n">time_conv_dict</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
@@ -177,14 +178,14 @@ if(ga_enabled){
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    xs : </span>
+<span class="sd">    xs :</span>
 <span class="sd">        Cross section value in [units].</span>
 <span class="sd">    units : str</span>
 <span class="sd">        Units flag, eg &#39;b&#39;, &#39;microbarn&#39;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    barn_xs : </span>
+<span class="sd">    barn_xs :</span>
 <span class="sd">        Cross section value in [barns].</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -195,14 +196,14 @@ if(ga_enabled){
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    xs : </span>
+<span class="sd">    xs :</span>
 <span class="sd">        Cross section value in [barns].</span>
 <span class="sd">    units : str</span>
 <span class="sd">        Units flag, eg &#39;b&#39;, &#39;microbarn&#39;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    unit_xs : </span>
+<span class="sd">    unit_xs :</span>
 <span class="sd">        Cross section value in [units].</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>

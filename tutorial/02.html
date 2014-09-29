@@ -10802,7 +10802,7 @@ In&nbsp;[1]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[3]:
+In&nbsp;[2]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -10819,7 +10819,7 @@ In&nbsp;[3]:
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[3]:</div>
+    Out[2]:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -10835,14 +10835,14 @@ In&nbsp;[3]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[4]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython"><pre><span class="n">nucvec</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10010</span><span class="p">:</span>  <span class="mf">1.0</span><span class="p">,</span> <span class="mi">80160</span><span class="p">:</span>  <span class="mf">1.0</span><span class="p">,</span> <span class="mi">691690</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">922350</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
           <span class="mi">922380</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">942390</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">942410</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">952420</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
           <span class="mi">962440</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
-<span class="n">mat</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="n">nucvec</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="mf">1.9</span><span class="p">)</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="n">nucvec</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">mat</span>
 </pre></div>
 
@@ -10858,7 +10858,7 @@ In&nbsp;[4]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Material:
 mass = 9.0
-density = 1.9
+density = -1.0
 atoms per molecule = -1.0
 -------------------------
 H1     0.111111111111
@@ -11228,12 +11228,11 @@ the material may be performed with integer-keys, string-keys, slices, or sequenc
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[7]:
+In&nbsp;[12]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython"><pre><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
-<span class="n">leu</span><span class="o">.</span><span class="n">comp</span><span class="p">[</span><span class="n">nucname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="s">&quot;U-235&quot;</span><span class="p">)]</span>
+<div class=" highlight hl-ipython"><pre><span class="n">leu</span><span class="o">.</span><span class="n">comp</span><span class="p">[</span><span class="mi">922350000</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -11245,7 +11244,7 @@ In&nbsp;[7]:
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[7]:</div>
+    Out[12]:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -11465,11 +11464,11 @@ class.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[8]:
+In&nbsp;[18]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython"><pre><span class="n">h2o</span> <span class="o">=</span> <span class="n">Material</span><span class="p">({</span><span class="s">&#39;H2&#39;</span><span class="p">:</span> <span class="mf">0.11191487328808077</span><span class="p">,</span> <span class="s">&#39;O16&#39;</span><span class="p">:</span> <span class="mf">0.8880851267119192</span><span class="p">})</span>
+<div class=" highlight hl-ipython"><pre><span class="n">h2o</span> <span class="o">=</span> <span class="n">Material</span><span class="p">({</span><span class="s">&#39;H1&#39;</span><span class="p">:</span> <span class="mf">0.11191487328808077</span><span class="p">,</span> <span class="s">&#39;O16&#39;</span><span class="p">:</span> <span class="mf">0.8880851267119192</span><span class="p">})</span>
 <span class="n">h2o</span><span class="o">.</span><span class="n">molecular_mass</span><span class="p">()</span>
 </pre></div>
 
@@ -11482,11 +11481,11 @@ In&nbsp;[8]:
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[8]:</div>
+    Out[18]:</div>
 
 
 <div class="output_text output_subarea output_pyout">
-<pre>9.00182238810651</pre>
+<pre>6.003521561343334</pre>
 </div>
 
 </div>
@@ -11498,7 +11497,7 @@ In&nbsp;[8]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[9]:
+In&nbsp;[19]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -11515,7 +11514,7 @@ In&nbsp;[9]:
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[9]:</div>
+    Out[19]:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -11578,7 +11577,7 @@ In&nbsp;[20]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[10]:
+In&nbsp;[21]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -11595,11 +11594,11 @@ In&nbsp;[10]:
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[10]:</div>
+    Out[21]:</div>
 
 
 <div class="output_text output_subarea output_pyout">
-<pre>{10020000: 0.5001921069088722, 80160000: 0.49980789309112783}</pre>
+<pre>{10010000: 0.6666666666666666, 80160000: 0.3333333333333333}</pre>
 </div>
 
 </div>
@@ -11743,11 +11742,11 @@ of the attrs <em>should</em> be a dictionary, though this is not explicitly enfo
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[12]:
+In&nbsp;[24]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython"><pre><span class="n">leu</span> <span class="o">=</span> <span class="n">Material</span><span class="p">({</span><span class="mi">922350</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">922380</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">},</span> <span class="mi">15</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;source&#39;</span><span class="p">:</span> <span class="s">&#39;compendium&#39;</span><span class="p">})</span>
+<div class=" highlight hl-ipython"><pre><span class="n">leu</span> <span class="o">=</span> <span class="n">Material</span><span class="p">({</span><span class="mi">922350</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">922380</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">},</span> <span class="mi">15</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;kg&#39;</span><span class="p">})</span>
 <span class="n">leu</span>
 </pre></div>
 
@@ -11760,11 +11759,11 @@ In&nbsp;[12]:
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[12]:</div>
+    Out[24]:</div>
 
 
 <div class="output_text output_subarea output_pyout">
-<pre>pyne.material.Material({922350000: 0.05, 922380000: 0.95}, 15.0, -1.0, -1.0, {&quot;source&quot;:&quot;compendium&quot;})</pre>
+<pre>pyne.material.Material({922350000: 0.05, 922380000: 0.95}, 15.0, -1.0, -1.0, {&quot;units&quot;:&quot;kg&quot;})</pre>
 </div>
 
 </div>
@@ -11776,7 +11775,7 @@ In&nbsp;[12]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[13]:
+In&nbsp;[25]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -11797,7 +11796,7 @@ In&nbsp;[13]:
 mass = 15.0
 density = -1.0
 atoms per molecule = -1.0
-source = compendium
+units = kg
 -------------------------
 U235   0.05
 U238   0.95
