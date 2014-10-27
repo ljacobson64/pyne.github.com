@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -96,25 +95,23 @@ with physics.</p>
 <div class="section" id="pointwise-linear-collapse">
 <h2>Pointwise Linear Collapse<a class="headerlink" href="#pointwise-linear-collapse" title="Permalink to this headline">¶</a></h2>
 <p>The <tt class="xref py py-func docutils literal"><span class="pre">pointwise_linear_collapse()</span></tt> function takes an array of pointwise
-data <img class="math" src="../_images/math/092e364e1d9d19ad5fffb0b46ef4cc7f2da02c1c.png" alt="y"/> that has the independent variable <img class="math" src="../_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> and collapses this into
-<img class="math" src="../_images/math/6e28ce12d49d39f160d5a0ef54077fc98e4b9d2b.png" alt="G"/> groups as defined by the bin boundaries <img class="math" src="../_images/math/50361f7ff2ca745a4b366de2cd53c3570ce468fd.png" alt="x_g"/> where <img class="math" src="../_images/math/311cabda3a9b09f0dde217303ca9d1cd9201dcf6.png" alt="g"/>
-indexes <img class="math" src="../_images/math/6e28ce12d49d39f160d5a0ef54077fc98e4b9d2b.png" alt="G"/>. Both <img class="math" src="../_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> and <img class="math" src="../_images/math/50361f7ff2ca745a4b366de2cd53c3570ce468fd.png" alt="x_g"/> must be monotonic and in the
-same direction.  Say that there are <img class="math" src="../_images/math/fc97ef67268cd4e91bacdf12b8901d7036c9a056.png" alt="N"/> points in <img class="math" src="../_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> and <img class="math" src="../_images/math/092e364e1d9d19ad5fffb0b46ef4cc7f2da02c1c.png" alt="y"/>.
-Let <img class="math" src="../_images/math/174fadd07fd54c9afe288e96558c92e0c1da733a.png" alt="n"/> index <img class="math" src="../_images/math/fc97ef67268cd4e91bacdf12b8901d7036c9a056.png" alt="N"/>. Then for all points internal to a group, the
-collapsed value <img class="math" src="../_images/math/74a9976904da6fe6b25615ba2f42902ef1f418a4.png" alt="y_g"/> is:</p>
+data <img class="math" src="../_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/> that has the independent variable <img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> and collapses this into
+<img class="math" src="../_images/math/b92c09a649305a0aef3239729d93cdf941e0e5cf.png" alt="G"/> groups as defined by the bin boundaries <img class="math" src="../_images/math/8d7933f8f95cd8f8322be1d70d706d9959a65c01.png" alt="x_g"/> where <img class="math" src="../_images/math/67f4714f065d485540ad40829e0717bf75e9dd85.png" alt="g"/>
+indexes <img class="math" src="../_images/math/b92c09a649305a0aef3239729d93cdf941e0e5cf.png" alt="G"/>. Both <img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> and <img class="math" src="../_images/math/8d7933f8f95cd8f8322be1d70d706d9959a65c01.png" alt="x_g"/> must be monotonic and in the
+same direction.  Say that there are <img class="math" src="../_images/math/75e27f04188974063be3230dca208cd495b77ce1.png" alt="N"/> points in <img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> and <img class="math" src="../_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/>.
+Let <img class="math" src="../_images/math/413f8a8e40062a9090d9d50b88bc7b551b314c26.png" alt="n"/> index <img class="math" src="../_images/math/75e27f04188974063be3230dca208cd495b77ce1.png" alt="N"/>. Then for all points internal to a group, the
+collapsed value <img class="math" src="../_images/math/14ebce7d0454f2c50a5d775af18c93958cc1a157.png" alt="y_g"/> is:</p>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">y_g = \frac{1}{x_{g+1} - x_g} \Sum_{n|x_g \le x_n}^{x_n \le x_{g+1}}
     \frac{y_{n+1} + y_n}{2} * (x_{n+1} - x_n)</tt>)</p>
-latex exited with error:
-[stderr]
-
+latex exited with error
 [stdout]
 This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian)
  restricted \write18 enabled.
 entering extended mode
 (./math.tex
 LaTeX2e &lt;2011/06/27&gt;
-Babel &lt;3.9f&gt; and hyphenation patterns for 78 languages loaded.
+Babel &lt;3.9h&gt; and hyphenation patterns for 13 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo))
@@ -131,7 +128,8 @@ For additional information on amsmath, use the `?&#8217; option.
 (/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
-(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty) (./math.aux)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
+No file math.aux.
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/ucsencs.def)
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)
@@ -150,23 +148,23 @@ l.15 \end{gather}
 Output written on math.dvi (1 page, 820 bytes).
 Transcript written on math.log.
 </div>
-<p>The term <img class="math" src="../_images/math/cbe618d9b022c7b2c32f356e2d3763af77b035a2.png" alt="(y_{n+1} + y_n)/2"/> is the center (average) value of a linear
-interpolation between the two points.  Therefore, <img class="math" src="../_images/math/74a9976904da6fe6b25615ba2f42902ef1f418a4.png" alt="y_g"/> is the
-<img class="math" src="../_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/>-weighted average of <img class="math" src="../_images/math/092e364e1d9d19ad5fffb0b46ef4cc7f2da02c1c.png" alt="y"/> over the entire group.</p>
-<p>In the event that the line between <img class="math" src="../_images/math/3b23a00ac79117133abc0c4e699668642494fc66.png" alt="y_n"/> and <img class="math" src="../_images/math/f63d1033d199d9227bee861039158e0f80089285.png" alt="y_{n+1}"/> crosses
+<p>The term <img class="math" src="../_images/math/06e1c933af0d5fcfd95eae0867c3b55d77a9715b.png" alt="(y_{n+1} + y_n)/2"/> is the center (average) value of a linear
+interpolation between the two points.  Therefore, <img class="math" src="../_images/math/14ebce7d0454f2c50a5d775af18c93958cc1a157.png" alt="y_g"/> is the
+<img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/>-weighted average of <img class="math" src="../_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/> over the entire group.</p>
+<p>In the event that the line between <img class="math" src="../_images/math/2623d55b1760a35694c4eaa7362c6cb118a18a38.png" alt="y_n"/> and <img class="math" src="../_images/math/fd814902b5662370ea31747b343d2b81c37e45ca.png" alt="y_{n+1}"/> crosses
 either the lower or upper bin boundary (or both) then their values are
 adjusted via a linear interpolation to the value at the bin boundary.</p>
 <p>For a lower boundary crossing, the following substitutions are made to the
 equation above:</p>
 <div class="math">
-<p><img src="../_images/math/fdabcfef76424e9bdf44608922f284ce6577f2ff.png" alt="x_n \to x_g"/></p>
+<p><img src="../_images/math/d60e1641af8bad7ab99e1eae7296425b769be987.png" alt="x_n \to x_g"/></p>
 </div><div class="math">
-<p><img src="../_images/math/aa1a3c530db469bbc2ed57604aee8e1fe7e7a5cb.png" alt="y_n \to \frac{y_{n+1} - y_n}{x_{n+1} - x_n} (x_g - x_n) + y_n"/></p>
+<p><img src="../_images/math/ebac5b061c6847bcefb7703c8708bc577341cad0.png" alt="y_n \to \frac{y_{n+1} - y_n}{x_{n+1} - x_n} (x_g - x_n) + y_n"/></p>
 </div><p>For an upper boundary crossing:</p>
 <div class="math">
-<p><img src="../_images/math/d185d036ddce4e9e2356f7d9966f3f214316ef10.png" alt="x_{n+1} \to x_{g+1}"/></p>
+<p><img src="../_images/math/e300f1d93cee017c2516d0b10689efac949e9266.png" alt="x_{n+1} \to x_{g+1}"/></p>
 </div><div class="math">
-<p><img src="../_images/math/57071ad255f4cef8e09ed563ecefb9dbd460d461.png" alt="y_{n+1} \to \frac{y_{n+1} - y_n}{x_{n+1} - x_n} (x_{g+1} - x_n) + y_n"/></p>
+<p><img src="../_images/math/fc8e60cba71fcb24e6cc887449ba78e0a29a8cc1.png" alt="y_{n+1} \to \frac{y_{n+1} - y_n}{x_{n+1} - x_n} (x_{g+1} - x_n) + y_n"/></p>
 </div></div>
 </div>
 
@@ -245,7 +243,7 @@ equation above:</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

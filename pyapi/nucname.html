@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -91,8 +90,7 @@ if(ga_enabled){
 <span id="pyne-nucname"></span><h1>Nuclide Naming Module &#8211; <tt class="xref py py-mod docutils literal"><span class="pre">pyne.nucname</span></tt><a class="headerlink" href="#nuclide-naming-module-pyne-nucname" title="Permalink to this headline">¶</a></h1>
 <p>This package is used to convert between various nuclide naming schemes.
 Currently the following naming conventions are supported:</p>
-<blockquote id="name-forms">
-<div><ol class="arabic simple">
+<ol class="arabic simple" id="name-forms">
 <li><strong>id (zas)</strong>: This type places the charge of the nucleus out front, then has three
 digits for the atomic mass number, and ends with four state digits (0 = ground,
 1 = first excited state, 2 = second excited state, etc).  Uranium-235 here would
@@ -102,10 +100,17 @@ be expressed as &#8216;922350000&#8217;.  This is th canonical form for nuclides
 the nuclide is metastable, the letter <em>M</em> is concatenated to the end.  For
 example, &#8216;H-1&#8217; and &#8216;Am242M&#8217; are both valid.  Note that nucname will always
 return name form with the dash removed and all letters uppercase.</li>
+<li><strong>zzaaam</strong>: This type places the charge of the nucleus out front, then has three
+digits for the atomic mass number, and ends with a metastable flag (0 = ground,
+1 = first excited state, 2 = second excited state, etc).  Uranium-235 here would
+be expressed as &#8216;922350&#8217;.</li>
 <li><strong>zzzaaa</strong>: This type places the charge of the nucleus out front, then has three
 digits for the atomic mass.  It contains no information about the excited state.</li>
-<li><strong>zzllaaam</strong>: This type places the two digit atomic mass followed by the redundant
-two character elemental abreviation, followed by the elements ZZZ and exited state.</li>
+<li><strong>zzllaaam</strong>: The ZZLLAAAM naming convention is similar to name form.  However, it
+is preceded by the nuclides two AA numbers, followed by the two LL characters.
+Of the two LL characters, only the first letter in the chemical symbol is uppercase,
+the dash is always present, and the the meta-stable flag is lowercase.  For
+instance, &#8216;95-Am-242m&#8217; is the valid serpent notation for this nuclide.</li>
 <li><strong>SZA</strong>: This type places three state digits out front, the charge of the nucleus in
 the middle, and then has three digits for the atomic mass number. Uranium-235M here
 would be expressed as &#8216;1092235&#8217;.</li>
@@ -125,19 +130,25 @@ valid NIST notation.</li>
 placement of the Z- and A-numbers are swapped. Therefore, this format is
 effectively aaazzzm.  For example, &#8216;2420951&#8217; is the valid cinder notation
 for &#8216;AM242M&#8217;.</li>
-<li><strong>ALARA</strong>: In ALARA format, elements are denoted by the lower case atomic symbol. Isotopes are
-specified by appending a semicolon and A-number. For example, &#8220;fe&#8221; and &#8220;fe:56&#8221; represent
-elemental iron and iron-56 respectively. No metastable flag exists.</li>
-<li><strong>Groundstate</strong>:  In Groundstate format, the nuclide is stored in a form similar to the standard
-id form, but the last four digits are zero to eliminate the information about the nuclides state.</li>
+<li><strong>ALARA</strong>: In ALARA format, elements are denoted by the lower case atomic symbol.
+Nuclides are specified by appending a semicolon and A-number. For example, &#8220;fe&#8221;
+and &#8220;fe:56&#8221; represent elemental iron and iron-56 respectively. No metastable
+flag exists.</li>
+<li><strong>Groundstate</strong>:  In Groundstate format, the nuclide is stored in a form similar
+to the standard id form, but the last four digits are zero to eliminate the
+information about the nuclide&#8217;s state.</li>
+<li><strong>state_id</strong>: The state id naming convention uses the form zzzaaassss. It is
+different from the canonical zzzaaassss form in that ssss refers to a list
+of states by ordered by energy. This is derived from the levels listed in the
+ENSDF files for a given nuclide. Using this form is dangerous as it may change
+with new releases of ENSDF data.</li>
 </ol>
-</div></blockquote>
 <p>All functionality may be found in the <tt class="docutils literal"><span class="pre">nucname</span></tt> package:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 </pre></div>
 </div>
-<p>This contains several zzaaam, zzzaaa, zzllaaam, name, MCNP, Groundstate and Serpent converter function as
-well as other helpful module attributes.</p>
+<p>This contains several zzaaam, zzzaaa, zzllaaam, name, MCNP, Groundstate and Serpent
+converter function as well as other helpful module attributes.</p>
 <div class="section" id="naming-convention-casting-functions">
 <span id="name-cast"></span><h2>Naming Convention Casting Functions<a class="headerlink" href="#naming-convention-casting-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -156,7 +167,6 @@ naming conventions. For integer input the form resolution order is:</p>
 <li>cinder (aaazzzm)</li>
 <li>mcnp</li>
 <li>zzaaa</li>
-<li>sza</li>
 </ul>
 </div></blockquote>
 <p>For string (or char <a href="#id1"><span class="problematic" id="id2">*</span></a>) input the form resolution order is as follows:</p>
@@ -177,13 +187,13 @@ than the id() function which is meant to resolve possibly ambiquous cases.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide id.</p>
 </div></blockquote>
@@ -204,13 +214,13 @@ form order resolution for id() also applies to here.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
 <blockquote class="last">
 <div><p>Output nuclide in name form.</p>
 </div></blockquote>
@@ -229,13 +239,13 @@ form order resolution for id() also applies to here.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in zzaaam form.</p>
 </div></blockquote>
@@ -254,13 +264,13 @@ form order resolution for id() also applies to here.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in zzzaaa form.</p>
 </div></blockquote>
@@ -279,13 +289,13 @@ form order resolution for id() also applies to here.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
 <blockquote class="last">
 <div><p>Output nuclide in zzllaaam form.</p>
 </div></blockquote>
@@ -304,13 +314,13 @@ form order resolution for id() also applies to here.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in MCNP form.</p>
 </div></blockquote>
@@ -334,13 +344,13 @@ the meaning. Thus Am-242m = 95242 and Am-242 = 95642.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
 <blockquote class="last">
 <div><p>Output nuclide in serpent form.</p>
 </div></blockquote>
@@ -359,13 +369,13 @@ the meaning. Thus Am-242m = 95242 and Am-242 = 95642.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
 <blockquote class="last">
 <div><p>Output nuclide in nist form.</p>
 </div></blockquote>
@@ -384,13 +394,13 @@ the meaning. Thus Am-242m = 95242 and Am-242 = 95642.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in CINDER (aaazzzm) form.</p>
 </div></blockquote>
@@ -409,13 +419,13 @@ the meaning. Thus Am-242m = 95242 and Am-242 = 95642.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : str</p>
 <blockquote class="last">
 <div><p>Output nuclide in name form.</p>
 </div></blockquote>
@@ -434,13 +444,13 @@ the meaning. Thus Am-242m = 95242 and Am-242 = 95642.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in Groundstate form.</p>
 </div></blockquote>
@@ -462,13 +472,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide in ZZAAAM form.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in identifier form.</p>
 </div></blockquote>
@@ -488,13 +498,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide in ZZZAAA form.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in identifier form.</p>
 </div></blockquote>
@@ -514,13 +524,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide in ZZLLAAAM form.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in identifier form.</p>
 </div></blockquote>
@@ -540,13 +550,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide in MCNP form.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in identifier form.</p>
 </div></blockquote>
@@ -566,13 +576,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide in Serpent form.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in identifier form.</p>
 </div></blockquote>
@@ -592,13 +602,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide in NIST form.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in identifier form.</p>
 </div></blockquote>
@@ -618,13 +628,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide in Cinder form.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in identifier form.</p>
 </div></blockquote>
@@ -644,13 +654,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide in ALARA form.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>newnuc</strong> : int</p>
 <blockquote class="last">
 <div><p>Output nuclide in identifier form.</p>
 </div></blockquote>
@@ -671,13 +681,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>z</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>z</strong> : int</p>
 <blockquote class="last">
 <div><p>The number of protons in the nucleus.</p>
 </div></blockquote>
@@ -696,13 +706,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>a</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>a</strong> : int</p>
 <blockquote class="last">
 <div><p>The number of protons and neutrons in the nucleus.</p>
 </div></blockquote>
@@ -721,13 +731,13 @@ the canonical identifier form.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>s</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>s</strong> : int</p>
 <blockquote class="last">
 <div><p>The excitation level the nucleus.</p>
 </div></blockquote>
@@ -940,7 +950,7 @@ and Fission Products.</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

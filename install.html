@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -14,11 +13,11 @@
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
-    <link rel="stylesheet" href="#" type="text/css" />
+    <link rel="stylesheet" href="./" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.5-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -130,7 +129,8 @@ if(ga_enabled){
 <h3>Binary<a class="headerlink" href="#binary" title="Permalink to this headline">¶</a></h3>
 <p>Binary distributions of the latest release (0.4) for mac and linux (64-bit)
 using the conda package manager can be installed by running the command:</p>
-<div class="highlight-python"><pre>conda install -c https://conda.binstar.org/pyne pyne</pre>
+<div class="highlight-python"><div class="highlight"><pre>conda install -c https://conda.binstar.org/pyne pyne
+</pre></div>
 </div>
 <p>A windows 32-bit binary is also available on conda via the same command but
 it is highly experimental and likely broken. Conda binaries do not have
@@ -141,9 +141,10 @@ moab/pytaps/mesh support (yet).</p>
 <p>Installing PyNE from source is a two-step process.  First, download and
 unzip the source (<a class="reference external" href="https://github.com/pyne/pyne/zipball/0.4">zip</a>, <a class="reference external" href="https://github.com/pyne/pyne/tarball/0.4">tar</a>).  Then run the following commands from
 the unzipped directory:</p>
-<div class="highlight-python"><pre>cd pyne/
+<div class="highlight-python"><div class="highlight"><pre>cd pyne/
 python setup.py install --user
-scripts/nuc_data_make</pre>
+scripts/nuc_data_make
+</pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">setup.py</span></tt> command compiles and installs the PyNE source code.
 The <tt class="docutils literal"><span class="pre">nuc_data_make</span></tt> builds and installs a database of nuclear data.
@@ -186,19 +187,23 @@ mac and linux</p>
 After installing anaconda or miniconda from
 <a class="reference external" href="http://continuum.io/downloads">the Continuum downloads page</a>
 add conda&#8217;s binary directory to your bash profile by adding:</p>
-<div class="highlight-python"><pre>export PATH=/path/to/anaconda/bin:$PATH</pre>
+<div class="highlight-python"><div class="highlight"><pre>export PATH=/path/to/anaconda/bin:$PATH
+</pre></div>
 </div>
 <p>to your .bashrc or .bash_profile. Then in a new shell:</p>
-<div class="highlight-python"><pre>conda install conda-build jinja2 nose setuptools pytables hdf5 scipy</pre>
+<div class="highlight-python"><div class="highlight"><pre>conda install conda-build jinja2 nose setuptools pytables hdf5 scipy
+</pre></div>
 </div>
 <p>on linux you may also need to run:</p>
-<div class="highlight-python"><pre>conda install patchelf</pre>
+<div class="highlight-python"><div class="highlight"><pre>conda install patchelf
+</pre></div>
 </div>
 <p>Then dowload the latest conda-recipes <a class="reference external" href="https://github.com/conda/conda-recipes/archive/master.zip">here</a></p>
 <p>cd to the conda-recipes directory and run:</p>
-<div class="highlight-python"><pre>conda build pyne
+<div class="highlight-python"><div class="highlight"><pre>conda build pyne
 conda install $(conda build --output pyne)
-nuc_data_make</pre>
+nuc_data_make
+</pre></div>
 </div>
 </div>
 <div class="section" id="mac-osx-specific-instructions">
@@ -206,34 +211,39 @@ nuc_data_make</pre>
 <p>These instructions are based on using the homebrew <a class="reference external" href="http://brew.sh/">http://brew.sh/</a> package manager
 Install command line tools from <a class="reference external" href="https://developer.apple.com/downloads/">https://developer.apple.com/downloads/</a>
 you will need to create an account in order to download:</p>
-<div class="highlight-python"><pre>ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
+<div class="highlight-python"><div class="highlight"><pre>ruby -e &quot;$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)&quot;
 brew doctor
 brew tap homebrew/science
 brew install hdf5
 brew install cmake
-brew install python</pre>
+brew install python
+</pre></div>
 </div>
 <p>Add:</p>
-<div class="highlight-python"><pre>export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/share/python:$PATH</pre>
+<div class="highlight-python"><div class="highlight"><pre>export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/share/python:$PATH
+</pre></div>
 </div>
 <p>to ~/.bash_profile, then:</p>
-<div class="highlight-python"><pre>source ~/.bash_profile
+<div class="highlight-python"><div class="highlight"><pre>source ~/.bash_profile
 sudo pip install numpy
 sudo chown -R $(whoami) /usr/local
 brew install gfortran
 pip install scipy
 pip install cython
 pip install numexpr
-pip install tables</pre>
+pip install tables
+</pre></div>
 </div>
 <p>download pyne-staging cd to that directory:</p>
-<div class="highlight-python"><pre>cd Downloads/pyne-staging
-python setup.py install</pre>
+<div class="highlight-python"><div class="highlight"><pre>cd Downloads/pyne-staging
+python setup.py install
+</pre></div>
 </div>
 <p>Once those lines have been added, run the following command before running
 <tt class="docutils literal"><span class="pre">nuc_data_make</span></tt>:</p>
-<div class="highlight-python"><pre>source ~/.bashrc</pre>
+<div class="highlight-python"><div class="highlight"><pre>source ~/.bashrc
+</pre></div>
 </div>
 </div>
 <div class="section" id="ubuntu-14-04-build-script">
@@ -330,7 +340,7 @@ python setup.py install</pre>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

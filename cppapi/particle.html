@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Particle Naming – libpyne_particle &mdash; PyNE 0.5-dev</title>
+    
+    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    <link rel="stylesheet" href="../" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.5-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bibtex_js.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
+    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
+    <link rel="up" title="C++ API" href="index.html" />
+    <link rel="next" title="Nuclear Data – libpyne_data" href="data.html" />
+    <link rel="prev" title="Reaction Naming – libpyne_rxname" href="rxname.html" /> <script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="data.html" title="Nuclear Data – libpyne_data"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="rxname.html" title="Reaction Naming – libpyne_rxname"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">C++ API</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="particle-naming-libpyne-particle">
+<h1>Particle Naming &#8211; <tt class="docutils literal"><span class="pre">libpyne_particle</span></tt><a class="headerlink" href="#particle-naming-libpyne-particle" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="reaction-listing">
+<h2>Reaction Listing<a class="headerlink" href="#reaction-listing" title="Permalink to this headline">¶</a></h2>
+<p><strong>Particles:</strong></p>
+<div>
+<table style="margin-left:auto;margin-right:auto;">
+<tr> <th>Particle</th> <th>PDC ID</th> <th>Description</th> </tr>
+<tr> <td>Electron</td> <td>11</td> <td>Electron</td> </tr>
+<tr> <td>Positron</td> <td>-11</td> <td>Anti Electron</td> </tr>
+<tr> <td>ElectronNeutrino</td> <td>12</td> <td>Electron Neutrino</td> </tr>
+<tr> <td>ElectronAntiNeutrino</td> <td>-12</td> <td>Electron Anti Neutrino
+</td> </tr>
+<tr> <td>Muon</td> <td>13</td> <td>Muon</td> </tr>
+<tr> <td>AntiMuon</td> <td>-13</td> <td>AntiMuon</td> </tr>
+<tr> <td>MuonNeutrino</td> <td>14</td> <td>MuonNeutrino</td> </tr>
+<tr> <td>MuonAntiNeutrino</td> <td>-14</td> <td>MuonAntiNeutrino</td> </tr>
+<tr> <td>Tauon</td> <td>15</td> <td>Tauon</td> </tr>
+<tr> <td>AntiTauon</td> <td>-15</td> <td>AntiTauon</td> </tr>
+<tr> <td>TauNeutrino</td> <td>16</td> <td>TauNeutrino</td> </tr>
+<tr> <td>TauAntiNeutrino</td> <td>-16</td> <td>TauAntiNeutrino</td> </tr>
+<tr> <td>Photon</td> <td>22</td> <td>Photon</td> </tr>
+<tr> <td>Pion</td> <td>211</td> <td>Pion</td> </tr>
+<tr> <td>AntiPion</td> <td>-211</td> <td>AntiPion</td> </tr>
+<tr> <td>Kaon</td> <td>321</td> <td>Kaon</td> </tr>
+<tr> <td>AntiKaon</td> <td>-321</td> <td>AntiKaon</td> </tr>
+<tr> <td>KaonZeroShort</td> <td>310</td> <td>KaonZeroShort</td> </tr>
+<tr> <td>KaonZero</td> <td>311</td> <td>KaonZero</td> </tr>
+<tr> <td>AntiKaonZero</td> <td>-311</td> <td>AntiKaonZero</td> </tr>
+<tr> <td>Neutron</td> <td>2112</td> <td>Neutron</td> </tr>
+<tr> <td>AntiNeutron</td> <td>-2112</td> <td>AntiNeutron</td> </tr>
+<tr> <td>Proton</td> <td>2212</td> <td>Proton</td> </tr>
+<tr> <td>AntiProton</td> <td>-2212</td> <td>AntiProton</td> </tr>
+<tr> <td>Lambda</td> <td>3122</td> <td>Lambda</td> </tr>
+<tr> <td>AntiLambda</td> <td>-3122</td> <td>AntiLambda</td> </tr>
+<tr> <td>Sigma-</td> <td>3112</td> <td>Sigma-</td> </tr>
+<tr> <td>AntiSigma-</td> <td>3112</td> <td>AntiSigma-</td> </tr>
+<tr> <td>Sigma+</td> <td>3222</td> <td>Sigma+</td> </tr>
+<tr> <td>AntiSigma+</td> <td>-3222</td> <td>AntiSigma+</td> </tr>
+<tr> <td>Sigma</td> <td>3212</td> <td>Sigma</td> </tr>
+<tr> <td>AntiSigmaZero</td> <td>-3212</td> <td>AntiSigmaZero</td> </tr>
+</table> </div><p><strong>Particle Aliases:</strong></p>
+<div>
+<table style="margin-left:auto;margin-right:auto;">
+<tr> <th>Alias</th> <th>Particle Name</th> </tr>
+<tr> <td>Hydrogen</td> <td>Proton</td> </tr>
+<tr> <td>Protium</td> <td>Proton</td> </tr>
+<tr> <td>Beta</td> <td>Electron</td> </tr>
+<tr> <td>Beta-</td> <td>Electron</td> </tr>
+<tr> <td>Beta+</td> <td>Positron</td> </tr>
+<tr> <td>Gamma</td> <td>Photon</td> </tr>
+<tr> <td>X-Ray</td> <td>Photon</td> </tr>
+</table> </div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Particle Naming &#8211; <tt class="docutils literal"><span class="pre">libpyne_particle</span></tt></a><ul>
+<li><a class="reference internal" href="#reaction-listing">Reaction Listing</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rxname.html"
+                        title="previous chapter">Reaction Naming &#8211; <tt class="docutils literal"><span class="pre">libpyne_rxname</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="data.html"
+                        title="next chapter">Nuclear Data &#8211; <tt class="docutils literal"><span class="pre">libpyne_data</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/cppapi/particle.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="data.html" title="Nuclear Data – libpyne_data"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="rxname.html" title="Reaction Naming – libpyne_rxname"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../gallery/index.html">Gallery</a> | </li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+
+          <li><a href="index.html" >C++ API</a> &raquo;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2014, The PyNE Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.3 -->
+  </body>
+</html>

@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -36,7 +35,7 @@
     <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
     <link rel="up" title="Python API" href="index.html" />
     <link rel="next" title="Materials – pyne.material" href="material.html" />
-    <link rel="prev" title="Reaction Names – pyne.rxname" href="rxname.html" /> <script type="text/javascript">
+    <link rel="prev" title="Particle Names – pyne.particle" href="particle.html" /> <script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -71,7 +70,7 @@ if(ga_enabled){
           <a href="material.html" title="Materials – pyne.material"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="rxname.html" title="Reaction Names – pyne.rxname"
+          <a href="particle.html" title="Particle Names – pyne.particle"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
@@ -106,13 +105,13 @@ are taken from the <tt class="file docutils literal"><span class="pre">nuc_data.
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mass</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>mass</strong> : float</p>
 <blockquote class="last">
 <div><p>Atomic mass of this nuclide [amu].</p>
 </div></blockquote>
@@ -142,13 +141,13 @@ This is used by <a class="reference internal" href="#pyne.data.atomic_mass" titl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>abund</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>abund</strong> : float</p>
 <blockquote class="last">
 <div><p>Natural abundance of this nuclide.</p>
 </div></blockquote>
@@ -179,7 +178,7 @@ k and l conversion intensities</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
@@ -193,7 +192,7 @@ k and l conversion intensities</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>arr</strong> : vector of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>arr</strong> : vector of pairs</p>
 <blockquote class="last">
 <div><p>Vector of pairs containing the four primary X-rays and their
 intensities: Ka1, Ka2, Kb, L</p>
@@ -215,7 +214,7 @@ intensities: Ka1, Ka2, Kb, L</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide, if metastable is false this uses state_id</p>
 </div></blockquote>
@@ -226,7 +225,7 @@ True.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>hl</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>hl</strong> : float</p>
 <blockquote class="last">
 <div><p>Half-life of this nuclide [seconds].</p>
 </div></blockquote>
@@ -247,7 +246,7 @@ True.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide, if metastable is false this uses state_id</p>
 </div></blockquote>
@@ -258,7 +257,7 @@ True.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dc</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>dc</strong> : float</p>
 <blockquote class="last">
 <div><p>Decay constant of this nuclide [1/seconds].</p>
 </div></blockquote>
@@ -278,7 +277,7 @@ True.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Parent nuclide, if metastable is false this uses state id</p>
 </div></blockquote>
@@ -293,7 +292,7 @@ True.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>br</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>br</strong> : float</p>
 <blockquote class="last">
 <div><p>Branch ratio of this nuclide pair [fraction].</p>
 </div></blockquote>
@@ -317,7 +316,7 @@ decay_branch_ratio but it should be.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide, if metastable is false this uses state id</p>
 </div></blockquote>
@@ -328,7 +327,7 @@ True</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>se</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>se</strong> : float</p>
 <blockquote class="last">
 <div><p>Excitation energy of this nuclide [MeV].</p>
 </div></blockquote>
@@ -348,7 +347,7 @@ True</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide, if metastable is false this uses state id</p>
 </div></blockquote>
@@ -359,7 +358,7 @@ True</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dc</strong> : set of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>dc</strong> : set of ints</p>
 <blockquote class="last">
 <div><p>Decay children in id form.</p>
 </div></blockquote>
@@ -379,7 +378,7 @@ True</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int</p>
 <blockquote>
 <div><p>Input nuclide</p>
 </div></blockquote>
@@ -412,7 +411,7 @@ to a group of levels and associated gammas with no reference to the GS</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int</p>
 <blockquote>
 <div><p>Input nuclide</p>
 </div></blockquote>
@@ -422,7 +421,7 @@ to a group of levels and associated gammas with no reference to the GS</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int</p>
 <blockquote class="last">
 <div><p>state_id of metastable state</p>
 </div></blockquote>
@@ -440,7 +439,7 @@ to a group of levels and associated gammas with no reference to the GS</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
@@ -450,7 +449,7 @@ to a group of levels and associated gammas with no reference to the GS</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>half_life</strong> : double</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>half_life</strong> : double</p>
 <blockquote>
 <div><p>half life in seconds</p>
 </div></blockquote>
@@ -472,13 +471,13 @@ to a group of levels and associated gammas with no reference to the GS</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>half_lives</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>half_lives</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of half lives and their errors for a given parent nuclide</p>
 </div></blockquote>
@@ -496,7 +495,7 @@ to a group of levels and associated gammas with no reference to the GS</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
@@ -506,7 +505,7 @@ to a group of levels and associated gammas with no reference to the GS</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratio</strong> : double</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratio</strong> : double</p>
 <blockquote class="last">
 <div><p>branching ratio</p>
 </div></blockquote>
@@ -525,13 +524,13 @@ parent.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of doubles</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of doubles</p>
 <blockquote class="last">
 <div><p>An array of half lives and their errors for a given parent nuclide</p>
 </div></blockquote>
@@ -549,7 +548,7 @@ parent.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
@@ -559,7 +558,7 @@ parent.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratio</strong> : double</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratio</strong> : double</p>
 <blockquote class="last">
 <div><p>photon branching ratio</p>
 </div></blockquote>
@@ -577,13 +576,13 @@ parent.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>half_lives</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>half_lives</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of photon branching ratios and their errors for a given parent
 nuclide</p>
@@ -602,7 +601,7 @@ nuclide</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>from_nuc</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
@@ -612,7 +611,7 @@ nuclide</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratio</strong> : double</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratio</strong> : double</p>
 <blockquote class="last">
 <div><p>branching ratio</p>
 </div></blockquote>
@@ -630,13 +629,13 @@ nuclide</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of beta branching ratios and their errors for a given parent
 nuclide</p>
@@ -656,13 +655,13 @@ parent</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of gamma ray energies and errors</p>
 </div></blockquote>
@@ -681,13 +680,13 @@ from a given parent</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of gamma ray photon intensities and errors</p>
 </div></blockquote>
@@ -709,13 +708,13 @@ from a given parent</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of gamma ray conversion intensities and errors</p>
 </div></blockquote>
@@ -734,13 +733,13 @@ a given parent</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of gamma ray total intensities and errors</p>
 </div></blockquote>
@@ -759,13 +758,13 @@ given parent. This makes it possible to calculate coincidence rates.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of gamma ray level pairs in state_id form</p>
 </div></blockquote>
@@ -784,7 +783,7 @@ based on gamma-ray energy.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
 <blockquote>
 <div><p>gamma ray energy in keV</p>
 </div></blockquote>
@@ -795,7 +794,7 @@ to 1% of the energy if it is not provided</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of gamma ray level pairs in state_id form</p>
 </div></blockquote>
@@ -814,7 +813,7 @@ based on gamma-ray energy.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
 <blockquote>
 <div><p>gamma ray energy in keV</p>
 </div></blockquote>
@@ -825,7 +824,7 @@ to 1% of the energy if it is not provided</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of gamma ray parents in state_id form</p>
 </div></blockquote>
@@ -844,13 +843,13 @@ rays from an input parent nuclide</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of arrays</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of arrays</p>
 <blockquote class="last">
 <div><p>This returns an array of length 4 arrays containing pairs of energies
 and intensities of the following X-rays: Ka1, Ka2, Kb, L</p>
@@ -870,13 +869,13 @@ parent</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of alpha energies and errors</p>
 </div></blockquote>
@@ -895,13 +894,13 @@ parent</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of alpha intensities and errors</p>
 </div></blockquote>
@@ -920,7 +919,7 @@ based on alpha energy.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
 <blockquote>
 <div><p>alpha energy in keV</p>
 </div></blockquote>
@@ -931,7 +930,7 @@ to 1% of the energy if it is not provided</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of alpha parents in state_id form</p>
 </div></blockquote>
@@ -950,7 +949,7 @@ based on alpha energy.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
 <blockquote>
 <div><p>alpha energy in keV</p>
 </div></blockquote>
@@ -961,7 +960,7 @@ to 1% of the energy if it is not provided</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of alpha children in state_id form</p>
 </div></blockquote>
@@ -980,13 +979,13 @@ based on alpha parent.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of alpha children in state_id form</p>
 </div></blockquote>
@@ -1005,13 +1004,13 @@ based on parent nuclide.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of beta endpoint energies and errors</p>
 </div></blockquote>
@@ -1030,13 +1029,13 @@ based on parent nuclide.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of beta average energies and errors</p>
 </div></blockquote>
@@ -1055,13 +1054,13 @@ based on parent nuclide.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of beta intensities and errors</p>
 </div></blockquote>
@@ -1080,7 +1079,7 @@ based on beta energy.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
 <blockquote>
 <div><p>beta- energy in keV</p>
 </div></blockquote>
@@ -1091,7 +1090,7 @@ to 1% of the energy if it is not provided</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of beta minus parents in nuc_id form</p>
 </div></blockquote>
@@ -1110,7 +1109,7 @@ based on beta energy.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
 <blockquote>
 <div><p>beta- energy in keV</p>
 </div></blockquote>
@@ -1121,7 +1120,7 @@ to 1% of the energy if it is not provided</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of beta minus children in nuc_id form</p>
 </div></blockquote>
@@ -1140,13 +1139,13 @@ based on parent.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of beta- children in state_id form</p>
 </div></blockquote>
@@ -1165,13 +1164,13 @@ a given parent.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of beta plus endpoint energies and errors</p>
 </div></blockquote>
@@ -1190,13 +1189,13 @@ a given parent.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of beta plus average energies and errors</p>
 </div></blockquote>
@@ -1215,13 +1214,13 @@ from a given parent.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of electron capture intensisities and errors</p>
 </div></blockquote>
@@ -1240,13 +1239,13 @@ a given parent.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of pairs</p>
 <blockquote class="last">
 <div><p>An array of beta plus intensities and errors</p>
 </div></blockquote>
@@ -1265,7 +1264,7 @@ dataset based on beta energy.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
 <blockquote>
 <div><p>beta- energy in keV</p>
 </div></blockquote>
@@ -1276,7 +1275,7 @@ to 1% of the energy if it is not provided</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of beta plus/electron capture children in nuc_id form</p>
 </div></blockquote>
@@ -1295,7 +1294,7 @@ dataset based on beta energy.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>en</strong> : double</p>
 <blockquote>
 <div><p>beta- energy in keV</p>
 </div></blockquote>
@@ -1306,7 +1305,7 @@ to 1% of the energy if it is not provided</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of beta plus/electron capture children in state_id form</p>
 </div></blockquote>
@@ -1325,13 +1324,13 @@ based on parent.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide in nuc_id form in state_id form</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of ints</p>
 <blockquote class="last">
 <div><p>An array of beta+ children in state_id form</p>
 </div></blockquote>
@@ -1350,13 +1349,13 @@ and beta plus decays from an input parent nuclide</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parent</strong> : int</p>
 <blockquote>
 <div><p>parent nuclide</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of arrays</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ratios</strong> : array of arrays</p>
 <blockquote class="last">
 <div><p>This returns an array of length 4 arrays containing pairs of energies
 and intensities of the following X-rays: Ka1, Ka2, Kb, L</p>
@@ -1378,13 +1377,13 @@ and intensities of the following X-rays: Ka1, Ka2, Kb, L</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>b</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>b</strong> : float</p>
 <blockquote class="last">
 <div><p>Bound scattering length of nuc [cm].</p>
 </div></blockquote>
@@ -1400,7 +1399,7 @@ returned.</p>
 <p>This value is computed from the coherent and incoherent scattering
 lengths as follows:</p>
 <div class="math">
-<p><img src="../_images/math/17b3f128996d9876b58a388ea25b71b48931e7f7.png" alt="b = \sqrt{\left| b_{\mbox{coh}} \right|^2 + \left| b_{\mbox{inc}} \right|^2}"/></p>
+<p><img src="../_images/math/eef59e70c1c138057fe75a55821a04cf6cb99033.png" alt="b = \sqrt{\left| b_{\mbox{coh}} \right|^2 + \left| b_{\mbox{inc}} \right|^2}"/></p>
 </div></dd></dl>
 
 <dl class="data">
@@ -1419,13 +1418,13 @@ This is used by <a class="reference internal" href="#pyne.data.b" title="pyne.da
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>bc</strong> : complex</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>bc</strong> : complex</p>
 <blockquote class="last">
 <div><p>Coherent bound scattering length of nuc [cm].</p>
 </div></blockquote>
@@ -1456,13 +1455,13 @@ This is used by <a class="reference internal" href="#pyne.data.b_coherent" title
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Input nuclide.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>bi</strong> : complex</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>bi</strong> : complex</p>
 <blockquote class="last">
 <div><p>Incoherent bound scattering length of nuc [cm].</p>
 </div></blockquote>
@@ -1509,8 +1508,8 @@ This is used by <a class="reference internal" href="#pyne.data.b_coherent" title
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="rxname.html"
-                        title="previous chapter">Reaction Names &#8211; <tt class="docutils literal"><span class="pre">pyne.rxname</span></tt></a></p>
+  <p class="topless"><a href="particle.html"
+                        title="previous chapter">Particle Names &#8211; <tt class="docutils literal"><span class="pre">pyne.particle</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="material.html"
                         title="next chapter">Materials &#8211; <tt class="docutils literal"><span class="pre">pyne.material</span></tt></a></p>
@@ -1554,7 +1553,7 @@ This is used by <a class="reference internal" href="#pyne.data.b_coherent" title
           <a href="material.html" title="Materials – pyne.material"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="rxname.html" title="Reaction Names – pyne.rxname"
+          <a href="particle.html" title="Particle Names – pyne.particle"
              >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../gallery/index.html">Gallery</a> | </li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
@@ -1566,7 +1565,7 @@ This is used by <a class="reference internal" href="#pyne.data.b_coherent" title
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
