@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -147,7 +148,7 @@ section cache instance.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>src_phi_g</strong> : array-like, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>src_phi_g</strong> : array-like, optional</p>
 <blockquote>
 <div><p>Group fluxes which must match the group structure for this data source.</p>
 </div></blockquote>
@@ -169,7 +170,7 @@ from the data source or from the rxcache.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>A nuclide.</p>
 </div></blockquote>
@@ -183,7 +184,7 @@ from the data source or from the rxcache.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rxdata</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>rxdata</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>Source cross section data, length src_ngroups.</p>
 </div></blockquote>
@@ -204,7 +205,7 @@ override this method.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>A nuclide.</p>
 </div></blockquote>
@@ -226,7 +227,7 @@ override this method.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>dst_sigma</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dst_sigma</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>Destination cross section data, length dst_ngroups.</p>
 </div></blockquote>
@@ -252,7 +253,7 @@ override this method.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>kwargs</strong> : optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>kwargs</strong> : optional</p>
 <blockquote class="last">
 <div><p>Keyword arguments to be sent to base class.</p>
 </div></blockquote>
@@ -277,7 +278,7 @@ does not use material temperature information.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>kwargs</strong> : optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>kwargs</strong> : optional</p>
 <blockquote class="last">
 <div><p>Keyword arguments to be sent to base class.</p>
 </div></blockquote>
@@ -293,13 +294,13 @@ of the destination weighted by the group fluxes.  Since the simple data
 source consists of only thermal (2.53E-8 MeV), fission (1 MeV), and 14 MeV
 data points, the following piecewise functional form is assumed:</p>
 <div class="math">
-<p><img src="../../_images/math/72ef3728064b09e9622d5a9373a58ef78d454b21.png" alt="\sigma(E) = \sigma(2.53E-8) \sqrt{\frac{2.53E-8}{E}}
+<p><img src="../../_images/math/bd58b79e8d29a59b604c0292c06eb2e38d944998.png" alt="\sigma(E) = \sigma(2.53E-8) \sqrt{\frac{2.53E-8}{E}}
 \sigma(E) = \frac{\sigma(14) - \sigma(1)}{14 - 1} (E - 1) + \sigma(1)"/></p>
 </div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>A nuclide.</p>
 </div></blockquote>
@@ -321,7 +322,7 @@ data points, the following piecewise functional form is assumed:</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>dst_sigma</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dst_sigma</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>Destination cross section data, length dst_ngroups.</p>
 </div></blockquote>
@@ -343,7 +344,7 @@ not use material temperature information.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>kwargs</strong> : optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>kwargs</strong> : optional</p>
 <blockquote class="last">
 <div><p>Keyword arguments to be sent to base class.</p>
 </div></blockquote>
@@ -363,7 +364,7 @@ to exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>kwargs</strong> : optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>kwargs</strong> : optional</p>
 <blockquote class="last">
 <div><p>Keyword arguments to be sent to base class.</p>
 </div></blockquote>
@@ -381,7 +382,7 @@ to exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>temp</strong> : float, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>temp</strong> : float, optional</p>
 <blockquote class="last">
 <div><p>The material temperature</p>
 </div></blockquote>
@@ -404,7 +405,7 @@ must exist for this data source to exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fh</strong> : string, file handle</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>fh</strong> : string, file handle</p>
 <blockquote>
 <div><p>Path to ENDF file, or ENDF file itself.</p>
 </div></blockquote>
@@ -424,7 +425,7 @@ must exist for this data source to exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>Nuclide containing the reaction.</p>
 </div></blockquote>
@@ -442,7 +443,7 @@ must exist for this data source to exist.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rxdict</strong> : dict</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>rxdict</strong> : dict</p>
 <blockquote class="last">
 <div><p>Dictionary containing source group structure, energy values, cross-
 section data, and interpolation data.</p>
@@ -462,7 +463,7 @@ of the destination weighted by the group fluxes.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc</strong> : int or str</p>
 <blockquote>
 <div><p>A nuclide.</p>
 </div></blockquote>
@@ -484,7 +485,7 @@ of the destination weighted by the group fluxes.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>dst_sigma</strong> : ndarray</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dst_sigma</strong> : ndarray</p>
 <blockquote class="last">
 <div><p>Destination cross section data, length dst_ngroups.</p>
 </div></blockquote>
@@ -507,7 +508,7 @@ structure will clear the reaction cache.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>cross_sections</strong> : openmc.CrossSections or string or file-like, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cross_sections</strong> : openmc.CrossSections or string or file-like, optional</p>
 <blockquote>
 <div><p>Path or file to OpenMC cross_sections.xml</p>
 </div></blockquote>
@@ -533,7 +534,7 @@ lots of ACE data.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>temp</strong> : float, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>temp</strong> : float, optional</p>
 <blockquote class="last">
 <div><p>Temperature [K] of material, defaults to 300.0.</p>
 </div></blockquote>
@@ -615,7 +616,7 @@ lots of ACE data.</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

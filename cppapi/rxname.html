@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -88,88 +89,923 @@ if(ga_enabled){
             
   <div class="section" id="reaction-naming-libpyne-rxname">
 <h1>Reaction Naming &#8211; <tt class="docutils literal"><span class="pre">libpyne_rxname</span></tt><a class="headerlink" href="#reaction-naming-libpyne-rxname" title="Permalink to this headline">¶</a></h1>
+<div class="line-block" id="pyne_rxnameclasspyne_1_1rxname_1_1_indeterminate_reaction_form">
+<div class="line"><em>class</em> <strong>pyne::rxname::IndeterminateReactionForm</strong></div>
+<div class="line"><em>#include &lt;rxname.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Custom exception for declaring a value not to be of ambiquous reaction form. </p>
+<p></p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="pyne::rxname::IndeterminateReactionForm::IndeterminateReactionForm"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_indeterminate_reaction_form_1a27a58bf85e1d384d5cf614ef72873e1b"></span><div class="line-block">
+<div class="line"> <strong>IndeterminateReactionForm</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default constructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::IndeterminateReactionForm::~IndeterminateReactionForm"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_indeterminate_reaction_form_1a7df25775691de519d2ccdc9a25a4e5b2"></span><div class="line-block">
+<div class="line"> <strong>~IndeterminateReactionForm</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default destructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::IndeterminateReactionForm::IndeterminateReactionForm__ss.ss"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_indeterminate_reaction_form_1ad5a88cc1f318df127516265e9f2bdc87"></span><div class="line-block">
+<div class="line"> <strong>IndeterminateReactionForm</strong>(std::string wasptr, std::string nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::IndeterminateReactionForm::IndeterminateReactionForm__ss.i"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_indeterminate_reaction_form_1abcbbdd0a0a16e11b20eadffc1b7af7a4"></span><div class="line-block">
+<div class="line"> <strong>IndeterminateReactionForm</strong>(std::string wasptr, int nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::IndeterminateReactionForm::IndeterminateReactionForm__i.ss"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_indeterminate_reaction_form_1ae3b4b1af4980744bfe06bdd66f2ef696"></span><div class="line-block">
+<div class="line"> <strong>IndeterminateReactionForm</strong>(int wasptr, std::string nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::IndeterminateReactionForm::IndeterminateReactionForm__i.i"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_indeterminate_reaction_form_1a8efd3b1144d39fc11e67f4411c3b5149"></span><div class="line-block">
+<div class="line"> <strong>IndeterminateReactionForm</strong>(int wasptr, int nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::IndeterminateReactionForm::whatC"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_indeterminate_reaction_form_1a7a1cf5af3d08aecd0394e7624c4918ed"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns a helpful error message containing prior and current reaction state. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Private Members</em><blockquote>
+<div><p><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_indeterminate_reaction_form_1a71e4dec4a6dbaeaa62015593191c4c49"></span>std::string <strong>rxwas</strong></p>
+<blockquote>
+<div><p>previous reaction state </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_indeterminate_reaction_form_1a18dd858119b578adb7361bdf70b39037"></span>std::string <strong>rxnow</strong></p>
+<blockquote>
+<div><p>current reaction state </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction">
+<div class="line"><em>class</em> <strong>pyne::rxname::NotAReaction</strong></div>
+<div class="line"><em>#include &lt;rxname.h&gt;</em></div>
+</div>
+<blockquote>
+<div><p>Custom exception for declaring a value not to be a valid reaction. </p>
+<p></p>
+<em>Public Functions</em><blockquote>
+<div><p><span class="target" id="pyne::rxname::NotAReaction::NotAReaction"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1abb889337afdab53c131adf5702fb16d0"></span><div class="line-block">
+<div class="line"> <strong>NotAReaction</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default constructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::NotAReaction::~NotAReaction"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1a2a34cc0de45875c17c004acff20dc535"></span><div class="line-block">
+<div class="line"> <strong>~NotAReaction</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>default destructor </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::NotAReaction::NotAReaction__ss.ss"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1a64f23630722811847d030ae0358f959f"></span><div class="line-block">
+<div class="line"> <strong>NotAReaction</strong>(std::string wasptr, std::string nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::NotAReaction::NotAReaction__ss.i"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1a32de94daecf33a00055c8ac7ada718d7"></span><div class="line-block">
+<div class="line"> <strong>NotAReaction</strong>(std::string wasptr, int nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::NotAReaction::NotAReaction__i.ss"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1a828c48bf08dd96121ec83c6cced3063b"></span><div class="line-block">
+<div class="line"> <strong>NotAReaction</strong>(int wasptr, std::string nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::NotAReaction::NotAReaction__i.i"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1a8d16f260eab4fbbc7a5a14b48ce5580d"></span><div class="line-block">
+<div class="line"> <strong>NotAReaction</strong>(int wasptr, int nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::NotAReaction::NotAReaction__ss.unsigned-i"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1a9f3cea1e2ffd856bd3111569482244d2"></span><div class="line-block">
+<div class="line"> <strong>NotAReaction</strong>(std::string wasptr, unsigned int nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::NotAReaction::NotAReaction__unsigned-i.ss"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1ab5ff27c0ce93ac29da63ab32e7fa44e3"></span><div class="line-block">
+<div class="line"> <strong>NotAReaction</strong>(unsigned int wasptr, std::string nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::NotAReaction::NotAReaction__unsigned-i.unsigned-i"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1a7e0b63801e38b5d2c59edd635817fb80"></span><div class="line-block">
+<div class="line"> <strong>NotAReaction</strong>(unsigned int wasptr, unsigned int nowptr)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Constructor using original reaction (<em>wasptr</em>) and the eventual state that PyNE calculated (<em>nowptr</em>). </p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::NotAReaction::whatC"></span><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1a82bd7ddf78f0065338ec546dfacf5b45"></span><div class="line-block">
+<div class="line">const char * <strong>what</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>Returns a helpful error message containing prior and current reaction state. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Private Members</em><blockquote>
+<div><p><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1aeec489e7572dd1594d34fe0d07d04492"></span>std::string <strong>rxwas</strong></p>
+<blockquote>
+<div><p>previous reaction state </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnameclasspyne_1_1rxname_1_1_not_a_reaction_1aa346102b5993acb2568e74900f8399ce"></span>std::string <strong>rxnow</strong></p>
+<blockquote>
+<div><p>current reaction state </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_rxnamenamespacepyne">
+<div class="line"><em>namespace</em> <strong>pyne</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<div class="line-block" id="pyne_rxnamenamespacepyne_1_1rxname">
+<div class="line"><em>namespace</em> <strong>pyne::rxname</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+<em>Hash Functions</em><blockquote>
+<div><p>Custom hash function for reaction name to reaction ids. This functions will not return a value less than 1000, effectively reserving space for the MT numbers. </p>
+<p><span class="target" id="pyne::rxname::hash__ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a937f163bf6ea3f5361c870ae6e9e93e5"></span><div class="line-block">
+<div class="line">unsigned int <strong>hash</strong>(std::string s)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::hash__cCP"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a7b5f23ed32cb01c6b9877b4b67815a11"></span><div class="line-block">
+<div class="line">unsigned int <strong>hash</strong>(const char * s)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Name Functions</em><blockquote>
+<div><p>Returns the canonical name of a reaction channel. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">n</span></tt> - <p>Integer input of possible reaction, nominally an id or MT number. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">s</span></tt> - <p>String input of possible reaction, often a reaction or alternate name. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">from_nuc</span></tt> - <p>Initial target nuclide prior to reaction. When <em>from_nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">to_nuc</span></tt> - <p>Target nuclide after reaction occurs. When <em>to_nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">z</span></tt> - <p>Flag for incident particle type. Particle flags are &#8216;n&#8217;, &#8216;p&#8217;, &#8216;d&#8217;, &#8216;t&#8217;, &#8216;He3&#8217;, &#8216;a&#8217;, &#8216;gamma&#8217;, and &#8216;decay&#8217;. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><span class="target" id="pyne::rxname::name__i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a4aed0483720cf1ff17398e46d1d68e62"></span><div class="line-block">
+<div class="line">std::string <strong>name</strong>(int n)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::name__unsigned-i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1af40e90e8a1be9e0115c13c893447f255"></span><div class="line-block">
+<div class="line">std::string <strong>name</strong>(unsigned int n)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::name__cP"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a00c30b3f7f35d494c2828cf2e09ccb49"></span><div class="line-block">
+<div class="line">std::string <strong>name</strong>(char * s)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::name__ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a547b34d47f91d89921110b7f68c555da"></span><div class="line-block">
+<div class="line">std::string <strong>name</strong>(std::string s)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::name__i.i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a2fc50042732b9a4fd338968225522a69"></span><div class="line-block">
+<div class="line">std::string <strong>name</strong>(int from_nuc, int to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::name__i.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a462c6500c7bf221f8c897ad2cc5cf45f"></span><div class="line-block">
+<div class="line">std::string <strong>name</strong>(int from_nuc, std::string to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::name__ss.i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1aff733bd008ee84cde43ccfdd5f308472"></span><div class="line-block">
+<div class="line">std::string <strong>name</strong>(std::string from_nuc, int to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::name__ss.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1ad42b702d8b240b1605616d7c104f0bdc"></span><div class="line-block">
+<div class="line">std::string <strong>name</strong>(std::string from_nuc, std::string to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>ID Functions</em><blockquote>
+<div><p>Returns the recation id of a reaction channel. This id has been precomputed from the hash of the name. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">x</span></tt> - <p>Input reaction specification, may be a reaction name, alternate name, an id, or an MT number. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">from_nuc</span></tt> - <p>Initial target nuclide prior to reaction. When <em>from_nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">to_nuc</span></tt> - <p>Target nuclide after reaction occurs. When <em>to_nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">z</span></tt> - <p>Flag for incident particle type. Particle flags are &#8216;n&#8217;, &#8216;p&#8217;, &#8216;d&#8217;, &#8216;t&#8217;, &#8216;He3&#8217;, &#8216;a&#8217;, &#8216;gamma&#8217;, and &#8216;decay&#8217;. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><span class="target" id="pyne::rxname::id__i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1aa9cec3c799a165e60386679430d0a555"></span><div class="line-block">
+<div class="line">unsigned int <strong>id</strong>(int x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::id__unsigned-i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1af858ab04d8ba9afa46817afd5238207f"></span><div class="line-block">
+<div class="line">unsigned int <strong>id</strong>(unsigned int x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::id__cCP"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a049dccbc2e94b81b8768574bafbea7eb"></span><div class="line-block">
+<div class="line">unsigned int <strong>id</strong>(const char * x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::id__ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a9b0d87bb265015fa308a8a601a89c738"></span><div class="line-block">
+<div class="line">unsigned int <strong>id</strong>(std::string x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::id__i.i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1ac2712f73fe136c8a091ec5b55867c101"></span><div class="line-block">
+<div class="line">unsigned int <strong>id</strong>(int from_nuc, int to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::id__i.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a59db818b92ee0c58e5da5e29ecccb7b3"></span><div class="line-block">
+<div class="line">unsigned int <strong>id</strong>(int from_nuc, std::string to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::id__ss.i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1aeef408cf1b26de2f7828c35981db3f88"></span><div class="line-block">
+<div class="line">unsigned int <strong>id</strong>(std::string from_nuc, int to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::id__ss.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a8b635b6cfe404af21b0a0c7744d911aa"></span><div class="line-block">
+<div class="line">unsigned int <strong>id</strong>(std::string from_nuc, std::string to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>MT Number Functions</em><blockquote>
+<div><p>Returns the MT number of a reaction channel, if available. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">x</span></tt> - <p>Input reaction specification, may be a reaction name, alternate name, an id, or an MT number. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">from_nuc</span></tt> - <p>Initial target nuclide prior to reaction. When <em>from_nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">to_nuc</span></tt> - <p>Target nuclide after reaction occurs. When <em>to_nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">z</span></tt> - <p>Flag for incident particle type. Particle flags are &#8216;n&#8217;, &#8216;p&#8217;, &#8216;d&#8217;, &#8216;t&#8217;, &#8216;He3&#8217;, &#8216;a&#8217;, &#8216;gamma&#8217;, and &#8216;decay&#8217;. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><span class="target" id="pyne::rxname::mt__i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1acdad76e78950f101ec88599bcd3af129"></span><div class="line-block">
+<div class="line">unsigned int <strong>mt</strong>(int x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::mt__unsigned-i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a5bc2218afdc91e2772e177b9ab7454a0"></span><div class="line-block">
+<div class="line">unsigned int <strong>mt</strong>(unsigned int x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::mt__cP"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1afa47f9035ecd13d80717b1b1cea9db11"></span><div class="line-block">
+<div class="line">unsigned int <strong>mt</strong>(char * x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::mt__ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a1514d261c6ca9b375d9ace44ffaad1dd"></span><div class="line-block">
+<div class="line">unsigned int <strong>mt</strong>(std::string x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::mt__i.i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a218517f10f3f24a99238be17976660be"></span><div class="line-block">
+<div class="line">unsigned int <strong>mt</strong>(int from_nuc, int to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::mt__i.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1ae60365d15decfc47d1a5347c51539044"></span><div class="line-block">
+<div class="line">unsigned int <strong>mt</strong>(int from_nuc, std::string to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::mt__ss.i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a0ec75a7a63fd4fd12fc532e6709d15ce"></span><div class="line-block">
+<div class="line">unsigned int <strong>mt</strong>(std::string from_nuc, int to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::mt__ss.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1af154ac0682fcad310e2ce7dd91174438"></span><div class="line-block">
+<div class="line">unsigned int <strong>mt</strong>(std::string from_nuc, std::string to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Label Functions</em><blockquote>
+<div><p>Returns a short description of a reaction channel. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">x</span></tt> - <p>Input reaction specification, may be a reaction name, alternate name, an id, or an MT number. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">from_nuc</span></tt> - <p>Initial target nuclide prior to reaction. When <em>from_nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">to_nuc</span></tt> - <p>Target nuclide after reaction occurs. When <em>to_nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">z</span></tt> - <p>Flag for incident particle type. Particle flags are &#8216;n&#8217;, &#8216;p&#8217;, &#8216;d&#8217;, &#8216;t&#8217;, &#8216;He3&#8217;, &#8216;a&#8217;, &#8216;gamma&#8217;, and &#8216;decay&#8217;. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><span class="target" id="pyne::rxname::label__i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1ade7f3ea5b064a6681304d744e980af61"></span><div class="line-block">
+<div class="line">std::string <strong>label</strong>(int x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::label__unsigned-i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a8987dc37a3449cf20f4a82c06c3dacf0"></span><div class="line-block">
+<div class="line">std::string <strong>label</strong>(unsigned int x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::label__cP"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1afc967448852b315acdd9c5b1e1f1a3cc"></span><div class="line-block">
+<div class="line">std::string <strong>label</strong>(char * x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::label__ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a9183e4eb4d2f8386238df017a6763910"></span><div class="line-block">
+<div class="line">std::string <strong>label</strong>(std::string x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::label__i.i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a1d990996b1b80abcdf8ba7cb03bf9c0b"></span><div class="line-block">
+<div class="line">std::string <strong>label</strong>(int from_nuc, int to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::label__i.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a2e4d7d20d4278d6b6b5b57592fab287b"></span><div class="line-block">
+<div class="line">std::string <strong>label</strong>(int from_nuc, std::string to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::label__ss.i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1aff83b91df8abe88197680a467b843969"></span><div class="line-block">
+<div class="line">std::string <strong>label</strong>(std::string from_nuc, int to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::label__ss.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1aa316be9d06a9987cb9816cc26926a237"></span><div class="line-block">
+<div class="line">std::string <strong>label</strong>(std::string from_nuc, std::string to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Documentation Functions</em><blockquote>
+<div><p>Returns a short description of a reaction channel. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">x</span></tt> - <p>Input reaction specification, may be a reaction name, alternate name, an id, or an MT number. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">from_nuc</span></tt> - <p>Initial target nuclide prior to reaction. When <em>from_nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">to_nuc</span></tt> - <p>Target nuclide after reaction occurs. When <em>to_nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">z</span></tt> - <p>Flag for incident particle type. Particle flags are &#8216;n&#8217;, &#8216;p&#8217;, &#8216;d&#8217;, &#8216;t&#8217;, &#8216;He3&#8217;, &#8216;a&#8217;, &#8216;gamma&#8217;, and &#8216;decay&#8217;. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><span class="target" id="pyne::rxname::doc__i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a715d8a44f2834a57fb7c1b6e59b0ba07"></span><div class="line-block">
+<div class="line">std::string <strong>doc</strong>(int x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::doc__unsigned-i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a0b928e24a66347f0db09c36dd8e37b07"></span><div class="line-block">
+<div class="line">std::string <strong>doc</strong>(unsigned int x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::doc__cP"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a87a0c0ad6c388b04a8ca53989193f97b"></span><div class="line-block">
+<div class="line">std::string <strong>doc</strong>(char * x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::doc__ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a823b1cd216b7a5337f7f7bbb4b43b991"></span><div class="line-block">
+<div class="line">std::string <strong>doc</strong>(std::string x)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::doc__i.i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1ad7b53cd0c5f661be0b12953ce5d957e7"></span><div class="line-block">
+<div class="line">std::string <strong>doc</strong>(int from_nuc, int to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::doc__i.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a9820e3543688dcdf357499919edd7f7c"></span><div class="line-block">
+<div class="line">std::string <strong>doc</strong>(int from_nuc, std::string to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::doc__ss.i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a9b097eed11efda815806880622391f7f"></span><div class="line-block">
+<div class="line">std::string <strong>doc</strong>(std::string from_nuc, int to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::doc__ss.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a4b8d25c68ceee23acdac2a537d2b951a"></span><div class="line-block">
+<div class="line">std::string <strong>doc</strong>(std::string from_nuc, std::string to_nuc, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Child Functions</em><blockquote>
+<div><p>Returns the child nuclide comming from a parent for a reaction channel. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">nuc</span></tt> - <p>Nuclide after reaction occurs. When <em>nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">rx</span></tt> - <p>Input reaction specification, may be a reaction name, alternate name, an id, or an MT number. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">z</span></tt> - <p>Flag for incident particle type. Particle flags are &#8216;n&#8217;, &#8216;p&#8217;, &#8216;d&#8217;, &#8216;t&#8217;, &#8216;He3&#8217;, &#8216;a&#8217;, &#8216;gamma&#8217;, and &#8216;decay&#8217;. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><span class="target" id="pyne::rxname::parent__i.unsigned-i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1aa3cecb886069c8d32aa7a7778f84757b"></span><div class="line-block">
+<div class="line">int <strong>parent</strong>(int nuc, unsigned int rx, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::parent__i.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a737a869e3cafe92551bb31c0bab157f2"></span><div class="line-block">
+<div class="line">int <strong>parent</strong>(int nuc, std::string rx, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::parent__ss.unsigned-i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a9fefdd975950394652c01a13601850d3"></span><div class="line-block">
+<div class="line">int <strong>parent</strong>(std::string nuc, unsigned int rx, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::parent__ss.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1afc7fbf4af2bb15b4849d787d70adf004"></span><div class="line-block">
+<div class="line">int <strong>parent</strong>(std::string nuc, std::string rx, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Parent Functions</em><blockquote>
+<div><p>Returns the parent nuclide comming for a child and a given reaction channel. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">nuc</span></tt> - <p>Initial target nuclide prior to reaction. When <em>nuc</em> is an integer it must be in id form. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">rx</span></tt> - <p>Input reaction specification, may be a reaction name, alternate name, an id, or an MT number. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">z</span></tt> - <p>Flag for incident particle type. Particle flags are &#8216;n&#8217;, &#8216;p&#8217;, &#8216;d&#8217;, &#8216;t&#8217;, &#8216;He3&#8217;, &#8216;a&#8217;, &#8216;gamma&#8217;, and &#8216;decay&#8217;. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><span class="target" id="pyne::rxname::child__i.unsigned-i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a2c4e868871c81dfe8382d6c9aff73ad1"></span><div class="line-block">
+<div class="line">int <strong>child</strong>(int nuc, unsigned int rx, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::child__i.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a8bf5f1462fff2e314331edbddedb1dec"></span><div class="line-block">
+<div class="line">int <strong>child</strong>(int nuc, std::string rx, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::child__ss.unsigned-i.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a275d460b7fb8b87067bde000ee38c547"></span><div class="line-block">
+<div class="line">int <strong>child</strong>(std::string nuc, unsigned int rx, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::child__ss.ss.ss"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a67d4d2a2ae31bf2a1d8ff498247e1c8d"></span><div class="line-block">
+<div class="line">int <strong>child</strong>(std::string nuc, std::string rx, std::string z = &#8220;n&#8221;)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Functions</em><blockquote>
+<div><p><span class="target" id="pyne::rxname::_fill_maps"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1ac0405aa8540541a69d0757fbbff2787b"></span><div class="line-block">
+<div class="line">void * <strong>_fill_maps</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p>A helper function to set the contents of the variables in this library. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne::rxname::offset__i.i.i"></span><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a3858bbc2a606c10d67fbfab6c33643a8"></span><div class="line-block">
+<div class="line">int <strong>offset</strong>(int dz, int da, int ds = 0)</div>
+</div>
+</p>
+<blockquote>
+<div><p>A helper function to compute nuclide id offsets from z-, a-, and s- deltas. </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+<em>Variables</em><blockquote>
+<div><p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1af343a741e468575ec16c2bd33d4d34a1"></span>std::string <strong>_names</strong>[NUM_RX_NAMES]</p>
+<blockquote>
+<div><p></p>
+<p>Raw array of reaction names </p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1ab00a51e950a0f86e3c8880c43a53bfed"></span>std::set&lt; std::string &gt; <strong>names</strong></p>
+<blockquote>
+<div><p>Set of reaction names, must be valid variable names. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a9252ed8b9fc279b90260c8dc34c6ffcd"></span>std::map&lt; unsigned int, std::string &gt; <strong>id_name</strong></p>
+<blockquote>
+<div><p>Mapping from reaction ids to reaction names. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1ad173b10de334a2e86d277125a5e56d3f"></span>std::map&lt; std::string, unsigned int &gt; <strong>name_id</strong></p>
+<blockquote>
+<div><p>Mapping from reaction names to reaction ids. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a0e0a3adb07416d3e988f6836fe8153ee"></span>std::map&lt; std::string, unsigned int &gt; <strong>altnames</strong></p>
+<blockquote>
+<div><p>Mapping between alternative names for reactions and the reaction id. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a114420908994366d5a9910af85404766"></span>std::map&lt; unsigned int, unsigned int &gt; <strong>id_mt</strong></p>
+<blockquote>
+<div><p>Mapping from reaction ids to MT numbers. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a3875d983fe8a095d6482b0e2a3e5f1de"></span>std::map&lt; unsigned int, unsigned int &gt; <strong>mt_id</strong></p>
+<blockquote>
+<div><p>Mapping from MT numbers to reaction names. </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1afc9667953e5d7c5cde959d3785f01507"></span>std::map&lt; unsigned int, std::string &gt; <strong>labels</strong></p>
+<blockquote>
+<div><p>Mapping from reaction ids to labels (short descriptions). </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1affeecbff3fadba29fc78ee256f603445"></span>std::map&lt; unsigned int, std::string &gt; <strong>docs</strong></p>
+<blockquote>
+<div><p>Mapping from reaction ids to documentation strings (long descriptions). </p>
+<p></p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a5733e5357b1da6e6146331e8522b465b"></span>std::map&lt; std::pair&lt; std::string, int &gt;, unsigned int &gt; <strong>offset_id</strong></p>
+<blockquote>
+<div><p></p>
+<p>Mapping from particle type and offset pairs to reaction ids. Particle flags are &#8216;n&#8217;, &#8216;p&#8217;, &#8216;d&#8217;, &#8216;t&#8217;, &#8216;He3&#8217;, &#8216;a&#8217;, &#8216;gamma&#8217;, and &#8216;decay&#8217;. </p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a1a8b97f3971e49bc7a60a043cfd468b7"></span>std::map&lt; std::pair&lt; std::string, unsigned int &gt;, int &gt; <strong>id_offset</strong></p>
+<blockquote>
+<div><p></p>
+<p>Mapping from particle type and reaction ids to offsets. Particle flags are &#8216;n&#8217;, &#8216;p&#8217;, &#8216;d&#8217;, &#8216;t&#8217;, &#8216;He3&#8217;, &#8216;a&#8217;, &#8216;gamma&#8217;, and &#8216;decay&#8217;. </p>
+</div></blockquote>
+<p><span class="target" id="pyne_rxnamenamespacepyne_1_1rxname_1a82c07eb917d8a590e02a19a4348f56de"></span>void * <strong>_</strong></p>
+<blockquote>
+<div><p>A dummy variable used when calling #_fill_maps(). </p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_rxnamerxname_8h">
+<div class="line"><em>file</em> <strong>rxname.h</strong></div>
+<div class="line"><em>#include &lt;utility&gt;</em></div>
+<div class="line"><em>#include &lt;iostream&gt;</em></div>
+<div class="line"><em>#include &lt;string&gt;</em></div>
+<div class="line"><em>#include &lt;map&gt;</em></div>
+<div class="line"><em>#include &lt;set&gt;</em></div>
+<div class="line"><em>#include &lt;exception&gt;</em></div>
+<div class="line"><em>#include &lt;stdlib.h&gt;</em></div>
+<div class="line"><em>#include &lt;stdio.h&gt;</em></div>
+<div class="line"><em>#include &#8220;utils.h&#8221;</em></div>
+<div class="line"><em>#include &lt;string.h&gt;</em></div>
+<div class="line"><em>#include &lt;sstream&gt;</em></div>
+<div class="line"><em>#include &lt;cctype&gt;</em></div>
+<div class="line"><em>#include &lt;cmath&gt;</em></div>
+<div class="line"><em>#include &lt;sys/stat.h&gt;</em></div>
+<div class="line"><em>#include &lt;sys/types.h&gt;</em></div>
+<div class="line"><em>#include &lt;cstdlib&gt;</em></div>
+<div class="line"><em>#include &lt;vector&gt;</em></div>
+<div class="line"><em>#include &lt;algorithm&gt;</em></div>
+<div class="line"><em>#include &#8220;nucname.h&#8221;</em></div>
+<div class="line"><em>#include &#8220;/home/elliott/Research/pyne/src/utils.h&#8221;</em></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+<em>Defines</em><blockquote>
+<div><p><span class="target" id="pyne_rxnamerxname_8h_1a388727037af9698d2c0e09388876a49d"></span><strong>NUM_RX_NAMES</strong></p>
+<blockquote>
+<div><p>Converts between naming conventions for reaction channels. </p>
+<p>Number of reactions supported by default. </p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block" id="pyne_rxnamedir_68267d1309a1af8e8297ef4c3efbcdba">
+<div class="line"><em>dir</em> <strong>/home/elliott/Research/pyne/src</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
 <div class="section" id="reaction-listing">
 <h2>Reaction Listing<a class="headerlink" href="#reaction-listing" title="Permalink to this headline">¶</a></h2>
 <p><strong>Reactions:</strong></p>
 <div>
-<table style="margin-left:auto;margin-right:auto;">     <tr>
-<th>reaction</th>         <th>id</th>         <th>description</th>
-</tr>     <tr>         <td>'He3'</td>         <td>1225374</td>
-<td>(z,3He) Production of He-3</td>     </tr>     <tr>
-<td>'He3_0'</td>         <td>1334429201</td>
-<td>(n,3He0)</td>     </tr>     <tr>         <td>'He3_1'</td>
-<td>1334429200</td>         <td>(n,3He1)</td>     </tr>     <tr>
-<td>'He3_10'</td>         <td>1086490656</td>
-<td>(n,3He10)</td>     </tr>     <tr>         <td>'He3_11'</td>
-<td>1086490657</td>         <td>(n,3He11)</td>     </tr>     <tr>
-<td>'He3_12'</td>         <td>1086490658</td>
-<td>(n,3He12)</td>     </tr>     <tr>         <td>'He3_13'</td>
-<td>1086490659</td>         <td>(n,3He13)</td>     </tr>     <tr>
-<td>'He3_14'</td>         <td>1086490660</td>
-<td>(n,3He14)</td>     </tr>     <tr>         <td>'He3_15'</td>
-<td>1086490661</td>         <td>(n,3He15)</td>     </tr>     <tr>
-<td>'He3_16'</td>         <td>1086490662</td>
-<td>(n,3He16)</td>     </tr>     <tr>         <td>'He3_17'</td>
-<td>1086490663</td>         <td>(n,3He17)</td>     </tr>     <tr>
-<td>'He3_18'</td>         <td>1086490664</td>
-<td>(n,3He18)</td>     </tr>     <tr>         <td>'He3_19'</td>
-<td>1086490665</td>         <td>(n,3He19)</td>     </tr>     <tr>
-<td>'He3_2'</td>         <td>1334429203</td>
-<td>(n,3He2)</td>     </tr>     <tr>         <td>'He3_20'</td>
-<td>1086490691</td>         <td>(n,3He20)</td>     </tr>     <tr>
-<td>'He3_21'</td>         <td>1086490690</td>
-<td>(n,3He21)</td>     </tr>     <tr>         <td>'He3_22'</td>
-<td>1086490689</td>         <td>(n,3He22)</td>     </tr>     <tr>
-<td>'He3_23'</td>         <td>1086490688</td>
-<td>(n,3He23)</td>     </tr>     <tr>         <td>'He3_24'</td>
-<td>1086490695</td>         <td>(n,3He24)</td>     </tr>     <tr>
-<td>'He3_25'</td>         <td>1086490694</td>
-<td>(n,3He25)</td>     </tr>     <tr>         <td>'He3_26'</td>
-<td>1086490693</td>         <td>(n,3He26)</td>     </tr>     <tr>
-<td>'He3_27'</td>         <td>1086490692</td>
-<td>(n,3He27)</td>     </tr>     <tr>         <td>'He3_28'</td>
-<td>1086490699</td>         <td>(n,3He28)</td>     </tr>     <tr>
-<td>'He3_29'</td>         <td>1086490698</td>
-<td>(n,3He29)</td>     </tr>     <tr>         <td>'He3_3'</td>
-<td>1334429202</td>         <td>(n,3He3)</td>     </tr>     <tr>
-<td>'He3_30'</td>         <td>1086490722</td>
-<td>(n,3He30)</td>     </tr>     <tr>         <td>'He3_31'</td>
-<td>1086490723</td>         <td>(n,3He31)</td>     </tr>     <tr>
-<td>'He3_32'</td>         <td>1086490720</td>
-<td>(n,3He32)</td>     </tr>     <tr>         <td>'He3_33'</td>
-<td>1086490721</td>         <td>(n,3He33)</td>     </tr>     <tr>
-<td>'He3_34'</td>         <td>1086490726</td>
-<td>(n,3He34)</td>     </tr>     <tr>         <td>'He3_35'</td>
-<td>1086490727</td>         <td>(n,3He35)</td>     </tr>     <tr>
-<td>'He3_36'</td>         <td>1086490724</td>
-<td>(n,3He36)</td>     </tr>     <tr>         <td>'He3_37'</td>
-<td>1086490725</td>         <td>(n,3He37)</td>     </tr>     <tr>
-<td>'He3_38'</td>         <td>1086490730</td>
-<td>(n,3He38)</td>     </tr>     <tr>         <td>'He3_39'</td>
-<td>1086490731</td>         <td>(n,3He39)</td>     </tr>     <tr>
-<td>'He3_4'</td>         <td>1334429205</td>
-<td>(n,3He4)</td>     </tr>     <tr>         <td>'He3_40'</td>
-<td>1086490757</td>         <td>(n,3He40)</td>     </tr>     <tr>
-<td>'He3_41'</td>         <td>1086490756</td>
-<td>(n,3He41)</td>     </tr>     <tr>         <td>'He3_42'</td>
-<td>1086490759</td>         <td>(n,3He42)</td>     </tr>     <tr>
-<td>'He3_43'</td>         <td>1086490758</td>
-<td>(n,3He43)</td>     </tr>     <tr>         <td>'He3_44'</td>
-<td>1086490753</td>         <td>(n,3He44)</td>     </tr>     <tr>
-<td>'He3_45'</td>         <td>1086490752</td>
-<td>(n,3He45)</td>     </tr>     <tr>         <td>'He3_46'</td>
-<td>1086490755</td>         <td>(n,3He46)</td>     </tr>     <tr>
-<td>'He3_47'</td>         <td>1086490754</td>
-<td>(n,3He47)</td>     </tr>     <tr>         <td>'He3_48'</td>
-<td>1086490765</td>         <td>(n,3He48)</td>     </tr>     <tr>
-<td>'He3_5'</td>         <td>1334429204</td>
-<td>(n,3He5)</td>     </tr>     <tr>         <td>'He3_6'</td>
-<td>1334429207</td>         <td>(n,3He6)</td>     </tr>     <tr>
-<td>'He3_7'</td>         <td>1334429206</td>
-<td>(n,3He7)</td>     </tr>     <tr>         <td>'He3_8'</td>
-<td>1334429209</td>         <td>(n,3He8)</td>     </tr>     <tr>
-<td>'He3_9'</td>         <td>1334429208</td>
-<td>(n,3He9)</td>     </tr>     <tr>
+<table border="1" style="margin-left:auto;margin-right:auto;">
+<tr>         <th>reaction</th>         <th>id</th>
+<th>description</th>     </tr>     <tr>         <td>'He3'</td>
+<td>1225374</td>         <td>(z,3He) Production of He-3</td>
+</tr>     <tr>         <td>'He3_0'</td>
+<td>1334429201</td>         <td>(n,3He0)</td>     </tr>     <tr>
+<td>'He3_1'</td>         <td>1334429200</td>
+<td>(n,3He1)</td>     </tr>     <tr>         <td>'He3_10'</td>
+<td>1086490656</td>         <td>(n,3He10)</td>     </tr>     <tr>
+<td>'He3_11'</td>         <td>1086490657</td>
+<td>(n,3He11)</td>     </tr>     <tr>         <td>'He3_12'</td>
+<td>1086490658</td>         <td>(n,3He12)</td>     </tr>     <tr>
+<td>'He3_13'</td>         <td>1086490659</td>
+<td>(n,3He13)</td>     </tr>     <tr>         <td>'He3_14'</td>
+<td>1086490660</td>         <td>(n,3He14)</td>     </tr>     <tr>
+<td>'He3_15'</td>         <td>1086490661</td>
+<td>(n,3He15)</td>     </tr>     <tr>         <td>'He3_16'</td>
+<td>1086490662</td>         <td>(n,3He16)</td>     </tr>     <tr>
+<td>'He3_17'</td>         <td>1086490663</td>
+<td>(n,3He17)</td>     </tr>     <tr>         <td>'He3_18'</td>
+<td>1086490664</td>         <td>(n,3He18)</td>     </tr>     <tr>
+<td>'He3_19'</td>         <td>1086490665</td>
+<td>(n,3He19)</td>     </tr>     <tr>         <td>'He3_2'</td>
+<td>1334429203</td>         <td>(n,3He2)</td>     </tr>     <tr>
+<td>'He3_20'</td>         <td>1086490691</td>
+<td>(n,3He20)</td>     </tr>     <tr>         <td>'He3_21'</td>
+<td>1086490690</td>         <td>(n,3He21)</td>     </tr>     <tr>
+<td>'He3_22'</td>         <td>1086490689</td>
+<td>(n,3He22)</td>     </tr>     <tr>         <td>'He3_23'</td>
+<td>1086490688</td>         <td>(n,3He23)</td>     </tr>     <tr>
+<td>'He3_24'</td>         <td>1086490695</td>
+<td>(n,3He24)</td>     </tr>     <tr>         <td>'He3_25'</td>
+<td>1086490694</td>         <td>(n,3He25)</td>     </tr>     <tr>
+<td>'He3_26'</td>         <td>1086490693</td>
+<td>(n,3He26)</td>     </tr>     <tr>         <td>'He3_27'</td>
+<td>1086490692</td>         <td>(n,3He27)</td>     </tr>     <tr>
+<td>'He3_28'</td>         <td>1086490699</td>
+<td>(n,3He28)</td>     </tr>     <tr>         <td>'He3_29'</td>
+<td>1086490698</td>         <td>(n,3He29)</td>     </tr>     <tr>
+<td>'He3_3'</td>         <td>1334429202</td>
+<td>(n,3He3)</td>     </tr>     <tr>         <td>'He3_30'</td>
+<td>1086490722</td>         <td>(n,3He30)</td>     </tr>     <tr>
+<td>'He3_31'</td>         <td>1086490723</td>
+<td>(n,3He31)</td>     </tr>     <tr>         <td>'He3_32'</td>
+<td>1086490720</td>         <td>(n,3He32)</td>     </tr>     <tr>
+<td>'He3_33'</td>         <td>1086490721</td>
+<td>(n,3He33)</td>     </tr>     <tr>         <td>'He3_34'</td>
+<td>1086490726</td>         <td>(n,3He34)</td>     </tr>     <tr>
+<td>'He3_35'</td>         <td>1086490727</td>
+<td>(n,3He35)</td>     </tr>     <tr>         <td>'He3_36'</td>
+<td>1086490724</td>         <td>(n,3He36)</td>     </tr>     <tr>
+<td>'He3_37'</td>         <td>1086490725</td>
+<td>(n,3He37)</td>     </tr>     <tr>         <td>'He3_38'</td>
+<td>1086490730</td>         <td>(n,3He38)</td>     </tr>     <tr>
+<td>'He3_39'</td>         <td>1086490731</td>
+<td>(n,3He39)</td>     </tr>     <tr>         <td>'He3_4'</td>
+<td>1334429205</td>         <td>(n,3He4)</td>     </tr>     <tr>
+<td>'He3_40'</td>         <td>1086490757</td>
+<td>(n,3He40)</td>     </tr>     <tr>         <td>'He3_41'</td>
+<td>1086490756</td>         <td>(n,3He41)</td>     </tr>     <tr>
+<td>'He3_42'</td>         <td>1086490759</td>
+<td>(n,3He42)</td>     </tr>     <tr>         <td>'He3_43'</td>
+<td>1086490758</td>         <td>(n,3He43)</td>     </tr>     <tr>
+<td>'He3_44'</td>         <td>1086490753</td>
+<td>(n,3He44)</td>     </tr>     <tr>         <td>'He3_45'</td>
+<td>1086490752</td>         <td>(n,3He45)</td>     </tr>     <tr>
+<td>'He3_46'</td>         <td>1086490755</td>
+<td>(n,3He46)</td>     </tr>     <tr>         <td>'He3_47'</td>
+<td>1086490754</td>         <td>(n,3He47)</td>     </tr>     <tr>
+<td>'He3_48'</td>         <td>1086490765</td>
+<td>(n,3He48)</td>     </tr>     <tr>         <td>'He3_5'</td>
+<td>1334429204</td>         <td>(n,3He5)</td>     </tr>     <tr>
+<td>'He3_6'</td>         <td>1334429207</td>
+<td>(n,3He6)</td>     </tr>     <tr>         <td>'He3_7'</td>
+<td>1334429206</td>         <td>(n,3He7)</td>     </tr>     <tr>
+<td>'He3_8'</td>         <td>1334429209</td>
+<td>(n,3He8)</td>     </tr>     <tr>         <td>'He3_9'</td>
+<td>1334429208</td>         <td>(n,3He9)</td>     </tr>     <tr>
 <td>'He3_continuum'</td>         <td>2532074717</td>
 <td>(n,3Hec)</td>     </tr>     <tr>         <td>'He3_total'</td>
 <td>4039916163</td>         <td>(z,X3He) Total He-3
@@ -1104,58 +1940,59 @@ state</td>     </tr>     <tr>         <td>'z_4n_1'</td>
 excited state</td>     </tr> </table>
 </div><p><strong>Reaction Aliases:</strong></p>
 <div>
-<table style="margin-left:auto;margin-right:auto;">     <tr>
-<th>alias</th>         <th>reaction</th>     </tr>     <tr>
-<td>'*'</td>         <td>'excited'</td>     </tr>     <tr>
-<td>'14c'</td>         <td>'decay_14c'</td>     </tr>     <tr>
-<td>'2b+'</td>         <td>'decay_2bplus'</td>     </tr>     <tr>
-<td>'2b-'</td>         <td>'decay_2bminus'</td>     </tr>     <tr>
-<td>'2ec'</td>         <td>'decay_2ec'</td>     </tr>     <tr>
-<td>'2n'</td>         <td>'z_2n'</td>     </tr>     <tr>
-<td>'2p'</td>         <td>'z_2p'</td>     </tr>     <tr>
-<td>'3HE'</td>         <td>'He3'</td>     </tr>     <tr>
-<td>'3He'</td>         <td>'He3'</td>     </tr>     <tr>
-<td>'3h'</td>         <td>'t'</td>     </tr>     <tr>
-<td>'3he'</td>         <td>'He3'</td>     </tr>     <tr>
-<td>'HE-3'</td>         <td>'He3'</td>     </tr>     <tr>
-<td>'HE3'</td>         <td>'He3'</td>     </tr>     <tr>
-<td>'abs'</td>         <td>'absorption'</td>     </tr>     <tr>
-<td>'alpha'</td>         <td>'a'</td>     </tr>     <tr>
-<td>'b+'</td>         <td>'bplus'</td>     </tr>     <tr>
-<td>'b+2p'</td>         <td>'bplus_2p'</td>     </tr>     <tr>
-<td>'b+3p'</td>         <td>'bplus_3p'</td>     </tr>     <tr>
-<td>'b+a'</td>         <td>'bplus_a'</td>     </tr>     <tr>
-<td>'b+p'</td>         <td>'bplus_p'</td>     </tr>     <tr>
-<td>'b-'</td>         <td>'bminus'</td>     </tr>     <tr>
-<td>'b-2n'</td>         <td>'bminus_2n'</td>     </tr>     <tr>
-<td>'b-3n'</td>         <td>'bminus_3n'</td>     </tr>     <tr>
-<td>'b-4n'</td>         <td>'bminus_4n'</td>     </tr>     <tr>
-<td>'b-a'</td>         <td>'bminus_a'</td>     </tr>     <tr>
-<td>'b-n'</td>         <td>'bminus_n'</td>     </tr>     <tr>
-<td>'b-p'</td>         <td>'bminus_p'</td>     </tr>     <tr>
-<td>'deut'</td>         <td>'d'</td>     </tr>     <tr>
-<td>'deuterium'</td>         <td>'d'</td>     </tr>     <tr>
-<td>'deuteron'</td>         <td>'d'</td>     </tr>     <tr>
-<td>'e'</td>         <td>'elastic'</td>     </tr>     <tr>
-<td>'ec+b+'</td>         <td>'ec_bplus'</td>     </tr>     <tr>
-<td>'ec2p'</td>         <td>'ec_2p'</td>     </tr>     <tr>
-<td>'elas'</td>         <td>'elastic'</td>     </tr>     <tr>
-<td>'fis'</td>         <td>'fission'</td>     </tr>     <tr>
-<td>'fiss'</td>         <td>'fission'</td>     </tr>     <tr>
-<td>'g'</td>         <td>'it'</td>     </tr>     <tr>
-<td>'h'</td>         <td>'He3'</td>     </tr>     <tr>
-<td>'he-3'</td>         <td>'He3'</td>     </tr>     <tr>
-<td>'he3'</td>         <td>'He3'</td>     </tr>     <tr>
-<td>'i'</td>         <td>'n'</td>     </tr>     <tr>
-<td>'inel'</td>         <td>'n'</td>     </tr>     <tr>
-<td>'inelastic'</td>         <td>'n'</td>     </tr>     <tr>
-<td>'proton'</td>         <td>'p'</td>     </tr>     <tr>
-<td>'s'</td>         <td>'scattering'</td>     </tr>     <tr>
-<td>'scat'</td>         <td>'scattering'</td>     </tr>     <tr>
-<td>'tot'</td>         <td>'total'</td>     </tr>     <tr>
-<td>'trit'</td>         <td>'t'</td>     </tr>     <tr>
-<td>'tritium'</td>         <td>'t'</td>     </tr>     <tr>
-<td>'triton'</td>         <td>'t'</td>     </tr> </table>
+<table border="1" style="margin-left:auto;margin-right:auto;">
+<tr>         <th>alias</th>         <th>reaction</th>     </tr>
+<tr>         <td>'*'</td>         <td>'excited'</td>     </tr>
+<tr>         <td>'14c'</td>         <td>'decay_14c'</td>     </tr>
+<tr>         <td>'2b+'</td>         <td>'decay_2bplus'</td>
+</tr>     <tr>         <td>'2b-'</td>
+<td>'decay_2bminus'</td>     </tr>     <tr>         <td>'2ec'</td>
+<td>'decay_2ec'</td>     </tr>     <tr>         <td>'2n'</td>
+<td>'z_2n'</td>     </tr>     <tr>         <td>'2p'</td>
+<td>'z_2p'</td>     </tr>     <tr>         <td>'3HE'</td>
+<td>'He3'</td>     </tr>     <tr>         <td>'3He'</td>
+<td>'He3'</td>     </tr>     <tr>         <td>'3h'</td>
+<td>'t'</td>     </tr>     <tr>         <td>'3he'</td>
+<td>'He3'</td>     </tr>     <tr>         <td>'HE-3'</td>
+<td>'He3'</td>     </tr>     <tr>         <td>'HE3'</td>
+<td>'He3'</td>     </tr>     <tr>         <td>'abs'</td>
+<td>'absorption'</td>     </tr>     <tr>         <td>'alpha'</td>
+<td>'a'</td>     </tr>     <tr>         <td>'b+'</td>
+<td>'bplus'</td>     </tr>     <tr>         <td>'b+2p'</td>
+<td>'bplus_2p'</td>     </tr>     <tr>         <td>'b+3p'</td>
+<td>'bplus_3p'</td>     </tr>     <tr>         <td>'b+a'</td>
+<td>'bplus_a'</td>     </tr>     <tr>         <td>'b+p'</td>
+<td>'bplus_p'</td>     </tr>     <tr>         <td>'b-'</td>
+<td>'bminus'</td>     </tr>     <tr>         <td>'b-2n'</td>
+<td>'bminus_2n'</td>     </tr>     <tr>         <td>'b-3n'</td>
+<td>'bminus_3n'</td>     </tr>     <tr>         <td>'b-4n'</td>
+<td>'bminus_4n'</td>     </tr>     <tr>         <td>'b-a'</td>
+<td>'bminus_a'</td>     </tr>     <tr>         <td>'b-n'</td>
+<td>'bminus_n'</td>     </tr>     <tr>         <td>'b-p'</td>
+<td>'bminus_p'</td>     </tr>     <tr>         <td>'deut'</td>
+<td>'d'</td>     </tr>     <tr>         <td>'deuterium'</td>
+<td>'d'</td>     </tr>     <tr>         <td>'deuteron'</td>
+<td>'d'</td>     </tr>     <tr>         <td>'e'</td>
+<td>'elastic'</td>     </tr>     <tr>         <td>'ec+b+'</td>
+<td>'ec_bplus'</td>     </tr>     <tr>         <td>'ec2p'</td>
+<td>'ec_2p'</td>     </tr>     <tr>         <td>'elas'</td>
+<td>'elastic'</td>     </tr>     <tr>         <td>'fis'</td>
+<td>'fission'</td>     </tr>     <tr>         <td>'fiss'</td>
+<td>'fission'</td>     </tr>     <tr>         <td>'g'</td>
+<td>'it'</td>     </tr>     <tr>         <td>'h'</td>
+<td>'He3'</td>     </tr>     <tr>         <td>'he-3'</td>
+<td>'He3'</td>     </tr>     <tr>         <td>'he3'</td>
+<td>'He3'</td>     </tr>     <tr>         <td>'i'</td>
+<td>'n'</td>     </tr>     <tr>         <td>'inel'</td>
+<td>'n'</td>     </tr>     <tr>         <td>'inelastic'</td>
+<td>'n'</td>     </tr>     <tr>         <td>'proton'</td>
+<td>'p'</td>     </tr>     <tr>         <td>'s'</td>
+<td>'scattering'</td>     </tr>     <tr>         <td>'scat'</td>
+<td>'scattering'</td>     </tr>     <tr>         <td>'tot'</td>
+<td>'total'</td>     </tr>     <tr>         <td>'trit'</td>
+<td>'t'</td>     </tr>     <tr>         <td>'tritium'</td>
+<td>'t'</td>     </tr>     <tr>         <td>'triton'</td>
+<td>'t'</td>     </tr> </table>
 </div></div>
 </div>
 
@@ -1234,7 +2071,7 @@ excited state</td>     </tr> </table>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -94,9 +95,8 @@ if(ga_enabled){
 <p>First, install nose:
 <a class="reference external" href="http://nose.readthedocs.org/en/latest/">http://nose.readthedocs.org/en/latest/</a></p>
 <p>To perform all unit tests:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cd tests/
-$ nosetests
-</pre></div>
+<div class="highlight-python"><pre>$ cd tests/
+$ nosetests</pre>
 </div>
 <p>This will recursively look through the currently directory, open up every file
 named test_* and run every function (or method) named test_*.</p>
@@ -138,9 +138,8 @@ tutorials are IPython notebooks.</p>
 <h2>Putting It All Together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>
 <p>If you&#8217;d like to run all of the tests automatically from the root pyne dir,
 you can chain the following BASH commands together:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cd tests &amp;&amp; nosetests &amp;&amp; cd ../examples &amp;&amp; ../execer.py || cd ../tutorial &amp;&amp; \
-  ../execer.py || cd ..
-</pre></div>
+<div class="highlight-python"><pre>$ cd tests &amp;&amp; nosetests &amp;&amp; cd ../examples &amp;&amp; ../execer.py || cd ../tutorial &amp;&amp; \
+  ../execer.py || cd ..</pre>
 </div>
 <p>Happy testing!</p>
 </div>
@@ -224,7 +223,7 @@ you can chain the following BASH commands together:</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
