@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -13,7 +12,6 @@
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../" type="text/css" />
     
     <script type="text/javascript">
@@ -28,7 +26,6 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/bibtex_js.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
@@ -63,9 +60,6 @@ if(ga_enabled){
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="cccc.html" title="CCCC Formats – pyne.cccc"
@@ -110,7 +104,7 @@ pertaining to a particular decay.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str or file</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str or file</p>
 <blockquote>
 <div><p>Name of ENSDF formatted file or a file-like object containing ENSDF
 formatted data</p>
@@ -122,54 +116,54 @@ to. If it&#8217;s None a new one will be created.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>decaylist</strong> : list of tuples</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>decaylist</strong> : list of tuples</p>
 <blockquote>
 <div><p>list of objects containing information pertaining to a particular
 decay. This information is in the following format:</p>
 </div></blockquote>
-<p><strong>int</strong> :</p>
+<p>int</p>
 <blockquote>
 <div><p>nuc_id of the parent</p>
 </div></blockquote>
-<p><strong>int</strong> :</p>
+<p>int</p>
 <blockquote>
 <div><p>nuc_id of the daughter</p>
 </div></blockquote>
-<p><strong>int</strong> :</p>
+<p>int</p>
 <blockquote>
 <div><p>PyNE reaction id</p>
 </div></blockquote>
-<p><strong>float</strong> :</p>
+<p>float</p>
 <blockquote>
 <div><p>half-life in seconds</p>
 </div></blockquote>
-<p><strong>float</strong> :</p>
+<p>float</p>
 <blockquote>
 <div><p>half-life error in seconds</p>
 </div></blockquote>
-<p><strong>float</strong> :</p>
+<p>float</p>
 <blockquote>
 <div><p>branching ratio (percent)</p>
 </div></blockquote>
-<p><strong>float</strong> :</p>
+<p>float</p>
 <blockquote>
 <div><p>Conversion factor for gamma intensity to photons per 100 decays of the
 parent</p>
 </div></blockquote>
-<p><strong>float</strong> :</p>
+<p>float</p>
 <blockquote>
 <div><p>Error in conversion factor for gamma intensity</p>
 </div></blockquote>
-<p><strong>float</strong> :</p>
+<p>float</p>
 <blockquote>
 <div><p>Conversion factor for electron capture/beta intensity to electron
 captures/betas per 100 decays of the parent</p>
 </div></blockquote>
-<p><strong>float</strong> :</p>
+<p>float</p>
 <blockquote>
 <div><p>Error in conversion factor for electron capture/beta intensity</p>
 </div></blockquote>
-<p><strong>list</strong> :</p>
+<p>list</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>a list containing information about each gamma ray:</dt>
@@ -192,7 +186,7 @@ captures/betas per 100 decays of the parent</p>
 </dd>
 </dl>
 </div></blockquote>
-<p><strong>list</strong> :</p>
+<p>list</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>a list containing information about each alpha:</dt>
@@ -205,7 +199,7 @@ captures/betas per 100 decays of the parent</p>
 </dd>
 </dl>
 </div></blockquote>
-<p><strong>list</strong> :</p>
+<p>list</p>
 <blockquote>
 <div><p>a list containing information about each beta minus from the parent
 decay:</p>
@@ -219,7 +213,7 @@ decay:</p>
 </ul>
 </div></blockquote>
 </div></blockquote>
-<p><strong>list</strong> :</p>
+<p>list</p>
 <blockquote class="last">
 <div><p>a list containing information about each beta plus and electron capture
 from the parent decay:</p>
@@ -254,7 +248,7 @@ reported decay types and branching ratios.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str or file</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str or file</p>
 <blockquote>
 <div><p>Name of ENSDF formatted file or a file-like object containing ENSDF
 formatted data</p>
@@ -266,7 +260,7 @@ to. If it&#8217;s None a new one will be created.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>levellist</strong> : list of tuples</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>levellist</strong> : list of tuples</p>
 <blockquote class="last">
 <div><p>This is a list of all the level data. Each level has base entry with a
 reaction id of 0 and additional entries for any listed decays. The
@@ -363,9 +357,6 @@ state</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="../np-modindex.html" title="Python Module Index"
-             >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
           <a href="cccc.html" title="CCCC Formats – pyne.cccc"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
@@ -381,7 +372,7 @@ state</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

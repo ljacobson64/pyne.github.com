@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -13,7 +12,6 @@
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../" type="text/css" />
     
     <script type="text/javascript">
@@ -28,7 +26,6 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/bibtex_js.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
@@ -63,9 +60,6 @@ if(ga_enabled){
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="origen22.html" title="ORIGEN 2.2 Support – pyne.origen22"
@@ -111,7 +105,7 @@ with the ALARA users&#8217; guide, found at:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>material_lib</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>material_lib</strong> : str</p>
 <blockquote>
 <div><p>Path to material library.</p>
 </div></blockquote>
@@ -149,13 +143,13 @@ with the ALARA users&#8217; guide, found at:</p>
 <blockquote>
 <div><p>The impurity parameters (see ALARA users&#8217; guide).</p>
 </div></blockquote>
-<p><strong>dump_file: str, optional</strong> :</p>
+<p><strong>dump_file: str, optional</strong></p>
 <blockquote>
 <div><p>Path to the dump file.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>s</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>s</strong> : str</p>
 <blockquote class="last">
 <div><p>Irradition-related ALARA input blocks.</p>
 </div></blockquote>
@@ -174,7 +168,7 @@ Mesh object. Fluxes are printed in the order of the flux_mesh.__iter__().</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>flux_mesh</strong> : PyNE Mesh object</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>flux_mesh</strong> : PyNE Mesh object</p>
 <blockquote>
 <div><p>Contains the mesh with fluxes tagged on each volume element.</p>
 </div></blockquote>
@@ -210,7 +204,7 @@ used.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
 <blockquote>
 <div><p>The Mesh object containing the materials to be printed.</p>
 </div></blockquote>
@@ -241,14 +235,14 @@ idx on the Mesh object.</dd>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lines</strong> : list or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>lines</strong> : list or str</p>
 <blockquote>
 <div><p>ALARA output from ALARA run with &#8216;number_density&#8217; in the &#8216;output&#8217; block
 of the input file. Lines can either be a filename or the equivalent to
 calling readlines() on an ALARA output file. If reading in ALARA output
 from stdout, call split(&#8216;</p>
 </div></blockquote>
-<p><strong>&#8216;) before passing it in as the lines parameter.</strong> :</p>
+<p><strong>&#8216;) before passing it in as the lines parameter.</strong></p>
 <blockquote class="last">
 <div><dl class="docutils">
 <dt>time <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
@@ -277,7 +271,7 @@ file is assumed to be in mesh.__iter__() order</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh</p>
 <blockquote>
 <div><p>The object containing the imesh instance to be tagged.</p>
 </div></blockquote>
@@ -285,7 +279,7 @@ file is assumed to be in mesh.__iter__() order</p>
 <blockquote>
 <div><p>The path of the hdf5 version of the photon source file.</p>
 </div></blockquote>
-<p><strong>tags: dict</strong> :</p>
+<p><strong>tags: dict</strong></p>
 <blockquote class="last">
 <div><p>A dictionary were the keys are tuples with two values. The first is a
 string denoting an nuclide in any form that is understood by
@@ -329,7 +323,7 @@ a structured mesh or imesh.iterate() order for an unstructured mesh.</dd>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>The path to the file</p>
 </div></blockquote>
@@ -356,7 +350,7 @@ equal up to &lt;sig_figs&gt; digits to be the same mixture within ALARA.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
 <blockquote>
 <div><blockquote>
 <div><p>The Mesh object for which the geometry is discretized.</p>
@@ -471,9 +465,6 @@ to be treated as the same mixture within ALARA.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="../np-modindex.html" title="Python Module Index"
-             >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
           <a href="origen22.html" title="ORIGEN 2.2 Support – pyne.origen22"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
@@ -489,7 +480,7 @@ to be treated as the same mixture within ALARA.</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

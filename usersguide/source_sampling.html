@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -13,7 +12,6 @@
     
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
     <link rel="stylesheet" href="../" type="text/css" />
     
     <script type="text/javascript">
@@ -28,7 +26,6 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/bibtex_js.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
     <script type="text/javascript" src="../_static/toggle_sections.js"></script>
     <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
@@ -65,9 +62,6 @@ if(ga_enabled){
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="../np-modindex.html" title="Python Module Index"
-             >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
           <a href="../pyapi/index.html" title="Python API"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
@@ -87,8 +81,8 @@ if(ga_enabled){
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-pyne.source_sampling">
-<span id="mesh-based-source-sampling"></span><span id="usersguide-source-sampling"></span><h1>Mesh-Based Source Sampling<a class="headerlink" href="#module-pyne.source_sampling" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="mesh-based-source-sampling">
+<span id="usersguide-source-sampling"></span><h1>Mesh-Based Source Sampling<a class="headerlink" href="#mesh-based-source-sampling" title="Permalink to this headline">¶</a></h1>
 <p>The source sampling module implements mesh-based source sampling (both
 Cartesian and tetrahedral) which can be used as a component within Monte Carlo
 radiation transport codes. A MOAB mesh tagged with energy-wise source densities
@@ -107,16 +101,17 @@ probability distribution function created from the source density mesh
 (i.e. positions/energies with high source density are sampled more often
 than those of low source density).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">uniform:</th><td class="field-body">All mesh volume elements and energy bins are equiprobable and the statistical
-weight of particles is modified accordingly.</td>
+<tr class="field-even field"><th class="field-name">uniform:</th><td class="field-body">All mesh volume elements are sampled with equal probability. Energy bins are
+sampled in analog from the distribution within a given mesh volume element.
+Statistical weights of particles are modified accordingly.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">user:</th><td class="field-body">In addition to source densities, the user supplies (on the same mesh) biased
 source densities. Particle birth parameters are then sampled on the basis of
 the biased source densities, and the statistical weight of particles is
 modified accordingly. The biased source density tag has the same length as the
 source density tag. Alternatively, the tag may have a length of 1, in which
-case the bias is only applied spatially and all energy groups are sampled
-uniformly.</td>
+case the bias is only applied spatially and energy groups are sampled in
+analog.</td>
 </tr>
 </tbody>
 </table>
@@ -224,8 +219,8 @@ with python.nose. It can be used in the same manner as the C++ class:</p>
 <p>Because Fortran cannot store an instance of the Sampler class, to perform
 source sampling from Fortran, a free-standing function &#8220;sampling_setup&#8221; is
 called to create a global instance of the sampling class. This function takes
-a single argument: an integer representing the problem mode (1: analog, 2:
-uniform, 3: user). This function assumes the mesh file is &#8220;source.h5m&#8221; and
+a single argument: an integer representing the problem mode (0: analog, 1:
+uniform, 2: user). This function assumes the mesh file is &#8220;source.h5m&#8221; and
 that the tag names are &#8220;source_density&#8221; and &#8220;biased_source_density&#8221;. In
 addition, this function assumes that a file &#8220;e_bounds&#8221; is present which is
 a plain text file containing the energy boundaries.</p>
@@ -283,6 +278,21 @@ The simplest way to compile MCNP5 with the source subroutine is as follows:</p>
 <li>Compile MCNP5 using the standard build method.</li>
 </ol>
 </div></blockquote>
+<p>Once MCNP5 is compiled, MCNP5 can be run normally. The file &#8220;source.h5m&#8221; must
+be present in the working directory that MCNP5 is run from. This file should
+contain source densities (on the &#8220;source_density&#8221; tag) and optionally biased
+source densities (the &#8220;biased_source_density&#8221; tag). An &#8220;idum&#8221; card must be used
+in the MCNP5 input file. This card should have two arguments. The first is the
+sampling mode (0: analog, 1: uniform, 2: user). The second is the resample
+limit for void rejection. For a given particle, if a source position is
+selected in void (MCNP materal 0) the source position is resampled within the
+selected mesh volume element until either a non-void position is found, or this
+user-specified limit is researched.</p>
+<p>For example, this &#8220;idum&#8221; card specifies uniform sampling with a resample limit
+of 100:</p>
+<div class="highlight-bash"><div class="highlight"><pre>idum 1 100
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -346,9 +356,6 @@ The simplest way to compile MCNP5 with the source subroutine is as follows:</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="../np-modindex.html" title="Python Module Index"
-             >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
           <a href="../pyapi/index.html" title="Python API"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
@@ -364,7 +371,7 @@ The simplest way to compile MCNP5 with the source subroutine is as follows:</p>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
