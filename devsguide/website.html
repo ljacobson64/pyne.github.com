@@ -1,0 +1,212 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building the PyNE website &mdash; PyNE 0.5-dev</title>
+    
+    <link rel="stylesheet" href="../_static/pyne.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.5-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
+    <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
+var ga_enabled = !$.cookie('disable-ga');
+if(ga_enabled){
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37452818-1']);
+  _gaq.push(['_setCookiePath', '/']);
+  _gaq.push(['_setDetectFlash', false]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
+</script>
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+ 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="building-the-pyne-website">
+<h1>Building the PyNE website<a class="headerlink" href="#building-the-pyne-website" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Building the website/documentation requires the following:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><a class="reference external" href="http://sphinx-doc.org/">Sphinx</a></li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/sphinxcontrib-bibtex/">sphinxcontrib-bibtex</a></li>
+<li><a class="reference external" href="https://code.google.com/p/prettytable/">PrettyTable</a></li>
+<li><a class="reference external" href="https://pythonhosted.org/cloud_sptheme/cloud_theme.html">Cloud Sphinx Theme</a></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="procedure-for-modifying-the-website">
+<h2>Procedure for modifying the website<a class="headerlink" href="#procedure-for-modifying-the-website" title="Permalink to this headline">¶</a></h2>
+<p>The PyNE website source files are located in the <tt class="docutils literal"><span class="pre">docs</span></tt> directory. A developer first
+makes necessary changes, then rebuild the website locally by executing the command:</p>
+<div class="highlight-python"><pre>make html</pre>
+</div>
+<p>This will generate html files for the website in the <tt class="docutils literal"><span class="pre">_build/html/</span></tt> folder.
+The developer may view the local changes by opening these files with their
+favorite browser, e.g.:</p>
+<div class="highlight-python"><pre>google-chrome _build/html/index.html</pre>
+</div>
+<p>Once the developer is satisfied with the changes, the changes should be
+commited and pull-requested per usual. Once the pull request is accepted, the
+developer can push their local changes directly to the website by:</p>
+<div class="highlight-python"><pre>make push-root</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html" title="index">
+          <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
+        </a></p><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Building the PyNE website</a><ul>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#procedure-for-modifying-the-website">Procedure for modifying the website</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">PyNE</a> &raquo;</li>
+ 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2014, The PyNE Development Team.
+      Last updated on Nov 23, 2014.
+    </div><script type="text/javascript">
+    if(ga_enabled){
+        document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
+        document.write("Click <button title=\"set cookie to disable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', 'true', {expires: 3650, path: '/'}); window.location.reload(); return false; \">here</button> to disable analytics for this site.");
+        document.write("</div>");
+    }else{
+        document.write("<div class=\"footer\">Google Analytics has been disabled. ");
+        document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
+    };
+</script>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

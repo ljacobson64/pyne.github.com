@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,9 +11,9 @@
     
     <title>CINDER Data – pyne.dbgen.cinder &mdash; PyNE 0.5-dev</title>
     
-    <link rel="stylesheet" href="../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pyne.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -27,13 +28,10 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="../../_static/toggle_sections.js"></script>
-    <script type="text/javascript" src="../../_static/toggle_sidebar.js"></script>
+    <script type="text/javascript" src="../../_static/cloud.js"></script>
     <link rel="shortcut icon" href="../../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.5-dev" href="../../index.html" />
-    <link rel="up" title="Nuclear Data Generation – pyne.dbgen" href="index.html" />
-    <link rel="next" title="EAF – pyne.dbgen.eaf" href="eaf.html" />
-    <link rel="prev" title="Simple Cross Sections – pyne.dbgen.simple_xs" href="simple_xs.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.5-dev" href="../../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -62,16 +60,10 @@ if(ga_enabled){
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="eaf.html" title="EAF – pyne.dbgen.eaf"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simple_xs.html" title="Simple Cross Sections – pyne.dbgen.simple_xs"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../../gallery/index.html">Gallery</a> | </li>
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="../index.html" >Python API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Nuclear Data Generation &#8211; <tt class="docutils literal"><span class="pre">pyne.dbgen</span></tt></a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
@@ -102,17 +94,17 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : str</p>
 <blockquote>
 <div><p>Input cinder.dat data file as a string.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>N_n</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>N_n</strong> : int</p>
 <blockquote>
 <div><p>The number of neutron fission product yield datasets in the file.</p>
 </div></blockquote>
-<p>N_g int</p>
+<p><strong>N_g int</strong> :</p>
 <blockquote class="last">
 <div><p>The number of photon fission product yield datasets in the file.</p>
 </div></blockquote>
@@ -130,13 +122,13 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>raw_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>raw_data</strong> : str</p>
 <blockquote>
 <div><p>Input cinder.dat data file as a string.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>nuclides</strong> : int</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>nuclides</strong> : int</p>
 <blockquote>
 <div><p>The number of nuclides in the dataset</p>
 </div></blockquote>
@@ -172,13 +164,13 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>raw_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>raw_data</strong> : str</p>
 <blockquote>
 <div><p>string of the cinder.dat data file.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>info_table</strong> : array</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>info_table</strong> : array</p>
 <blockquote class="last">
 <div><p>Structured array with the form &#8220;(index, nuc, type, mass)&#8221;.</p>
 </div></blockquote>
@@ -202,7 +194,7 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
 <blockquote>
 <div><p>Path to nuclide data file.</p>
 </div></blockquote>
@@ -224,7 +216,7 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
 <blockquote>
 <div><p>Path to nuclide data file.</p>
 </div></blockquote>
@@ -246,7 +238,7 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
 <blockquote>
 <div><p>Path to nuclide data file.</p>
 </div></blockquote>
@@ -268,7 +260,7 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
 <blockquote>
 <div><p>Path to nuclide data file.</p>
 </div></blockquote>
@@ -290,7 +282,7 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
 <blockquote>
 <div><p>Path to nuclide data file.</p>
 </div></blockquote>
@@ -312,7 +304,7 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
 <blockquote>
 <div><p>Path to nuclide data file.</p>
 </div></blockquote>
@@ -334,7 +326,7 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
 <blockquote>
 <div><p>Path to nuclide data file.</p>
 </div></blockquote>
@@ -356,7 +348,7 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nuc_data</strong> : str</p>
 <blockquote>
 <div><p>Path to nuclide data file.</p>
 </div></blockquote>
@@ -378,13 +370,13 @@ This often requires that MCNPX is installed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>raw_data</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>raw_data</strong> : str</p>
 <blockquote>
 <div><p>string of the cinder.dat data file.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>info_table</strong> : array</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>info_table</strong> : array</p>
 <blockquote class="last">
 <div><p>Structured array with the form &#8220;(index, nuc, type, mass)&#8221;.</p>
 </div></blockquote>
@@ -409,28 +401,48 @@ This often requires that MCNPX is installed.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-        <p class="logo"><a href="../../index.html">
+        <p class="logo"><a href="../../index.html" title="index">
           <img class="logo" src="../../_static/pyne_icon_small.png" alt="Logo"/>
-        </a></p>
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
-  <ul>
+        </a></p><div class="sphinxlocaltoc">
+    <h3><a href="../../index.html">Page contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">CINDER Data &#8211; <tt class="docutils literal"><span class="pre">pyne.dbgen.cinder</span></tt></a><ul>
 <li><a class="reference internal" href="#module-pyne.dbgen.cinder">CINDER Data API</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="simple_xs.html"
-                        title="previous chapter">Simple Cross Sections &#8211; <tt class="docutils literal"><span class="pre">pyne.dbgen.simple_xs</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="eaf.html"
-                        title="next chapter">EAF &#8211; <tt class="docutils literal"><span class="pre">pyne.dbgen.eaf</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../../_sources/pyapi/dbgen/cinder.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  </div>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
@@ -444,6 +456,7 @@ This often requires that MCNPX is installed.</p>
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -460,23 +473,17 @@ This often requires that MCNPX is installed.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="eaf.html" title="EAF – pyne.dbgen.eaf"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="simple_xs.html" title="Simple Cross Sections – pyne.dbgen.simple_xs"
-             >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../../gallery/index.html">Gallery</a> | </li>
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="../index.html" >Python API</a> &raquo;</li>
-          <li><a href="index.html" >Nuclear Data Generation &#8211; <tt class="docutils literal"><span class="pre">pyne.dbgen</span></tt></a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Nov 23, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
@@ -487,6 +494,6 @@ This often requires that MCNPX is installed.</p>
         document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
     };
 </script>
-    <!-- cloud_sptheme 1.3 -->
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>

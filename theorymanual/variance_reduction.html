@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,9 +11,9 @@
     
     <title>Variance Reduction &mdash; PyNE 0.5-dev</title>
     
-    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyne.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -27,13 +28,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
-    <link rel="up" title="Theory Manual" href="index.html" />
-    <link rel="next" title="Nuclear Reaction Channels" href="nuclear_reaction_channels.html" />
-    <link rel="prev" title="Source Sampling" href="source_sampling.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -62,15 +60,10 @@ if(ga_enabled){
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="nuclear_reaction_channels.html" title="Nuclear Reaction Channels"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="source_sampling.html" title="Source Sampling"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" accesskey="U">Theory Manual</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
@@ -93,18 +86,18 @@ function. One major feature of the scheme is &#8220;consistency&#8221;, that is,
 windows are chosen such that particles are always born within them.</p>
 <p>In the CADIS method the response is defined as:</p>
 <div class="math">
-<p><img src="../_images/math/b4ee9e4810fc53698dadf5744645912e3a6b02cf.png" alt="R = \int \, q(P) \, \Psi^+(P) \, dP,"/></p>
-</div><p>where <img class="math" src="../_images/math/23f1b45408e5b4130c0f940fcbfcec54492cbdcd.png" alt="q"/> is the probability distribution function describing the source
-strength as a function of the phase space variable <img class="math" src="../_images/math/f48b617185733d8dd6712643f1ab17c736661a06.png" alt="P"/> (which may
-represent any combination of space, energy, and direction). <img class="math" src="../_images/math/913a083cc2f99a03c6e1586ddd0417d70b0abdd3.png" alt="\Phi^+(P)"/>
+<p><img src="../_images/math/fc09c35dbfecf825b137b1c4ae60cad3b9bd85c4.png" alt="R = \int \, q(P) \, \Psi^+(P) \, dP,"/></p>
+</div><p>where <img class="math" src="../_images/math/0615acc3725de21025457e7d6f7694dab8e2f758.png" alt="q"/> is the probability distribution function describing the source
+strength as a function of the phase space variable <img class="math" src="../_images/math/4b4cade9ca8a2c8311fafcf040bc5b15ca507f52.png" alt="P"/> (which may
+represent any combination of space, energy, and direction). <img class="math" src="../_images/math/c32fab58a42007ef4f27c5898f1f5703aa6861f8.png" alt="\Phi^+(P)"/>
 is the adjoint flux relative to the detector response function being
 optimized. The CADIS method defines the biased source distribution as:</p>
 <div class="math">
-<p><img src="../_images/math/6cb577e740238c6786c836174395150b95d7567b.png" alt="\hat{q}(P) = \frac{q(P) \, \Psi^+(P)}{R}."/></p>
+<p><img src="../_images/math/c82b3abdfbac782cc93389b8c534c11da7fa900b.png" alt="\hat{q}(P) = \frac{q(P) \, \Psi^+(P)}{R}."/></p>
 </div><p>The corresponding weight window lower bounds are defined by:</p>
 <div class="math">
-<p><img src="../_images/math/80b6b8848a6916e06e57793c67e4ff6738b47b92.png" alt="ww(P) = \frac{R}{\Psi^+(P) \, \frac{\beta + 1}{2}},"/></p>
-</div><p>where <img class="math" src="../_images/math/8ce03f78ed945f2ef3dac87c8799b55b393527e7.png" alt="\beta"/> is the ratio of the weight window upper bound to the weight
+<p><img src="../_images/math/4918fbbd083a431340e2efcf2050194a20442854.png" alt="ww(P) = \frac{R}{\Psi^+(P) \, \frac{\beta + 1}{2}},"/></p>
+</div><p>where <img class="math" src="../_images/math/fdb63b9e51abe6bbb16acfb5d7b773ddbb5bf4a8.png" alt="\beta"/> is the ratio of the weight window upper bound to the weight
 window lower bound (default of 5 in MCNP5).</p>
 <div class="section" id="pyne-implementation">
 <h3>PyNE implementation<a class="headerlink" href="#pyne-implementation" title="Permalink to this headline">¶</a></h3>
@@ -113,36 +106,36 @@ is designed to be used in conjunction with the mesh-based source sampling
 capabilities in the source_sampling module. This means that the above method, which
 is continuous in phase space must be adapted for discretization of space (mesh
 volume elements) and energy (in energy bins).</p>
-<p>Source density (<img class="math" src="../_images/math/9849cb4e998bf90d819ab1701298eabf1cbae3df.png" alt="q'"/>, units: <img class="math" src="../_images/math/7553e32e07326a1b00ba242f3ac39604c9531713.png" alt="time^{-1}length^{-3}"/>) is the
+<p>Source density (<img class="math" src="../_images/math/af36faec8fe9f30065aa2bd1cc4c000f7efa1b7c.png" alt="q'"/>, units: <img class="math" src="../_images/math/c4a89038a4c79c921dc7634b704801e16a544cce.png" alt="time^{-1}length^{-3}"/>) is the
 canonical quantity for representing a mesh-based source within PyNE. This
-means that the first step of the CADIS method within PyNE is to create a <img class="math" src="../_images/math/23f1b45408e5b4130c0f940fcbfcec54492cbdcd.png" alt="q"/>
-PDF from a source density mesh. The total source strength <img class="math" src="../_images/math/07278e475bbd33b5827cc79eb2f6ccf633e73bcd.png" alt="q_tot"/> is
-first found by integrating the source density over space (<img class="math" src="../_images/math/a581f053bbfa5115f42c13094857cdd12a37ec49.png" alt="i"/>) and energy
-(<img class="math" src="../_images/math/d32c78b759903e3f4bd4fd2ce0b86358f7500c5d.png" alt="j"/>):</p>
+means that the first step of the CADIS method within PyNE is to create a <img class="math" src="../_images/math/0615acc3725de21025457e7d6f7694dab8e2f758.png" alt="q"/>
+PDF from a source density mesh. The total source strength <img class="math" src="../_images/math/3c6275b6d97344de204bccc77e2a8d889e2ecf8f.png" alt="q_tot"/> is
+first found by integrating the source density over space (<img class="math" src="../_images/math/34857b3ba74ce5cd8607f3ebd23e9015908ada71.png" alt="i"/>) and energy
+(<img class="math" src="../_images/math/8122aa89ea6e80784c6513d22787ad86e36ad0cc.png" alt="j"/>):</p>
 <div class="math">
-<p><img src="../_images/math/6f3343830ba93955532ad3eb542a2818492c84ec.png" alt="q_{tot} = \sum_{i \in I} \, \sum_{j \in J} V_i \, q'_{i, j},"/></p>
-</div><p>The <img class="math" src="../_images/math/23f1b45408e5b4130c0f940fcbfcec54492cbdcd.png" alt="q"/> PDF can then be defined by:</p>
+<p><img src="../_images/math/7ca9812057e606562878646650bd9f52568e8227.png" alt="q_{tot} = \sum_{i \in I} \, \sum_{j \in J} V_i \, q'_{i, j},"/></p>
+</div><p>The <img class="math" src="../_images/math/0615acc3725de21025457e7d6f7694dab8e2f758.png" alt="q"/> PDF can then be defined by:</p>
 <div class="math">
-<p><img src="../_images/math/ea6734a5cf742da679600a9736afb07b61aae1ba.png" alt="q_{i,j } = \frac{V_i \, q'_{i, j}}{q_tot} \, for i \in I, j \in J"/></p>
-</div><p>The response can then be calculated by integrating the product of <img class="math" src="../_images/math/23f1b45408e5b4130c0f940fcbfcec54492cbdcd.png" alt="q"/> and the adjoint flux over all phase space:</p>
+<p><img src="../_images/math/30fddf1861df6675d8414b3210c55851bcdb793b.png" alt="q_{i,j } = \frac{V_i \, q'_{i, j}}{q_tot} \, for i \in I, j \in J"/></p>
+</div><p>The response can then be calculated by integrating the product of <img class="math" src="../_images/math/0615acc3725de21025457e7d6f7694dab8e2f758.png" alt="q"/> and the adjoint flux over all phase space:</p>
 <div class="math">
-<p><img src="../_images/math/229e2a0f2bce82009983fd1ba8309018804542a8.png" alt="R = \sum_{i \in I} \, \sum_{j \in J} \Psi_{i, j}^{+} \, \frac{V_i \, q'_{i, j}}{q_{tot}}"/></p>
+<p><img src="../_images/math/f59c5627e8d34009d750969490c368ac4957ca76.png" alt="R = \sum_{i \in I} \, \sum_{j \in J} \Psi_{i, j}^{+} \, \frac{V_i \, q'_{i, j}}{q_{tot}}"/></p>
 </div><p>The weight window lower bound is then:</p>
 <div class="math">
-<p><img src="../_images/math/a64cd7adf68d8b5a054ca55609b8578607f895de.png" alt="ww_{i, j} = \frac{R}{\Psi_{i, j}^{+} \, \frac{\beta + 1}{2}}."/></p>
+<p><img src="../_images/math/6c37b85b433b0f58160d3cf5e2160414cac14eb1.png" alt="ww_{i, j} = \frac{R}{\Psi_{i, j}^{+} \, \frac{\beta + 1}{2}}."/></p>
 </div><p>These values are tagged to the weight window output mesh and can be printed out as
 an MCNP5 WWINP file. In the event that the adjoint flux is 0 for some
-<img class="math" src="../_images/math/2b0c7ba91040f34d839421e25d79a17193a421ce.png" alt="(i, j)"/>, the <img class="math" src="../_images/math/3dd295df5efbb79ffb2421e639ce9fd9a7a645fd.png" alt="ww_{i, j}"/> value is replaced with 0. MCNP5 will not
+<img class="math" src="../_images/math/811480f547c16afc74ffca555e4fd6c166ccfa68.png" alt="(i, j)"/>, the <img class="math" src="../_images/math/69853d6c14c3652969ec8658c5cdb6d6cf31fd5e.png" alt="ww_{i, j}"/> value is replaced with 0. MCNP5 will not
 play the weight window game when a particle enters a region of phase space
 where the weight window lower bound is 0.</p>
 <p>The biased source strength is:</p>
 <div class="math">
-<p><img src="../_images/math/3e03d46e9910d6f43da42fac6429755aba30b844.png" alt="\hat{q}_{i, j} = \frac{\Psi_{i, j}^{+} \, q'_{i, j} \, V_i}{R \, q_{tot}}"/></p>
+<p><img src="../_images/math/cd4ba0c2fc8e2105f0f49e9c0441a0d624a65a63.png" alt="\hat{q}_{i, j} = \frac{\Psi_{i, j}^{+} \, q'_{i, j} \, V_i}{R \, q_{tot}}"/></p>
 </div><p>However, the biased source strength is not the quantity of interest, because
 the source_sampling module is expecting biased source densities. The biased
 source densities that are tagged to the output mesh are:</p>
 <div class="math">
-<p><img src="../_images/math/dabd6e0f466bf9b9b25f1341ef3f18e6c954d65d.png" alt="\hat{q}'_{i, j} = \frac{\Psi_{i, j}^{+} \, q'_{i, j}}{R \, q_{tot}}."/></p>
+<p><img src="../_images/math/210590d1d660e2cd9e765d986571b6e6fbc942cb.png" alt="\hat{q}'_{i, j} = \frac{\Psi_{i, j}^{+} \, q'_{i, j}}{R \, q_{tot}}."/></p>
 </div></div>
 <div class="section" id="assumptions">
 <h3>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h3>
@@ -159,35 +152,35 @@ following properties.</p>
 <col width="50%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><p class="first"><img class="math" src="../_images/math/276e5ebc77bdd44874432c87f9e9c603cd48f5d4.png" alt="q' = [2.6, 2.5]"/></p>
-<p><img class="math" src="../_images/math/bc1323168f095b81062ac1e4f40152cc7cf4eb38.png" alt="\Phi = [1.3, 1.4]"/></p>
-<p class="last"><img class="math" src="../_images/math/a14f8fdd50ee6a92038e77082be297ddb2c1d4c4.png" alt="V = 2"/></p>
+<tr class="row-odd"><td><p class="first"><img class="math" src="../_images/math/5fce9429da7f8f173e07f38d47a1d9cfdf68972d.png" alt="q' = [2.6, 2.5]"/></p>
+<p><img class="math" src="../_images/math/45b5af4c5ba5108ad4cfd4596dc674970f8c03f6.png" alt="\Phi = [1.3, 1.4]"/></p>
+<p class="last"><img class="math" src="../_images/math/6c069a19e9b12f061e21f2725b21cf3aad5525a7.png" alt="V = 2"/></p>
 </td>
-<td><p class="first"><img class="math" src="../_images/math/7bc8a52ff12529252fec5af88813830b0b2ff7ff.png" alt="q' = [2.9, 0]"/></p>
-<p><img class="math" src="../_images/math/95bfa4e3092cf925e093ecaa9312d9ac388813fc.png" alt="\Phi = [1.7, 1.9]"/></p>
-<p class="last"><img class="math" src="../_images/math/a14f8fdd50ee6a92038e77082be297ddb2c1d4c4.png" alt="V = 2"/></p>
+<td><p class="first"><img class="math" src="../_images/math/7cfd70be957f0a5b105244657d3e02bdb090396a.png" alt="q' = [2.9, 0]"/></p>
+<p><img class="math" src="../_images/math/8763c1e4f6dd1fc49972120fe4d13ed52306310f.png" alt="\Phi = [1.7, 1.9]"/></p>
+<p class="last"><img class="math" src="../_images/math/6c069a19e9b12f061e21f2725b21cf3aad5525a7.png" alt="V = 2"/></p>
 </td>
 </tr>
-<tr class="row-even"><td><p class="first"><img class="math" src="../_images/math/7298a37649db5255ed571dfac815e469dd8f54d0.png" alt="q' = [2.9, 2.8]"/></p>
-<p><img class="math" src="../_images/math/99afec31e8fd109cef70340770f48fd8ddb22965.png" alt="\Phi = [1.1, 1.2]"/></p>
-<p class="last"><img class="math" src="../_images/math/39252787bdbff288e0da5c5934b30704ffe75c2f.png" alt="V = 8"/></p>
+<tr class="row-even"><td><p class="first"><img class="math" src="../_images/math/fb0337c35e596fc6671871790e97f172b13e74b2.png" alt="q' = [2.9, 2.8]"/></p>
+<p><img class="math" src="../_images/math/dd22f2dc4d749082cbf1d7da063c9bfeec5d94be.png" alt="\Phi = [1.1, 1.2]"/></p>
+<p class="last"><img class="math" src="../_images/math/1603c1fb859a1ce442c44239f55b4b920b7cdca9.png" alt="V = 8"/></p>
 </td>
-<td><p class="first"><img class="math" src="../_images/math/590fd8b58a2957dd92b9772146f6fd23396d0b30.png" alt="q' = [2.4, 2.2]"/></p>
-<p><img class="math" src="../_images/math/e6ce310b5bb6222dccc926e85b9f73a24229c53c.png" alt="\Phi = [0, 1.6]"/></p>
-<p class="last"><img class="math" src="../_images/math/39252787bdbff288e0da5c5934b30704ffe75c2f.png" alt="V = 8"/></p>
+<td><p class="first"><img class="math" src="../_images/math/2e563dd0225b98c199e86ced4e69c6087aeafecc.png" alt="q' = [2.4, 2.2]"/></p>
+<p><img class="math" src="../_images/math/6a8fa55c0d579048a6c8a16e3852d3ad1ec2a7c8.png" alt="\Phi = [0, 1.6]"/></p>
+<p class="last"><img class="math" src="../_images/math/1603c1fb859a1ce442c44239f55b4b920b7cdca9.png" alt="V = 8"/></p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>Here, the vector quantities represent values at two energy groups. First
-calculate <img class="math" src="../_images/math/21ce006c272c7c290661a9b612b86960b64be6a0.png" alt="q_{tot}"/> and <img class="math" src="../_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/>:</p>
+calculate <img class="math" src="../_images/math/acd79768cc38e6612b7b4feb7f59b78ef037e4e1.png" alt="q_{tot}"/> and <img class="math" src="../_images/math/eff43e84f8a3bcf7b6965f0a3248bc4d3a9d0cd4.png" alt="R"/>:</p>
 <div class="math">
-<p><img src="../_images/math/bbb6e3905e7aa3c0b1a86d8a168abbcfa4af9ba6.png" alt="q_{tot} &amp; = \sum_{i \in I} \, \sum_{j \in J} V_i \, q'_{i, j} \\
+<p><img src="../_images/math/48841cba1d0cb231c571f3b2f748a9b321d08e07.png" alt="q_{tot} &amp; = \sum_{i \in I} \, \sum_{j \in J} V_i \, q'_{i, j} \\
         &amp; = 8 \cdot 2.9 + 8 \cdot 2.8 + 2 \cdot 2.6 + 2 \cdot 2.5 \\
         &amp;   + 8 \cdot 2.4 + 8 \cdot 2.2 + 2 \cdot 2.9 + 2 \cdot 0  \\
         &amp; = 98.4"/></p>
 </div><div class="math">
-<p><img src="../_images/math/89e76491bde74614ddae7e86ed1a4f7341caa792.png" alt="R &amp; = \sum_{i \in I} \, \sum_{j \in J} \Psi_{i, j}^{+} \, \frac{V_i \, q'_{i, j}}{q_{tot}} \\
+<p><img src="../_images/math/ff44e9a2f33ce3bcfae2fddaddb6ee41574963b9.png" alt="R &amp; = \sum_{i \in I} \, \sum_{j \in J} \Psi_{i, j}^{+} \, \frac{V_i \, q'_{i, j}}{q_{tot}} \\
   &amp; = \frac{1}{98.4} (
            1.1 \cdot 8 \cdot 2.9 + 1.2 \cdot 8 \cdot 2.8
           + 1.3 \cdot 2 \cdot 2.6 + 1.4 \cdot 2 \cdot 2.5 \\
@@ -196,21 +189,21 @@ calculate <img class="math" src="../_images/math/21ce006c272c7c290661a9b612b8696
   &amp; = 1.0587398374"/></p>
 </div><p>The expected results are:</p>
 <div class="math">
-<p><img src="../_images/math/f162908c98a75099a10e373a128a676de411dcef.png" alt="\hat{q}' &amp;= \frac{\Psi_{i, j}^{+} \, q'_{i, j}}{R \, q_{tot}} \\
+<p><img src="../_images/math/691b3a97ae94f65cf270a8190665f2c953e40c2d.png" alt="\hat{q}' &amp;= \frac{\Psi_{i, j}^{+} \, q'_{i, j}}{R \, q_{tot}} \\
          &amp;= \frac{1}{98.4 \cdot 1.0587398374}
           [1.1 \cdot 2.9, 1.2 \cdot 2.8, 1.3 \cdot 2.6, 1.4 \cdot 2.5, \\
          &amp; \qquad \qquad \qquad \qquad \qquad 0 \cdot 2.4, 1.6 \cdot 2.2, 1.7 \cdot 2.9, 1.9 \cdot 0] \\
          &amp;= [0.0306200806, 0.0322518718, 0.0324438472, 0.0335956998, \\
          &amp; \qquad 0.0, 0.0337876752, 0.0473219428, 0.0]"/></p>
 </div><div class="math">
-<p><img src="../_images/math/b4cbcead8fe514f2d6286ae858a8e0ce603100b8.png" alt="ww &amp;= \frac{R}{\Psi_{i, j}^{+} \, \frac{\beta + 1}{2}} \\
+<p><img src="../_images/math/fa73898e30ee4bb44c8542b9d1ef8fe67714b494.png" alt="ww &amp;= \frac{R}{\Psi_{i, j}^{+} \, \frac{\beta + 1}{2}} \\
    &amp;= [ \frac{1.0587398374}{1.1 \cdot{3}}, \frac{1.0587398374}{1.2 \cdot{3}},
              \frac{1.0587398374}{1.3 \cdot{3}}, \frac{1.0587398374}{1.4 \cdot{3}}, \\
    &amp; \qquad  \frac{1.0587398374}{0 \cdot{3}}, \frac{1.0587398374}{1.6 \cdot{3}},
              \frac{1.0587398374}{1.7 \cdot{3}}, \frac{1.0587398374}{1.9 \cdot{3}} ] \\
    &amp;= [0.3208302538, 0.2940943993, 0.2714717532, 0.2520809137, \\
    &amp; \qquad  0.0, 0.2205707995, 0.2075960465, 0.1857438311]"/></p>
-</div><p>Notice that the value in the <img class="math" src="../_images/math/eca65e2fe8109ccd3dd3be789de13a2e7eb8bdd8.png" alt="ww"/> vector that is a division by 0 has been replaced with 0.</p>
+</div><p>Notice that the value in the <img class="math" src="../_images/math/e63cb3fe143d71d65a1f5f4681fa2ea9f9645603.png" alt="ww"/> vector that is a division by 0 has been replaced with 0.</p>
 </div>
 </div>
 <div class="section" id="references">
@@ -229,11 +222,11 @@ No. 1, pp. 25-53, 2003.</dd>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-        <p class="logo"><a href="../index.html">
+        <p class="logo"><a href="../index.html" title="index">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
-        </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
+        </a></p><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Variance Reduction</a><ul>
 <li><a class="reference internal" href="#cadis-method">CADIS Method</a><ul>
 <li><a class="reference internal" href="#pyne-implementation">PyNE implementation</a></li>
@@ -246,17 +239,37 @@ No. 1, pp. 25-53, 2003.</dd>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="source_sampling.html"
-                        title="previous chapter">Source Sampling</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="nuclear_reaction_channels.html"
-                        title="next chapter">Nuclear Reaction Channels</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/theorymanual/variance_reduction.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  </div>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -270,6 +283,7 @@ No. 1, pp. 25-53, 2003.</dd>
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -286,22 +300,17 @@ No. 1, pp. 25-53, 2003.</dd>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="nuclear_reaction_channels.html" title="Nuclear Reaction Channels"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="source_sampling.html" title="Source Sampling"
-             >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" >Theory Manual</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Nov 23, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
@@ -312,6 +321,6 @@ No. 1, pp. 25-53, 2003.</dd>
         document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
     };
 </script>
-    <!-- cloud_sptheme 1.3 -->
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>

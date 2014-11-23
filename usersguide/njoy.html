@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,9 +11,9 @@
     
     <title>NJOY Automation &mdash; PyNE 0.5-dev</title>
     
-    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyne.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -27,13 +28,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
-    <link rel="up" title="User’s Guide" href="index.html" />
-    <link rel="next" title="CCCC Formats" href="cccc.html" />
-    <link rel="prev" title="MCNP" href="mcnp.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -62,15 +60,10 @@ if(ga_enabled){
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="cccc.html" title="CCCC Formats"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="mcnp.html" title="MCNP"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" accesskey="U">User&#8217;s Guide</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
@@ -243,9 +236,9 @@ fission products. All the isotopes missing in the ’chain’
 + self.evaluationName file are tested against a lumping criterion and are lumped. The criterion for
 lumping a depleting isotope is a half life less than thirty days and a fission yield less than 0.01%. If this
 criterion is not met, this isotope is lumped and a warning message is issued.</p>
-<p>Information on energies for various reaction types like (n, <img class="math" src="../_images/math/0ebb67342b546ca42a1c634b1ef03c893c4cdedb.png" alt="\gamma"/>), (n,
-f), (n, 2n), (n, 3n), (n, 4n), (n, <img class="math" src="../_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/>), (n, p), (n, 2
-<img class="math" src="../_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/>), (n, np), (n, d), (n, t) are recovered from earlier DRAGR
+<p>Information on energies for various reaction types like (n, <img class="math" src="../_images/math/66981fa3920210c6ad8dbe5e968783d5dd7520c3.png" alt="\gamma"/>), (n,
+f), (n, 2n), (n, 3n), (n, 4n), (n, <img class="math" src="../_images/math/10f32377ac67d94f764f12a15ea987e88c85d3e1.png" alt="\alpha"/>), (n, p), (n, 2
+<img class="math" src="../_images/math/10f32377ac67d94f764f12a15ea987e88c85d3e1.png" alt="\alpha"/>), (n, np), (n, d), (n, t) are recovered from earlier DRAGR
 single-isotope calculations and used for inclusion in relevant depletion data in
 DRAGLIB format. The fission energy (n, f) is obtained from MF1 MT458 and the
 energy from delayed betas and gammas are subtracted from it. Information
@@ -505,11 +498,11 @@ also is to be generated, please refer to Figure 2.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-        <p class="logo"><a href="../index.html">
+        <p class="logo"><a href="../index.html" title="index">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
-        </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
+        </a></p><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">NJOY Automation</a><ul>
 <li><a class="reference internal" href="#njoy99-attributes">Njoy99 Attributes</a></li>
 <li><a class="reference internal" href="#draglib-generation">DRAGLIB Generation</a><ul>
@@ -531,17 +524,37 @@ also is to be generated, please refer to Figure 2.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="mcnp.html"
-                        title="previous chapter">MCNP</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="cccc.html"
-                        title="next chapter">CCCC Formats</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/usersguide/njoy.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  </div>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -555,6 +568,7 @@ also is to be generated, please refer to Figure 2.</p>
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -571,22 +585,17 @@ also is to be generated, please refer to Figure 2.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="cccc.html" title="CCCC Formats"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="mcnp.html" title="MCNP"
-             >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" >User&#8217;s Guide</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Nov 23, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
@@ -597,6 +606,6 @@ also is to be generated, please refer to Figure 2.</p>
         document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
     };
 </script>
-    <!-- cloud_sptheme 1.3 -->
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>

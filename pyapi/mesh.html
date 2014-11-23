@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,9 +11,9 @@
     
     <title>PyNE Mesh – pyne.mesh &mdash; PyNE 0.5-dev</title>
     
-    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyne.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -27,13 +28,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
-    <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="Cross Section Interface – pyne.xs" href="xs/index.html" />
-    <link rel="prev" title="Materials – pyne.material" href="material.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -62,15 +60,10 @@ if(ga_enabled){
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="xs/index.html" title="Cross Section Interface – pyne.xs"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="material.html" title="Materials – pyne.material"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" accesskey="U">Python API</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
@@ -90,170 +83,6 @@ if(ga_enabled){
 </dd></dl>
 
 <dl class="class">
-<dt id="pyne.mesh.ComputedTag">
-<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">ComputedTag</tt><big>(</big><em>f</em>, <em>mesh=None</em>, <em>name=None</em>, <em>doc=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#ComputedTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.ComputedTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>A mesh tag which looks itself up by calling a function (or other callable)
-with the following signature:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;mesh is a pyne.mesh.Mesh() object and i is the volume element index</span>
-<span class="sd">    to compute.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># ... do some work ...</span>
-    <span class="k">return</span> <span class="n">anything_you_want</span>
-</pre></div>
-</div>
-<p>This makes the following expressions equivalent for a given computed tag
-name:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">f</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
-features to this process.</p>
-<p class="rubric">Notes</p>
-<p>The results of computed tags are not stored and the function object itself 
-is also not persisted.  Therefore, you must manually re-tag the mesh with
-the desired functions each session.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>f</strong> : callable object</p>
-<blockquote>
-<div><p>The function that performs the computation.</p>
-</div></blockquote>
-<p><strong>mesh</strong> : Mesh, optional</p>
-<blockquote>
-<div><p>The PyNE mesh to tag.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the tag.</p>
-</div></blockquote>
-<p><strong>doc</strong> : str, optional</p>
-<blockquote class="last">
-<div><p>Documentation string for the tag.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyne.mesh.IMeshTag">
-<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">IMeshTag</tt><big>(</big><em>size=1</em>, <em>dtype='f8'</em>, <em>default=0.0</em>, <em>mesh=None</em>, <em>name=None</em>, <em>doc=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#IMeshTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.IMeshTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>A mesh tag which looks itself up as a tag on the iMesh.Mesh instance.
-This makes the following expressions equivalent for a given iMesh.Mesh tag
-name:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="nb">list</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span>
-                        <span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">))[</span><span class="n">i</span><span class="p">]]</span>
-</pre></div>
-</div>
-<p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
-features to this process.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>size</strong> : int, optional</p>
-<blockquote>
-<div><p>The number of elements of type dtype that this tag stores.</p>
-</div></blockquote>
-<p><strong>dtype</strong> : np.dtype or similar, optional</p>
-<blockquote>
-<div><p>The data type of this tag from int, float, and byte. See PyTAPS
-tags for more details.</p>
-</div></blockquote>
-<p><strong>default</strong> : dtype or None, optional</p>
-<blockquote>
-<div><p>The default value to fill this tag with upon creation. If None, then 
-the tag is created empty.</p>
-</div></blockquote>
-<p><strong>mesh</strong> : Mesh, optional</p>
-<blockquote>
-<div><p>The PyNE mesh to tag.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the tag.</p>
-</div></blockquote>
-<p><strong>doc</strong> : str, optional</p>
-<blockquote class="last">
-<div><p>Documentation string for the tag.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyne.mesh.MaterialMethodTag">
-<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">MaterialMethodTag</tt><big>(</big><em>mesh=None</em>, <em>name=None</em>, <em>doc=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#MaterialMethodTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.MaterialMethodTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>A mesh tag which looks itself up by calling a material method which takes 
-no arguments.  This makes the following expressions equivalent for a given 
-material method name:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
-features to this process.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : Mesh, optional</p>
-<blockquote>
-<div><p>The PyNE mesh to tag.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the tag.</p>
-</div></blockquote>
-<p><strong>doc</strong> : str, optional</p>
-<blockquote class="last">
-<div><p>Documentation string for the tag.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyne.mesh.MaterialPropertyTag">
-<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">MaterialPropertyTag</tt><big>(</big><em>mesh=None</em>, <em>name=None</em>, <em>doc=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#MaterialPropertyTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.MaterialPropertyTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>A mesh tag which looks itself up as a material property (attribute).
-This makes the following expressions equivalent for a given material property
-name:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
-</pre></div>
-</div>
-<p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
-features to this process.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : Mesh, optional</p>
-<blockquote>
-<div><p>The PyNE mesh to tag.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the tag.</p>
-</div></blockquote>
-<p><strong>doc</strong> : str, optional</p>
-<blockquote class="last">
-<div><p>Documentation string for the tag.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="class">
 <dt id="pyne.mesh.Mesh">
 <em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">Mesh</tt><big>(</big><em>mesh=None</em>, <em>structured=False</em>, <em>structured_coords=None</em>, <em>structured_set=None</em>, <em>structured_ordering='xyz'</em>, <em>mats=()</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class houses an iMesh instance and contains methods for various mesh
@@ -261,21 +90,28 @@ operations. Special methods exploit the properties of structured mesh.</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
+<col width="18%" />
 <col width="13%" />
-<col width="87%" />
+<col width="68%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>mesh</td>
-<td>(iMesh instance)</td>
+<td>iMesh instance</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>structured</td>
-<td>(bool) True for structured mesh.</td>
+<td>bool</td>
+<td>True for structured mesh.</td>
 </tr>
 <tr class="row-odd"><td>structured_coords</td>
-<td>(list of lists) A list containing lists of x_points, y_points and z_points that make up a structured mesh.</td>
+<td>list of lists</td>
+<td>A list containing lists of x_points, y_points and z_points that make up
+a structured mesh.</td>
 </tr>
 <tr class="row-even"><td>structured_ordering</td>
-<td>(str) A three character string denoting the iteration order of the mesh (e.g. &#8216;xyz&#8217;, meaning z changest fastest, then y, then x.)</td>
+<td>str</td>
+<td>A three character string denoting the iteration order of the mesh (e.g.
+&#8216;xyz&#8217;, meaning z changest fastest, then y, then x.)</td>
 </tr>
 </tbody>
 </table>
@@ -283,7 +119,7 @@ operations. Special methods exploit the properties of structured mesh.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : iMesh instance or str, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : iMesh instance or str, optional</p>
 <blockquote>
 <div><p>Either an iMesh instance or a file name of file containing an 
 iMesh instance.</p>
@@ -352,7 +188,7 @@ to each mesh volume element.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>cell_fracs</strong> : structured array</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cell_fracs</strong> : structured array</p>
 <blockquote>
 <div><p>The output from dagmc.discretize_geom(). A sorted, one dimensional
 array, each entry containing the following fields:</p>
@@ -405,13 +241,13 @@ material each cell is made of.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>ve</strong> : iMesh.Mesh.EntitySet</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>ve</strong> : iMesh.Mesh.EntitySet</p>
 <blockquote>
 <div><p>A volume element</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>..</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>..</strong> : float</p>
 <blockquote class="last">
 <div><p>Element&#8217;s volume. Returns None if volume is not a hex or tet.</p>
 </div></blockquote>
@@ -433,7 +269,7 @@ When they are the same, the iterator (0, 1, 2, ... N-1) is returned.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>order</strong> : str, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>order</strong> : str, optional</p>
 <blockquote class="last">
 <div><p>The requested iteration order (e.g. &#8216;zyx&#8217;).</p>
 </div></blockquote>
@@ -491,27 +327,25 @@ coordinate.  Thus, with order &#8220;xy,&#8221; iteration proceeds over the i/j
 plane of the structured mesh with the smallest k coordinate.</p>
 <p>Specific slices can be specified with keyword arguments:</p>
 <p>Keyword args:</p>
-<div class="highlight-python"><div class="highlight"><pre>x: specify one or more i-coordinates to iterate over.
+<div class="highlight-python"><pre>x: specify one or more i-coordinates to iterate over.
 y: specify one or more j-coordinates to iterate over.
-z: specify one or more k-coordinates to iterate over.
-</pre></div>
+z: specify one or more k-coordinates to iterate over.</pre>
 </div>
 <p>Examples:</p>
-<div class="highlight-python"><div class="highlight"><pre>structured_iterate_hex(): equivalent to iMesh iterator over hexes
+<div class="highlight-python"><pre>structured_iterate_hex(): equivalent to iMesh iterator over hexes
                           in mesh
-structured_iterate_hex(&quot;xyz&quot;): iterate over entire mesh, with
+structured_iterate_hex("xyz"): iterate over entire mesh, with
                                k-coordinates changing fastest,
                                i-coordinates least fast.
-structured_iterate_hex(&quot;yz&quot;, x=3): Iterate over the j-k plane of the
+structured_iterate_hex("yz", x=3): Iterate over the j-k plane of the
                                    mesh whose i-coordinate is 3, with
                                    k values changing fastest.
-structured_iterate_hex(&quot;z&quot;): Iterate over k-coordinates, with
+structured_iterate_hex("z"): Iterate over k-coordinates, with
                              i=dims.imin and j=dims.jmin
-structured_iterate_hex(&quot;yxz&quot;, y=(3,4)): Iterate over all hexes with
+structured_iterate_hex("yxz", y=(3,4)): Iterate over all hexes with
                               j-coordinate = 3 or 4.  k-coordinate
                               values change fastest, j-values least
-                              fast.
-</pre></div>
+                              fast.</pre>
 </div>
 </dd></dl>
 
@@ -540,7 +374,7 @@ the data.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
 <blockquote>
 <div><p>The tag name</p>
 </div></blockquote>
@@ -582,13 +416,13 @@ volume element.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>ve</strong> : iMesh entity handle</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>ve</strong> : iMesh entity handle</p>
 <blockquote>
 <div><p>Any mesh volume element.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>center</strong> : tuple</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>center</strong> : tuple</p>
 <blockquote class="last">
 <div><p>The (x, y, z) coordinates of the center of the mesh volume element.</p>
 </div></blockquote>
@@ -606,9 +440,75 @@ volume element.</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="attribute">
+<dt id="pyne.mesh.ComputedTag">
+<tt class="descclassname">pyne.mesh.</tt><tt class="descname">ComputedTag</tt><a class="reference internal" href="../_modules/pyne/mesh.html#ComputedTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.ComputedTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mesh tag which looks itself up by calling a function (or other callable)
+with the following signature:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;mesh is a pyne.mesh.Mesh() object and i is the volume element index</span>
+<span class="sd">    to compute.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># ... do some work ...</span>
+    <span class="k">return</span> <span class="n">anything_you_want</span>
+</pre></div>
+</div>
+<p>This makes the following expressions equivalent for a given computed tag
+name:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">f</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
+features to this process.</p>
+<p class="rubric">Notes</p>
+<p>The results of computed tags are not stored and the function object itself 
+is also not persisted.  Therefore, you must manually re-tag the mesh with
+the desired functions each session.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.mesh.IMeshTag">
+<tt class="descclassname">pyne.mesh.</tt><tt class="descname">IMeshTag</tt><a class="reference internal" href="../_modules/pyne/mesh.html#IMeshTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.IMeshTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mesh tag which looks itself up as a tag on the iMesh.Mesh instance.
+This makes the following expressions equivalent for a given iMesh.Mesh tag
+name:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="nb">list</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span>
+                        <span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">))[</span><span class="n">i</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
+features to this process.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.mesh.MaterialMethodTag">
+<tt class="descclassname">pyne.mesh.</tt><tt class="descname">MaterialMethodTag</tt><a class="reference internal" href="../_modules/pyne/mesh.html#MaterialMethodTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.MaterialMethodTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mesh tag which looks itself up by calling a material method which takes 
+no arguments.  This makes the following expressions equivalent for a given 
+material method name:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
+features to this process.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyne.mesh.MaterialPropertyTag">
+<tt class="descclassname">pyne.mesh.</tt><tt class="descname">MaterialPropertyTag</tt><a class="reference internal" href="../_modules/pyne/mesh.html#MaterialPropertyTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.MaterialPropertyTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mesh tag which looks itself up as a material property (attribute).
+This makes the following expressions equivalent for a given material property
+name:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+<p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
+features to this process.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pyne.mesh.MetadataTag">
-<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">MetadataTag</tt><big>(</big><em>mesh=None</em>, <em>name=None</em>, <em>doc=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#MetadataTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.MetadataTag" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyne.mesh.</tt><tt class="descname">MetadataTag</tt><a class="reference internal" href="../_modules/pyne/mesh.html#MetadataTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.MetadataTag" title="Permalink to this definition">¶</a></dt>
 <dd><p>A mesh tag which looks itself up as a material metadata attribute.
 Tags of this are untyped and may have any size.  Use this for catch-all tags.
 This makes the following expressions equivalent for a given material property
@@ -618,54 +518,14 @@ name:</p>
 </div>
 <p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
 features to this process.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : Mesh, optional</p>
-<blockquote>
-<div><p>The PyNE mesh to tag.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the tag.</p>
-</div></blockquote>
-<p><strong>doc</strong> : str, optional</p>
-<blockquote class="last">
-<div><p>Documentation string for the tag.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
-<dl class="class">
+<dl class="attribute">
 <dt id="pyne.mesh.Tag">
-<em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">Tag</tt><big>(</big><em>mesh=None</em>, <em>name=None</em>, <em>doc=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Tag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Tag" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyne.mesh.</tt><tt class="descname">Tag</tt><a class="reference internal" href="../_modules/pyne/mesh.html#Tag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Tag" title="Permalink to this definition">¶</a></dt>
 <dd><p>A mesh tag, which acts as a descriptor on the mesh.  This dispatches
 access to intrinsic material properties, the iMesh.Mesh tags, and material
 metadata attributes.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : Mesh, optional</p>
-<blockquote>
-<div><p>The PyNE mesh to tag.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote>
-<div><p>The name of the tag.</p>
-</div></blockquote>
-<p><strong>doc</strong> : str, optional</p>
-<blockquote class="last">
-<div><p>Documentation string for the tag.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
@@ -676,20 +536,39 @@ metadata attributes.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-        <p class="logo"><a href="../index.html">
+        <p class="logo"><a href="../index.html" title="index">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
         </a></p>
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="material.html"
-                        title="previous chapter">Materials &#8211; <tt class="docutils literal"><span class="pre">pyne.material</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="xs/index.html"
-                        title="next chapter">Cross Section Interface &#8211; <tt class="docutils literal"><span class="pre">pyne.xs</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/pyapi/mesh.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -703,6 +582,7 @@ metadata attributes.</p>
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -719,22 +599,17 @@ metadata attributes.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="xs/index.html" title="Cross Section Interface – pyne.xs"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="material.html" title="Materials – pyne.material"
-             >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" >Python API</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Nov 23, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
@@ -745,6 +620,6 @@ metadata attributes.</p>
         document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
     };
 </script>
-    <!-- cloud_sptheme 1.3 -->
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>

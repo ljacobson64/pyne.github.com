@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,9 +11,9 @@
     
     <title>Enrichment &mdash; PyNE 0.5-dev</title>
     
-    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyne.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -27,13 +28,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
-    <link rel="up" title="User’s Guide" href="index.html" />
-    <link rel="next" title="C++ Standard Library Wrappers" href="stlcontainers.html" />
-    <link rel="prev" title="ORIGEN 2.2 I/O Support" href="origen22.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -62,15 +60,10 @@ if(ga_enabled){
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="stlcontainers.html" title="C++ Standard Library Wrappers"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="origen22.html" title="ORIGEN 2.2 I/O Support"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" accesskey="U">User&#8217;s Guide</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
@@ -91,27 +84,27 @@ done using gaseous diffusion or gas centrifuge cascades.</p>
 for the product and tails material streams given an initial feed material
 and the following parameters:</p>
 <ul class="simple">
-<li><img class="math" src="../_images/math/d32c78b759903e3f4bd4fd2ce0b86358f7500c5d.png" alt="j"/> (<tt class="docutils literal"><span class="pre">j</span></tt>) - enriched key component: nuclide to enrich in product
+<li><img class="math" src="../_images/math/8122aa89ea6e80784c6513d22787ad86e36ad0cc.png" alt="j"/> (<tt class="docutils literal"><span class="pre">j</span></tt>) - enriched key component: nuclide to enrich in product
 stream [&#8216;U-235&#8217;].</li>
-<li><img class="math" src="../_images/math/e9203da50e1059455123460d4e716c9c7f440cc3.png" alt="k"/> (<tt class="docutils literal"><span class="pre">k</span></tt>) - de-enriched key component: nuclide to enrich in tails
+<li><img class="math" src="../_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> (<tt class="docutils literal"><span class="pre">k</span></tt>) - de-enriched key component: nuclide to enrich in tails
 stream [&#8216;U-238&#8217;].</li>
-<li><img class="math" src="../_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/> (<tt class="docutils literal"><span class="pre">alpha</span></tt>) - stage separation factor: the proportion that
+<li><img class="math" src="../_images/math/10f32377ac67d94f764f12a15ea987e88c85d3e1.png" alt="\alpha"/> (<tt class="docutils literal"><span class="pre">alpha</span></tt>) - stage separation factor: the proportion that
 each stage enriches [1.05].</li>
-<li><img class="math" src="../_images/math/388482ead199a9a8b9ebdedd0a6570082b4ac6ef.png" alt="x^F_j"/> (<tt class="docutils literal"><span class="pre">x_feed_j</span></tt>) - target enrichment of jth key component in feed
+<li><img class="math" src="../_images/math/5313c3b4d5b7c4ff93acb5e28f1c800061f72294.png" alt="x^F_j"/> (<tt class="docutils literal"><span class="pre">x_feed_j</span></tt>) - target enrichment of jth key component in feed
 material [0.0072].</li>
-<li><img class="math" src="../_images/math/b362bd5e82ed43693b97f3e0c38f506585ce553d.png" alt="x^P_j"/> (<tt class="docutils literal"><span class="pre">x_prod_j</span></tt>) - target enrichment of jth key component in product
+<li><img class="math" src="../_images/math/c345ae65331c66e7804b04d6ef3b6dbc6f186421.png" alt="x^P_j"/> (<tt class="docutils literal"><span class="pre">x_prod_j</span></tt>) - target enrichment of jth key component in product
 material [0.05].</li>
-<li><img class="math" src="../_images/math/9b386d02a77215e2b65c653aff1411f82649a982.png" alt="x^T_j"/> (<tt class="docutils literal"><span class="pre">x_tail_j</span></tt>) - target enrichment of jth key component in tails
+<li><img class="math" src="../_images/math/d88f082397134fb3993e55803abf1d231c5b9155.png" alt="x^T_j"/> (<tt class="docutils literal"><span class="pre">x_tail_j</span></tt>) - target enrichment of jth key component in tails
 material [0.0025].</li>
 <li><tt class="docutils literal"><span class="pre">mat_feed</span></tt> - feed material stream: material to be enriched, this
 should only contains isotopes of a single element [natural uranium].</li>
 </ul>
 <p>The following cascade attributes must also be given as sane initial guesses:</p>
 <ul class="simple">
-<li><img class="math" src="../_images/math/ec67f244208831f60545f8008a85c32e3f0da9c8.png" alt="M^*"/> (<tt class="docutils literal"><span class="pre">Mstar</span></tt>) - mass separation factor: initial guess for overall
+<li><img class="math" src="../_images/math/514518880fc01470c58e35fc3a46d2510661aba9.png" alt="M^*"/> (<tt class="docutils literal"><span class="pre">Mstar</span></tt>) - mass separation factor: initial guess for overall
 mass separation for the cascade [236.5].</li>
-<li><img class="math" src="../_images/math/75e27f04188974063be3230dca208cd495b77ce1.png" alt="N"/> (<tt class="docutils literal"><span class="pre">N</span></tt>) - number of enriching stages: initial guess [30.0].</li>
-<li><img class="math" src="../_images/math/2de38926392ba23abeac75effc66c37a5f5be5fd.png" alt="M"/> (<tt class="docutils literal"><span class="pre">M</span></tt>) - number of stripping stages: initial guess [10.0].</li>
+<li><img class="math" src="../_images/math/fc97ef67268cd4e91bacdf12b8901d7036c9a056.png" alt="N"/> (<tt class="docutils literal"><span class="pre">N</span></tt>) - number of enriching stages: initial guess [30.0].</li>
+<li><img class="math" src="../_images/math/5d1e4485dc90c450e8c76826516c1b2ccb8fce16.png" alt="M"/> (<tt class="docutils literal"><span class="pre">M</span></tt>) - number of stripping stages: initial guess [10.0].</li>
 </ul>
 <p>For two component mixtures, i.e. those with only two nuclides in the feed material,
 the mass balance and flow rate equations are well defined and the optimal enrichment
@@ -120,8 +113,8 @@ However, for more than two components, the cascade cannot be determined from the
 target enrichments alone (<tt class="docutils literal"><span class="pre">x_feed_j</span></tt>, <tt class="docutils literal"><span class="pre">x_prod_j</span></tt>, <tt class="docutils literal"><span class="pre">x_tail_j</span></tt>).  Because the
 mass balance equations themselves are under-determined extra constraints must be
 emplaced.  This turns out to be a minimization of the total material flow rate
-through the cascade per unit of feed <a class="reference internal" href="#wood" id="id1">[WOOD]</a> <a class="reference internal" href="#garza" id="id2">[GARZA]</a>.  This value, <img class="math" src="../_images/math/29210a352e9dacb058b4d85446d6be2671a7e53c.png" alt="L_t/F"/>,
-may be seen as a function of the mass separation <img class="math" src="../_images/math/ec67f244208831f60545f8008a85c32e3f0da9c8.png" alt="M^*"/> below.</p>
+through the cascade per unit of feed <a class="reference internal" href="#wood">[WOOD]</a> <a class="reference internal" href="#garza">[GARZA]</a>.  This value, <img class="math" src="../_images/math/87a9233b76d0b20fc059d0f68cc03c84907ba0f8.png" alt="L_t/F"/>,
+may be seen as a function of the mass separation <img class="math" src="../_images/math/514518880fc01470c58e35fc3a46d2510661aba9.png" alt="M^*"/> below.</p>
 <div class="figure align-center">
 <img alt="../_images/mstar_vs_flowrate.png" src="../_images/mstar_vs_flowrate.png" />
 <p class="caption"><strong>Figure 1:</strong> <em>The normalized total flow rate as a function of the mass separation
@@ -202,28 +195,48 @@ URL: <a class="reference external" href="http://dx.doi.org/10.2172/4106611">http
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-        <p class="logo"><a href="../index.html">
+        <p class="logo"><a href="../index.html" title="index">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
-        </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
+        </a></p><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Enrichment</a><ul>
 <li><a class="reference internal" href="#example-of-use">Example of Use</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="origen22.html"
-                        title="previous chapter">ORIGEN 2.2 I/O Support</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="stlcontainers.html"
-                        title="next chapter">C++ Standard Library Wrappers</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/usersguide/enrichment.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  </div>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -237,6 +250,7 @@ URL: <a class="reference external" href="http://dx.doi.org/10.2172/4106611">http
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -253,22 +267,17 @@ URL: <a class="reference external" href="http://dx.doi.org/10.2172/4106611">http
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="stlcontainers.html" title="C++ Standard Library Wrappers"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="origen22.html" title="ORIGEN 2.2 I/O Support"
-             >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" >User&#8217;s Guide</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Nov 23, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
@@ -279,6 +288,6 @@ URL: <a class="reference external" href="http://dx.doi.org/10.2172/4106611">http
         document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
     };
 </script>
-    <!-- cloud_sptheme 1.3 -->
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>

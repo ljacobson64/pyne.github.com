@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,9 +11,9 @@
     
     <title>ORIGEN 2.2 Support – pyne.origen22 &mdash; PyNE 0.5-dev</title>
     
-    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyne.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -27,13 +28,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
-    <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="ACE Cross Sections – pyne.ace" href="ace.html" />
-    <link rel="prev" title="ALARA Input and Output Interfaces – pyne.alara" href="alara.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -62,15 +60,10 @@ if(ga_enabled){
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="ace.html" title="ACE Cross Sections – pyne.ace"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="alara.html" title="ALARA Input and Output Interfaces – pyne.alara"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" accesskey="U">Python API</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
@@ -102,13 +95,13 @@ as a dictionary of nuclide dictionaries. See <tt class="docutils literal"><span 
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>tape9</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>tape9</strong> : str</p>
 <blockquote>
 <div><p>String represetation of the TAPE9 file.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>parsed</strong> : dict</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>parsed</strong> : dict</p>
 <blockquote class="last">
 <div><p>A dictionary of the data from the TAPE9 file.</p>
 </div></blockquote>
@@ -127,13 +120,13 @@ a given data source.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nucs</strong> : iterable of ints, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nucs</strong> : iterable of ints, optional</p>
 <blockquote>
 <div><p>Set of nuclides in any format.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">tape9: dict</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>tape9: dict</strong> :</p>
 <blockquote class="last">
 <div><p>A full TAPE9 nested structure inside a dict. Keys 1, 2, and 3 correspond
 to decay decks. 219 is the activation products deck. 220 is the
@@ -155,14 +148,14 @@ third, etc.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>tape9s</strong> : list or tuple</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>tape9s</strong> : list or tuple</p>
 <blockquote>
 <div><p>A sequence of full or partial tape9 dictionaries.  See parse_tape9()
 for more information on the structure of these dictionaires.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>tape9</strong> : dictionary</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>tape9</strong> : dictionary</p>
 <blockquote class="last">
 <div><p>A tape9 file which is the merger of the all of the tape9s.  See
 parse_tape9() for more information on the structure of this dictionary.</p>
@@ -181,13 +174,13 @@ parse_tape9() for more information on the structure of this dictionary.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>t9</strong> : dict</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>t9</strong> : dict</p>
 <blockquote>
 <div><p>TAPE9 dictionary.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>decay_nlb</strong> : 3-tuple</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>decay_nlb</strong> : 3-tuple</p>
 <blockquote>
 <div><p>Tuple of decay library numbers.</p>
 </div></blockquote>
@@ -209,13 +202,13 @@ parse_tape9() for more information on the structure of this dictionary.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>tape6</strong> : str or file-like object</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>tape6</strong> : str or file-like object</p>
 <blockquote>
 <div><p>Path or file to read the tape6 file from.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>results</strong> : dict</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>results</strong> : dict</p>
 <blockquote class="last">
 <div><p>Dictionary of parsed values.</p>
 </div></blockquote>
@@ -234,46 +227,45 @@ this feature added, please contact the developers.</p>
 matches the layout of the TAPE6 file.  Data is stored as 1d numpy float arrays
 which (if the TAPE6 is well-formed) will all be of the same length and match
 the time vector.  The possible layout of results is as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>|- &#39;time_sec&#39;: time per index in [seconds]
-|- &#39;flux&#39;: neutron flux at this time [n/cm^2/s]
-|- &#39;specific_power_MW&#39;: recator specific power at this time [MW]
-|- &#39;burnup_MWD&#39;: reactor burnup since last time step [MWd/input mass [g] from TAPE4]
-|- &#39;k_inf&#39;: infinite multiplication factor [unitless]
-|- &#39;neutron_production_rate&#39;: Total reactor neutron production rate [n/s]
-|- &#39;neutron_destruction_rate: Total reactor neutron destruction rate [n/s]
-|- &#39;total_burnup&#39;: Cummulative burnup over all time [MWd/input mass [g] from TAPE4]
-|- &#39;average_flux&#39;: average neutron flux over preceeding time interval [n/cm^2/s]
-|- &#39;average_specific_power: recator specific power over preceeding time interval [MW]
-|- &#39;materials&#39;: list of Materials of same length as &#39;time_sec&#39;, only present if
-|               &#39;table_3&#39; or &#39;table_5&#39; exist and have &#39;nuclide&#39; output.
-|- &#39;alpha_neutron_source&#39;: dict
-|                          |- &#39;title&#39;: str
-|                          |- &#39;units&#39;: str
+<div class="highlight-python"><pre>|- 'time_sec': time per index in [seconds]
+|- 'flux': neutron flux at this time [n/cm^2/s]
+|- 'specific_power_MW': recator specific power at this time [MW]
+|- 'burnup_MWD': reactor burnup since last time step [MWd/input mass [g] from TAPE4]
+|- 'k_inf': infinite multiplication factor [unitless]
+|- 'neutron_production_rate': Total reactor neutron production rate [n/s]
+|- 'neutron_destruction_rate: Total reactor neutron destruction rate [n/s]
+|- 'total_burnup': Cummulative burnup over all time [MWd/input mass [g] from TAPE4]
+|- 'average_flux': average neutron flux over preceeding time interval [n/cm^2/s]
+|- 'average_specific_power: recator specific power over preceeding time interval [MW]
+|- 'materials': list of Materials of same length as 'time_sec', only present if
+|               'table_3' or 'table_5' exist and have 'nuclide' output.
+|- 'alpha_neutron_source': dict
+|                          |- 'title': str
+|                          |- 'units': str
 |                          |- nuclide or element str: (alpha, n) neutron source [n/s]
-|- &#39;spont_fiss_neutron_source&#39;: dict
-|                          |- &#39;title&#39;: str
-|                          |- &#39;units&#39;: str
+|- 'spont_fiss_neutron_source': dict
+|                          |- 'title': str
+|                          |- 'units': str
 |                          |- nuclide or element str: spontaneous fission neutron source [n/s]
-|- &#39;table_{n}&#39;: dict
-|               |- &#39;nuclide&#39;: dict
-|               |             |- &#39;title&#39;: str
-|               |             |- &#39;units&#39;: str
-|               |             |- &#39;activation_products&#39;: dict of (nuc-zzaaam, data) pairs
-|               |             |- &#39;actinides&#39;: dict of (nuc-zzaaam, data) pairs
-|               |             |- &#39;fission_products&#39;: dict of (nuc-zzaaam, data) pairs
-|               |- &#39;element&#39;: dict
-|               |             |- &#39;title&#39;: str
-|               |             |- &#39;units&#39;: str
-|               |             |- &#39;activation_products&#39;: dict of (elem str, data) pairs
-|               |             |- &#39;actinides&#39;: dict of (elem str, data) pairs
-|               |             |- &#39;fission_products&#39;: dict of (elem str, data) pairs
-|               |- &#39;summary&#39;: dict
-|               |             |- &#39;title&#39;: str
-|               |             |- &#39;units&#39;: str
-|               |             |- &#39;activation_products&#39;: dict of (elem or nuc str, data) pairs
-|               |             |- &#39;actinides&#39;: dict of (elem or nuc str, data) pairs
-|               |             |- &#39;fission_products&#39;: dict of (elem or nuc str, data) pairs
-</pre></div>
+|- 'table_{n}': dict
+|               |- 'nuclide': dict
+|               |             |- 'title': str
+|               |             |- 'units': str
+|               |             |- 'activation_products': dict of (nuc-zzaaam, data) pairs
+|               |             |- 'actinides': dict of (nuc-zzaaam, data) pairs
+|               |             |- 'fission_products': dict of (nuc-zzaaam, data) pairs
+|               |- 'element': dict
+|               |             |- 'title': str
+|               |             |- 'units': str
+|               |             |- 'activation_products': dict of (elem str, data) pairs
+|               |             |- 'actinides': dict of (elem str, data) pairs
+|               |             |- 'fission_products': dict of (elem str, data) pairs
+|               |- 'summary': dict
+|               |             |- 'title': str
+|               |             |- 'units': str
+|               |             |- 'activation_products': dict of (elem or nuc str, data) pairs
+|               |             |- 'actinides': dict of (elem or nuc str, data) pairs
+|               |             |- 'fission_products': dict of (elem or nuc str, data) pairs</pre>
 </div>
 </dd></dl>
 
@@ -286,13 +278,13 @@ nuclide dictionaries.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>tape9</strong> : str or file-like object, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>tape9</strong> : str or file-like object, optional</p>
 <blockquote>
 <div><p>Path to the tape9 file.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>parsed</strong> : dict</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>parsed</strong> : dict</p>
 <blockquote class="last">
 <div><p>A dictionary of the data from the TAPE9 file.</p>
 </div></blockquote>
@@ -304,69 +296,67 @@ nuclide dictionaries.</p>
 <p>The TAPE9 format is highly structured. Therefore the in-memory representation contains a
 non-trivial amount of nesting.  At the top level, the dictionary keys are the library
 numbers:</p>
-<div class="highlight-python"><div class="highlight"><pre>tape9
+<div class="highlight-python"><pre>tape9
   |- keys : deck number (1, 2, 3, 241, ...)
-  |- values : sub-dictionaries for each deck.
-</pre></div>
+  |- values : sub-dictionaries for each deck.</pre>
 </div>
 <p>Each deck contains keys which vary by deck type (and subtype).  All dictionary-typed data
 maps zzaaam-nuclide integers to the appropriate value:</p>
-<div class="highlight-python"><div class="highlight"><pre>all decks
-  |- &#39;_type&#39; : str in [&#39;decay&#39;, &#39;xsfpy&#39;] # photon libs not yet supported
-  |- &#39;_subtype&#39; : str for &#39;xsfpy&#39; in [&#39;activation_products&#39;, &#39;actinides&#39;, &#39;fission_products&#39;]
-  |- &#39;title&#39; : str, deck name
-  |- &#39;_cards&#39; : optional, numpy structrued array of deck data
+<div class="highlight-python"><pre>all decks
+  |- '_type' : str in ['decay', 'xsfpy'] # photon libs not yet supported
+  |- '_subtype' : str for 'xsfpy' in ['activation_products', 'actinides', 'fission_products']
+  |- 'title' : str, deck name
+  |- '_cards' : optional, numpy structrued array of deck data
 
 decay decks
-  |- &#39;half_life&#39; : float-valued dict [seconds]
-  |- &#39;frac_beta_minus_x&#39; : float-valued dict [fraction of decays via beta minus
+  |- 'half_life' : float-valued dict [seconds]
+  |- 'frac_beta_minus_x' : float-valued dict [fraction of decays via beta minus
   |                        which leave an excited nucleus]
-  |- &#39;frac_beta_plus_or_electron_capture&#39; : float-valued dict [fraction of decays
+  |- 'frac_beta_plus_or_electron_capture' : float-valued dict [fraction of decays
   |                                         via positron emission or electron capture]
-  |- &#39;frac_beta_plus_or_electron_capture_x&#39; : float-valued dict [fraction of decays
+  |- 'frac_beta_plus_or_electron_capture_x' : float-valued dict [fraction of decays
   |                                           via positron emission or electron capture
   |                                           which leave an excited nucleus]
-  |- &#39;frac_alpha&#39; : float-valued dict [fraction of decays via alpha emission]
-  |- &#39;frac_isomeric_transition&#39; : float-valued dict [fraction of decays from an excitied
+  |- 'frac_alpha' : float-valued dict [fraction of decays via alpha emission]
+  |- 'frac_isomeric_transition' : float-valued dict [fraction of decays from an excitied
   |                               state to the ground state]
-  |- &#39;frac_spont_fiss&#39; : float-valued dict [fraction of decays via spontateous fission]
-  |- &#39;frac_beta_n&#39; : float-valued dict [fraction of decays via beta plus a neutron]
-  |- &#39;recoverable_energy&#39; : float-valued dict, Total recoverable energy [MeV / decay]
-  |- &#39;frac_natural_abund&#39; : float-valued dict, natrual occuring abundance [atom fraction]
-  |- &#39;inhilation_concentration&#39; : float-valued dict, continuous inhilation [RCG]
-  |- &#39;ingestion_concentration&#39; : float-valued dict, continuous ingestion [RCG]
+  |- 'frac_spont_fiss' : float-valued dict [fraction of decays via spontateous fission]
+  |- 'frac_beta_n' : float-valued dict [fraction of decays via beta plus a neutron]
+  |- 'recoverable_energy' : float-valued dict, Total recoverable energy [MeV / decay]
+  |- 'frac_natural_abund' : float-valued dict, natrual occuring abundance [atom fraction]
+  |- 'inhilation_concentration' : float-valued dict, continuous inhilation [RCG]
+  |- 'ingestion_concentration' : float-valued dict, continuous ingestion [RCG]
 
 cross section and fission product yield decks
-  |- &#39;sigma_gamma&#39; : float-valued dict, (n, gamma) cross section [barns]
-  |- &#39;sigma_2n&#39; : float-valued dict, (n, 2n) cross section [barns]
-  |- &#39;sigma_gamma_x&#39; : float-valued dict, (n, gamma *) cross section [barns]
-  |- &#39;sigma_2n_x&#39; : float-valued dict, (n, 2n *) cross section [barns]
-  |- &#39;fiss_yields_present&#39; : bool-valued dict, Whether fission product yields are
+  |- 'sigma_gamma' : float-valued dict, (n, gamma) cross section [barns]
+  |- 'sigma_2n' : float-valued dict, (n, 2n) cross section [barns]
+  |- 'sigma_gamma_x' : float-valued dict, (n, gamma *) cross section [barns]
+  |- 'sigma_2n_x' : float-valued dict, (n, 2n *) cross section [barns]
+  |- 'fiss_yields_present' : bool-valued dict, Whether fission product yields are
                              included for this nuclide.
 
 activation product cross section decks
-  |- &#39;_subtype&#39; : &#39;activation_products&#39;
-  |- &#39;sigma_3n&#39; : float-valued dict, (n, 3n) cross section [barns]
-  |- &#39;sigma_p&#39; : float-valued dict, (n, proton) cross section [barns]
+  |- '_subtype' : 'activation_products'
+  |- 'sigma_3n' : float-valued dict, (n, 3n) cross section [barns]
+  |- 'sigma_p' : float-valued dict, (n, proton) cross section [barns]
 
 actinide cross section decks
-  |- &#39;_subtype&#39; : &#39;actinides&#39;
-  |- &#39;sigma_alpha&#39; : float-valued dict, (n, alpha) cross section [barns]
-  |- &#39;sigma_f&#39; : float-valued dict, (n, fission) cross section [barns]
+  |- '_subtype' : 'actinides'
+  |- 'sigma_alpha' : float-valued dict, (n, alpha) cross section [barns]
+  |- 'sigma_f' : float-valued dict, (n, fission) cross section [barns]
 
 fission product cross section and yield decks
-  |- &#39;_subtype&#39; : &#39;fission_products&#39;
-  |- &#39;sigma_3n&#39; : float-valued dict, (n, 3n) cross section [barns]
-  |- &#39;sigma_p&#39; : float-valued dict, (n, proton) cross section [barns]
-  |- &#39;TH232_fiss_yield&#39; : float-valued dict, yield from Th-232 fission [frac]
-  |- &#39;U233_fiss_yield&#39; : float-valued dict, yield from U-233 fission [frac]
-  |- &#39;U235_fiss_yield&#39; : float-valued dict, yield from U-235 fission [frac]
-  |- &#39;U238_fiss_yield&#39; : float-valued dict, yield from U-238 fission [frac]
-  |- &#39;PU239_fiss_yield&#39; : float-valued dict, yield from Pu-239 fission [frac]
-  |- &#39;PU241_fiss_yield&#39; : float-valued dict, yield from Pu-241 fission [frac]
-  |- &#39;CM245_fiss_yield&#39; : float-valued dict, yield from Cm-245 fission [frac]
-  |- &#39;CF249_fiss_yield&#39; : float-valued dict, yield from Cf-249 fission [frac]
-</pre></div>
+  |- '_subtype' : 'fission_products'
+  |- 'sigma_3n' : float-valued dict, (n, 3n) cross section [barns]
+  |- 'sigma_p' : float-valued dict, (n, proton) cross section [barns]
+  |- 'TH232_fiss_yield' : float-valued dict, yield from Th-232 fission [frac]
+  |- 'U233_fiss_yield' : float-valued dict, yield from U-233 fission [frac]
+  |- 'U235_fiss_yield' : float-valued dict, yield from U-235 fission [frac]
+  |- 'U238_fiss_yield' : float-valued dict, yield from U-238 fission [frac]
+  |- 'PU239_fiss_yield' : float-valued dict, yield from Pu-239 fission [frac]
+  |- 'PU241_fiss_yield' : float-valued dict, yield from Pu-241 fission [frac]
+  |- 'CM245_fiss_yield' : float-valued dict, yield from Cm-245 fission [frac]
+  |- 'CF249_fiss_yield' : float-valued dict, yield from Cf-249 fission [frac]</pre>
 </div>
 </dd></dl>
 
@@ -378,13 +368,13 @@ fission product cross section and yield decks
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>s</strong> : float</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>s</strong> : float</p>
 <blockquote>
 <div><p>time in seconds</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>t</strong> : float</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>t</strong> : float</p>
 <blockquote>
 <div><p>time in units</p>
 </div></blockquote>
@@ -408,7 +398,7 @@ Table 4.2 in ORIGEN 2.2 manual.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mat</strong> : Material</p>
 <blockquote>
 <div><p>Material with mass weights in units of grams.</p>
 </div></blockquote>
@@ -430,7 +420,7 @@ Table 4.2 in ORIGEN 2.2 manual.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>dec_time</strong> : float</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>dec_time</strong> : float</p>
 <blockquote>
 <div><p>Decay time durration in days.</p>
 </div></blockquote>
@@ -483,7 +473,7 @@ are printed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>irr_type</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>irr_type</strong> : str</p>
 <blockquote>
 <div><p>Flag that determines whether this is a constant power &#8220;IRP&#8221;
 irradiation or a constant flux &#8220;IRF&#8221; irradiation calculation.</p>
@@ -546,7 +536,7 @@ are printed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>tape9</strong> : dict</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>tape9</strong> : dict</p>
 <blockquote>
 <div><p>A tape9 dictionary. See parse_tape9() for more information on the structure.</p>
 </div></blockquote>
@@ -574,7 +564,7 @@ for a set of nuclides.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nucs</strong> : iterable of ints, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nucs</strong> : iterable of ints, optional</p>
 <blockquote>
 <div><p>Set of nuclides in id form</p>
 </div></blockquote>
@@ -593,7 +583,7 @@ products respectively.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>t9</strong> : dict</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>t9</strong> : dict</p>
 <blockquote class="last">
 <div><p>The data needed for a TAPE9 file.</p>
 </div></blockquote>
@@ -666,28 +656,48 @@ products respectively.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-        <p class="logo"><a href="../index.html">
+        <p class="logo"><a href="../index.html" title="index">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
-        </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
+        </a></p><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">ORIGEN 2.2 Support &#8211; <tt class="docutils literal"><span class="pre">pyne.origen22</span></tt></a><ul>
 <li><a class="reference internal" href="#module-pyne.origen22">ORIGEN 2.2 API</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="alara.html"
-                        title="previous chapter">ALARA Input and Output Interfaces &#8211; <tt class="docutils literal"><span class="pre">pyne.alara</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="ace.html"
-                        title="next chapter">ACE Cross Sections &#8211; <tt class="docutils literal"><span class="pre">pyne.ace</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/pyapi/origen22.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  </div>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -701,6 +711,7 @@ products respectively.</p>
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -717,22 +728,17 @@ products respectively.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="ace.html" title="ACE Cross Sections – pyne.ace"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="alara.html" title="ALARA Input and Output Interfaces – pyne.alara"
-             >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" >Python API</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Nov 23, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
@@ -743,6 +749,6 @@ products respectively.</p>
         document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
     };
 </script>
-    <!-- cloud_sptheme 1.3 -->
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>

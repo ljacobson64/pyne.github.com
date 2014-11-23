@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,9 +11,9 @@
     
     <title>ALARA Input and Output Interfaces – pyne.alara &mdash; PyNE 0.5-dev</title>
     
-    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyne.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -27,13 +28,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
-    <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="ORIGEN 2.2 Support – pyne.origen22" href="origen22.html" />
-    <link rel="prev" title="NJOY Automation – pyne.njoy" href="njoy.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -62,15 +60,10 @@ if(ga_enabled){
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="origen22.html" title="ORIGEN 2.2 Support – pyne.origen22"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="njoy.html" title="NJOY Automation – pyne.njoy"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" accesskey="U">Python API</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
@@ -105,7 +98,7 @@ with the ALARA users&#8217; guide, found at:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>material_lib</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>material_lib</strong> : str</p>
 <blockquote>
 <div><p>Path to material library.</p>
 </div></blockquote>
@@ -143,13 +136,13 @@ with the ALARA users&#8217; guide, found at:</p>
 <blockquote>
 <div><p>The impurity parameters (see ALARA users&#8217; guide).</p>
 </div></blockquote>
-<p><strong>dump_file: str, optional</strong></p>
+<p><strong>dump_file: str, optional</strong> :</p>
 <blockquote>
 <div><p>Path to the dump file.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>s</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>s</strong> : str</p>
 <blockquote class="last">
 <div><p>Irradition-related ALARA input blocks.</p>
 </div></blockquote>
@@ -168,7 +161,7 @@ Mesh object. Fluxes are printed in the order of the flux_mesh.__iter__().</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>flux_mesh</strong> : PyNE Mesh object</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>flux_mesh</strong> : PyNE Mesh object</p>
 <blockquote>
 <div><p>Contains the mesh with fluxes tagged on each volume element.</p>
 </div></blockquote>
@@ -204,7 +197,7 @@ used.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
 <blockquote>
 <div><p>The Mesh object containing the materials to be printed.</p>
 </div></blockquote>
@@ -235,14 +228,14 @@ idx on the Mesh object.</dd>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>lines</strong> : list or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lines</strong> : list or str</p>
 <blockquote>
 <div><p>ALARA output from ALARA run with &#8216;number_density&#8217; in the &#8216;output&#8217; block
 of the input file. Lines can either be a filename or the equivalent to
 calling readlines() on an ALARA output file. If reading in ALARA output
 from stdout, call split(&#8216;</p>
 </div></blockquote>
-<p><strong>&#8216;) before passing it in as the lines parameter.</strong></p>
+<p><strong>&#8216;) before passing it in as the lines parameter.</strong> :</p>
 <blockquote class="last">
 <div><dl class="docutils">
 <dt>time <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
@@ -271,7 +264,7 @@ file is assumed to be in mesh.__iter__() order</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh</p>
 <blockquote>
 <div><p>The object containing the imesh instance to be tagged.</p>
 </div></blockquote>
@@ -279,7 +272,7 @@ file is assumed to be in mesh.__iter__() order</p>
 <blockquote>
 <div><p>The path of the hdf5 version of the photon source file.</p>
 </div></blockquote>
-<p><strong>tags: dict</strong></p>
+<p><strong>tags: dict</strong> :</p>
 <blockquote class="last">
 <div><p>A dictionary were the keys are tuples with two values. The first is a
 string denoting an nuclide in any form that is understood by
@@ -323,7 +316,7 @@ a structured mesh or imesh.iterate() order for an unstructured mesh.</dd>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>The path to the file</p>
 </div></blockquote>
@@ -350,7 +343,7 @@ equal up to &lt;sig_figs&gt; digits to be the same mixture within ALARA.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh object</p>
 <blockquote>
 <div><blockquote>
 <div><p>The Mesh object for which the geometry is discretized.</p>
@@ -414,28 +407,48 @@ to be treated as the same mixture within ALARA.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-        <p class="logo"><a href="../index.html">
+        <p class="logo"><a href="../index.html" title="index">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
-        </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
+        </a></p><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">ALARA Input and Output Interfaces &#8211; <tt class="docutils literal"><span class="pre">pyne.alara</span></tt></a><ul>
 <li><a class="reference internal" href="#module-pyne.alara">ALARA API</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="njoy.html"
-                        title="previous chapter">NJOY Automation &#8211; <tt class="docutils literal"><span class="pre">pyne.njoy</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="origen22.html"
-                        title="next chapter">ORIGEN 2.2 Support &#8211; <tt class="docutils literal"><span class="pre">pyne.origen22</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/pyapi/alara.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  </div>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -449,6 +462,7 @@ to be treated as the same mixture within ALARA.</p>
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -465,22 +479,17 @@ to be treated as the same mixture within ALARA.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="origen22.html" title="ORIGEN 2.2 Support – pyne.origen22"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="njoy.html" title="NJOY Automation – pyne.njoy"
-             >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" >Python API</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Nov 23, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
@@ -491,6 +500,6 @@ to be treated as the same mixture within ALARA.</p>
         document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
     };
 </script>
-    <!-- cloud_sptheme 1.3 -->
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>

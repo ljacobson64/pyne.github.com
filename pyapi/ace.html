@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,9 +11,9 @@
     
     <title>ACE Cross Sections – pyne.ace &mdash; PyNE 0.5-dev</title>
     
-    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyne.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -27,13 +28,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
-    <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="ENDF File Support – pyne.endf" href="endf.html" />
-    <link rel="prev" title="ORIGEN 2.2 Support – pyne.origen22" href="origen22.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -62,15 +60,10 @@ if(ga_enabled){
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="endf.html" title="ENDF File Support – pyne.endf"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="origen22.html" title="ORIGEN 2.2 Support – pyne.origen22"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" accesskey="U">Python API</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
@@ -110,7 +103,7 @@ multiple tables with data.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote class="last">
 <div><p>Path of the ACE library file to load.</p>
 </div></blockquote>
@@ -121,18 +114,24 @@ multiple tables with data.</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
+<col width="9%" />
 <col width="5%" />
-<col width="95%" />
+<col width="86%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>binary</td>
-<td>(bool) Identifies Whether the library is in binary format or not</td>
+<td>bool</td>
+<td>Identifies Whether the library is in binary format or not</td>
 </tr>
 <tr class="row-even"><td>tables</td>
-<td>(dict) Dictionary whose keys are the names of the ACE tables and whose values are the instances of subclasses of AceTable (e.g. NeutronTable)</td>
+<td>dict</td>
+<td>Dictionary whose keys are the names of the ACE tables and whose
+values are the instances of subclasses of AceTable (e.g. NeutronTable)</td>
 </tr>
 <tr class="row-odd"><td>verbose</td>
-<td>(bool) Determines whether output is printed to the stdout when reading a Library</td>
+<td>bool</td>
+<td>Determines whether output is printed to the stdout when reading a
+Library</td>
 </tr>
 </tbody>
 </table>
@@ -144,7 +143,7 @@ multiple tables with data.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
 <blockquote class="last">
 <div><p>Name of the cross-section table, e.g. 92235.70c</p>
 </div></blockquote>
@@ -162,7 +161,7 @@ multiple tables with data.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>table_names</strong> : None, str, or iterable, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>table_names</strong> : None, str, or iterable, optional</p>
 <blockquote class="last">
 <div><p>Tables from the file to read in.  If None, reads in all of the
 tables. If str, reads in only the single table of a matching name.</p>
@@ -193,7 +192,7 @@ object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
 <blockquote>
 <div><p>ZAID identifier of the table, e.g. &#8216;92235.70c&#8217;.</p>
 </div></blockquote>
@@ -212,48 +211,73 @@ object.</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="6%" />
-<col width="94%" />
+<col width="11%" />
+<col width="17%" />
+<col width="72%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>awr</td>
-<td>(float) Atomic mass ratio of the target nuclide.</td>
+<td>float</td>
+<td>Atomic mass ratio of the target nuclide.</td>
 </tr>
 <tr class="row-even"><td>energy</td>
-<td>(list of floats) The energy values (MeV) at which reaction cross-sections are tabulated.</td>
+<td>list of floats</td>
+<td>The energy values (MeV) at which reaction cross-sections are tabulated.</td>
 </tr>
 <tr class="row-odd"><td>name</td>
-<td>(str) ZAID identifier of the table, e.g. 92235.70c.</td>
+<td>str</td>
+<td>ZAID identifier of the table, e.g. 92235.70c.</td>
 </tr>
 <tr class="row-even"><td>nu_p_energy</td>
-<td>(list of floats) Energies in MeV at which the number of prompt neutrons emitted per fission is tabulated.</td>
+<td>list of floats</td>
+<td>Energies in MeV at which the number of prompt neutrons emitted per
+fission is tabulated.</td>
 </tr>
 <tr class="row-odd"><td>nu_p_type</td>
-<td>(str) Indicates how number of prompt neutrons emitted per fission is stored. Can be either &#8220;polynomial&#8221; or &#8220;tabular&#8221;.</td>
+<td>str</td>
+<td>Indicates how number of prompt neutrons emitted per fission is
+stored. Can be either &#8220;polynomial&#8221; or &#8220;tabular&#8221;.</td>
 </tr>
 <tr class="row-even"><td>nu_p_value</td>
-<td>(list of floats) The number of prompt neutrons emitted per fission, if data is stored in &#8220;tabular&#8221; form, or the polynomial coefficients for the &#8220;polynomial&#8221; form.</td>
+<td>list of floats</td>
+<td>The number of prompt neutrons emitted per fission, if data is stored in
+&#8220;tabular&#8221; form, or the polynomial coefficients for the &#8220;polynomial&#8221;
+form.</td>
 </tr>
 <tr class="row-odd"><td>nu_t_energy</td>
-<td>(list of floats) Energies in MeV at which the total number of neutrons emitted per fission is tabulated.</td>
+<td>list of floats</td>
+<td>Energies in MeV at which the total number of neutrons emitted per
+fission is tabulated.</td>
 </tr>
 <tr class="row-even"><td>nu_t_type</td>
-<td>(str) Indicates how total number of neutrons emitted per fission is stored. Can be either &#8220;polynomial&#8221; or &#8220;tabular&#8221;.</td>
+<td>str</td>
+<td>Indicates how total number of neutrons emitted per fission is
+stored. Can be either &#8220;polynomial&#8221; or &#8220;tabular&#8221;.</td>
 </tr>
 <tr class="row-odd"><td>nu_t_value</td>
-<td>(list of floats) The total number of neutrons emitted per fission, if data is stored in &#8220;tabular&#8221; form, or the polynomial coefficients for the &#8220;polynomial&#8221; form.</td>
+<td>list of floats</td>
+<td>The total number of neutrons emitted per fission, if data is stored in
+&#8220;tabular&#8221; form, or the polynomial coefficients for the &#8220;polynomial&#8221;
+form.</td>
 </tr>
 <tr class="row-even"><td>reactions</td>
-<td>(list of Reactions) A list of Reaction instances containing the cross sections, secondary angle and energy distributions, and other associated data for each reaction for this nuclide.</td>
+<td>list of Reactions</td>
+<td>A list of Reaction instances containing the cross sections, secondary
+angle and energy distributions, and other associated data for each
+reaction for this nuclide.</td>
 </tr>
 <tr class="row-odd"><td>sigma_a</td>
-<td>(list of floats) The microscopic absorption cross section for each value on the energy grid.</td>
+<td>list of floats</td>
+<td>The microscopic absorption cross section for each value on the energy
+grid.</td>
 </tr>
 <tr class="row-even"><td>sigma_t</td>
-<td>(list of floats) The microscopic total cross section for each value on the energy grid.</td>
+<td>list of floats</td>
+<td>The microscopic total cross section for each value on the energy grid.</td>
 </tr>
 <tr class="row-odd"><td>temp</td>
-<td>(float) Temperature of the target nuclide in eV.</td>
+<td>float</td>
+<td>Temperature of the target nuclide in eV.</td>
 </tr>
 </tbody>
 </table>
@@ -268,7 +292,7 @@ an S(alpha, beta) table.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
 <blockquote>
 <div><p>ZAID identifier of the table, e.g. lwtr.10t.</p>
 </div></blockquote>
@@ -287,33 +311,47 @@ an S(alpha, beta) table.</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="8%" />
-<col width="92%" />
+<col width="15%" />
+<col width="14%" />
+<col width="71%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>awr</td>
-<td>(float) Atomic mass ratio of the target nuclide.</td>
+<td>float</td>
+<td>Atomic mass ratio of the target nuclide.</td>
 </tr>
 <tr class="row-even"><td>elastic_e_in</td>
-<td>(list of floats) Incoming energies in MeV for which the elastic cross section is tabulated.</td>
+<td>list of floats</td>
+<td>Incoming energies in MeV for which the elastic cross section is
+tabulated.</td>
 </tr>
 <tr class="row-odd"><td>elastic_P</td>
-<td>(list of floats) Elastic scattering cross section for data derived in the incoherent approximation, or Bragg edge parameters for data derived in the coherent approximation.</td>
+<td>list of floats</td>
+<td>Elastic scattering cross section for data derived in the incoherent
+approximation, or Bragg edge parameters for data derived in the coherent
+approximation.</td>
 </tr>
 <tr class="row-even"><td>elastic_type</td>
-<td>(str) Describes the behavior of the elastic cross section, i.e. whether it was derived in the incoherent or coherent approximation.</td>
+<td>str</td>
+<td>Describes the behavior of the elastic cross section, i.e. whether it was
+derived in the incoherent or coherent approximation.</td>
 </tr>
 <tr class="row-odd"><td>inelastic_e_in</td>
-<td>(list of floats) Incoming energies in MeV for which the inelastic cross section is tabulated.</td>
+<td>list of floats</td>
+<td>Incoming energies in MeV for which the inelastic cross section is
+tabulated.</td>
 </tr>
 <tr class="row-even"><td>inelastic_sigma</td>
-<td>(list of floats) Inelastic scattering cross section in barns at each energy.</td>
+<td>list of floats</td>
+<td>Inelastic scattering cross section in barns at each energy.</td>
 </tr>
 <tr class="row-odd"><td>name</td>
-<td>(str) ZAID identifier of the table, e.g. 92235.70c.</td>
+<td>str</td>
+<td>ZAID identifier of the table, e.g. 92235.70c.</td>
 </tr>
 <tr class="row-even"><td>temp</td>
-<td>(float) Temperature of the target nuclide in eV.</td>
+<td>float</td>
+<td>Temperature of the target nuclide in eV.</td>
 </tr>
 </tbody>
 </table>
@@ -330,7 +368,7 @@ subclasses of AceTable, e.g. NeutronTable.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>MT</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>MT</strong> : int</p>
 <blockquote>
 <div><p>The ENDF MT number for this reaction. On occasion, MCNP uses MT numbers
 that don&#8217;t correspond exactly to the ENDF specification.</p>
@@ -348,42 +386,61 @@ cross sections are tabulated)</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="5%" />
-<col width="95%" />
+<col width="14%" />
+<col width="14%" />
+<col width="73%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>ang_energy_in</td>
-<td>(list of floats) Incoming energies in MeV at which angular distributions are tabulated.</td>
+<td>list of floats</td>
+<td>Incoming energies in MeV at which angular distributions are tabulated.</td>
 </tr>
 <tr class="row-even"><td>ang_energy_cos</td>
-<td>(list of floats) Scattering cosines corresponding to each point of the angular distribution functions.</td>
+<td>list of floats</td>
+<td>Scattering cosines corresponding to each point of the angular distribution
+functions.</td>
 </tr>
 <tr class="row-odd"><td>ang_energy_pdf</td>
-<td>(list of floats) Probability distribution function for angular distribution.</td>
+<td>list of floats</td>
+<td>Probability distribution function for angular distribution.</td>
 </tr>
 <tr class="row-even"><td>ang_energy_cdf</td>
-<td>(list of floats) Cumulative distribution function for angular distribution.</td>
+<td>list of floats</td>
+<td>Cumulative distribution function for angular distribution.</td>
 </tr>
 <tr class="row-odd"><td>e_dist_energy</td>
-<td>(list of floats) Incoming energies in MeV at which energy distributions are tabulated.</td>
+<td>list of floats</td>
+<td>Incoming energies in MeV at which energy distributions are tabulated.</td>
 </tr>
 <tr class="row-even"><td>e_dist_law</td>
-<td>(int) ACE law used for secondary energy distribution.</td>
+<td>int</td>
+<td>ACE law used for secondary energy distribution.</td>
 </tr>
 <tr class="row-odd"><td>IE</td>
-<td>(int) The index on the energy grid corresponding to the threshold of this reaction.</td>
+<td>int</td>
+<td>The index on the energy grid corresponding to the threshold of this
+reaction.</td>
 </tr>
 <tr class="row-even"><td>MT</td>
-<td>(int) The ENDF MT number for this reaction. On occasion, MCNP uses MT numbers that don&#8217;t correspond exactly to the ENDF specification.</td>
+<td>int</td>
+<td>The ENDF MT number for this reaction. On occasion, MCNP uses MT numbers
+that don&#8217;t correspond exactly to the ENDF specification.</td>
 </tr>
 <tr class="row-odd"><td>Q</td>
-<td>(float) The Q-value of this reaction in MeV.</td>
+<td>float</td>
+<td>The Q-value of this reaction in MeV.</td>
 </tr>
 <tr class="row-even"><td>sigma</td>
-<td>(list of floats) Microscopic cross section for this reaction at each point on the energy grid above the threshold value.</td>
+<td>list of floats</td>
+<td>Microscopic cross section for this reaction at each point on the energy
+grid above the threshold value.</td>
 </tr>
 <tr class="row-odd"><td>TY</td>
-<td>(int) An integer whose absolute value is the number of neutrons emitted in this reaction. If negative, it indicates that scattering should be performed in the center-of-mass system. If positive, scattering should be preformed in the laboratory system.</td>
+<td>int</td>
+<td>An integer whose absolute value is the number of neutrons emitted in
+this reaction. If negative, it indicates that scattering should be
+performed in the center-of-mass system. If positive, scattering should
+be preformed in the laboratory system.</td>
 </tr>
 </tbody>
 </table>
@@ -404,28 +461,48 @@ cross sections are tabulated)</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-        <p class="logo"><a href="../index.html">
+        <p class="logo"><a href="../index.html" title="index">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
-        </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
+        </a></p><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">ACE Cross Sections &#8211; <tt class="docutils literal"><span class="pre">pyne.ace</span></tt></a><ul>
 <li><a class="reference internal" href="#library-class">Library Class</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="origen22.html"
-                        title="previous chapter">ORIGEN 2.2 Support &#8211; <tt class="docutils literal"><span class="pre">pyne.origen22</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="endf.html"
-                        title="next chapter">ENDF File Support &#8211; <tt class="docutils literal"><span class="pre">pyne.endf</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/pyapi/ace.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  </div>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -439,6 +516,7 @@ cross sections are tabulated)</p>
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -455,22 +533,17 @@ cross sections are tabulated)</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="endf.html" title="ENDF File Support – pyne.endf"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="origen22.html" title="ORIGEN 2.2 Support – pyne.origen22"
-             >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" >Python API</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Nov 23, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
@@ -481,6 +554,6 @@ cross sections are tabulated)</p>
         document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
     };
 </script>
-    <!-- cloud_sptheme 1.3 -->
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>

@@ -1,5 +1,5 @@
-\hypertarget{namespacepyne_1_1rxname}{\section{pyne\+:\+:rxname Namespace Reference}
-\label{namespacepyne_1_1rxname}\index{pyne\+::rxname@{pyne\+::rxname}}
+\hypertarget{namespacepyne_1_1rxname}{\section{pyne\-:\-:rxname Namespace Reference}
+\label{namespacepyne_1_1rxname}\index{pyne\-::rxname@{pyne\-::rxname}}
 }
 
 
@@ -9,23 +9,23 @@ Converts between naming conventions for reaction channels.
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classpyne_1_1rxname_1_1_indeterminate_reaction_form}{Indeterminate\+Reaction\+Form}
-\begin{DoxyCompactList}\small\item\em Custom exception for declaring a value not to be of ambiquous reaction form. \end{DoxyCompactList}\item 
-class \hyperlink{classpyne_1_1rxname_1_1_not_a_reaction}{Not\+A\+Reaction}
-\begin{DoxyCompactList}\small\item\em Custom exception for declaring a value not to be a valid reaction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+class \hyperlink{classpyne_1_1rxname_1_1_not_a_reaction}{Not\-A\-Reaction}
+\begin{DoxyCompactList}\small\item\em Custom exception for declaring a value not to be a valid reaction. \end{DoxyCompactList}\item 
+class \hyperlink{classpyne_1_1rxname_1_1_indeterminate_reaction_form}{Indeterminate\-Reaction\-Form}
+\begin{DoxyCompactList}\small\item\em Custom exception for declaring a value not to be of ambiquous reaction form. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{namespacepyne_1_1rxname_a4f97a2c91bfc51caf1e34eb21ed6c290}{void $\ast$ \hyperlink{namespacepyne_1_1rxname_a4f97a2c91bfc51caf1e34eb21ed6c290}{\+\_\+fill\+\_\+maps} ()}\label{namespacepyne_1_1rxname_a4f97a2c91bfc51caf1e34eb21ed6c290}
+\hypertarget{namespacepyne_1_1rxname_a4f97a2c91bfc51caf1e34eb21ed6c290}{void $\ast$ \hyperlink{namespacepyne_1_1rxname_a4f97a2c91bfc51caf1e34eb21ed6c290}{\-\_\-fill\-\_\-maps} ()}\label{namespacepyne_1_1rxname_a4f97a2c91bfc51caf1e34eb21ed6c290}
 
 \begin{DoxyCompactList}\small\item\em A helper function to set the contents of the variables in this library. \end{DoxyCompactList}\item 
 \hypertarget{namespacepyne_1_1rxname_a3858bbc2a606c10d67fbfab6c33643a8}{int \hyperlink{namespacepyne_1_1rxname_a3858bbc2a606c10d67fbfab6c33643a8}{offset} (int dz, int da, int ds=0)}\label{namespacepyne_1_1rxname_a3858bbc2a606c10d67fbfab6c33643a8}
 
 \begin{DoxyCompactList}\small\item\em A helper function to compute nuclide id offsets from z-\/, a-\/, and s-\/ deltas. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \begin{Indent}{\bf Hash Functions}\par
-{\em Custom hash function for reaction name to reaction ids. This functions will not return a value less than 1000, effectively reserving space for the M\+T numbers. }\begin{DoxyCompactItemize}
+{\em Custom hash function for reaction name to reaction ids. This functions will not return a value less than 1000, effectively reserving space for the M\-T numbers. }\begin{DoxyCompactItemize}
 \item 
-\hypertarget{namespacepyne_1_1rxname_a937f163bf6ea3f5361c870ae6e9e93e5}{unsigned int {\bfseries hash} (std\+::string s)}\label{namespacepyne_1_1rxname_a937f163bf6ea3f5361c870ae6e9e93e5}
+\hypertarget{namespacepyne_1_1rxname_a937f163bf6ea3f5361c870ae6e9e93e5}{unsigned int {\bfseries hash} (std\-::string s)}\label{namespacepyne_1_1rxname_a937f163bf6ea3f5361c870ae6e9e93e5}
 
 \item 
 \hypertarget{namespacepyne_1_1rxname_a7b5f23ed32cb01c6b9877b4b67815a11}{unsigned int {\bfseries hash} (const char $\ast$s)}\label{namespacepyne_1_1rxname_a7b5f23ed32cb01c6b9877b4b67815a11}
@@ -35,52 +35,52 @@ class \hyperlink{classpyne_1_1rxname_1_1_not_a_reaction}{Not\+A\+Reaction}
 \begin{Indent}{\bf Name Functions}\par
 {\em Returns the canonical name of a reaction channel. 
 \begin{DoxyParams}{Parameters}
-{\em n} & Integer input of possible reaction, nominally an id or M\+T number. \\
+{\em n} & Integer input of possible reaction, nominally an id or M\-T number. \\
 \hline
 {\em s} & String input of possible reaction, often a reaction or alternate name. \\
 \hline
-{\em from\+\_\+nuc} & Initial target nuclide prior to reaction. When {\itshape from\+\_\+nuc} is an integer it must be in id form. \\
+{\em from\-\_\-nuc} & Initial target nuclide prior to reaction. When {\itshape from\-\_\-nuc} is an integer it must be in id form. \\
 \hline
-{\em to\+\_\+nuc} & Target nuclide after reaction occurs. When {\itshape to\+\_\+nuc} is an integer it must be in id form. \\
+{\em to\-\_\-nuc} & Target nuclide after reaction occurs. When {\itshape to\-\_\-nuc} is an integer it must be in id form. \\
 \hline
 {\em z} & Flag for incident particle type. Particle flags are 'n', 'p', 'd', 't', 'He3', 'a', 'gamma', and 'decay'. \\
 \hline
 \end{DoxyParams}
 }\begin{DoxyCompactItemize}
 \item 
-\hypertarget{namespacepyne_1_1rxname_a4aed0483720cf1ff17398e46d1d68e62}{std\+::string {\bfseries name} (int n)}\label{namespacepyne_1_1rxname_a4aed0483720cf1ff17398e46d1d68e62}
+\hypertarget{namespacepyne_1_1rxname_a4aed0483720cf1ff17398e46d1d68e62}{std\-::string {\bfseries name} (int n)}\label{namespacepyne_1_1rxname_a4aed0483720cf1ff17398e46d1d68e62}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_af40e90e8a1be9e0115c13c893447f255}{std\+::string {\bfseries name} (unsigned int n)}\label{namespacepyne_1_1rxname_af40e90e8a1be9e0115c13c893447f255}
+\hypertarget{namespacepyne_1_1rxname_af40e90e8a1be9e0115c13c893447f255}{std\-::string {\bfseries name} (unsigned int n)}\label{namespacepyne_1_1rxname_af40e90e8a1be9e0115c13c893447f255}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a00c30b3f7f35d494c2828cf2e09ccb49}{std\+::string {\bfseries name} (char $\ast$s)}\label{namespacepyne_1_1rxname_a00c30b3f7f35d494c2828cf2e09ccb49}
+\hypertarget{namespacepyne_1_1rxname_a00c30b3f7f35d494c2828cf2e09ccb49}{std\-::string {\bfseries name} (char $\ast$s)}\label{namespacepyne_1_1rxname_a00c30b3f7f35d494c2828cf2e09ccb49}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a547b34d47f91d89921110b7f68c555da}{std\+::string {\bfseries name} (std\+::string s)}\label{namespacepyne_1_1rxname_a547b34d47f91d89921110b7f68c555da}
+\hypertarget{namespacepyne_1_1rxname_a547b34d47f91d89921110b7f68c555da}{std\-::string {\bfseries name} (std\-::string s)}\label{namespacepyne_1_1rxname_a547b34d47f91d89921110b7f68c555da}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a2fc50042732b9a4fd338968225522a69}{std\+::string {\bfseries name} (int from\+\_\+nuc, int to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a2fc50042732b9a4fd338968225522a69}
+\hypertarget{namespacepyne_1_1rxname_a2fc50042732b9a4fd338968225522a69}{std\-::string {\bfseries name} (int from\-\_\-nuc, int to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a2fc50042732b9a4fd338968225522a69}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a462c6500c7bf221f8c897ad2cc5cf45f}{std\+::string {\bfseries name} (int from\+\_\+nuc, std\+::string to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a462c6500c7bf221f8c897ad2cc5cf45f}
+\hypertarget{namespacepyne_1_1rxname_a462c6500c7bf221f8c897ad2cc5cf45f}{std\-::string {\bfseries name} (int from\-\_\-nuc, std\-::string to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a462c6500c7bf221f8c897ad2cc5cf45f}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_aff733bd008ee84cde43ccfdd5f308472}{std\+::string {\bfseries name} (std\+::string from\+\_\+nuc, int to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_aff733bd008ee84cde43ccfdd5f308472}
+\hypertarget{namespacepyne_1_1rxname_aff733bd008ee84cde43ccfdd5f308472}{std\-::string {\bfseries name} (std\-::string from\-\_\-nuc, int to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_aff733bd008ee84cde43ccfdd5f308472}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_ad42b702d8b240b1605616d7c104f0bdc}{std\+::string {\bfseries name} (std\+::string from\+\_\+nuc, std\+::string to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_ad42b702d8b240b1605616d7c104f0bdc}
+\hypertarget{namespacepyne_1_1rxname_ad42b702d8b240b1605616d7c104f0bdc}{std\-::string {\bfseries name} (std\-::string from\-\_\-nuc, std\-::string to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_ad42b702d8b240b1605616d7c104f0bdc}
 
 \end{DoxyCompactItemize}
 \end{Indent}
-\begin{Indent}{\bf I\+D Functions}\par
+\begin{Indent}{\bf I\-D Functions}\par
 {\em Returns the recation id of a reaction channel. This id has been precomputed from the hash of the name. 
 \begin{DoxyParams}{Parameters}
-{\em x} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\+T number. \\
+{\em x} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\-T number. \\
 \hline
-{\em from\+\_\+nuc} & Initial target nuclide prior to reaction. When {\itshape from\+\_\+nuc} is an integer it must be in id form. \\
+{\em from\-\_\-nuc} & Initial target nuclide prior to reaction. When {\itshape from\-\_\-nuc} is an integer it must be in id form. \\
 \hline
-{\em to\+\_\+nuc} & Target nuclide after reaction occurs. When {\itshape to\+\_\+nuc} is an integer it must be in id form. \\
+{\em to\-\_\-nuc} & Target nuclide after reaction occurs. When {\itshape to\-\_\-nuc} is an integer it must be in id form. \\
 \hline
 {\em z} & Flag for incident particle type. Particle flags are 'n', 'p', 'd', 't', 'He3', 'a', 'gamma', and 'decay'. \\
 \hline
@@ -96,30 +96,30 @@ class \hyperlink{classpyne_1_1rxname_1_1_not_a_reaction}{Not\+A\+Reaction}
 \hypertarget{namespacepyne_1_1rxname_a049dccbc2e94b81b8768574bafbea7eb}{unsigned int {\bfseries id} (const char $\ast$x)}\label{namespacepyne_1_1rxname_a049dccbc2e94b81b8768574bafbea7eb}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a9b0d87bb265015fa308a8a601a89c738}{unsigned int {\bfseries id} (std\+::string x)}\label{namespacepyne_1_1rxname_a9b0d87bb265015fa308a8a601a89c738}
+\hypertarget{namespacepyne_1_1rxname_a9b0d87bb265015fa308a8a601a89c738}{unsigned int {\bfseries id} (std\-::string x)}\label{namespacepyne_1_1rxname_a9b0d87bb265015fa308a8a601a89c738}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_ac2712f73fe136c8a091ec5b55867c101}{unsigned int {\bfseries id} (int from\+\_\+nuc, int to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_ac2712f73fe136c8a091ec5b55867c101}
+\hypertarget{namespacepyne_1_1rxname_ac2712f73fe136c8a091ec5b55867c101}{unsigned int {\bfseries id} (int from\-\_\-nuc, int to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_ac2712f73fe136c8a091ec5b55867c101}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a59db818b92ee0c58e5da5e29ecccb7b3}{unsigned int {\bfseries id} (int from\+\_\+nuc, std\+::string to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a59db818b92ee0c58e5da5e29ecccb7b3}
+\hypertarget{namespacepyne_1_1rxname_a59db818b92ee0c58e5da5e29ecccb7b3}{unsigned int {\bfseries id} (int from\-\_\-nuc, std\-::string to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a59db818b92ee0c58e5da5e29ecccb7b3}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_aeef408cf1b26de2f7828c35981db3f88}{unsigned int {\bfseries id} (std\+::string from\+\_\+nuc, int to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_aeef408cf1b26de2f7828c35981db3f88}
+\hypertarget{namespacepyne_1_1rxname_aeef408cf1b26de2f7828c35981db3f88}{unsigned int {\bfseries id} (std\-::string from\-\_\-nuc, int to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_aeef408cf1b26de2f7828c35981db3f88}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a8b635b6cfe404af21b0a0c7744d911aa}{unsigned int {\bfseries id} (std\+::string from\+\_\+nuc, std\+::string to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a8b635b6cfe404af21b0a0c7744d911aa}
+\hypertarget{namespacepyne_1_1rxname_a8b635b6cfe404af21b0a0c7744d911aa}{unsigned int {\bfseries id} (std\-::string from\-\_\-nuc, std\-::string to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a8b635b6cfe404af21b0a0c7744d911aa}
 
 \end{DoxyCompactItemize}
 \end{Indent}
-\begin{Indent}{\bf M\+T Number Functions}\par
-{\em Returns the M\+T number of a reaction channel, if available. 
+\begin{Indent}{\bf M\-T Number Functions}\par
+{\em Returns the M\-T number of a reaction channel, if available. 
 \begin{DoxyParams}{Parameters}
-{\em x} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\+T number. \\
+{\em x} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\-T number. \\
 \hline
-{\em from\+\_\+nuc} & Initial target nuclide prior to reaction. When {\itshape from\+\_\+nuc} is an integer it must be in id form. \\
+{\em from\-\_\-nuc} & Initial target nuclide prior to reaction. When {\itshape from\-\_\-nuc} is an integer it must be in id form. \\
 \hline
-{\em to\+\_\+nuc} & Target nuclide after reaction occurs. When {\itshape to\+\_\+nuc} is an integer it must be in id form. \\
+{\em to\-\_\-nuc} & Target nuclide after reaction occurs. When {\itshape to\-\_\-nuc} is an integer it must be in id form. \\
 \hline
 {\em z} & Flag for incident particle type. Particle flags are 'n', 'p', 'd', 't', 'He3', 'a', 'gamma', and 'decay'. \\
 \hline
@@ -135,97 +135,97 @@ class \hyperlink{classpyne_1_1rxname_1_1_not_a_reaction}{Not\+A\+Reaction}
 \hypertarget{namespacepyne_1_1rxname_afa47f9035ecd13d80717b1b1cea9db11}{unsigned int {\bfseries mt} (char $\ast$x)}\label{namespacepyne_1_1rxname_afa47f9035ecd13d80717b1b1cea9db11}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a1514d261c6ca9b375d9ace44ffaad1dd}{unsigned int {\bfseries mt} (std\+::string x)}\label{namespacepyne_1_1rxname_a1514d261c6ca9b375d9ace44ffaad1dd}
+\hypertarget{namespacepyne_1_1rxname_a1514d261c6ca9b375d9ace44ffaad1dd}{unsigned int {\bfseries mt} (std\-::string x)}\label{namespacepyne_1_1rxname_a1514d261c6ca9b375d9ace44ffaad1dd}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a218517f10f3f24a99238be17976660be}{unsigned int {\bfseries mt} (int from\+\_\+nuc, int to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a218517f10f3f24a99238be17976660be}
+\hypertarget{namespacepyne_1_1rxname_a218517f10f3f24a99238be17976660be}{unsigned int {\bfseries mt} (int from\-\_\-nuc, int to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a218517f10f3f24a99238be17976660be}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_ae60365d15decfc47d1a5347c51539044}{unsigned int {\bfseries mt} (int from\+\_\+nuc, std\+::string to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_ae60365d15decfc47d1a5347c51539044}
+\hypertarget{namespacepyne_1_1rxname_ae60365d15decfc47d1a5347c51539044}{unsigned int {\bfseries mt} (int from\-\_\-nuc, std\-::string to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_ae60365d15decfc47d1a5347c51539044}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a0ec75a7a63fd4fd12fc532e6709d15ce}{unsigned int {\bfseries mt} (std\+::string from\+\_\+nuc, int to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a0ec75a7a63fd4fd12fc532e6709d15ce}
+\hypertarget{namespacepyne_1_1rxname_a0ec75a7a63fd4fd12fc532e6709d15ce}{unsigned int {\bfseries mt} (std\-::string from\-\_\-nuc, int to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a0ec75a7a63fd4fd12fc532e6709d15ce}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_af154ac0682fcad310e2ce7dd91174438}{unsigned int {\bfseries mt} (std\+::string from\+\_\+nuc, std\+::string to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_af154ac0682fcad310e2ce7dd91174438}
+\hypertarget{namespacepyne_1_1rxname_af154ac0682fcad310e2ce7dd91174438}{unsigned int {\bfseries mt} (std\-::string from\-\_\-nuc, std\-::string to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_af154ac0682fcad310e2ce7dd91174438}
 
 \end{DoxyCompactItemize}
 \end{Indent}
 \begin{Indent}{\bf Label Functions}\par
 {\em Returns a short description of a reaction channel. 
 \begin{DoxyParams}{Parameters}
-{\em x} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\+T number. \\
+{\em x} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\-T number. \\
 \hline
-{\em from\+\_\+nuc} & Initial target nuclide prior to reaction. When {\itshape from\+\_\+nuc} is an integer it must be in id form. \\
+{\em from\-\_\-nuc} & Initial target nuclide prior to reaction. When {\itshape from\-\_\-nuc} is an integer it must be in id form. \\
 \hline
-{\em to\+\_\+nuc} & Target nuclide after reaction occurs. When {\itshape to\+\_\+nuc} is an integer it must be in id form. \\
+{\em to\-\_\-nuc} & Target nuclide after reaction occurs. When {\itshape to\-\_\-nuc} is an integer it must be in id form. \\
 \hline
 {\em z} & Flag for incident particle type. Particle flags are 'n', 'p', 'd', 't', 'He3', 'a', 'gamma', and 'decay'. \\
 \hline
 \end{DoxyParams}
 }\begin{DoxyCompactItemize}
 \item 
-\hypertarget{namespacepyne_1_1rxname_ade7f3ea5b064a6681304d744e980af61}{std\+::string {\bfseries label} (int x)}\label{namespacepyne_1_1rxname_ade7f3ea5b064a6681304d744e980af61}
+\hypertarget{namespacepyne_1_1rxname_ade7f3ea5b064a6681304d744e980af61}{std\-::string {\bfseries label} (int x)}\label{namespacepyne_1_1rxname_ade7f3ea5b064a6681304d744e980af61}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a8987dc37a3449cf20f4a82c06c3dacf0}{std\+::string {\bfseries label} (unsigned int x)}\label{namespacepyne_1_1rxname_a8987dc37a3449cf20f4a82c06c3dacf0}
+\hypertarget{namespacepyne_1_1rxname_a8987dc37a3449cf20f4a82c06c3dacf0}{std\-::string {\bfseries label} (unsigned int x)}\label{namespacepyne_1_1rxname_a8987dc37a3449cf20f4a82c06c3dacf0}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_afc967448852b315acdd9c5b1e1f1a3cc}{std\+::string {\bfseries label} (char $\ast$x)}\label{namespacepyne_1_1rxname_afc967448852b315acdd9c5b1e1f1a3cc}
+\hypertarget{namespacepyne_1_1rxname_afc967448852b315acdd9c5b1e1f1a3cc}{std\-::string {\bfseries label} (char $\ast$x)}\label{namespacepyne_1_1rxname_afc967448852b315acdd9c5b1e1f1a3cc}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a9183e4eb4d2f8386238df017a6763910}{std\+::string {\bfseries label} (std\+::string x)}\label{namespacepyne_1_1rxname_a9183e4eb4d2f8386238df017a6763910}
+\hypertarget{namespacepyne_1_1rxname_a9183e4eb4d2f8386238df017a6763910}{std\-::string {\bfseries label} (std\-::string x)}\label{namespacepyne_1_1rxname_a9183e4eb4d2f8386238df017a6763910}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a1d990996b1b80abcdf8ba7cb03bf9c0b}{std\+::string {\bfseries label} (int from\+\_\+nuc, int to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a1d990996b1b80abcdf8ba7cb03bf9c0b}
+\hypertarget{namespacepyne_1_1rxname_a1d990996b1b80abcdf8ba7cb03bf9c0b}{std\-::string {\bfseries label} (int from\-\_\-nuc, int to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a1d990996b1b80abcdf8ba7cb03bf9c0b}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a2e4d7d20d4278d6b6b5b57592fab287b}{std\+::string {\bfseries label} (int from\+\_\+nuc, std\+::string to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a2e4d7d20d4278d6b6b5b57592fab287b}
+\hypertarget{namespacepyne_1_1rxname_a2e4d7d20d4278d6b6b5b57592fab287b}{std\-::string {\bfseries label} (int from\-\_\-nuc, std\-::string to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a2e4d7d20d4278d6b6b5b57592fab287b}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_aff83b91df8abe88197680a467b843969}{std\+::string {\bfseries label} (std\+::string from\+\_\+nuc, int to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_aff83b91df8abe88197680a467b843969}
+\hypertarget{namespacepyne_1_1rxname_aff83b91df8abe88197680a467b843969}{std\-::string {\bfseries label} (std\-::string from\-\_\-nuc, int to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_aff83b91df8abe88197680a467b843969}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_aa316be9d06a9987cb9816cc26926a237}{std\+::string {\bfseries label} (std\+::string from\+\_\+nuc, std\+::string to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_aa316be9d06a9987cb9816cc26926a237}
+\hypertarget{namespacepyne_1_1rxname_aa316be9d06a9987cb9816cc26926a237}{std\-::string {\bfseries label} (std\-::string from\-\_\-nuc, std\-::string to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_aa316be9d06a9987cb9816cc26926a237}
 
 \end{DoxyCompactItemize}
 \end{Indent}
 \begin{Indent}{\bf Documentation Functions}\par
 {\em Returns a short description of a reaction channel. 
 \begin{DoxyParams}{Parameters}
-{\em x} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\+T number. \\
+{\em x} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\-T number. \\
 \hline
-{\em from\+\_\+nuc} & Initial target nuclide prior to reaction. When {\itshape from\+\_\+nuc} is an integer it must be in id form. \\
+{\em from\-\_\-nuc} & Initial target nuclide prior to reaction. When {\itshape from\-\_\-nuc} is an integer it must be in id form. \\
 \hline
-{\em to\+\_\+nuc} & Target nuclide after reaction occurs. When {\itshape to\+\_\+nuc} is an integer it must be in id form. \\
+{\em to\-\_\-nuc} & Target nuclide after reaction occurs. When {\itshape to\-\_\-nuc} is an integer it must be in id form. \\
 \hline
 {\em z} & Flag for incident particle type. Particle flags are 'n', 'p', 'd', 't', 'He3', 'a', 'gamma', and 'decay'. \\
 \hline
 \end{DoxyParams}
 }\begin{DoxyCompactItemize}
 \item 
-\hypertarget{namespacepyne_1_1rxname_a715d8a44f2834a57fb7c1b6e59b0ba07}{std\+::string {\bfseries doc} (int x)}\label{namespacepyne_1_1rxname_a715d8a44f2834a57fb7c1b6e59b0ba07}
+\hypertarget{namespacepyne_1_1rxname_a715d8a44f2834a57fb7c1b6e59b0ba07}{std\-::string {\bfseries doc} (int x)}\label{namespacepyne_1_1rxname_a715d8a44f2834a57fb7c1b6e59b0ba07}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a0b928e24a66347f0db09c36dd8e37b07}{std\+::string {\bfseries doc} (unsigned int x)}\label{namespacepyne_1_1rxname_a0b928e24a66347f0db09c36dd8e37b07}
+\hypertarget{namespacepyne_1_1rxname_a0b928e24a66347f0db09c36dd8e37b07}{std\-::string {\bfseries doc} (unsigned int x)}\label{namespacepyne_1_1rxname_a0b928e24a66347f0db09c36dd8e37b07}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a87a0c0ad6c388b04a8ca53989193f97b}{std\+::string {\bfseries doc} (char $\ast$x)}\label{namespacepyne_1_1rxname_a87a0c0ad6c388b04a8ca53989193f97b}
+\hypertarget{namespacepyne_1_1rxname_a87a0c0ad6c388b04a8ca53989193f97b}{std\-::string {\bfseries doc} (char $\ast$x)}\label{namespacepyne_1_1rxname_a87a0c0ad6c388b04a8ca53989193f97b}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a823b1cd216b7a5337f7f7bbb4b43b991}{std\+::string {\bfseries doc} (std\+::string x)}\label{namespacepyne_1_1rxname_a823b1cd216b7a5337f7f7bbb4b43b991}
+\hypertarget{namespacepyne_1_1rxname_a823b1cd216b7a5337f7f7bbb4b43b991}{std\-::string {\bfseries doc} (std\-::string x)}\label{namespacepyne_1_1rxname_a823b1cd216b7a5337f7f7bbb4b43b991}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_ad7b53cd0c5f661be0b12953ce5d957e7}{std\+::string {\bfseries doc} (int from\+\_\+nuc, int to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_ad7b53cd0c5f661be0b12953ce5d957e7}
+\hypertarget{namespacepyne_1_1rxname_ad7b53cd0c5f661be0b12953ce5d957e7}{std\-::string {\bfseries doc} (int from\-\_\-nuc, int to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_ad7b53cd0c5f661be0b12953ce5d957e7}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a9820e3543688dcdf357499919edd7f7c}{std\+::string {\bfseries doc} (int from\+\_\+nuc, std\+::string to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a9820e3543688dcdf357499919edd7f7c}
+\hypertarget{namespacepyne_1_1rxname_a9820e3543688dcdf357499919edd7f7c}{std\-::string {\bfseries doc} (int from\-\_\-nuc, std\-::string to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a9820e3543688dcdf357499919edd7f7c}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a9b097eed11efda815806880622391f7f}{std\+::string {\bfseries doc} (std\+::string from\+\_\+nuc, int to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a9b097eed11efda815806880622391f7f}
+\hypertarget{namespacepyne_1_1rxname_a9b097eed11efda815806880622391f7f}{std\-::string {\bfseries doc} (std\-::string from\-\_\-nuc, int to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a9b097eed11efda815806880622391f7f}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a4b8d25c68ceee23acdac2a537d2b951a}{std\+::string {\bfseries doc} (std\+::string from\+\_\+nuc, std\+::string to\+\_\+nuc, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a4b8d25c68ceee23acdac2a537d2b951a}
+\hypertarget{namespacepyne_1_1rxname_a4b8d25c68ceee23acdac2a537d2b951a}{std\-::string {\bfseries doc} (std\-::string from\-\_\-nuc, std\-::string to\-\_\-nuc, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a4b8d25c68ceee23acdac2a537d2b951a}
 
 \end{DoxyCompactItemize}
 \end{Indent}
@@ -234,23 +234,23 @@ class \hyperlink{classpyne_1_1rxname_1_1_not_a_reaction}{Not\+A\+Reaction}
 \begin{DoxyParams}{Parameters}
 {\em nuc} & Nuclide after reaction occurs. When {\itshape nuc} is an integer it must be in id form. \\
 \hline
-{\em rx} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\+T number. \\
+{\em rx} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\-T number. \\
 \hline
 {\em z} & Flag for incident particle type. Particle flags are 'n', 'p', 'd', 't', 'He3', 'a', 'gamma', and 'decay'. \\
 \hline
 \end{DoxyParams}
 }\begin{DoxyCompactItemize}
 \item 
-\hypertarget{namespacepyne_1_1rxname_aa3cecb886069c8d32aa7a7778f84757b}{int {\bfseries parent} (int nuc, unsigned int rx, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_aa3cecb886069c8d32aa7a7778f84757b}
+\hypertarget{namespacepyne_1_1rxname_aa3cecb886069c8d32aa7a7778f84757b}{int {\bfseries parent} (int nuc, unsigned int rx, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_aa3cecb886069c8d32aa7a7778f84757b}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a737a869e3cafe92551bb31c0bab157f2}{int {\bfseries parent} (int nuc, std\+::string rx, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a737a869e3cafe92551bb31c0bab157f2}
+\hypertarget{namespacepyne_1_1rxname_a737a869e3cafe92551bb31c0bab157f2}{int {\bfseries parent} (int nuc, std\-::string rx, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a737a869e3cafe92551bb31c0bab157f2}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a9fefdd975950394652c01a13601850d3}{int {\bfseries parent} (std\+::string nuc, unsigned int rx, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a9fefdd975950394652c01a13601850d3}
+\hypertarget{namespacepyne_1_1rxname_a9fefdd975950394652c01a13601850d3}{int {\bfseries parent} (std\-::string nuc, unsigned int rx, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a9fefdd975950394652c01a13601850d3}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_afc7fbf4af2bb15b4849d787d70adf004}{int {\bfseries parent} (std\+::string nuc, std\+::string rx, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_afc7fbf4af2bb15b4849d787d70adf004}
+\hypertarget{namespacepyne_1_1rxname_afc7fbf4af2bb15b4849d787d70adf004}{int {\bfseries parent} (std\-::string nuc, std\-::string rx, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_afc7fbf4af2bb15b4849d787d70adf004}
 
 \end{DoxyCompactItemize}
 \end{Indent}
@@ -259,86 +259,86 @@ class \hyperlink{classpyne_1_1rxname_1_1_not_a_reaction}{Not\+A\+Reaction}
 \begin{DoxyParams}{Parameters}
 {\em nuc} & Initial target nuclide prior to reaction. When {\itshape nuc} is an integer it must be in id form. \\
 \hline
-{\em rx} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\+T number. \\
+{\em rx} & Input reaction specification, may be a reaction name, alternate name, an id, or an M\-T number. \\
 \hline
 {\em z} & Flag for incident particle type. Particle flags are 'n', 'p', 'd', 't', 'He3', 'a', 'gamma', and 'decay'. \\
 \hline
 \end{DoxyParams}
 }\begin{DoxyCompactItemize}
 \item 
-\hypertarget{namespacepyne_1_1rxname_a2c4e868871c81dfe8382d6c9aff73ad1}{int {\bfseries child} (int nuc, unsigned int rx, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a2c4e868871c81dfe8382d6c9aff73ad1}
+\hypertarget{namespacepyne_1_1rxname_a2c4e868871c81dfe8382d6c9aff73ad1}{int {\bfseries child} (int nuc, unsigned int rx, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a2c4e868871c81dfe8382d6c9aff73ad1}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a8bf5f1462fff2e314331edbddedb1dec}{int {\bfseries child} (int nuc, std\+::string rx, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a8bf5f1462fff2e314331edbddedb1dec}
+\hypertarget{namespacepyne_1_1rxname_a8bf5f1462fff2e314331edbddedb1dec}{int {\bfseries child} (int nuc, std\-::string rx, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a8bf5f1462fff2e314331edbddedb1dec}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a275d460b7fb8b87067bde000ee38c547}{int {\bfseries child} (std\+::string nuc, unsigned int rx, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a275d460b7fb8b87067bde000ee38c547}
+\hypertarget{namespacepyne_1_1rxname_a275d460b7fb8b87067bde000ee38c547}{int {\bfseries child} (std\-::string nuc, unsigned int rx, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a275d460b7fb8b87067bde000ee38c547}
 
 \item 
-\hypertarget{namespacepyne_1_1rxname_a67d4d2a2ae31bf2a1d8ff498247e1c8d}{int {\bfseries child} (std\+::string nuc, std\+::string rx, std\+::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a67d4d2a2ae31bf2a1d8ff498247e1c8d}
+\hypertarget{namespacepyne_1_1rxname_a67d4d2a2ae31bf2a1d8ff498247e1c8d}{int {\bfseries child} (std\-::string nuc, std\-::string rx, std\-::string z=\char`\"{}n\char`\"{})}\label{namespacepyne_1_1rxname_a67d4d2a2ae31bf2a1d8ff498247e1c8d}
 
 \end{DoxyCompactItemize}
 \end{Indent}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-std\+::string \hyperlink{namespacepyne_1_1rxname_a880e1a059fe54b6fd425cc3319978555}{\+\_\+names} \mbox{[}N\+U\+M\+\_\+\+R\+X\+\_\+\+N\+A\+M\+E\+S\mbox{]}
+std\-::string \hyperlink{namespacepyne_1_1rxname_a880e1a059fe54b6fd425cc3319978555}{\-\_\-names} \mbox{[}N\-U\-M\-\_\-\-R\-X\-\_\-\-N\-A\-M\-E\-S\mbox{]}
 \item 
-\hypertarget{namespacepyne_1_1rxname_a28dfc07e16c270b89549889be5d3146d}{std\+::set$<$ std\+::string $>$ \hyperlink{namespacepyne_1_1rxname_a28dfc07e16c270b89549889be5d3146d}{names}}\label{namespacepyne_1_1rxname_a28dfc07e16c270b89549889be5d3146d}
+\hypertarget{namespacepyne_1_1rxname_a28dfc07e16c270b89549889be5d3146d}{std\-::set$<$ std\-::string $>$ \hyperlink{namespacepyne_1_1rxname_a28dfc07e16c270b89549889be5d3146d}{names}}\label{namespacepyne_1_1rxname_a28dfc07e16c270b89549889be5d3146d}
 
 \begin{DoxyCompactList}\small\item\em Set of reaction names, must be valid variable names. \end{DoxyCompactList}\item 
-\hypertarget{namespacepyne_1_1rxname_a28e72f5e8a19c035368e0eb72b2947d5}{std\+::map$<$ unsigned int, \\*
-std\+::string $>$ \hyperlink{namespacepyne_1_1rxname_a28e72f5e8a19c035368e0eb72b2947d5}{id\+\_\+name}}\label{namespacepyne_1_1rxname_a28e72f5e8a19c035368e0eb72b2947d5}
+\hypertarget{namespacepyne_1_1rxname_a28e72f5e8a19c035368e0eb72b2947d5}{std\-::map$<$ unsigned int, \\*
+std\-::string $>$ \hyperlink{namespacepyne_1_1rxname_a28e72f5e8a19c035368e0eb72b2947d5}{id\-\_\-name}}\label{namespacepyne_1_1rxname_a28e72f5e8a19c035368e0eb72b2947d5}
 
 \begin{DoxyCompactList}\small\item\em Mapping from reaction ids to reaction names. \end{DoxyCompactList}\item 
-\hypertarget{namespacepyne_1_1rxname_a615522d66adc558775f60c559b3127fe}{std\+::map$<$ std\+::string, \\*
-unsigned int $>$ \hyperlink{namespacepyne_1_1rxname_a615522d66adc558775f60c559b3127fe}{name\+\_\+id}}\label{namespacepyne_1_1rxname_a615522d66adc558775f60c559b3127fe}
+\hypertarget{namespacepyne_1_1rxname_a615522d66adc558775f60c559b3127fe}{std\-::map$<$ std\-::string, \\*
+unsigned int $>$ \hyperlink{namespacepyne_1_1rxname_a615522d66adc558775f60c559b3127fe}{name\-\_\-id}}\label{namespacepyne_1_1rxname_a615522d66adc558775f60c559b3127fe}
 
 \begin{DoxyCompactList}\small\item\em Mapping from reaction names to reaction ids. \end{DoxyCompactList}\item 
-\hypertarget{namespacepyne_1_1rxname_a7109ca2a2a6aea74d372262172e3a203}{std\+::map$<$ std\+::string, \\*
+\hypertarget{namespacepyne_1_1rxname_a7109ca2a2a6aea74d372262172e3a203}{std\-::map$<$ std\-::string, \\*
 unsigned int $>$ \hyperlink{namespacepyne_1_1rxname_a7109ca2a2a6aea74d372262172e3a203}{altnames}}\label{namespacepyne_1_1rxname_a7109ca2a2a6aea74d372262172e3a203}
 
 \begin{DoxyCompactList}\small\item\em Mapping between alternative names for reactions and the reaction id. \end{DoxyCompactList}\item 
-\hypertarget{namespacepyne_1_1rxname_a94ff01a63e221db69f259fa48616d3d5}{std\+::map$<$ unsigned int, \\*
-unsigned int $>$ \hyperlink{namespacepyne_1_1rxname_a94ff01a63e221db69f259fa48616d3d5}{id\+\_\+mt}}\label{namespacepyne_1_1rxname_a94ff01a63e221db69f259fa48616d3d5}
+\hypertarget{namespacepyne_1_1rxname_a94ff01a63e221db69f259fa48616d3d5}{std\-::map$<$ unsigned int, \\*
+unsigned int $>$ \hyperlink{namespacepyne_1_1rxname_a94ff01a63e221db69f259fa48616d3d5}{id\-\_\-mt}}\label{namespacepyne_1_1rxname_a94ff01a63e221db69f259fa48616d3d5}
 
-\begin{DoxyCompactList}\small\item\em Mapping from reaction ids to M\+T numbers. \end{DoxyCompactList}\item 
-\hypertarget{namespacepyne_1_1rxname_aca6dede953b1e7c1400ea23d40dce88c}{std\+::map$<$ unsigned int, \\*
-unsigned int $>$ \hyperlink{namespacepyne_1_1rxname_aca6dede953b1e7c1400ea23d40dce88c}{mt\+\_\+id}}\label{namespacepyne_1_1rxname_aca6dede953b1e7c1400ea23d40dce88c}
+\begin{DoxyCompactList}\small\item\em Mapping from reaction ids to M\-T numbers. \end{DoxyCompactList}\item 
+\hypertarget{namespacepyne_1_1rxname_aca6dede953b1e7c1400ea23d40dce88c}{std\-::map$<$ unsigned int, \\*
+unsigned int $>$ \hyperlink{namespacepyne_1_1rxname_aca6dede953b1e7c1400ea23d40dce88c}{mt\-\_\-id}}\label{namespacepyne_1_1rxname_aca6dede953b1e7c1400ea23d40dce88c}
 
-\begin{DoxyCompactList}\small\item\em Mapping from M\+T numbers to reaction names. \end{DoxyCompactList}\item 
-\hypertarget{namespacepyne_1_1rxname_a17fd6738dc8fcc8d08f3496926738364}{std\+::map$<$ unsigned int, \\*
-std\+::string $>$ \hyperlink{namespacepyne_1_1rxname_a17fd6738dc8fcc8d08f3496926738364}{labels}}\label{namespacepyne_1_1rxname_a17fd6738dc8fcc8d08f3496926738364}
+\begin{DoxyCompactList}\small\item\em Mapping from M\-T numbers to reaction names. \end{DoxyCompactList}\item 
+\hypertarget{namespacepyne_1_1rxname_a17fd6738dc8fcc8d08f3496926738364}{std\-::map$<$ unsigned int, \\*
+std\-::string $>$ \hyperlink{namespacepyne_1_1rxname_a17fd6738dc8fcc8d08f3496926738364}{labels}}\label{namespacepyne_1_1rxname_a17fd6738dc8fcc8d08f3496926738364}
 
 \begin{DoxyCompactList}\small\item\em Mapping from reaction ids to labels (short descriptions). \end{DoxyCompactList}\item 
-\hypertarget{namespacepyne_1_1rxname_a1fcbb2b6dcf86e49cc70c4dfabf409ef}{std\+::map$<$ unsigned int, \\*
-std\+::string $>$ \hyperlink{namespacepyne_1_1rxname_a1fcbb2b6dcf86e49cc70c4dfabf409ef}{docs}}\label{namespacepyne_1_1rxname_a1fcbb2b6dcf86e49cc70c4dfabf409ef}
+\hypertarget{namespacepyne_1_1rxname_a1fcbb2b6dcf86e49cc70c4dfabf409ef}{std\-::map$<$ unsigned int, \\*
+std\-::string $>$ \hyperlink{namespacepyne_1_1rxname_a1fcbb2b6dcf86e49cc70c4dfabf409ef}{docs}}\label{namespacepyne_1_1rxname_a1fcbb2b6dcf86e49cc70c4dfabf409ef}
 
 \begin{DoxyCompactList}\small\item\em Mapping from reaction ids to documentation strings (long descriptions). \end{DoxyCompactList}\item 
-std\+::map$<$ std\+::pair\\*
-$<$ std\+::string, int $>$, unsigned \\*
-int $>$ \hyperlink{namespacepyne_1_1rxname_a699be84310dad599582278e04135326e}{offset\+\_\+id}
+std\-::map$<$ std\-::pair\\*
+$<$ std\-::string, int $>$, unsigned \\*
+int $>$ \hyperlink{namespacepyne_1_1rxname_a699be84310dad599582278e04135326e}{offset\-\_\-id}
 \item 
-std\+::map$<$ std\+::pair\\*
-$<$ std\+::string, unsigned int $>$\\*
-, int $>$ \hyperlink{namespacepyne_1_1rxname_ae2f5760c11dc39df3f90fbcc6584c95c}{id\+\_\+offset}
+std\-::map$<$ std\-::pair\\*
+$<$ std\-::string, unsigned int $>$\\*
+, int $>$ \hyperlink{namespacepyne_1_1rxname_ae2f5760c11dc39df3f90fbcc6584c95c}{id\-\_\-offset}
 \item 
-\hypertarget{namespacepyne_1_1rxname_ac59f8c4154e812420e0dfef0388a592b}{void $\ast$ \hyperlink{namespacepyne_1_1rxname_ac59f8c4154e812420e0dfef0388a592b}{\+\_\+} = \hyperlink{namespacepyne_1_1rxname_a4f97a2c91bfc51caf1e34eb21ed6c290}{pyne\+::rxname\+::\+\_\+fill\+\_\+maps}()}\label{namespacepyne_1_1rxname_ac59f8c4154e812420e0dfef0388a592b}
+\hypertarget{namespacepyne_1_1rxname_ac59f8c4154e812420e0dfef0388a592b}{void $\ast$ \hyperlink{namespacepyne_1_1rxname_ac59f8c4154e812420e0dfef0388a592b}{\-\_\-} = \hyperlink{namespacepyne_1_1rxname_a4f97a2c91bfc51caf1e34eb21ed6c290}{pyne\-::rxname\-::\-\_\-fill\-\_\-maps}()}\label{namespacepyne_1_1rxname_ac59f8c4154e812420e0dfef0388a592b}
 
-\begin{DoxyCompactList}\small\item\em A dummy variable used when calling \hyperlink{namespacepyne_1_1rxname_a4f97a2c91bfc51caf1e34eb21ed6c290}{\+\_\+fill\+\_\+maps()}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A dummy variable used when calling \hyperlink{namespacepyne_1_1rxname_a4f97a2c91bfc51caf1e34eb21ed6c290}{\-\_\-fill\-\_\-maps()}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 Converts between naming conventions for reaction channels. 
 
 \subsection{Variable Documentation}
-\hypertarget{namespacepyne_1_1rxname_a880e1a059fe54b6fd425cc3319978555}{\index{pyne\+::rxname@{pyne\+::rxname}!\+\_\+names@{\+\_\+names}}
-\index{\+\_\+names@{\+\_\+names}!pyne\+::rxname@{pyne\+::rxname}}
-\subsubsection[{\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string pyne\+::rxname\+::\+\_\+names}}\label{namespacepyne_1_1rxname_a880e1a059fe54b6fd425cc3319978555}
-Raw array of reaction names \hypertarget{namespacepyne_1_1rxname_ae2f5760c11dc39df3f90fbcc6584c95c}{\index{pyne\+::rxname@{pyne\+::rxname}!id\+\_\+offset@{id\+\_\+offset}}
-\index{id\+\_\+offset@{id\+\_\+offset}!pyne\+::rxname@{pyne\+::rxname}}
-\subsubsection[{id\+\_\+offset}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$ std\+::pair$<$ std\+::string, unsigned int $>$, int $>$ pyne\+::rxname\+::id\+\_\+offset}}\label{namespacepyne_1_1rxname_ae2f5760c11dc39df3f90fbcc6584c95c}
-Mapping from particle type and reaction ids to offsets. Particle flags are 'n', 'p', 'd', 't', 'He3', 'a', 'gamma', and 'decay'. \hypertarget{namespacepyne_1_1rxname_a699be84310dad599582278e04135326e}{\index{pyne\+::rxname@{pyne\+::rxname}!offset\+\_\+id@{offset\+\_\+id}}
-\index{offset\+\_\+id@{offset\+\_\+id}!pyne\+::rxname@{pyne\+::rxname}}
-\subsubsection[{offset\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$ std\+::pair$<$ std\+::string, int $>$, unsigned int $>$ pyne\+::rxname\+::offset\+\_\+id}}\label{namespacepyne_1_1rxname_a699be84310dad599582278e04135326e}
+\hypertarget{namespacepyne_1_1rxname_a880e1a059fe54b6fd425cc3319978555}{\index{pyne\-::rxname@{pyne\-::rxname}!\-\_\-names@{\-\_\-names}}
+\index{\-\_\-names@{\-\_\-names}!pyne::rxname@{pyne\-::rxname}}
+\subsubsection[{\-\_\-names}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string pyne\-::rxname\-::\-\_\-names}}\label{namespacepyne_1_1rxname_a880e1a059fe54b6fd425cc3319978555}
+Raw array of reaction names \hypertarget{namespacepyne_1_1rxname_ae2f5760c11dc39df3f90fbcc6584c95c}{\index{pyne\-::rxname@{pyne\-::rxname}!id\-\_\-offset@{id\-\_\-offset}}
+\index{id\-\_\-offset@{id\-\_\-offset}!pyne::rxname@{pyne\-::rxname}}
+\subsubsection[{id\-\_\-offset}]{\setlength{\rightskip}{0pt plus 5cm}std\-::map$<$ std\-::pair$<$ std\-::string, unsigned int $>$, int $>$ pyne\-::rxname\-::id\-\_\-offset}}\label{namespacepyne_1_1rxname_ae2f5760c11dc39df3f90fbcc6584c95c}
+Mapping from particle type and reaction ids to offsets. Particle flags are 'n', 'p', 'd', 't', 'He3', 'a', 'gamma', and 'decay'. \hypertarget{namespacepyne_1_1rxname_a699be84310dad599582278e04135326e}{\index{pyne\-::rxname@{pyne\-::rxname}!offset\-\_\-id@{offset\-\_\-id}}
+\index{offset\-\_\-id@{offset\-\_\-id}!pyne::rxname@{pyne\-::rxname}}
+\subsubsection[{offset\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}std\-::map$<$ std\-::pair$<$ std\-::string, int $>$, unsigned int $>$ pyne\-::rxname\-::offset\-\_\-id}}\label{namespacepyne_1_1rxname_a699be84310dad599582278e04135326e}
 Mapping from particle type and offset pairs to reaction ids. Particle flags are 'n', 'p', 'd', 't', 'He3', 'a', 'gamma', and 'decay'. 

@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,9 +11,9 @@
     
     <title>Mesh-based Rigourous 2-Step Activation – pyne.r2s &mdash; PyNE 0.5-dev</title>
     
-    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyne.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -27,13 +28,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
-    <link rel="up" title="Python API" href="index.html" />
-    <link rel="next" title="Binning Functions – pyne.bins" href="bins.html" />
-    <link rel="prev" title="Spatialsolver Support – pyne.spatialsolver" href="spatialsolver.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -62,15 +60,10 @@ if(ga_enabled){
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="bins.html" title="Binning Functions – pyne.bins"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="spatialsolver.html" title="Spatialsolver Support – pyne.spatialsolver"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" accesskey="U">Python API</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
@@ -82,7 +75,7 @@ if(ga_enabled){
           <div class="body">
             
   <div class="section" id="mesh-based-rigourous-2-step-activation-pyne-r2s">
-<span id="pyne-r2s"></span><h1>Mesh-based Rigourous 2-Step Activation &#8211; <tt class="xref py py-mod docutils literal"><span class="pre">pyne.r2s</span></tt><a class="headerlink" href="#mesh-based-rigourous-2-step-activation-pyne-r2s" title="Permalink to this headline">¶</a></h1>
+<span id="pyne-r2s"></span><h1>Mesh-based Rigourous 2-Step Activation &#8211; <a class="reference internal" href="#module-pyne.r2s" title="pyne.r2s"><tt class="xref py py-mod docutils literal"><span class="pre">pyne.r2s</span></tt></a><a class="headerlink" href="#mesh-based-rigourous-2-step-activation-pyne-r2s" title="Permalink to this headline">¶</a></h1>
 <p>This module contains functions for mesh-based Rigorous 2-Step activation [1]
 using MCNP for neutron and photon transport and ALARA for nuclear inventory
 analysis. The functionality of the module can be obtained by importing as
@@ -93,8 +86,129 @@ such:</p>
 <p>[1] CHEN and U. FISCHER, “Rigorous MCNP Based Shutdown Dose Rate Calculations:
 Computational Scheme, Verification Calculations and Application to ITER,”
 Fusion Engineering and Design, 63-64, 107–114 (2002).</p>
-<div class="section" id="rigorous-2-step-activation-api">
-<h2>Rigorous 2-Step Activation API<a class="headerlink" href="#rigorous-2-step-activation-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyne.r2s">
+<span id="rigorous-2-step-activation-api"></span><h2>Rigorous 2-Step Activation API<a class="headerlink" href="#module-pyne.r2s" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyne.r2s.irradiation_setup">
+<tt class="descclassname">pyne.r2s.</tt><tt class="descname">irradiation_setup</tt><big>(</big><em>flux_mesh</em>, <em>cell_mats</em>, <em>alara_params</em>, <em>tally_num=4</em>, <em>geom=None</em>, <em>num_rays=10</em>, <em>grid=False</em>, <em>flux_tag='n_flux'</em>, <em>fluxin='alara_fluxin'</em>, <em>reverse=False</em>, <em>alara_inp='alara_geom'</em>, <em>alara_matlib='alara_matlib'</em>, <em>output_mesh='r2s_step1.h5m'</em>, <em>output_material=False</em><big>)</big><a class="reference internal" href="../_modules/pyne/r2s.html#irradiation_setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.r2s.irradiation_setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to setup the irradiation inputs after the first
+R2S transport step.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>flux_mesh</strong> : PyNE Meshtal object, Mesh object, or str</p>
+<blockquote>
+<div><p>The source of the neutron flux information. This can be a PyNE Meshtal
+object, a pyne Mesh object, or the filename an MCNP meshtal file, or
+the filename of an unstructured mesh tagged with fluxes.</p>
+</div></blockquote>
+<p><strong>tally_num</strong> : int</p>
+<blockquote>
+<div><p>The MCNP FMESH4 tally number of the neutron flux tally within the
+meshtal file.</p>
+</div></blockquote>
+<p><strong>cell_mats</strong> : dict</p>
+<blockquote>
+<div><p>Maps geometry cell numbers to PyNE Material objects.</p>
+</div></blockquote>
+<p><strong>alara_params</strong> : str</p>
+<blockquote>
+<div><p>The ALARA input blocks specifying everything except the geometry
+and materials. This can either be passed as string or as a file name.</p>
+</div></blockquote>
+<p><strong>geom</strong> : str, optional</p>
+<blockquote>
+<div><p>The file name of a DAGMC-loadable faceted geometry. This is only
+necessary if the geometry is not already loaded into memory.</p>
+</div></blockquote>
+<p><strong>num_rays</strong> : int, optional</p>
+<blockquote>
+<div><p>The number of rays to fire down a mesh row for geometry discretization.
+This number must be a perfect square if grid=True.</p>
+</div></blockquote>
+<p><strong>grid</strong> : bool, optional</p>
+<blockquote>
+<div><p>The if False, geometry discretization will be done with randomly fired
+rays. If true, a grid of sqrt(num_rays) x sqrt(num_rays) rays is used
+for each mesh row.</p>
+</div></blockquote>
+<p><strong>flux_tag</strong> : str, optional</p>
+<blockquote>
+<div><p>The iMesh tag for the neutron flux.</p>
+</div></blockquote>
+<p><strong>fluxin</strong> : str, optional</p>
+<blockquote>
+<div><p>The name of the ALARA fluxin file to be created.</p>
+</div></blockquote>
+<p><strong>reverse</strong> : bool, optional</p>
+<blockquote>
+<div><p>If True the fluxes in the fluxin file will be printed in the reverse
+order of how they appear within the flux vector tag. Since MCNP and
+the Meshtal class order fluxes from low energy to high energy, this
+option should only be true if the transmutation data being used is
+ordered from high energy to low energy.</p>
+</div></blockquote>
+<p><strong>alara_inp</strong> : str, optional</p>
+<blockquote>
+<div><p>The name of the ALARA input file to be created.</p>
+</div></blockquote>
+<p><strong>alara_matlib</strong> : str, optional</p>
+<blockquote>
+<div><p>The name of the alara_matlib file to be created.</p>
+</div></blockquote>
+<p><strong>output_mesh</strong> : str, optional</p>
+<blockquote>
+<div><p>A mesh containing all the fluxes and materials used for irradiation
+setup.</p>
+</div></blockquote>
+<p><strong>output_material</strong> : bool, optional</p>
+<blockquote class="last">
+<div><p>If true, output mesh will have materials as determined by 
+dagmc.discretize_geom()</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyne.r2s.photon_sampling_setup">
+<tt class="descclassname">pyne.r2s.</tt><tt class="descname">photon_sampling_setup</tt><big>(</big><em>mesh</em>, <em>phtn_src</em>, <em>tags</em><big>)</big><a class="reference internal" href="../_modules/pyne/r2s.html#photon_sampling_setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.r2s.photon_sampling_setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function reads in an ALARA photon source file and creates and tags
+photon source densities onto a Mesh object for the second R2S transport
+step.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : PyNE Mesh</p>
+<blockquote>
+<div><p>The object containing the iMesh instance to be tagged.</p>
+</div></blockquote>
+<p><strong>phtn_src</strong> : str</p>
+<blockquote>
+<div><p>The path of the ALARA phtn_file.</p>
+</div></blockquote>
+<p><strong>tags: dict</strong> :</p>
+<blockquote class="last">
+<div><p>A dictionary were the keys are tuples with two values. The first is a
+string denoting an nuclide in any form that is understood by
+pyne.nucname (e.g. &#8216;1001&#8217;, &#8216;U-235&#8217;, &#8216;242Am&#8217;) or &#8216;TOTAL&#8217; for all
+nuclides. The second is a string denoting the decay time as it appears
+in the phtn_src file (e.g. &#8216;shutdown&#8217;, &#8216;1 h&#8217; &#8216;3 d&#8217;). The values of the
+dictionary are the requested tag names for the combination of nuclide
+and decay time. These tag names should be the tag names that are read
+by the sampling subroutine. For example:</p>
+<p>tags = {(&#8216;U-235&#8217;, &#8216;shutdown&#8217;): &#8216;tag1&#8217;, (&#8216;TOTAL&#8217;, &#8216;1 h&#8217;): &#8216;tag2&#8217;}</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 </div>
 
@@ -104,28 +218,48 @@ Fusion Engineering and Design, 63-64, 107–114 (2002).</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-        <p class="logo"><a href="../index.html">
+        <p class="logo"><a href="../index.html" title="index">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
-        </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
+        </a></p><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Mesh-based Rigourous 2-Step Activation &#8211; <tt class="docutils literal"><span class="pre">pyne.r2s</span></tt></a><ul>
-<li><a class="reference internal" href="#rigorous-2-step-activation-api">Rigorous 2-Step Activation API</a></li>
+<li><a class="reference internal" href="#module-pyne.r2s">Rigorous 2-Step Activation API</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="spatialsolver.html"
-                        title="previous chapter">Spatialsolver Support &#8211; <tt class="docutils literal"><span class="pre">pyne.spatialsolver</span></tt></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="bins.html"
-                        title="next chapter">Binning Functions &#8211; <tt class="docutils literal"><span class="pre">pyne.bins</span></tt></a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/pyapi/r2s.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  </div>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -139,6 +273,7 @@ Fusion Engineering and Design, 63-64, 107–114 (2002).</p>
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -155,22 +290,17 @@ Fusion Engineering and Design, 63-64, 107–114 (2002).</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="bins.html" title="Binning Functions – pyne.bins"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="spatialsolver.html" title="Spatialsolver Support – pyne.spatialsolver"
-             >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" >Python API</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Nov 23, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
@@ -181,6 +311,6 @@ Fusion Engineering and Design, 63-64, 107–114 (2002).</p>
         document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
     };
 </script>
-    <!-- cloud_sptheme 1.3 -->
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>

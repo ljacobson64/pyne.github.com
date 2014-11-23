@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,9 +11,9 @@
     
     <title>Source Sampling &mdash; PyNE 0.5-dev</title>
     
-    <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pyne.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -27,13 +28,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sections.js"></script>
-    <script type="text/javascript" src="../_static/toggle_sidebar.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="shortcut icon" href="../_static/pyne_icon.ico"/>
-    <link rel="top" title="PyNE 0.5-dev" href="../index.html" />
-    <link rel="up" title="Theory Manual" href="index.html" />
-    <link rel="next" title="Variance Reduction" href="variance_reduction.html" />
-    <link rel="prev" title="Materials" href="materials.html" /> <script type="text/javascript">
+    <link rel="top" title="PyNE 0.5-dev" href="../index.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript">
 var ga_enabled = !$.cookie('disable-ga');
 if(ga_enabled){
   var _gaq = _gaq || [];
@@ -62,15 +60,10 @@ if(ga_enabled){
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="variance_reduction.html" title="Variance Reduction"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="materials.html" title="Materials"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" accesskey="U">Theory Manual</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
@@ -94,53 +87,53 @@ created, which can be sampled with pseudo-random variates. It is convenient to
 create a single PDF to describe all of phase space; in other words, each bin
 within the PDF represents the probability that a particle is born in a
 particular energy group within a particular mesh volume element.</p>
-<p>In pyne, meshes define volumetric source density <img class="math" src="../_images/math/9849cb4e998bf90d819ab1701298eabf1cbae3df.png" alt="q'"/> with units of
-<img class="math" src="../_images/math/88c6d2da5f1a0bb938a721b819dea356cd58213c.png" alt="\frac{particles}{time \cdot volume}"/>. In order to find the source
-intensity of a single phase space bin (of index <img class="math" src="../_images/math/413f8a8e40062a9090d9d50b88bc7b551b314c26.png" alt="n"/>), the density must be
+<p>In pyne, meshes define volumetric source density <img class="math" src="../_images/math/af36faec8fe9f30065aa2bd1cc4c000f7efa1b7c.png" alt="q'"/> with units of
+<img class="math" src="../_images/math/35de86a4530d57dc8b00c7dc81825e27a50ce9c6.png" alt="\frac{particles}{time \cdot volume}"/>. In order to find the source
+intensity of a single phase space bin (of index <img class="math" src="../_images/math/174fadd07fd54c9afe288e96558c92e0c1da733a.png" alt="n"/>), the density must be
 multiplied by the volume of the mesh volume element:</p>
 <div class="math">
-<p><img src="../_images/math/115359dcd978375793fcf4ee623358855e4b72cc.png" alt="q(n) = q'(n) \cdot V(n)"/></p>
-</div><p>The probability <img class="math" src="../_images/math/3eca8557203e86160952e1c0f735f7417f3285b1.png" alt="p"/> that a particle is born into a particular phase space
+<p><img src="../_images/math/a80f957763049cf201653517e711b796b0f4f434.png" alt="q(n) = q'(n) \cdot V(n)"/></p>
+</div><p>The probability <img class="math" src="../_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> that a particle is born into a particular phase space
 bin is given by the normalized PDF:</p>
 <div class="math">
-<p><img src="../_images/math/5305dfbb04248db3c762a9ea7c903e54fd71972a.png" alt="p(n) = \frac{q(n)}{\sum_N{\,q(n)}}"/></p>
-</div><p>where <img class="math" src="../_images/math/75e27f04188974063be3230dca208cd495b77ce1.png" alt="N"/> is the total number of phase space bins (the number of mesh
+<p><img src="../_images/math/de2477bb9dd2cdebc227ee3c35e5eebd2cc9f4bb.png" alt="p(n) = \frac{q(n)}{\sum_N{\,q(n)}}"/></p>
+</div><p>where <img class="math" src="../_images/math/fc97ef67268cd4e91bacdf12b8901d7036c9a056.png" alt="N"/> is the total number of phase space bins (the number of mesh
 volume elements and energy groups). Phase-space bins can be selected from this
 PDF and all particles will have a birth weight of 1. This is known as analog
-sampling.  Alternatively, a biased source density distribution <img class="math" src="../_images/math/120e21f75fe5307f451d3c7fcc1b1eb35914fa50.png" alt="\hat{q}'"/>
-can be specified yielding a biased PDF <img class="math" src="../_images/math/8def7b1e7cf8c6b1a90b679f2574fe02d34133b6.png" alt="\hat{p}(n)"/>. Sampling the biased
+sampling.  Alternatively, a biased source density distribution <img class="math" src="../_images/math/3c3820d777ffd3e4841beefd3d271b97688411e7.png" alt="\hat{q}'"/>
+can be specified yielding a biased PDF <img class="math" src="../_images/math/96add302fbf7e16eaef5bdd059a53f3f66614173.png" alt="\hat{p}(n)"/>. Sampling the biased
 PDF requires that particles have a statistical weight:</p>
 <div class="math">
-<p><img src="../_images/math/c9672913c2268d69fe552c1e0d5c719960d9f10f.png" alt="w(n) = \frac{p(n)}{\hat{p}(n)}"/></p>
+<p><img src="../_images/math/bab688ed8a524faca47eac1d862033275e9f8cf2.png" alt="w(n) = \frac{p(n)}{\hat{p}(n)}"/></p>
 </div><p>Once a phase space bin is selected a position must be sampled uniformly within
 the selected mesh volume element to determine the (x, y, z) birth position, and
 energy must be uniformly sampled uniformly within the selected energy bin.</p>
 </div>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<p>The Sampler class reads <img class="math" src="../_images/math/42db8c9a0969681c17146c28c8ec8135be2f597c.png" alt="\hat{q}"/> and optionally <img class="math" src="../_images/math/120e21f75fe5307f451d3c7fcc1b1eb35914fa50.png" alt="\hat{q}'"/> from a
+<p>The Sampler class reads <img class="math" src="../_images/math/65d55e969d15b564cc03312c6045f282995c898e.png" alt="\hat{q}"/> and optionally <img class="math" src="../_images/math/3c3820d777ffd3e4841beefd3d271b97688411e7.png" alt="\hat{q}'"/> from a
 MOAB mesh. PDFs are created using the method described above. In order to efficiently
 sample these PDFs an alias table is created [1][2]. This data structure requires an
-<img class="math" src="../_images/math/050b75980d00e72d3a1d37cb7d030ca5f0eb012c.png" alt="O(n^2)"/> setup step, but then allows for <img class="math" src="../_images/math/87179e0d3fbdda1c2b257b186368b665fe0d2b5e.png" alt="O(1)"/> sampling. Monte
-Carlo radiation transport typically involves the simulation of <img class="math" src="../_images/math/e8511f458d17f93873bcaf6a93129bba6c0ae8f1.png" alt="10^{6}"/>
-to <img class="math" src="../_images/math/b4b238f0f085c6843273ec1babb3460deae99fea.png" alt="10^{12}"/> particles, so this expensive setup step is well-justified.</p>
-<p>In the analog sampling mode, an alias table is created from <img class="math" src="../_images/math/23f1b45408e5b4130c0f940fcbfcec54492cbdcd.png" alt="q"/>. In the
+<img class="math" src="../_images/math/225cf199c9568a1a204e4c364ebed6a991b6a00d.png" alt="O(n^2)"/> setup step, but then allows for <img class="math" src="../_images/math/62d0effd6477f4244d585fc25f46a645378a4ceb.png" alt="O(1)"/> sampling. Monte
+Carlo radiation transport typically involves the simulation of <img class="math" src="../_images/math/d49a8ba45460b080082430b36453e3d9e8d8eca1.png" alt="10^{6}"/>
+to <img class="math" src="../_images/math/424bc9c16dd44c6587d3169db64109837aa146ec.png" alt="10^{12}"/> particles, so this expensive setup step is well-justified.</p>
+<p>In the analog sampling mode, an alias table is created from <img class="math" src="../_images/math/0615acc3725de21025457e7d6f7694dab8e2f758.png" alt="q"/>. In the
 uniform and user-specified sampling modes, an alias table is created from
-<img class="math" src="../_images/math/42db8c9a0969681c17146c28c8ec8135be2f597c.png" alt="\hat{q}"/> and birth weights are calculated for each phase space bin. In
-the uniform sampling mode, <img class="math" src="../_images/math/42db8c9a0969681c17146c28c8ec8135be2f597c.png" alt="\hat{q}"/> is created by assigning a total
+<img class="math" src="../_images/math/65d55e969d15b564cc03312c6045f282995c898e.png" alt="\hat{q}"/> and birth weights are calculated for each phase space bin. In
+the uniform sampling mode, <img class="math" src="../_images/math/65d55e969d15b564cc03312c6045f282995c898e.png" alt="\hat{q}"/> is created by assigning a total
 source density of 1 to each mesh volume element, so that all space is sampled
 equally. Within each mesh volume element, a normalized PDF is created on the
 basis of source densities at each energy.</p>
 <p>The method for uniformly sampling within a mesh volume element of Cartesian mesh
-is straightforward. A vertex of the hexahedron (<img class="math" src="../_images/math/f3f716e1c56d5ebdca97bb1546662b9e96f5be07.png" alt="O"/>) is chosen and three
-vectors are created: <img class="math" src="../_images/math/e9b59e204ab968c949258f84fdab201554bf2338.png" alt="\vec{x}"/>, <img class="math" src="../_images/math/9d5c04e54679fcffa27fea6e29fe90f73209e4de.png" alt="\vec{y}"/>, and <img class="math" src="../_images/math/3e847b193063ea68bbbb97edc878ea46e0cea45a.png" alt="\vec{z}"/>.
+is straightforward. A vertex of the hexahedron (<img class="math" src="../_images/math/51da37d984564162c87710ca27bea422f657fb73.png" alt="O"/>) is chosen and three
+vectors are created: <img class="math" src="../_images/math/f5ec636e755349d4409f910e27d381c6da764230.png" alt="\vec{x}"/>, <img class="math" src="../_images/math/3c7f96767f3d8afcbbdac41d0fcf82aeeb63a353.png" alt="\vec{y}"/>, and <img class="math" src="../_images/math/9139356b67352c4d52d0a531c0c6ef1ef2d41c5a.png" alt="\vec{z}"/>.
 Each vector points to an adjacent vertex (in the x, y, z, direction
 respectively) with a magnitude equal to the length of the edge connecting the
-vertex to the adjacent vertex. Three random variates are chosen (<img class="math" src="../_images/math/26bed463602b7b5764b5bdb149c6f77b40c998c3.png" alt="v_1"/>,
-<img class="math" src="../_images/math/90f92bbe75a1f67cf7e5561af6a3eaa44e938f49.png" alt="v_2"/>, <img class="math" src="../_images/math/1793d818d14cd3c4bd491b812e3b25edef8526d1.png" alt="v_3"/>) in order to randomly select a position (<img class="math" src="../_images/math/f48b617185733d8dd6712643f1ab17c736661a06.png" alt="P"/>)
+vertex to the adjacent vertex. Three random variates are chosen (<img class="math" src="../_images/math/a3ef75cc31c88a4eb1c121de7a914b0d73882ee2.png" alt="v_1"/>,
+<img class="math" src="../_images/math/e3c09383f52ff7db11358e4aa6ca6c0307b02d76.png" alt="v_2"/>, <img class="math" src="../_images/math/0bf77c77f50a1a4ce3b9a343e5b9f3db3f179d5d.png" alt="v_3"/>) in order to randomly select a position (<img class="math" src="../_images/math/4b4cade9ca8a2c8311fafcf040bc5b15ca507f52.png" alt="P"/>)
 within the hexahedron:</p>
 <div class="math">
-<p><img src="../_images/math/8d65e9563ac907813f6b954da10e4321652cec0f.png" alt="P = O + v_1 \cdot \vec{x} + v_2 \cdot \vec{y} + v_3 \cdot \vec{z}"/></p>
+<p><img src="../_images/math/c9d7b5c53519e211b96775892087b0deb93f753b.png" alt="P = O + v_1 \cdot \vec{x} + v_2 \cdot \vec{y} + v_3 \cdot \vec{z}"/></p>
 </div><p>A similar method is used for uniformly sampling within a tetrahedron, as
 described in [3].</p>
 </div>
@@ -157,45 +150,45 @@ nosetests: test_uniform, test_bias, test_bias_spatial.</p>
 <p>Consider a mesh with two mesh volume elements with volumes (3, 0.5). The
 source on the mesh has two energy groups. The source density distribution is:</p>
 <div class="math">
-<p><img src="../_images/math/8e54b73ffea777ccacec02f3d1183c09b0b9c0c9.png" alt="q' = ((2, 1), (9, 3))"/></p>
+<p><img src="../_images/math/6354556b86f725c150a49e0326a42e2ff29821e0.png" alt="q' = ((2, 1), (9, 3))"/></p>
 </div><p>The source intensity is found by multiplying by the volumes:</p>
 <div class="math">
-<p><img src="../_images/math/55a6f6bfaaf3cebef3f45cbde8c127a0845767c5.png" alt="q = ((6, 3), (4.5, 1.5))"/></p>
+<p><img src="../_images/math/006ee6f7b356706f59459128cde1511c3350eaef.png" alt="q = ((6, 3), (4.5, 1.5))"/></p>
 </div><p>Normalizing yields the analog PDF:</p>
 <div class="math">
-<p><img src="../_images/math/eb63b71c47e0a76b28b35a8690354b62aea05e66.png" alt="p = ((0.4, 0.2), (0.3, 0.1)"/></p>
+<p><img src="../_images/math/4510edc61ceb1a8d87b802e342306c3e72b941b7.png" alt="p = ((0.4, 0.2), (0.3, 0.1)"/></p>
 </div><div class="section" id="case-1-uniform-sampling">
 <h3>Case 1: Uniform Sampling<a class="headerlink" href="#case-1-uniform-sampling" title="Permalink to this headline">¶</a></h3>
 <p>For uniform sampling the biased source density distribution is created by
 normalizing the source density to 1 within each mesh volume element:</p>
 <div class="math">
-<p><img src="../_images/math/a0fe165ce92db037f1fa24d8c1cc574aa48c52ce.png" alt="\hat{q}' = ((2/3, 1/3), (3/4, 1/4))"/></p>
+<p><img src="../_images/math/d78b0e679dfd2d43a7b1fcdc2ba86dfcb4183058.png" alt="\hat{q}' = ((2/3, 1/3), (3/4, 1/4))"/></p>
 </div><p>The biased source intensity is found by multiplying by the volumes:</p>
 <div class="math">
-<p><img src="../_images/math/3cf1e3caf92945c12f834873b5eb25f55bcd3a0a.png" alt="\hat{q} = ((2, 1), (3/8, 1/8))"/></p>
+<p><img src="../_images/math/79081fd111d6b191185afe68c5aea26df7b8aaaf.png" alt="\hat{q} = ((2, 1), (3/8, 1/8))"/></p>
 </div><p>Normalizing yields the biased PDF:</p>
 <div class="math">
-<p><img src="../_images/math/0554738375a061119d476ef0669d05e065510253.png" alt="\hat{p} = ((4/7, 2/7), (3/28, 1/28))"/></p>
+<p><img src="../_images/math/e080a09e6481bac7d12e827047ce3aa023b1b5af.png" alt="\hat{p} = ((4/7, 2/7), (3/28, 1/28))"/></p>
 </div><p>The weights of particle born from these phase space bins should then be the
 ratio of the unbiased to biased PDF values:</p>
 <div class="math">
-<p><img src="../_images/math/2df9459484f23cbc9a174504225bbfae4b8443f1.png" alt="w = ((0.7, 0.7), (2.8, 2.8))"/></p>
+<p><img src="../_images/math/0b5ab67a3622bc08b46de24db3e55edc4e990e13.png" alt="w = ((0.7, 0.7), (2.8, 2.8))"/></p>
 </div></div>
 <div class="section" id="case-2-user-specified-biasing">
 <h3>Case 2: User-Specified Biasing<a class="headerlink" href="#case-2-user-specified-biasing" title="Permalink to this headline">¶</a></h3>
 <p>Now consider some user-specified bias source density distribution:</p>
 <div class="math">
-<p><img src="../_images/math/5b0708726de1cb132180ee58fba3cab22bce9798.png" alt="\hat{q}' = ((1, 2), (3, 3))"/></p>
+<p><img src="../_images/math/67a790cec3dc314f0c01b1587f765fd741656282.png" alt="\hat{q}' = ((1, 2), (3, 3))"/></p>
 </div><p>The biased source intensity is found by multiplying by the volumes:</p>
 <div class="math">
-<p><img src="../_images/math/e6fb542c76ebcfc996f255283225f3f25a65c8e2.png" alt="\hat{q} = ((3, 6), (1.5, 1.5))"/></p>
+<p><img src="../_images/math/4a99e301959b3d45179f5850c53902990cba5083.png" alt="\hat{q} = ((3, 6), (1.5, 1.5))"/></p>
 </div><p>Normalizing yields the biased PDF:</p>
 <div class="math">
-<p><img src="../_images/math/f7076ace818621ec3b1517a1770979b64a0ce6e0.png" alt="\hat{p} = ((0.25, 0.5), (0.125, 0.125)"/></p>
+<p><img src="../_images/math/ba009773342e706aa2b91b675fa44d448cb62962.png" alt="\hat{p} = ((0.25, 0.5), (0.125, 0.125)"/></p>
 </div><p>The weights of particle born from these phase space bins should then be the
 ratio of the unbiased to biased PDF values:</p>
 <div class="math">
-<p><img src="../_images/math/416b35262786cfaeb82826db8adb24c7b671d666.png" alt="w = ((1.6, 0.4), (2.4, 0.8))"/></p>
+<p><img src="../_images/math/df66a84c73f273bea1644536f5646f23240c7790.png" alt="w = ((1.6, 0.4), (2.4, 0.8))"/></p>
 </div></div>
 </div>
 <div class="section" id="references">
@@ -226,11 +219,11 @@ TN (2014).</dd>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-        <p class="logo"><a href="../index.html">
+        <p class="logo"><a href="../index.html" title="index">
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
-        </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
+        </a></p><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Source Sampling</a><ul>
 <li><a class="reference internal" href="#theory">Theory</a></li>
 <li><a class="reference internal" href="#implementation">Implementation</a></li>
@@ -246,17 +239,37 @@ TN (2014).</dd>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="materials.html"
-                        title="previous chapter">Materials</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="variance_reduction.html"
-                        title="next chapter">Variance Reduction</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/theorymanual/source_sampling.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  </div>
+  <div class="sphinxlocaltoc">
+  <h3>Contents</h3>
+    <ul><li><ul>
+    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a>Get Started</a></li>
+    <ul>
+       <li><a href="http://pyne.io/install/index.html">Install</a></li>
+       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+    </ul>
+    <li><a>Use</a></li>
+    <ul>
+       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a>API Documentation</a></li>
+       <ul>
+          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
+          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+       </ul>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+    </ul>
+    <li><a>Contribute</a></li>
+    <ul>
+       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+    </ul>
+    </ul></li></ul>
+  </div>
+    
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -270,6 +283,7 @@ TN (2014).</dd>
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -286,22 +300,17 @@ TN (2014).</dd>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="variance_reduction.html" title="Variance Reduction"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="materials.html" title="Materials"
-             >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../gallery/index.html">Gallery</a> | </li>
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">PyNE</a> &raquo;</li>
-
-          <li><a href="index.html" >Theory Manual</a> &raquo;</li> 
+ 
       </ul>
     </div>
     </div>
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Nov 23, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
@@ -312,6 +321,6 @@ TN (2014).</dd>
         document.write("Click <button title=\"set cookie to re-enable analytics for this site\" class=\"link\" onclick=\"$.cookie('disable-ga', null, {path: '/'}); window.location.reload(); return false; \">here</button> to re-enable analytics for this site.");
     };
 </script>
-    <!-- cloud_sptheme 1.3 -->
+    <!-- cloud_sptheme 1.4 -->
   </body>
 </html>
