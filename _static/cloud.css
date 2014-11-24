@@ -327,7 +327,7 @@ div.sphinxglobaltoc ul a.visible
 div.sphinxsidebar input,
 h1#search-documentation ~ form > input
 {
-    border: 1px solid #504A4B;
+    border: 1px solid #556B2F;
     font-family: sans-serif;
     font-size: 1em;
 }
@@ -387,7 +387,7 @@ div.sidebartoggle button
    padding: 0 6px;
 
    background: #F2F2F2;
-   border: 1px solid #504A4B;
+   border: 1px solid #556B2F;
    border-width: 0 1px 1px 1px;
    color: #864907;
      
@@ -426,7 +426,7 @@ div.document.collapsed-sidebar div.sidebartoggle button
 
 div.footer
 {
-    color: #B0B0B0;
+    color: #323039;
     width: 100%;
     padding: 9px 0;
     text-align: center;
@@ -446,7 +446,7 @@ div.footer button.link
 div.footer a,
 div.footer button.link
 {
-    color: #B0B0B0;
+    color: #323039;
     text-decoration: underline;
 }
 
@@ -683,7 +683,7 @@ div.body li
 div.body hr {
     margin: 0 10px;
     background: none;
-    border: 1px dashed #504A4B;
+    border: 1px dashed #556B2F;
     border-width: 1px 0 0 0;
 }
 
