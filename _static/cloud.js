@@ -112,6 +112,61 @@ $(document).ready(function (){
 
   $(".html-toggle.section > h2, .html-toggle.section > h3, .html-toggle.section > h4, .html-toggle.section > h5, .html-toggle.section > h6").each(init);
 });
+/* ==========================================================================
+ * collapsible sidebar
+ * ==========================================================================
+ *
+ * Adds button for collapsing & expanding sidebar,
+ * which toggles "document.collapsed-sidebar" CSS class,
+ * and relies on CSS for actual styling of visible & hidden sidebars.
+ */
+
+$(document).ready(function (){
+  if(!$('.sphinxsidebar').length){
+    return;
+  }
+  
+    var close_arrow = '&laquo;';
+    var open_arrow = 'sidebar &raquo;';
+  
+  var holder = $('<div class="sidebartoggle"><button id="sidebar-hide" title="click to hide the sidebar">' +
+                 close_arrow + '</button><button id="sidebar-show" style="display: none" title="click to show the sidebar">' +
+                 open_arrow + '</button></div>');
+  var doc = $('div.document');
+
+  var show_btn = $('#sidebar-show', holder);
+  var hide_btn = $('#sidebar-hide', holder);
+  /* FIXME: when url_root is a relative path, this sets cookie in wrong spot.
+     need to detect relative roots, and combine with document.location.path */
+  var copts = { expires: 7, path: DOCUMENTATION_OPTIONS.url_root };
+
+  show_btn.click(function (){
+    doc.removeClass("collapsed-sidebar");
+    hide_btn.show();
+    show_btn.hide();
+    $.cookie("sidebar", "expanded", copts);
+    $(window).trigger("cloud-sidebar-toggled", false);
+  });
+
+  hide_btn.click(function (){
+    doc.addClass("collapsed-sidebar");
+    show_btn.show();
+    hide_btn.hide();
+    $.cookie("sidebar", "collapsed", copts);
+    $(window).trigger("cloud-sidebar-toggled", true);
+  });
+
+  var state = $.cookie("sidebar");
+
+
+  doc.append(holder);
+
+  if (state == "collapsed"){
+    doc.addClass("collapsed-sidebar");
+    show_btn.show();
+    hide_btn.hide();
+  }
+});
 
 /* ==========================================================================
  * header breaker

@@ -66,7 +66,7 @@ body
 div.related
 {
     margin: 0 auto;
-    max-width: 11in;
+    max-width: 1250px;
     background: #98bc8c;
     line-height: 1.5em;
     padding: .75em 0;
@@ -136,7 +136,7 @@ div.document
     /* note: relative used by div.sidebartoggle */
     position: relative;
     margin: 0 auto;
-    max-width: 11in;
+    max-width: 1250px;
     background: #F5FAEB;
 }
 
@@ -148,10 +148,12 @@ div.documentwrapper
 
 div.bodywrapper
 {
-    margin: 0 0 0 230px;
+    margin: 0 0 0 280px;
  
 }
 
+
+div.document.collapsed-sidebar div.bodywrapper { margin-left: 0; }
 
 
 div.body
@@ -177,7 +179,7 @@ div.sphinxsidebar
     /* it's nasty sometimes, but looks prettier than letting too-long module names break into document body*/
     overflow: hidden;
 
-    width: 230px;
+    width: 280px;
 
     font-size: 90%;
     line-height: 1.25em;
@@ -190,6 +192,8 @@ div.sphinxsidebar
   }
 
 
+
+  div.document.collapsed-sidebar div.sphinxsidebar { display: none; }
 
 
 div.sphinxsidebarwrapper
@@ -357,6 +361,63 @@ div.sphinxsidebar .searchtip
 /*****************************************************
  * page layout - collapsible sidebar buttons
  *****************************************************/
+
+
+div.sidebartoggle
+{
+   position: absolute;
+   width: 280px;
+   top: 0;
+   left: 0;
+   z-index: 1;
+}
+
+div.document.collapsed-sidebar div.sidebartoggle
+{
+ width: auto;
+}
+
+div.sidebartoggle button
+{
+   position: absolute;
+   right: -1px;
+   top: 0;
+
+   margin: 0;
+   padding: 0 6px;
+
+   background: #F2F2F2;
+   border: 1px solid #504A4B;
+   border-width: 0 1px 1px 1px;
+   color: #864907;
+     
+  -moz-border-radius: 0 0 0 0.7em;
+  -webkit-border-radius: 0 0 0 0.7em;
+  -o-border-radius: 0 0 0 0.7em;
+  -ms-border-radius: 0 0 0 0.7em;
+  border-radius: 0 0 0 0.7em;
+
+
+   
+
+   white-space: nowrap;
+}
+
+div.document.collapsed-sidebar div.sidebartoggle button
+{
+  left: 0;
+  right: auto;
+     
+  -moz-border-radius: 0 0 0.7em 0;
+  -webkit-border-radius: 0 0 0.7em 0;
+  -o-border-radius: 0 0 0.7em 0;
+  -ms-border-radius: 0 0 0.7em 0;
+  border-radius: 0 0 0.7em 0;
+
+
+   
+}
+
 
 
 /*****************************************************
@@ -1194,6 +1255,9 @@ table.indextable td > dl > dd > dl
         display: none;
     }
 
+    
+     /* FIXME: would like to make this work some how, hiding it til it works */
+      div.sidebartoggle { display: none; }
     
 
     div.bodywrapper

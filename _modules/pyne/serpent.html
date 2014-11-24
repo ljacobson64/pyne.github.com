@@ -80,14 +80,14 @@ if(ga_enabled){
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
-<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">QAWarning</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-  <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">str</span>
+    <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">str</span>
 
-<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet QA compliant.&quot;</span><span class="p">,</span> <span class="n">QAWarning</span><span class="p">)</span>
 
 <span class="n">_if_idx_str_serpent1</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s">&#39;if (exist(&quot;idx&quot;, &quot;var&quot;));</span><span class="se">\n</span><span class="s">&#39;</span>
@@ -122,15 +122,18 @@ if(ga_enabled){
 
 <span class="n">_detector_pattern_all</span> <span class="o">=</span> <span class="s">r&quot;(DET\w+)\s*=\s*&quot;</span>
 
+
 <span class="k">def</span> <span class="nf">_replace_comments</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Replaces matlab comments with python arrays in string s.&quot;&quot;&quot;</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;%&#39;</span><span class="p">,</span> <span class="s">&#39;#&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">s</span>
 
+
 <span class="k">def</span> <span class="nf">_replace_semicolons</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Replaces matlab semicolons with nothing in string s.&quot;&quot;&quot;</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;;&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">s</span>
+
 
 <span class="k">def</span> <span class="nf">_replace_arrays</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Replaces matlab arrays with numpy arrays in string s.&quot;&quot;&quot;</span>
@@ -142,13 +145,14 @@ if(ga_enabled){
         <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">new_a</span><span class="p">)</span>
 
     <span class="c"># Encapsulate python lists in numpy arrays</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">_numpy_array_pattern</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">mo</span><span class="p">:</span> <span class="s">&#39;np.array(&#39;</span> <span class="o">+</span> <span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;)&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">_numpy_array_pattern</span><span class="p">,</span>
+               <span class="k">lambda</span> <span class="n">mo</span><span class="p">:</span> <span class="s">&#39;np.array(&#39;</span> <span class="o">+</span> <span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;)&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">s</span>
 
 
 <div class="viewcode-block" id="parse_res"><a class="viewcode-back" href="../../pyapi/serpent.html#pyne.serpent.parse_res">[docs]</a><span class="k">def</span> <span class="nf">parse_res</span><span class="p">(</span><span class="n">resfile</span><span class="p">,</span> <span class="n">write_py</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Converts a serpent results ``*_res.m`` output file to a dictionary (and </span>
+    <span class="sd">&quot;&quot;&quot;Converts a serpent results ``*_res.m`` output file to a dictionary (and</span>
 <span class="sd">    optionally to a ``*_res.py`` file).</span>
 
 <span class="sd">    Parameters</span>
@@ -194,7 +198,7 @@ if(ga_enabled){
 
     <span class="c"># Find all variables and shape</span>
     <span class="n">vars_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_lhs_variable_pattern</span><span class="p">,</span> <span class="n">f</span><span class="p">))))</span>
-    <span class="n">vars_dtype</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_rhs_variable_pattern</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="p">)</span>
+    <span class="n">vars_dtype</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_rhs_variable_pattern</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
     <span class="c"># Initialize variables to zero</span>
     <span class="n">header</span> <span class="o">=</span> <span class="n">header</span> <span class="o">+</span> <span class="s">&quot;# Initialize variables</span><span class="se">\n</span><span class="s">&quot;</span>
     <span class="k">for</span> <span class="n">vs</span> <span class="ow">in</span> <span class="n">vars_shape</span><span class="p">:</span>
@@ -210,14 +214,15 @@ if(ga_enabled){
         <span class="c"># Determine Data type</span>
         <span class="n">rhs</span> <span class="o">=</span> <span class="n">vars_dtype</span><span class="p">[</span><span class="n">vs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
         <span class="k">if</span> <span class="p">(</span><span class="s">&quot;</span><span class="se">\&#39;</span><span class="s">&quot;</span> <span class="ow">in</span> <span class="n">rhs</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="ow">in</span> <span class="n">rhs</span><span class="p">):</span>
-            <span class="n">dt</span> <span class="o">=</span> <span class="s">&quot;&#39;S{0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span> <span class="n">s</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">))</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="s">&quot;&#39;S{0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
             <span class="n">vs_shape</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
         <span class="k">elif</span> <span class="p">(</span><span class="s">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">rhs</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s">&#39;E&#39;</span> <span class="ow">in</span> <span class="n">rhs</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s">&#39;e&#39;</span> <span class="ow">in</span> <span class="n">rhs</span><span class="p">):</span>
             <span class="n">dt</span> <span class="o">=</span> <span class="s">&quot;float&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">dt</span> <span class="o">=</span> <span class="s">&quot;int&quot;</span>
 
-        <span class="n">zero_line</span> <span class="o">=</span> <span class="s">&quot;{0} = np.zeros([{1}, {2}], dtype={3})</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">IDX</span><span class="p">,</span> <span class="n">vs_shape</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+        <span class="n">zero_line</span> <span class="o">=</span> <span class="s">&quot;{0} = np.zeros([{1}, {2}], dtype={3})</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="n">IDX</span><span class="p">,</span> <span class="n">vs_shape</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
         <span class="n">header</span> <span class="o">=</span> <span class="n">header</span> <span class="o">+</span> <span class="n">zero_line</span>
 
     <span class="c"># Add IDx to file</span>
@@ -251,10 +256,9 @@ if(ga_enabled){
         <span class="k">del</span> <span class="n">res</span><span class="p">[</span><span class="s">&#39;__builtins__&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">res</span>
 
-
 </div>
 <div class="viewcode-block" id="parse_dep"><a class="viewcode-back" href="../../pyapi/serpent.html#pyne.serpent.parse_dep">[docs]</a><span class="k">def</span> <span class="nf">parse_dep</span><span class="p">(</span><span class="n">depfile</span><span class="p">,</span> <span class="n">write_py</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">make_mats</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Converts a serpent depletion ``*_dep.m`` output file to a dictionary (and </span>
+    <span class="sd">&quot;&quot;&quot;Converts a serpent depletion ``*_dep.m`` output file to a dictionary (and</span>
 <span class="sd">    optionally to a ``*_dep.py`` file).</span>
 
 <span class="sd">    Parameters</span>
@@ -264,14 +268,14 @@ if(ga_enabled){
 <span class="sd">    write_py : bool, optional</span>
 <span class="sd">        Flag for whether to write the dep file to an analogous python file.</span>
 <span class="sd">    make_mats : bool, optional</span>
-<span class="sd">        Flag for whether or not to build Materials out of mass data and add </span>
-<span class="sd">        these to the return dictionary.  Materials so added have names which </span>
+<span class="sd">        Flag for whether or not to build Materials out of mass data and add</span>
+<span class="sd">        these to the return dictionary.  Materials so added have names which</span>
 <span class="sd">        end in &#39;_MATERIAL&#39;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    dep : dict</span>
-<span class="sd">        Dictionary of the parsed depletion information.  Please see the Serpent </span>
+<span class="sd">        Dictionary of the parsed depletion information.  Please see the Serpent</span>
 <span class="sd">        manual for a complete description of contents.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -301,7 +305,7 @@ if(ga_enabled){
 
             <span class="n">new_ca</span> <span class="o">=</span> <span class="n">new_ca</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">cl</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">new_cl</span><span class="p">)</span>
 
-        <span class="n">new_ca</span> <span class="o">=</span> <span class="s">&#39;np.array( &#39;</span> <span class="o">+</span> <span class="n">new_ca</span> <span class="o">+</span> <span class="s">&#39; )&#39;</span>    
+        <span class="n">new_ca</span> <span class="o">=</span> <span class="s">&#39;np.array( &#39;</span> <span class="o">+</span> <span class="n">new_ca</span> <span class="o">+</span> <span class="s">&#39; )&#39;</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ca</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">new_ca</span><span class="p">)</span>
 
     <span class="c"># Indent close of array</span>
@@ -355,10 +359,9 @@ if(ga_enabled){
         <span class="k">del</span> <span class="n">dep</span><span class="p">[</span><span class="s">&#39;__builtins__&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">dep</span>
 
-
 </div>
 <div class="viewcode-block" id="parse_det"><a class="viewcode-back" href="../../pyapi/serpent.html#pyne.serpent.parse_det">[docs]</a><span class="k">def</span> <span class="nf">parse_det</span><span class="p">(</span><span class="n">detfile</span><span class="p">,</span> <span class="n">write_py</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Converts a serpent detector ``*_det.m`` output file to a dictionary (and </span>
+    <span class="sd">&quot;&quot;&quot;Converts a serpent detector ``*_det.m`` output file to a dictionary (and</span>
 <span class="sd">    optionally to a ``*_det.py`` file).</span>
 
 <span class="sd">    Parameters</span>
@@ -387,14 +390,14 @@ if(ga_enabled){
     <span class="c"># Replace matlab Arrays</span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">_replace_arrays</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-    <span class="c"># Find detector variable names </span>
+    <span class="c"># Find detector variable names</span>
     <span class="n">det_names</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_detector_pattern</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
     <span class="n">det_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">det_names</span><span class="p">)</span>
     <span class="n">all_det_names</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_detector_pattern_all</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
     <span class="n">all_det_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">all_det_names</span><span class="p">)</span>
 
-    <span class="n">is_serpent_1</span> <span class="o">=</span> <span class="nb">any</span><span class="p">([(</span><span class="n">dn</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;_VALS&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dn</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="ow">in</span> <span class="n">det_names</span><span class="p">)</span> <span class="ow">or</span> \
-                        <span class="p">(</span><span class="n">dn</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;_EBINS&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dn</span><span class="p">[:</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span> <span class="ow">in</span> <span class="n">det_names</span><span class="p">)</span> \
+    <span class="n">is_serpent_1</span> <span class="o">=</span> <span class="nb">any</span><span class="p">([(</span><span class="n">dn</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;_VALS&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dn</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="ow">in</span> <span class="n">det_names</span><span class="p">)</span> <span class="ow">or</span>
+                        <span class="p">(</span><span class="n">dn</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;_EBINS&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dn</span><span class="p">[:</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span> <span class="ow">in</span> <span class="n">det_names</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">dn</span> <span class="ow">in</span> <span class="n">all_det_names</span><span class="p">])</span>
 
     <span class="c"># Append detector reshaping</span>
@@ -447,29 +450,29 @@ if(ga_enabled){
   <div class="sphinxlocaltoc">
   <h3>Contents</h3>
     <ul><li><ul>
-    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a href="../../pyapi/index.html">Capabilities</a></li>
     <li><a>Get Started</a></li>
     <ul>
-       <li><a href="http://pyne.io/install/index.html">Install</a></li>
-       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+       <li><a href="../../install/index.html">Install</a></li>
+       <li><a href="../../tutorial/index.html">Tutorial</a></li>
     </ul>
     <li><a>Use</a></li>
     <ul>
-       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a href="../../usersguide/index.html">User's Guide</a></li>
        <li><a>API Documentation</a></li>
        <ul>
-          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
-          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+          <li><a href="../../pyapi/index.html">Python</a></li>
+          <li><a href="../../cppapi/index.html">C++</a></li>
        </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
        <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
     </ul>
     <li><a>Contribute</a></li>
     <ul>
        <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="../../devsguide/index.html">Developer's Guide</a></li>
        <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
     </ul>
     </ul></li></ul>
   </div>
@@ -515,7 +518,7 @@ if(ga_enabled){
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Last updated on Nov 23, 2014.
+      Last updated on Nov 24, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

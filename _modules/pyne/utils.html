@@ -83,57 +83,59 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">distutils.dir_util</span> <span class="kn">import</span> <span class="n">remove_tree</span>
 
 <span class="kn">from</span> <span class="nn">pyne._utils</span> <span class="kn">import</span> <span class="n">fromstring_split</span><span class="p">,</span> <span class="n">fromstring_token</span><span class="p">,</span> <span class="n">endftod</span><span class="p">,</span>\
-                        <span class="n">use_fast_endftod</span><span class="p">,</span> <span class="n">fromendf_tok</span>
+                        <span class="n">use_fast_endftod</span><span class="p">,</span> <span class="n">fromendf_tok</span><span class="p">,</span> <span class="n">toggle_warnings</span><span class="p">,</span>\
+                        <span class="n">use_warnings</span>
 
-<span class="k">class</span> <span class="nc">VnVWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
+
+<span class="k">class</span> <span class="nc">QAWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
     <span class="k">pass</span>
 
-<span class="n">time_conv_dict</span> <span class="o">=</span> <span class="p">{</span>
-          <span class="s">&#39;as&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
-		  <span class="s">&#39;attosec&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
-		  <span class="s">&#39;attosecond&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
-		  <span class="s">&#39;attoseconds&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
-          <span class="s">&#39;fs&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
-		  <span class="s">&#39;femtosec&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
-		  <span class="s">&#39;femtosecond&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
-		  <span class="s">&#39;femtoseconds&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
-		  <span class="s">&#39;ps&#39;</span><span class="p">:</span> <span class="mf">1e-12</span><span class="p">,</span>
-		  <span class="s">&#39;picosec&#39;</span><span class="p">:</span> <span class="mf">1e-12</span><span class="p">,</span>
-		  <span class="s">&#39;picosecond&#39;</span><span class="p">:</span> <span class="mf">1e-12</span><span class="p">,</span>
-		  <span class="s">&#39;picoseconds&#39;</span><span class="p">:</span> <span class="mf">1e-12</span><span class="p">,</span>
-		  <span class="s">&#39;ns&#39;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
-		  <span class="s">&#39;nanosec&#39;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
-		  <span class="s">&#39;nanosecond&#39;</span><span class="p">:</span><span class="mf">1e-9</span><span class="p">,</span>
-		  <span class="s">&#39;nanoseconds&#39;</span> <span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
-		  <span class="s">&#39;us&#39;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
-		  <span class="s">&#39;microsec&#39;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
-		  <span class="s">&#39;microsecond&#39;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
-		  <span class="s">&#39;microseconds&#39;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
-		  <span class="s">&#39;ms&#39;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
-		  <span class="s">&#39;millisec&#39;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
-		  <span class="s">&#39;millisecond&#39;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
-		  <span class="s">&#39;milliseconds&#39;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
-		  <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-		  <span class="s">&#39;sec&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-		  <span class="s">&#39;second&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span>
-		  <span class="s">&#39;seconds&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-		  <span class="s">&#39;m&#39;</span><span class="p">:</span> <span class="mf">60.0</span><span class="p">,</span>
-		  <span class="s">&#39;min&#39;</span><span class="p">:</span> <span class="mf">60.0</span><span class="p">,</span>
-		  <span class="s">&#39;minute&#39;</span><span class="p">:</span> <span class="mf">60.0</span><span class="p">,</span>
-		  <span class="s">&#39;minutes&#39;</span><span class="p">:</span> <span class="mf">60.0</span><span class="p">,</span>
-		  <span class="s">&#39;h&#39;</span><span class="p">:</span> <span class="mf">3600.0</span><span class="p">,</span>
-		  <span class="s">&#39;hour&#39;</span><span class="p">:</span> <span class="mf">3600.0</span><span class="p">,</span>
-		  <span class="s">&#39;hours&#39;</span><span class="p">:</span> <span class="mf">3600.0</span><span class="p">,</span>
-		  <span class="s">&#39;d&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="p">,</span>
-		  <span class="s">&#39;day&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="p">,</span>
-		  <span class="s">&#39;days&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="p">,</span>
-		  <span class="s">&#39;y&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="o">*</span><span class="mf">365.25</span><span class="p">,</span>
-		  <span class="s">&#39;year&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="o">*</span><span class="mf">365.25</span><span class="p">,</span>
-		  <span class="s">&#39;years&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="o">*</span><span class="mf">365.25</span><span class="p">,</span>
-		  <span class="s">&#39;ev&#39;</span><span class="p">:</span> <span class="mf">1e-9</span> <span class="o">*</span> <span class="mf">7.6e-8</span> <span class="o">/</span> <span class="mf">6.03</span><span class="p">,</span>
-		  <span class="s">&#39;kev&#39;</span><span class="p">:</span> <span class="mf">1e-12</span> <span class="o">*</span> <span class="mf">7.6e-8</span> <span class="o">/</span> <span class="mf">6.03</span><span class="p">,</span>
-		  <span class="s">&#39;mev&#39;</span><span class="p">:</span> <span class="mf">1e-15</span> <span class="o">*</span> <span class="mf">7.6e-8</span> <span class="o">/</span> <span class="mf">6.03</span><span class="p">,</span>
-		  <span class="p">}</span>
+<span class="n">time_conv_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;as&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
+                  <span class="s">&#39;attosec&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
+                  <span class="s">&#39;attosecond&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
+                  <span class="s">&#39;attoseconds&#39;</span><span class="p">:</span> <span class="mf">1e-18</span><span class="p">,</span>
+                  <span class="s">&#39;fs&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
+                  <span class="s">&#39;femtosec&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
+                  <span class="s">&#39;femtosecond&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
+                  <span class="s">&#39;femtoseconds&#39;</span><span class="p">:</span> <span class="mf">1e-15</span><span class="p">,</span>
+                  <span class="s">&#39;ps&#39;</span><span class="p">:</span> <span class="mf">1e-12</span><span class="p">,</span>
+                  <span class="s">&#39;picosec&#39;</span><span class="p">:</span> <span class="mf">1e-12</span><span class="p">,</span>
+                  <span class="s">&#39;picosecond&#39;</span><span class="p">:</span> <span class="mf">1e-12</span><span class="p">,</span>
+                  <span class="s">&#39;picoseconds&#39;</span><span class="p">:</span> <span class="mf">1e-12</span><span class="p">,</span>
+                  <span class="s">&#39;ns&#39;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+                  <span class="s">&#39;nanosec&#39;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+                  <span class="s">&#39;nanosecond&#39;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+                  <span class="s">&#39;nanoseconds&#39;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+                  <span class="s">&#39;us&#39;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+                  <span class="s">&#39;microsec&#39;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+                  <span class="s">&#39;microsecond&#39;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+                  <span class="s">&#39;microseconds&#39;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+                  <span class="s">&#39;ms&#39;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
+                  <span class="s">&#39;millisec&#39;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
+                  <span class="s">&#39;millisecond&#39;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
+                  <span class="s">&#39;milliseconds&#39;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
+                  <span class="s">&#39;s&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                  <span class="s">&#39;sec&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                  <span class="s">&#39;second&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                  <span class="s">&#39;seconds&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                  <span class="s">&#39;m&#39;</span><span class="p">:</span> <span class="mf">60.0</span><span class="p">,</span>
+                  <span class="s">&#39;min&#39;</span><span class="p">:</span> <span class="mf">60.0</span><span class="p">,</span>
+                  <span class="s">&#39;minute&#39;</span><span class="p">:</span> <span class="mf">60.0</span><span class="p">,</span>
+                  <span class="s">&#39;minutes&#39;</span><span class="p">:</span> <span class="mf">60.0</span><span class="p">,</span>
+                  <span class="s">&#39;h&#39;</span><span class="p">:</span> <span class="mf">3600.0</span><span class="p">,</span>
+                  <span class="s">&#39;hour&#39;</span><span class="p">:</span> <span class="mf">3600.0</span><span class="p">,</span>
+                  <span class="s">&#39;hours&#39;</span><span class="p">:</span> <span class="mf">3600.0</span><span class="p">,</span>
+                  <span class="s">&#39;d&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="p">,</span>
+                  <span class="s">&#39;day&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="p">,</span>
+                  <span class="s">&#39;days&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="p">,</span>
+                  <span class="s">&#39;y&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="o">*</span><span class="mf">365.25</span><span class="p">,</span>
+                  <span class="s">&#39;year&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="o">*</span><span class="mf">365.25</span><span class="p">,</span>
+                  <span class="s">&#39;years&#39;</span><span class="p">:</span> <span class="mf">86400.0</span><span class="o">*</span><span class="mf">365.25</span><span class="p">,</span>
+                  <span class="s">&#39;ev&#39;</span><span class="p">:</span> <span class="mf">1e-9</span> <span class="o">*</span> <span class="mf">7.6e-8</span> <span class="o">/</span> <span class="mf">6.03</span><span class="p">,</span>
+                  <span class="s">&#39;kev&#39;</span><span class="p">:</span> <span class="mf">1e-12</span> <span class="o">*</span> <span class="mf">7.6e-8</span> <span class="o">/</span> <span class="mf">6.03</span><span class="p">,</span>
+                  <span class="s">&#39;mev&#39;</span><span class="p">:</span> <span class="mf">1e-15</span> <span class="o">*</span> <span class="mf">7.6e-8</span> <span class="o">/</span> <span class="mf">6.03</span><span class="p">,</span>
+                  <span class="p">}</span>
+
 
 <div class="viewcode-block" id="to_sec"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.to_sec">[docs]</a><span class="k">def</span> <span class="nf">to_sec</span><span class="p">(</span><span class="n">input_time</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Converts a time with units to seconds.</span>
@@ -154,8 +156,6 @@ if(ga_enabled){
     <span class="n">sec_time</span> <span class="o">=</span> <span class="n">input_time</span> <span class="o">*</span> <span class="n">time_conv_dict</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
     <span class="k">return</span> <span class="n">sec_time</span>
 
-
-
 </div>
 <span class="n">barn_conv_dict</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;mb&#39;</span><span class="p">:</span> <span class="mf">1E-3</span><span class="p">,</span>
@@ -169,6 +169,7 @@ if(ga_enabled){
     <span class="s">&#39;cm2&#39;</span><span class="p">:</span> <span class="mf">1E+24</span><span class="p">,</span>
     <span class="s">&#39;cm^2&#39;</span><span class="p">:</span> <span class="mf">1E+24</span><span class="p">,</span>
     <span class="p">}</span>
+
 
 <div class="viewcode-block" id="to_barns"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.to_barns">[docs]</a><span class="k">def</span> <span class="nf">to_barns</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Converts a cross section with units to barns.</span>
@@ -187,6 +188,7 @@ if(ga_enabled){
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">xs</span> <span class="o">*</span> <span class="n">barn_conv_dict</span><span class="p">[</span><span class="n">units</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+
 </div>
 <div class="viewcode-block" id="from_barns"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.from_barns">[docs]</a><span class="k">def</span> <span class="nf">from_barns</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Converts a cross section from barns to units.</span>
@@ -213,6 +215,7 @@ if(ga_enabled){
 </div>
 <span class="n">USE_COLOR</span> <span class="o">=</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="s">&#39;posix&#39;</span><span class="p">)</span>
 
+
 <div class="viewcode-block" id="message"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.message">[docs]</a><span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Formats a message for printing.  If on a posix system the message will</span>
 <span class="sd">    be in color.</span>
@@ -234,10 +237,20 @@ if(ga_enabled){
     <span class="n">msg</span> <span class="o">=</span> <span class="n">head</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="n">tail</span>
     <span class="k">return</span> <span class="n">msg</span>
 
+</div>
+<div class="viewcode-block" id="warning"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.warning">[docs]</a><span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Formats a warning message for printing. If on a posix system the message</span>
+<span class="sd">    will be in color.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">head</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[1;33m&quot;</span> <span class="k">if</span> <span class="n">USE_COLOR</span> <span class="k">else</span> <span class="s">&quot;*** WARNING ***: &quot;</span>
+    <span class="n">tail</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[0m&quot;</span> <span class="k">if</span> <span class="n">USE_COLOR</span> <span class="k">else</span> <span class="s">&quot;&quot;</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">head</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="n">tail</span>
+    <span class="k">return</span> <span class="n">msg</span>
 
 <span class="c">##################################</span>
 <span class="c">### Path manipulation routines ###</span>
 <span class="c">##################################</span>
+
 </div>
 <div class="viewcode-block" id="remove"><a class="viewcode-back" href="../../pyapi/utils.html#pyne.utils.remove">[docs]</a><span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Removes a path, or recursively a directory, or does nothing</span>
@@ -263,29 +276,29 @@ if(ga_enabled){
   <div class="sphinxlocaltoc">
   <h3>Contents</h3>
     <ul><li><ul>
-    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a href="../../pyapi/index.html">Capabilities</a></li>
     <li><a>Get Started</a></li>
     <ul>
-       <li><a href="http://pyne.io/install/index.html">Install</a></li>
-       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+       <li><a href="../../install/index.html">Install</a></li>
+       <li><a href="../../tutorial/index.html">Tutorial</a></li>
     </ul>
     <li><a>Use</a></li>
     <ul>
-       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a href="../../usersguide/index.html">User's Guide</a></li>
        <li><a>API Documentation</a></li>
        <ul>
-          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
-          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+          <li><a href="../../pyapi/index.html">Python</a></li>
+          <li><a href="../../cppapi/index.html">C++</a></li>
        </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
        <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
     </ul>
     <li><a>Contribute</a></li>
     <ul>
        <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="../../devsguide/index.html">Developer's Guide</a></li>
        <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
     </ul>
     </ul></li></ul>
   </div>
@@ -331,7 +344,7 @@ if(ga_enabled){
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Last updated on Nov 23, 2014.
+      Last updated on Nov 24, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

@@ -111,30 +111,6 @@ multiple tables with data.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="9%" />
-<col width="5%" />
-<col width="86%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>binary</td>
-<td>bool</td>
-<td>Identifies Whether the library is in binary format or not</td>
-</tr>
-<tr class="row-even"><td>tables</td>
-<td>dict</td>
-<td>Dictionary whose keys are the names of the ACE tables and whose
-values are the instances of subclasses of AceTable (e.g. NeutronTable)</td>
-</tr>
-<tr class="row-odd"><td>verbose</td>
-<td>bool</td>
-<td>Determines whether output is printed to the stdout when reading a
-Library</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyne.ace.Library.find_table">
 <tt class="descname">find_table</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyne.ace.Library.find_table" title="Permalink to this definition">¶</a></dt>
@@ -208,79 +184,6 @@ object.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="11%" />
-<col width="17%" />
-<col width="72%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>awr</td>
-<td>float</td>
-<td>Atomic mass ratio of the target nuclide.</td>
-</tr>
-<tr class="row-even"><td>energy</td>
-<td>list of floats</td>
-<td>The energy values (MeV) at which reaction cross-sections are tabulated.</td>
-</tr>
-<tr class="row-odd"><td>name</td>
-<td>str</td>
-<td>ZAID identifier of the table, e.g. 92235.70c.</td>
-</tr>
-<tr class="row-even"><td>nu_p_energy</td>
-<td>list of floats</td>
-<td>Energies in MeV at which the number of prompt neutrons emitted per
-fission is tabulated.</td>
-</tr>
-<tr class="row-odd"><td>nu_p_type</td>
-<td>str</td>
-<td>Indicates how number of prompt neutrons emitted per fission is
-stored. Can be either &#8220;polynomial&#8221; or &#8220;tabular&#8221;.</td>
-</tr>
-<tr class="row-even"><td>nu_p_value</td>
-<td>list of floats</td>
-<td>The number of prompt neutrons emitted per fission, if data is stored in
-&#8220;tabular&#8221; form, or the polynomial coefficients for the &#8220;polynomial&#8221;
-form.</td>
-</tr>
-<tr class="row-odd"><td>nu_t_energy</td>
-<td>list of floats</td>
-<td>Energies in MeV at which the total number of neutrons emitted per
-fission is tabulated.</td>
-</tr>
-<tr class="row-even"><td>nu_t_type</td>
-<td>str</td>
-<td>Indicates how total number of neutrons emitted per fission is
-stored. Can be either &#8220;polynomial&#8221; or &#8220;tabular&#8221;.</td>
-</tr>
-<tr class="row-odd"><td>nu_t_value</td>
-<td>list of floats</td>
-<td>The total number of neutrons emitted per fission, if data is stored in
-&#8220;tabular&#8221; form, or the polynomial coefficients for the &#8220;polynomial&#8221;
-form.</td>
-</tr>
-<tr class="row-even"><td>reactions</td>
-<td>list of Reactions</td>
-<td>A list of Reaction instances containing the cross sections, secondary
-angle and energy distributions, and other associated data for each
-reaction for this nuclide.</td>
-</tr>
-<tr class="row-odd"><td>sigma_a</td>
-<td>list of floats</td>
-<td>The microscopic absorption cross section for each value on the energy
-grid.</td>
-</tr>
-<tr class="row-even"><td>sigma_t</td>
-<td>list of floats</td>
-<td>The microscopic total cross section for each value on the energy grid.</td>
-</tr>
-<tr class="row-odd"><td>temp</td>
-<td>float</td>
-<td>Temperature of the target nuclide in eV.</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="class">
@@ -305,53 +208,6 @@ an S(alpha, beta) table.</p>
 <div><p>Temperature of the target nuclide in eV.</p>
 </div></blockquote>
 </td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="15%" />
-<col width="14%" />
-<col width="71%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>awr</td>
-<td>float</td>
-<td>Atomic mass ratio of the target nuclide.</td>
-</tr>
-<tr class="row-even"><td>elastic_e_in</td>
-<td>list of floats</td>
-<td>Incoming energies in MeV for which the elastic cross section is
-tabulated.</td>
-</tr>
-<tr class="row-odd"><td>elastic_P</td>
-<td>list of floats</td>
-<td>Elastic scattering cross section for data derived in the incoherent
-approximation, or Bragg edge parameters for data derived in the coherent
-approximation.</td>
-</tr>
-<tr class="row-even"><td>elastic_type</td>
-<td>str</td>
-<td>Describes the behavior of the elastic cross section, i.e. whether it was
-derived in the incoherent or coherent approximation.</td>
-</tr>
-<tr class="row-odd"><td>inelastic_e_in</td>
-<td>list of floats</td>
-<td>Incoming energies in MeV for which the inelastic cross section is
-tabulated.</td>
-</tr>
-<tr class="row-even"><td>inelastic_sigma</td>
-<td>list of floats</td>
-<td>Inelastic scattering cross section in barns at each energy.</td>
-</tr>
-<tr class="row-odd"><td>name</td>
-<td>str</td>
-<td>ZAID identifier of the table, e.g. 92235.70c.</td>
-</tr>
-<tr class="row-even"><td>temp</td>
-<td>float</td>
-<td>Temperature of the target nuclide in eV.</td>
 </tr>
 </tbody>
 </table>
@@ -380,67 +236,6 @@ the parent nuclide is needed (for instance, the energy grid at which
 cross sections are tabulated)</p>
 </div></blockquote>
 </td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="14%" />
-<col width="14%" />
-<col width="73%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>ang_energy_in</td>
-<td>list of floats</td>
-<td>Incoming energies in MeV at which angular distributions are tabulated.</td>
-</tr>
-<tr class="row-even"><td>ang_energy_cos</td>
-<td>list of floats</td>
-<td>Scattering cosines corresponding to each point of the angular distribution
-functions.</td>
-</tr>
-<tr class="row-odd"><td>ang_energy_pdf</td>
-<td>list of floats</td>
-<td>Probability distribution function for angular distribution.</td>
-</tr>
-<tr class="row-even"><td>ang_energy_cdf</td>
-<td>list of floats</td>
-<td>Cumulative distribution function for angular distribution.</td>
-</tr>
-<tr class="row-odd"><td>e_dist_energy</td>
-<td>list of floats</td>
-<td>Incoming energies in MeV at which energy distributions are tabulated.</td>
-</tr>
-<tr class="row-even"><td>e_dist_law</td>
-<td>int</td>
-<td>ACE law used for secondary energy distribution.</td>
-</tr>
-<tr class="row-odd"><td>IE</td>
-<td>int</td>
-<td>The index on the energy grid corresponding to the threshold of this
-reaction.</td>
-</tr>
-<tr class="row-even"><td>MT</td>
-<td>int</td>
-<td>The ENDF MT number for this reaction. On occasion, MCNP uses MT numbers
-that don&#8217;t correspond exactly to the ENDF specification.</td>
-</tr>
-<tr class="row-odd"><td>Q</td>
-<td>float</td>
-<td>The Q-value of this reaction in MeV.</td>
-</tr>
-<tr class="row-even"><td>sigma</td>
-<td>list of floats</td>
-<td>Microscopic cross section for this reaction at each point on the energy
-grid above the threshold value.</td>
-</tr>
-<tr class="row-odd"><td>TY</td>
-<td>int</td>
-<td>An integer whose absolute value is the number of neutrons emitted in
-this reaction. If negative, it indicates that scattering should be
-performed in the center-of-mass system. If positive, scattering should
-be preformed in the laboratory system.</td>
 </tr>
 </tbody>
 </table>
@@ -476,29 +271,29 @@ be preformed in the laboratory system.</td>
   <div class="sphinxlocaltoc">
   <h3>Contents</h3>
     <ul><li><ul>
-    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a href="index.html">Capabilities</a></li>
     <li><a>Get Started</a></li>
     <ul>
-       <li><a href="http://pyne.io/install/index.html">Install</a></li>
-       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+       <li><a href="../install/index.html">Install</a></li>
+       <li><a href="../tutorial/index.html">Tutorial</a></li>
     </ul>
     <li><a>Use</a></li>
     <ul>
-       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a href="../usersguide/index.html">User's Guide</a></li>
        <li><a>API Documentation</a></li>
        <ul>
-          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
-          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+          <li><a href="index.html">Python</a></li>
+          <li><a href="../cppapi/index.html">C++</a></li>
        </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
        <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
     </ul>
     <li><a>Contribute</a></li>
     <ul>
        <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="../devsguide/index.html">Developer's Guide</a></li>
        <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
     </ul>
     </ul></li></ul>
   </div>

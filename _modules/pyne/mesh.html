@@ -83,18 +83,18 @@ if(ga_enabled){
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
-<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">QAWarning</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tables</span> <span class="kn">as</span> <span class="nn">tb</span>
 
-<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet QA compliant.&quot;</span><span class="p">,</span> <span class="n">QAWarning</span><span class="p">)</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">itaps</span> <span class="kn">import</span> <span class="n">iMesh</span><span class="p">,</span> <span class="n">iBase</span><span class="p">,</span> <span class="n">iMeshExtensions</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">warn</span><span class="p">(</span><span class="s">&quot;the PyTAPS optional dependency could not be imported. &quot;</span>
-         <span class="s">&quot;Some aspects of the mesh module may be incomplete.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
+         <span class="s">&quot;Some aspects of the mesh module may be incomplete.&quot;</span><span class="p">,</span> <span class="n">QAWarning</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">pyne.material</span> <span class="kn">import</span> <span class="n">Material</span><span class="p">,</span> <span class="n">MaterialLibrary</span><span class="p">,</span> <span class="n">MultiMaterial</span>
 
@@ -102,24 +102,25 @@ if(ga_enabled){
     <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">str</span>
 
 <span class="c"># dictionary of lamba functions for mesh arithmetic</span>
-<span class="n">_ops</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;+&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">:</span> <span class="p">(</span><span class="n">val_1</span> <span class="o">+</span> <span class="n">val_2</span><span class="p">),</span> 
+<span class="n">_ops</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;+&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">:</span> <span class="p">(</span><span class="n">val_1</span> <span class="o">+</span> <span class="n">val_2</span><span class="p">),</span>
         <span class="s">&quot;-&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">:</span> <span class="p">(</span><span class="n">val_1</span> <span class="o">-</span> <span class="n">val_2</span><span class="p">),</span>
         <span class="s">&quot;*&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">:</span> <span class="p">(</span><span class="n">val_1</span> <span class="o">*</span> <span class="n">val_2</span><span class="p">),</span>
         <span class="s">&quot;/&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">:</span> <span class="p">(</span><span class="n">val_1</span> <span class="o">/</span> <span class="n">val_2</span><span class="p">)}</span>
 
-<span class="n">err__ops</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;+&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">,</span> <span class="n">val_1_err</span><span class="p">,</span> <span class="n">val_2_err</span><span class="p">:</span> \
-                 <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">val_1</span> <span class="o">+</span> <span class="n">val_2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">val_1</span><span class="o">*</span><span class="n">val_1_err</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> \
-                  <span class="o">+</span> <span class="p">(</span><span class="n">val_2</span><span class="o">*</span><span class="n">val_2_err</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)),</span> 
-            <span class="s">&quot;-&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">,</span> <span class="n">val_1_err</span><span class="p">,</span> <span class="n">val_2_err</span><span class="p">:</span> \
-                 <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">val_1</span> <span class="o">-</span> <span class="n">val_2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">val_1</span><span class="o">*</span><span class="n">val_1_err</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> \
-                 <span class="o">+</span> <span class="p">(</span><span class="n">val_2</span><span class="o">*</span><span class="n">val_2_err</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)),</span>
-            <span class="s">&quot;*&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">,</span> <span class="n">val_1_err</span><span class="p">,</span> <span class="n">val_2_err</span><span class="p">:</span> \
+<span class="n">err__ops</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;+&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">,</span> <span class="n">val_1_err</span><span class="p">,</span> <span class="n">val_2_err</span><span class="p">:</span>
+                 <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">val_1</span> <span class="o">+</span> <span class="n">val_2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">val_1</span><span class="o">*</span><span class="n">val_1_err</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+                  <span class="o">+</span> <span class="p">(</span><span class="n">val_2</span><span class="o">*</span><span class="n">val_2_err</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)),</span>
+            <span class="s">&quot;-&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">,</span> <span class="n">val_1_err</span><span class="p">,</span> <span class="n">val_2_err</span><span class="p">:</span>
+                 <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">val_1</span> <span class="o">-</span> <span class="n">val_2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">val_1</span><span class="o">*</span><span class="n">val_1_err</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+                  <span class="o">+</span> <span class="p">(</span><span class="n">val_2</span><span class="o">*</span><span class="n">val_2_err</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)),</span>
+            <span class="s">&quot;*&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">,</span> <span class="n">val_1_err</span><span class="p">,</span> <span class="n">val_2_err</span><span class="p">:</span>
                  <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">val_1_err</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">val_2_err</span><span class="o">**</span><span class="mi">2</span><span class="p">)),</span>
-                  <span class="s">&quot;/&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">,</span> <span class="n">val_1_err</span><span class="p">,</span> <span class="n">val_2_err</span><span class="p">:</span> \
+            <span class="s">&quot;/&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_1</span><span class="p">,</span> <span class="n">val_2</span><span class="p">,</span> <span class="n">val_1_err</span><span class="p">,</span> <span class="n">val_2_err</span><span class="p">:</span>
                  <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">val_1_err</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">val_2_err</span><span class="o">**</span><span class="mi">2</span><span class="p">))}</span>
 
 <span class="n">_INTEGRAL_TYPES</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
 <span class="n">_SEQUENCE_TYPES</span> <span class="o">=</span> <span class="p">(</span><span class="n">Sequence</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+
 
 <div class="viewcode-block" id="Tag"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Tag">[docs]</a><span class="k">class</span> <span class="nc">Tag</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A mesh tag, which acts as a descriptor on the mesh.  This dispatches</span>
@@ -140,7 +141,7 @@ if(ga_enabled){
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">mesh</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_lazy_args</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;mesh&#39;</span><span class="p">:</span> <span class="n">mesh</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">:</span> <span class="n">doc</span><span class="p">}</span>
-            <span class="k">return</span> 
+            <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="n">mesh</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
@@ -171,6 +172,7 @@ if(ga_enabled){
 
     <span class="k">def</span> <span class="nf">__delete__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">):</span>
         <span class="k">del</span> <span class="bp">self</span><span class="p">[:]</span>
+
 </div>
 <div class="viewcode-block" id="MaterialPropertyTag"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.MaterialPropertyTag">[docs]</a><span class="k">class</span> <span class="nc">MaterialPropertyTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A mesh tag which looks itself up as a material property (attribute).</span>
@@ -192,16 +194,18 @@ if(ga_enabled){
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">_INTEGRAL_TYPES</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">size</span><span class="p">))])</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">size</span><span class="p">))])</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length of the mesh.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">b</span><span class="p">])</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">key</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;{0} is not an int, slice, mask, &quot;</span>
-                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        
+                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
@@ -218,36 +222,38 @@ if(ga_enabled){
                     <span class="nb">setattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
-                    <span class="nb">setattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> 
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length of the mesh.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match &quot;</span>
+                               <span class="s">&quot;the length of the mesh.&quot;</span><span class="p">)</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">_SEQUENCE_TYPES</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="n">key</span><span class="o">.</span><span class="n">sum</span><span class="p">():</span>
                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
                     <span class="nb">setattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
-                    <span class="nb">setattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> 
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">_SEQUENCE_TYPES</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
                     <span class="nb">setattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
-                    <span class="nb">setattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> 
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;{0} is not an int, slice, mask, &quot;</span>
-                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        
+                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;the material property tag {0!r} may not be deleted&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;the material property tag {0!r} may &quot;</span>
+               <span class="s">&quot;not be deleted&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="MaterialMethodTag"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.MaterialMethodTag">[docs]</a><span class="k">class</span> <span class="nc">MaterialMethodTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A mesh tag which looks itself up by calling a material method which takes </span>
-<span class="sd">    no arguments.  This makes the following expressions equivalent for a given </span>
+    <span class="sd">&quot;&quot;&quot;A mesh tag which looks itself up by calling a material method which takes</span>
+<span class="sd">    no arguments.  This makes the following expressions equivalent for a given</span>
 <span class="sd">    material method name::</span>
 
 <span class="sd">        mesh.name[i] == mesh.mats[i].name()</span>
@@ -265,37 +271,42 @@ if(ga_enabled){
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">_INTEGRAL_TYPES</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">name</span><span class="p">)()</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">)()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> \
-                                                          <span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">size</span><span class="p">))])</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">)()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
+                             <span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">size</span><span class="p">))])</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length of the mesh.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">)()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="p">])</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the &quot;</span>
+                               <span class="s">&quot;length of the mesh.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">)()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span>
+                             <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="p">])</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="p">)()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">key</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;{0} is not an int, slice, mask, &quot;</span>
-                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        
+                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;the material method tag {0!r} may not be set&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;the material method tag {0!r} may not be deleted&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;the material method tag {0!r} may not be &quot;</span>
+               <span class="s">&quot;deleted&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="MetadataTag"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.MetadataTag">[docs]</a><span class="k">class</span> <span class="nc">MetadataTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A mesh tag which looks itself up as a material metadata attribute.</span>
-<span class="sd">    Tags of this are untyped and may have any size.  Use this for catch-all tags.</span>
-<span class="sd">    This makes the following expressions equivalent for a given material property</span>
+<span class="sd">    Tags of this are untyped and may have any size.  Use this for catch-all</span>
+<span class="sd">    tags. This makes the following expressions equivalent for a given material</span>
+<span class="sd">    property.</span>
+
 <span class="sd">    name::</span>
 
 <span class="sd">        mesh.name[i] == mesh.mats[i].metadata[&#39;name&#39;]</span>
 
 <span class="sd">    It also adds slicing, fancy indexing, boolean masking, and broadcasting</span>
-<span class="sd">    features to this process.  </span>
+<span class="sd">    features to this process.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
@@ -310,13 +321,14 @@ if(ga_enabled){
             <span class="k">return</span> <span class="p">[</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">size</span><span class="p">))]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length of the mesh.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length &quot;</span>
+                               <span class="s">&quot;of the mesh.&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="p">]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">key</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;{0} is not an int, slice, mask, &quot;</span>
-                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        
+                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
@@ -336,7 +348,8 @@ if(ga_enabled){
                     <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length of the mesh.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length &quot;</span>
+                               <span class="s">&quot;of the mesh.&quot;</span><span class="p">)</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">_SEQUENCE_TYPES</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="n">key</span><span class="o">.</span><span class="n">sum</span><span class="p">():</span>
                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -353,7 +366,7 @@ if(ga_enabled){
                     <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;{0} is not an int, slice, mask, &quot;</span>
-                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        
+                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
@@ -368,16 +381,18 @@ if(ga_enabled){
                 <span class="k">del</span> <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length of the mesh.&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">):</span> 
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length &quot;</span>
+                               <span class="s">&quot;of the mesh.&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">b</span><span class="p">:</span>
-                    <span class="k">del</span> <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> 
+                    <span class="k">del</span> <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
                 <span class="k">del</span> <span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;{0} is not an int, slice, mask, &quot;</span>
-                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        
+                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
 </div>
 <div class="viewcode-block" id="IMeshTag"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.IMeshTag">[docs]</a><span class="k">class</span> <span class="nc">IMeshTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A mesh tag which looks itself up as a tag on the iMesh.Mesh instance.</span>
@@ -391,7 +406,8 @@ if(ga_enabled){
 <span class="sd">    features to this process.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;f8&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;f8&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">doc</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        size : int, optional</span>
@@ -400,8 +416,8 @@ if(ga_enabled){
 <span class="sd">            The data type of this tag from int, float, and byte. See PyTAPS</span>
 <span class="sd">            tags for more details.</span>
 <span class="sd">        default : dtype or None, optional</span>
-<span class="sd">            The default value to fill this tag with upon creation. If None, then </span>
-<span class="sd">            the tag is created empty.</span>
+<span class="sd">            The default value to fill this tag with upon creation. If None,</span>
+<span class="sd">            then the tag is created empty.</span>
 <span class="sd">        mesh : Mesh, optional</span>
 <span class="sd">            The PyNE mesh to tag.</span>
 <span class="sd">        name : str, optional</span>
@@ -421,7 +437,7 @@ if(ga_enabled){
         <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">iBase</span><span class="o">.</span><span class="n">TagNotFoundError</span><span class="p">:</span> 
+        <span class="k">except</span> <span class="n">iBase</span><span class="o">.</span><span class="n">TagNotFoundError</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">createTag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">default</span>
@@ -446,14 +462,15 @@ if(ga_enabled){
             <span class="k">return</span> <span class="n">mtag</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">miter</span><span class="p">)[</span><span class="n">key</span><span class="p">]]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length of the mesh.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length &quot;</span>
+                               <span class="s">&quot;of the mesh.&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">mtag</span><span class="p">[[</span><span class="n">ve</span> <span class="k">for</span> <span class="n">b</span><span class="p">,</span> <span class="n">ve</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">miter</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="p">]]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="n">ves</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">miter</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">mtag</span><span class="p">[[</span><span class="n">ves</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">key</span><span class="p">]]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;{0} is not an int, slice, mask, &quot;</span>
-                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        
+                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="c"># get value into canonical form</span>
@@ -480,7 +497,8 @@ if(ga_enabled){
             <span class="n">mtag</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">msize</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length of the mesh.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length &quot;</span>
+                               <span class="s">&quot;of the mesh.&quot;</span><span class="p">)</span>
             <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="n">ve</span> <span class="k">for</span> <span class="n">b</span><span class="p">,</span> <span class="n">ve</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">miter</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="p">]</span>
             <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="k">if</span> <span class="n">tsize</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> \
                 <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">tsize</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
@@ -495,7 +513,7 @@ if(ga_enabled){
             <span class="n">mtag</span><span class="p">[[</span><span class="n">ves</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">key</span><span class="p">]]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;{0} is not an int, slice, mask, &quot;</span>
-                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        
+                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span>
@@ -513,14 +531,15 @@ if(ga_enabled){
             <span class="k">del</span> <span class="n">mtag</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">miter</span><span class="p">)[</span><span class="n">key</span><span class="p">]]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length of the mesh.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the &quot;</span>
+                               <span class="s">&quot;length of the mesh.&quot;</span><span class="p">)</span>
             <span class="k">del</span> <span class="n">mtag</span><span class="p">[[</span><span class="n">ve</span> <span class="k">for</span> <span class="n">b</span><span class="p">,</span> <span class="n">ve</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">miter</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="p">]]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="n">ves</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">miter</span><span class="p">)</span>
             <span class="k">del</span> <span class="n">mtag</span><span class="p">[[</span><span class="n">ves</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">key</span><span class="p">]]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;{0} is not an int, slice, mask, &quot;</span>
-                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        
+                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This function creates a group of scalar tags from a vector tag. For</span>
@@ -534,7 +553,7 @@ if(ga_enabled){
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Cannot expand a tag that is already a scalar.&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">[:]]</span>
-            <span class="n">tag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">createTag</span><span class="p">(</span><span class="s">&quot;{0}_{1:03d}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> 
+            <span class="n">tag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">createTag</span><span class="p">(</span><span class="s">&quot;{0}_{1:03d}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span>
                                            <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
             <span class="n">tag</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iter_ve</span><span class="p">())]</span> <span class="o">=</span> <span class="n">data</span>
 
@@ -544,8 +563,8 @@ if(ga_enabled){
 <span class="sd">    with the following signature::</span>
 
 <span class="sd">        def f(mesh, i):</span>
-<span class="sd">            &quot;&quot;&quot;mesh is a pyne.mesh.Mesh() object and i is the volume element index</span>
-<span class="sd">            to compute.</span>
+<span class="sd">            &quot;&quot;&quot;mesh is a pyne.mesh.Mesh() object and i is the volume element</span>
+<span class="sd">            index to compute.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
 <span class="sd">            # ... do some work ...</span>
 <span class="sd">            return anything_you_want</span>
@@ -560,7 +579,7 @@ if(ga_enabled){
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    The results of computed tags are not stored and the function object itself </span>
+<span class="sd">    The results of computed tags are not stored and the function object itself</span>
 <span class="sd">    is also not persisted.  Therefore, you must manually re-tag the mesh with</span>
 <span class="sd">    the desired functions each session.</span>
 
@@ -583,7 +602,7 @@ if(ga_enabled){
         <span class="nb">super</span><span class="p">(</span><span class="n">ComputedTag</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">mesh</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_lazy_args</span><span class="p">[</span><span class="s">&#39;f&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
-            <span class="k">return</span> 
+            <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span>
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
@@ -599,13 +618,14 @@ if(ga_enabled){
             <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">size</span><span class="p">))]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length of the mesh.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;boolean mask must match the length &quot;</span>
+                               <span class="s">&quot;of the mesh.&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="p">]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">key</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;{0} is not an int, slice, mask, &quot;</span>
-                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        
+                            <span class="s">&quot;or fancy index.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;the computed tag {0!r} may not be set&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -615,14 +635,14 @@ if(ga_enabled){
         <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;the computed tag {0!r} may not be deleted&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-
 </div>
 <div class="viewcode-block" id="MeshError"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.MeshError">[docs]</a><span class="k">class</span> <span class="nc">MeshError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Errors related to instantiating mesh objects and utilizing their methods.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
+
 </div>
-<div class="viewcode-block" id="Mesh"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh">[docs]</a><span class="k">class</span> <span class="nc">Mesh</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>        
+<div class="viewcode-block" id="Mesh"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh">[docs]</a><span class="k">class</span> <span class="nc">Mesh</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class houses an iMesh instance and contains methods for various mesh</span>
 <span class="sd">    operations. Special methods exploit the properties of structured mesh.</span>
 
@@ -633,64 +653,64 @@ if(ga_enabled){
 <span class="sd">        True for structured mesh.</span>
 <span class="sd">    structured_coords : list of lists</span>
 <span class="sd">        A list containing lists of x_points, y_points and z_points that make up</span>
-<span class="sd">        a structured mesh. </span>
+<span class="sd">        a structured mesh.</span>
 <span class="sd">    structured_ordering : str</span>
 <span class="sd">        A three character string denoting the iteration order of the mesh (e.g.</span>
 <span class="sd">        &#39;xyz&#39;, meaning z changest fastest, then y, then x.)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">structured</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> 
-                 <span class="n">structured_coords</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">structured_set</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">structured</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                 <span class="n">structured_coords</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">structured_set</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">structured_ordering</span><span class="o">=</span><span class="s">&#39;xyz&#39;</span><span class="p">,</span> <span class="n">mats</span><span class="o">=</span><span class="p">()):</span>
         <span class="sd">&quot;&quot;&quot;Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        mesh : iMesh instance or str, optional</span>
-<span class="sd">            Either an iMesh instance or a file name of file containing an </span>
+<span class="sd">            Either an iMesh instance or a file name of file containing an</span>
 <span class="sd">            iMesh instance.</span>
 <span class="sd">        structured : bool, optional</span>
 <span class="sd">            True for structured mesh.</span>
 <span class="sd">        structured_coords : list of lists, optional</span>
-<span class="sd">            A list containing lists of x_points, y_points and z_points that make up</span>
-<span class="sd">            a structured mesh. </span>
+<span class="sd">            A list containing lists of x_points, y_points and z_points</span>
+<span class="sd">            that make up a structured mesh.</span>
 <span class="sd">        structured_set : iMesh entity set handle, optional</span>
 <span class="sd">            A preexisting structured entity set on an iMesh instance with a</span>
 <span class="sd">            &quot;BOX_DIMS&quot; tag.</span>
 <span class="sd">        structured_ordering : str, optional</span>
-<span class="sd">            A three character string denoting the iteration order of the mesh (e.g.</span>
-<span class="sd">            &#39;xyz&#39;, meaning z changest fastest, then y, then x.)</span>
+<span class="sd">            A three character string denoting the iteration order of the mesh</span>
+<span class="sd">            (e.g. &#39;xyz&#39;, meaning z changest fastest, then y, then x.)</span>
 <span class="sd">        mats : MaterialLibrary or dict or Materials or None, optional</span>
-<span class="sd">            This is a mapping of volume element handles to Material objects.  If </span>
-<span class="sd">            mats is None, then no empty materials are created for the mesh.</span>
-<span class="sd">    </span>
+<span class="sd">            This is a mapping of volume element handles to Material objects.</span>
+<span class="sd">            If mats is None, then no empty materials are created for the mesh.</span>
+
 <span class="sd">            Unstructured mesh instantiation:</span>
 <span class="sd">                 - From iMesh instance by specifying: &lt;mesh&gt;</span>
 <span class="sd">                 - From mesh file by specifying: &lt;mesh_file&gt;</span>
-<span class="sd">    </span>
+
 <span class="sd">            Structured mesh instantiation:</span>
-<span class="sd">                - From iMesh instance with exactly 1 entity set (with BOX_DIMS tag)</span>
-<span class="sd">                  by specifying &lt;mesh&gt; and structured = True.</span>
-<span class="sd">                - From mesh file with exactly 1 entity set (with BOX_DIMS tag) by</span>
-<span class="sd">                  specifying &lt;mesh_file&gt; and structured = True.</span>
-<span class="sd">                - From an imesh instance with multiple entity sets by specifying </span>
-<span class="sd">                  &lt;mesh&gt;, &lt;structured_set&gt;, structured=True.</span>
+<span class="sd">                - From iMesh instance with exactly 1 entity set (with BOX_DIMS</span>
+<span class="sd">                  tag) by specifying &lt;mesh&gt; and structured = True.</span>
+<span class="sd">                - From mesh file with exactly 1 entity set (with BOX_DIMS tag)</span>
+<span class="sd">                  by specifying &lt;mesh_file&gt; and structured = True.</span>
+<span class="sd">                - From an imesh instance with multiple entity sets by</span>
+<span class="sd">                  specifying &lt;mesh&gt;, &lt;structured_set&gt;, structured=True.</span>
 <span class="sd">                - From coordinates by specifying &lt;structured_coords&gt;,</span>
-<span class="sd">                  structured=True, and optional preexisting iMesh instance &lt;mesh&gt;</span>
-<span class="sd">    </span>
+<span class="sd">                  structured=True, and optional preexisting iMesh instance</span>
+<span class="sd">                  &lt;mesh&gt;</span>
+
 <span class="sd">            The &quot;BOX_DIMS&quot; tag on iMesh instances containing structured mesh is</span>
 <span class="sd">            a vector of floats it the following form:</span>
 <span class="sd">            [i_min, j_min, k_min, i_max, j_max, k_max]</span>
-<span class="sd">            where each value is a volume element index number. Typically volume </span>
-<span class="sd">            elements should be indexed from 0. The &quot;BOX_DIMS&quot; information is stored</span>
-<span class="sd">            in self.dims.</span>
-<span class="sd">    </span>
+<span class="sd">            where each value is a volume element index number. Typically volume</span>
+<span class="sd">            elements should be indexed from 0. The &quot;BOX_DIMS&quot; information is</span>
+<span class="sd">            stored in self.dims.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">mesh</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Mesh</span><span class="p">()</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Mesh</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span> 
+        <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">structured</span> <span class="o">=</span> <span class="n">structured</span>
@@ -698,7 +718,8 @@ if(ga_enabled){
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">structured</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">structured_coords</span> <span class="o">=</span> <span class="n">structured_coords</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">structured_ordering</span> <span class="o">=</span> <span class="n">structured_ordering</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">mesh</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">structured_coords</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">structured_set</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">mesh</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">structured_coords</span> \
+               <span class="ow">and</span> <span class="ow">not</span> <span class="n">structured_set</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="s">&quot;BOX_DIMS&quot;</span><span class="p">)</span>
                 <span class="k">except</span> <span class="n">iBase</span><span class="o">.</span><span class="n">TagNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -722,11 +743,11 @@ if(ga_enabled){
                     <span class="k">raise</span> <span class="n">MeshError</span><span class="p">(</span><span class="s">&quot;Found {0} structured meshes.&quot;</span>
                                     <span class="s">&quot; Instantiate individually using&quot;</span>
                                     <span class="s">&quot; from_ent_set()&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
-            <span class="c"># from coordinates                       </span>
+            <span class="c"># from coordinates</span>
             <span class="k">elif</span> <span class="p">(</span><span class="n">mesh</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="n">structured_coords</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">structured_set</span><span class="p">:</span>
                 <span class="n">extents</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">structured_coords</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">createStructuredMesh</span><span class="p">(</span>
-                     <span class="n">extents</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">structured_coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">j</span><span class="o">=</span><span class="n">structured_coords</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+                     <span class="n">extents</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">structured_coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">j</span><span class="o">=</span><span class="n">structured_coords</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                      <span class="n">k</span><span class="o">=</span><span class="n">structured_coords</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">create_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
             <span class="c"># From mesh and structured_set:</span>
@@ -791,7 +812,7 @@ if(ga_enabled){
         <span class="c"># Default tags</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">mats</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="c"># metadata tags, these should come first so they don&#39;t accidentally </span>
+            <span class="c"># metadata tags, these should come first so they don&#39;t accidentally</span>
             <span class="c"># overwite hard coded tag names.</span>
             <span class="n">metatagnames</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">mat</span> <span class="ow">in</span> <span class="n">mats</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -803,35 +824,36 @@ if(ga_enabled){
         <span class="k">for</span> <span class="n">ve</span> <span class="ow">in</span> <span class="n">ves</span><span class="p">:</span>
             <span class="n">tagnames</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getAllTags</span><span class="p">(</span><span class="n">ve</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">tagnames</span><span class="p">:</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">))</span> 
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">mats</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="c"># Material property tags</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">atoms_per_molecule</span> <span class="o">=</span> <span class="n">MaterialPropertyTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> 
-                                        <span class="n">name</span><span class="o">=</span><span class="s">&#39;atoms_per_molecule&#39;</span><span class="p">,</span> 
-                                        <span class="n">doc</span><span class="o">=</span><span class="s">&#39;Number of atoms per molecule&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">MaterialPropertyTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;metadata&#39;</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">atoms_per_molecule</span> <span class="o">=</span> <span class="n">MaterialPropertyTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                                      <span class="n">name</span><span class="o">=</span><span class="s">&#39;atoms_per_molecule&#39;</span><span class="p">,</span>
+                                      <span class="n">doc</span><span class="o">=</span><span class="s">&#39;Number of atoms per molecule&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">MaterialPropertyTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;metadata&#39;</span><span class="p">,</span>
                             <span class="n">doc</span><span class="o">=</span><span class="s">&#39;metadata attributes, stored on the material&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">comp</span> <span class="o">=</span> <span class="n">MaterialPropertyTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;comp&#39;</span><span class="p">,</span> 
-                            <span class="n">doc</span><span class="o">=</span><span class="s">&#39;normalized composition mapping from nuclides to &#39;</span>
-                                <span class="s">&#39;mass fractions&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">MaterialPropertyTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;mass&#39;</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">comp</span> <span class="o">=</span> <span class="n">MaterialPropertyTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;comp&#39;</span><span class="p">,</span>
+                        <span class="n">doc</span><span class="o">=</span><span class="s">&#39;normalized composition mapping from nuclides to &#39;</span>
+                            <span class="s">&#39;mass fractions&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">MaterialPropertyTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;mass&#39;</span><span class="p">,</span>
                                             <span class="n">doc</span><span class="o">=</span><span class="s">&#39;the mass of the material&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="n">MaterialPropertyTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;density&#39;</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="n">MaterialPropertyTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;density&#39;</span><span class="p">,</span>
                                                <span class="n">doc</span><span class="o">=</span><span class="s">&#39;the density [g/cc]&#39;</span><span class="p">)</span>
             <span class="c"># Material method tags</span>
-            <span class="n">methtagnames</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;expand_elements&#39;</span><span class="p">,</span> <span class="s">&#39;mass_density&#39;</span><span class="p">,</span> <span class="s">&#39;molecular_mass&#39;</span><span class="p">,</span> 
-                            <span class="s">&#39;mult_by_mass&#39;</span><span class="p">,</span> <span class="s">&#39;number_density&#39;</span><span class="p">,</span> <span class="s">&#39;sub_act&#39;</span><span class="p">,</span> <span class="s">&#39;sub_fp&#39;</span><span class="p">,</span> 
+            <span class="n">methtagnames</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;expand_elements&#39;</span><span class="p">,</span> <span class="s">&#39;mass_density&#39;</span><span class="p">,</span>
+                            <span class="s">&#39;molecular_mass&#39;</span><span class="p">,</span> <span class="s">&#39;mult_by_mass&#39;</span><span class="p">,</span>
+                            <span class="s">&#39;number_density&#39;</span><span class="p">,</span> <span class="s">&#39;sub_act&#39;</span><span class="p">,</span> <span class="s">&#39;sub_fp&#39;</span><span class="p">,</span>
                             <span class="s">&#39;sub_lan&#39;</span><span class="p">,</span> <span class="s">&#39;sub_ma&#39;</span><span class="p">,</span> <span class="s">&#39;sub_tru&#39;</span><span class="p">,</span> <span class="s">&#39;to_atom_frac&#39;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">methtagnames</span><span class="p">:</span>
                 <span class="n">doc</span> <span class="o">=</span> <span class="s">&quot;see Material.{0}() for more information&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">MaterialMethodTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">))</span>
-        
-        
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">MaterialMethodTag</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">))</span>
+
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span>
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Iterates through the mesh and at each step yield the volume element </span>
+        <span class="sd">&quot;&quot;&quot;Iterates through the mesh and at each step yield the volume element</span>
 <span class="sd">        index i, the material mat, and the volume element itself ve.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">mats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mats</span>
@@ -874,8 +896,8 @@ if(ga_enabled){
 <span class="sd">        value : optional</span>
 <span class="sd">            The value to initialize the tag with, skipped if None.</span>
 <span class="sd">        tagtype : Tag or str, optional</span>
-<span class="sd">            The type of tag this should be any of the following classes or </span>
-<span class="sd">            strings are accepted: IMeshTag, MetadataTag, ComputedTag, &#39;imesh&#39;, </span>
+<span class="sd">            The type of tag this should be any of the following classes or</span>
+<span class="sd">            strings are accepted: IMeshTag, MetadataTag, ComputedTag, &#39;imesh&#39;,</span>
 <span class="sd">            &#39;metadata&#39;, or &#39;computed&#39;.</span>
 <span class="sd">        doc : str, optional</span>
 <span class="sd">            The tag documentation string.</span>
@@ -911,10 +933,11 @@ if(ga_enabled){
                 <span class="n">dtype</span> <span class="o">=</span> <span class="s">&#39;i&#39;</span>
                 <span class="n">tagtype</span> <span class="o">=</span> <span class="n">IMeshTag</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">tagtype</span> <span class="o">=</span> <span class="n">MetadataTag</span>                
+                <span class="n">tagtype</span> <span class="o">=</span> <span class="n">MetadataTag</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">_SEQUENCE_TYPES</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;ambiguous tag {0!r} creation when value is a &#39;</span>
-                        <span class="s">&#39;sequence, please set tagtype, size, or dtype&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;ambiguous tag {0!r} creation when value is a&#39;</span>
+                                 <span class="s">&#39; sequence, please set tagtype, size, &#39;</span>
+                                 <span class="s">&#39;or dtype&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">tagtype</span> <span class="o">=</span> <span class="n">MetadataTag</span>
         <span class="k">if</span> <span class="n">tagtype</span> <span class="ow">is</span> <span class="n">IMeshTag</span> <span class="ow">or</span> <span class="n">tagtype</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;imesh&#39;</span><span class="p">:</span>
@@ -956,8 +979,8 @@ if(ga_enabled){
     <span class="k">def</span> <span class="nf">_do_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Private function to do mesh +, -, *, /.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># Exclude error tags in a case a StatMesh is mistakenly initialized as a</span>
-        <span class="c"># Mesh object.</span>
+        <span class="c"># Exclude error tags in a case a StatMesh is mistakenly initialized as</span>
+        <span class="c"># a Mesh object.</span>
         <span class="n">tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tag</span> <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">tag</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;_error&#39;</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">in_place</span><span class="p">:</span>
@@ -967,36 +990,39 @@ if(ga_enabled){
 
         <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">ve_1</span><span class="p">,</span> <span class="n">ve_2</span> <span class="ow">in</span> \
-                <span class="nb">zip</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">))),</span>
-                    <span class="nb">zip</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">)))):</span>
+                <span class="nb">zip</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                    <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">))),</span>
+                    <span class="nb">zip</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                        <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">)))):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">]</span> <span class="o">=</span> \
-                    <span class="n">_ops</span><span class="p">[</span><span class="n">op</span><span class="p">](</span><span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">],</span> 
-                            <span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_2</span><span class="p">])</span>
+                    <span class="n">_ops</span><span class="p">[</span><span class="n">op</span><span class="p">](</span><span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">],</span>
+                             <span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_2</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="n">mesh_1</span>
-
 
 <div class="viewcode-block" id="Mesh.common_ve_tags"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.common_ve_tags">[docs]</a>    <span class="k">def</span> <span class="nf">common_ve_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the volume element tags in common between self and other.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">self_tags</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getAllTags</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span>
-                                     <span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">other_tags</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getAllTags</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> 
+                                         <span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                                         <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">other_tags</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getAllTags</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span>
+                                           <span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
                                            <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">self_tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">self_tags</span><span class="p">)</span>
         <span class="n">other_tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">other_tags</span><span class="p">)</span>
         <span class="n">intersect</span> <span class="o">=</span> <span class="n">self_tags</span> <span class="o">&amp;</span> <span class="n">other_tags</span>
         <span class="n">intersect</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="s">&#39;idx&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">intersect</span>
-                           </div>
+</div>
     <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c">#first copy full imesh instance</span>
+        <span class="c"># first copy full imesh instance</span>
         <span class="n">imesh_copy</span> <span class="o">=</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Mesh</span><span class="p">()</span>
 
-        <span class="c">#now create Mesh objected from copied iMesh instance</span>
-        <span class="n">mesh_copy</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="n">imesh_copy</span><span class="p">,</span> <span class="n">structured</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structured</span><span class="p">))</span>
+        <span class="c"># now create Mesh objected from copied iMesh instance</span>
+        <span class="n">mesh_copy</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="n">imesh_copy</span><span class="p">,</span>
+                         <span class="n">structured</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structured</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">mesh_copy</span>
-
 
     <span class="c"># Non-structured volume methods</span>
 <div class="viewcode-block" id="Mesh.elem_volume"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.elem_volume">[docs]</a>    <span class="k">def</span> <span class="nf">elem_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ve</span><span class="p">):</span>
@@ -1026,55 +1052,52 @@ if(ga_enabled){
             <span class="k">return</span> <span class="bp">None</span>
 </div>
 <div class="viewcode-block" id="Mesh.ve_center"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.ve_center">[docs]</a>    <span class="k">def</span> <span class="nf">ve_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ve</span><span class="p">):</span>
-       <span class="sd">&quot;&quot;&quot;Finds the point at the center of any tetrahedral or hexahedral mesh</span>
-<span class="sd">       volume element.</span>
+        <span class="sd">&quot;&quot;&quot;Finds the point at the center of any tetrahedral or hexahedral mesh</span>
+<span class="sd">        volume element.</span>
 
-<span class="sd">       Parameters</span>
-<span class="sd">       ----------</span>
-<span class="sd">       ve : iMesh entity handle</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ve : iMesh entity handle</span>
 <span class="sd">           Any mesh volume element.</span>
 
-<span class="sd">       Returns</span>
-<span class="sd">       -------</span>
-<span class="sd">       center : tuple</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        center : tuple</span>
 <span class="sd">           The (x, y, z) coordinates of the center of the mesh volume element.</span>
-<span class="sd">       &quot;&quot;&quot;</span>
-       <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getVtxCoords</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getEntAdj</span><span class="p">(</span><span class="n">ve</span><span class="p">,</span> <span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">vertex</span><span class="p">))</span>
-       <span class="n">center</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">coords</span><span class="p">[:,</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
-       <span class="k">return</span> <span class="n">center</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getVtxCoords</span><span class="p">(</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getEntAdj</span><span class="p">(</span><span class="n">ve</span><span class="p">,</span> <span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">vertex</span><span class="p">))</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">coords</span><span class="p">[:,</span> <span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">center</span>
 
-    <span class="c">#Structured methods:</span></div>
+    <span class="c"># Structured methods:</span></div>
 <div class="viewcode-block" id="Mesh.structured_get_vertex"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.structured_get_vertex">[docs]</a>    <span class="k">def</span> <span class="nf">structured_get_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the handle for (i,j,k)&#39;th vertex in the mesh&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_structured_check</span><span class="p">()</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">_structured_find_idx</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_dims</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">_structured_step_iter</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">vertex</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">vertex</span><span class="p">,</span>
                                         <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">point</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
-
 </div>
 <div class="viewcode-block" id="Mesh.structured_get_hex"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.structured_get_hex">[docs]</a>    <span class="k">def</span> <span class="nf">structured_get_hex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the handle for the (i,j,k)&#39;th hexahedron in the mesh&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_structured_check</span><span class="p">()</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">_structured_find_idx</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">_structured_step_iter</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> 
-                                 <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">hexahedron</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
-
+            <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                                        <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">hexahedron</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Mesh.structured_hex_volume"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.structured_hex_volume">[docs]</a>    <span class="k">def</span> <span class="nf">structured_hex_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the volume of the (i,j,k)&#39;th hexahedron in the mesh&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_structured_check</span><span class="p">()</span>
         <span class="n">v</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structured_iterate_vertex</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
-                                 <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
-                                 <span class="n">z</span><span class="o">=</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
+                                                <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+                                                <span class="n">z</span><span class="o">=</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
         <span class="n">coord</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getVtxCoords</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
         <span class="n">dx</span> <span class="o">=</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">dy</span> <span class="o">=</span> <span class="n">coord</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">dz</span> <span class="o">=</span> <span class="n">coord</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">dx</span> <span class="o">*</span> <span class="n">dy</span> <span class="o">*</span> <span class="n">dz</span>
-
 </div>
 <div class="viewcode-block" id="Mesh.structured_iterate_hex"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.structured_iterate_hex">[docs]</a>    <span class="k">def</span> <span class="nf">structured_iterate_hex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&quot;zyx&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get an iterator over the hexahedra of the mesh</span>
@@ -1123,13 +1146,12 @@ if(ga_enabled){
         <span class="c"># if no kwargs were specified</span>
         <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="s">&quot;zyx&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">kw</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
-                                       <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">hexahedron</span><span class="p">)</span>
+                                               <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">hexahedron</span><span class="p">)</span>
 
         <span class="n">indices</span><span class="p">,</span> <span class="n">ordmap</span> <span class="o">=</span> <span class="n">_structured_iter_setup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">_structured_iter</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">ordmap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> 
-            <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> 
-                                        <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">hexahedron</span><span class="p">))</span>
-
+        <span class="k">return</span> <span class="n">_structured_iter</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">ordmap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                                            <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">hexahedron</span><span class="p">))</span>
 </div>
 <div class="viewcode-block" id="Mesh.structured_iterate_vertex"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.structured_iterate_vertex">[docs]</a>    <span class="k">def</span> <span class="nf">structured_iterate_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&quot;zyx&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get an iterator over the vertices of the mesh</span>
@@ -1138,16 +1160,15 @@ if(ga_enabled){
 <span class="sd">        and the available keyword arguments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_structured_check</span><span class="p">()</span>
-        <span class="c">#special case: zyx order without kw is equivalent to pytaps iterator</span>
+        <span class="c"># special case: zyx order without kw is equivalent to pytaps iterator</span>
         <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="s">&quot;zyx&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">kw</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">vertex</span><span class="p">,</span>
                                                <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">point</span><span class="p">)</span>
 
         <span class="n">indices</span><span class="p">,</span> <span class="n">ordmap</span> <span class="o">=</span> <span class="n">_structured_iter_setup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_dims</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">_structured_iter</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">ordmap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_dims</span><span class="p">,</span> 
-                <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">vertex</span><span class="p">,</span> 
+        <span class="k">return</span> <span class="n">_structured_iter</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">ordmap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_dims</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">structured_set</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">vertex</span><span class="p">,</span>
                                             <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">point</span><span class="p">))</span>
-
 </div>
 <div class="viewcode-block" id="Mesh.structured_iterate_hex_volumes"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.structured_iterate_hex_volumes">[docs]</a>    <span class="k">def</span> <span class="nf">structured_iterate_hex_volumes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&quot;zyx&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get an iterator over the volumes of the mesh hexahedra</span>
@@ -1158,18 +1179,19 @@ if(ga_enabled){
         <span class="bp">self</span><span class="o">.</span><span class="n">_structured_check</span><span class="p">()</span>
         <span class="n">indices</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_structured_iter_setup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
         <span class="c"># Use an inefficient but simple approach: call structured_hex_volume()</span>
-        <span class="c"># on each required i,j,k pair.  </span>
+        <span class="c"># on each required i,j,k pair.</span>
         <span class="c"># A better implementation would only make one call to getVtxCoords.</span>
         <span class="k">for</span> <span class="n">A</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">indices</span><span class="p">):</span>
-            <span class="c"># the ordmap returned from _structured_iter_setup maps to kji/zyx ordering,</span>
-            <span class="c"># but we want ijk/xyz ordering, so create the ordmap differently.</span>
+            <span class="c"># the ordmap returned from _structured_iter_setup maps to kji/zyx</span>
+            <span class="c"># ordering, but we want ijk/xyz ordering, so create the ordmap</span>
+            <span class="c"># differently.</span>
             <span class="n">ordmap</span> <span class="o">=</span> <span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="k">for</span> <span class="n">L</span> <span class="ow">in</span> <span class="s">&quot;xyz&quot;</span><span class="p">]</span>
             <span class="n">ijk</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="p">[</span><span class="n">ordmap</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
             <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">structured_hex_volume</span><span class="p">(</span><span class="o">*</span><span class="n">ijk</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Mesh.iter_structured_idx"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.iter_structured_idx">[docs]</a>    <span class="k">def</span> <span class="nf">iter_structured_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return an iterater object of volume element indexes (idx) for any</span>
-<span class="sd">        iteration order. Note that idx is assigned upon instantiation in the </span>
+<span class="sd">        iteration order. Note that idx is assigned upon instantiation in the</span>
 <span class="sd">        order of the structured_ordering attribute. This method is meant to be</span>
 <span class="sd">        used when the order argument is different from structured_ordering.</span>
 <span class="sd">        When they are the same, the iterator (0, 1, 2, ... N-1) is returned.</span>
@@ -1214,7 +1236,7 @@ if(ga_enabled){
             <span class="bp">self</span><span class="o">.</span><span class="n">mats</span><span class="o">.</span><span class="n">write_hdf5</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Mesh.cell_fracs_to_mats"><a class="viewcode-back" href="../../pyapi/mesh.html#pyne.mesh.Mesh.cell_fracs_to_mats">[docs]</a>    <span class="k">def</span> <span class="nf">cell_fracs_to_mats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell_fracs</span><span class="p">,</span> <span class="n">cell_mats</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This function uses the output from dagmc.discretize_geom() and </span>
+        <span class="sd">&quot;&quot;&quot;This function uses the output from dagmc.discretize_geom() and</span>
 <span class="sd">        a mapping of geometry cells to Materials to assign materials</span>
 <span class="sd">        to each mesh volume element.</span>
 
@@ -1224,7 +1246,7 @@ if(ga_enabled){
 <span class="sd">            The output from dagmc.discretize_geom(). A sorted, one dimensional</span>
 <span class="sd">            array, each entry containing the following fields:</span>
 
-<span class="sd">                :idx: int </span>
+<span class="sd">                :idx: int</span>
 <span class="sd">                    The volume element index.</span>
 <span class="sd">                :cell: int</span>
 <span class="sd">                    The geometry cell number.</span>
@@ -1233,21 +1255,21 @@ if(ga_enabled){
 <span class="sd">                :rel_error: float</span>
 <span class="sd">                    The relative error associated with the volume fraction.</span>
 
-<span class="sd">            The array must be sorted with respect to both idx and cell, with cell</span>
-<span class="sd">            changing fastest.</span>
+<span class="sd">            The array must be sorted with respect to both idx and cell, with</span>
+<span class="sd">            cell changing fastest.</span>
 <span class="sd">        cell_mats : dict</span>
 <span class="sd">            Maps geometry cell numbers to Material objects that represent what</span>
 <span class="sd">            material each cell is made of.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
-            <span class="n">mat_col</span> <span class="o">=</span> <span class="p">{}</span> <span class="c">#  Collection of materials in the ith ve.</span>
+            <span class="n">mat_col</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c"># Collection of materials in the ith ve.</span>
             <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cell_fracs</span><span class="p">[</span><span class="n">cell_fracs</span><span class="p">[</span><span class="s">&#39;idx&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">]:</span>
                 <span class="n">mat_col</span><span class="p">[</span><span class="n">cell_mats</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s">&#39;cell&#39;</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">&#39;vol_frac&#39;</span><span class="p">]</span>
 
             <span class="n">mixed</span> <span class="o">=</span> <span class="n">MultiMaterial</span><span class="p">(</span><span class="n">mat_col</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mixed</span><span class="o">.</span><span class="n">mix_by_volume</span><span class="p">()</span>
-      
+
 
 <span class="c">######################################################</span>
 <span class="c"># private helper functions for structured mesh methods</span>
@@ -1304,12 +1326,12 @@ if(ga_enabled){
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="n">d</span><span class="p">],</span> <span class="n">Iterable</span><span class="p">):</span>
                 <span class="n">spec</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">spec</span><span class="p">[</span><span class="n">d</span><span class="p">]]</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">3</span><span class="p">])</span>
-                    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">[</span><span class="n">d</span><span class="p">]):</span>
-                <span class="k">raise</span> <span class="n">MeshError</span><span class="p">(</span> \
-                        <span class="s">&quot;Invalid iterator kwarg: {0}={1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">spec</span><span class="p">[</span><span class="n">d</span><span class="p">]))</span>
+                       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">[</span><span class="n">d</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="n">MeshError</span><span class="p">(</span><span class="s">&quot;Invalid iterator kwarg: &quot;</span>
+                                <span class="s">&quot;{0}={1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">spec</span><span class="p">[</span><span class="n">d</span><span class="p">]))</span>
             <span class="k">if</span> <span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">order</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="n">d</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">MeshError</span><span class="p">(</span><span class="s">&quot;Cannot iterate over&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="n">d</span><span class="p">])</span> <span class="o">+</span>
-                                   <span class="s">&quot;without a proper iteration order&quot;</span><span class="p">)</span>
+                                <span class="s">&quot;without a proper iteration order&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">order</span><span class="p">:</span>
             <span class="n">order</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">order</span>
             <span class="n">spec</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="p">[</span><span class="n">dims</span><span class="p">[</span><span class="n">idx</span><span class="p">]])</span>
@@ -1334,7 +1356,7 @@ if(ga_enabled){
     <span class="n">mins</span> <span class="o">=</span> <span class="p">[</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
     <span class="n">offsets</span> <span class="o">=</span> <span class="p">([(</span><span class="n">a</span> <span class="o">-</span> <span class="n">mins</span><span class="p">[</span><span class="n">ordmap</span><span class="p">[</span><span class="n">x</span><span class="p">]])</span> <span class="o">*</span> <span class="n">d</span><span class="p">[</span><span class="n">ordmap</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span>
                 <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span>
-                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+               <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">ioff</span><span class="p">,</span> <span class="n">joff</span><span class="p">,</span> <span class="n">koff</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">offsets</span><span class="p">):</span>
         <span class="k">yield</span> <span class="n">_structured_step_iter</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="p">(</span><span class="n">ioff</span> <span class="o">+</span> <span class="n">joff</span> <span class="o">+</span> <span class="n">koff</span><span class="p">))</span>
 
@@ -1344,15 +1366,17 @@ if(ga_enabled){
                  <span class="n">structured_coords</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">structured_set</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mats</span><span class="o">=</span><span class="p">()):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">StatMesh</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span>
-              <span class="n">structured</span><span class="o">=</span><span class="n">structured</span><span class="p">,</span> <span class="n">structured_coords</span><span class="o">=</span><span class="n">structured_coords</span><span class="p">,</span> 
-              <span class="n">structured_set</span><span class="o">=</span><span class="n">structured_set</span><span class="p">,</span> <span class="n">mats</span><span class="o">=</span><span class="n">mats</span><span class="p">)</span>
+                                       <span class="n">structured</span><span class="o">=</span><span class="n">structured</span><span class="p">,</span>
+                                       <span class="n">structured_coords</span><span class="o">=</span><span class="n">structured_coords</span><span class="p">,</span>
+                                       <span class="n">structured_set</span><span class="o">=</span><span class="n">structured_set</span><span class="p">,</span> <span class="n">mats</span><span class="o">=</span><span class="n">mats</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_do_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Private function to do mesh +, -, *, /. Called by operater</span>
 <span class="sd">        overloading functions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># Exclude error tags because result and error tags are treated simotaneously</span>
-        <span class="c"># so there is not need to include both in the tag list to iterate through.</span>
+        <span class="c"># Exclude error tags because result and error tags are treated</span>
+        <span class="c"># simultaneously so there is not need to include both in the tag</span>
+        <span class="c"># list to iterate through.</span>
         <span class="n">tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tag</span> <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">tag</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;_error&#39;</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">in_place</span><span class="p">:</span>
@@ -1362,18 +1386,20 @@ if(ga_enabled){
 
         <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">ve_1</span><span class="p">,</span> <span class="n">ve_2</span> <span class="ow">in</span> \
-                <span class="nb">zip</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">))),</span>
-                    <span class="nb">zip</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">)))):</span>
+                <span class="nb">zip</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                                                 <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">))),</span>
+                    <span class="nb">zip</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="n">iBase</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                                                <span class="n">iMesh</span><span class="o">.</span><span class="n">Topology</span><span class="o">.</span><span class="n">all</span><span class="p">)))):</span>
 
                 <span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span> <span class="o">+</span> <span class="s">&quot;_error&quot;</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">]</span> <span class="o">=</span> <span class="n">err__ops</span><span class="p">[</span><span class="n">op</span><span class="p">](</span>
-                    <span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">],</span> 
-                    <span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_2</span><span class="p">],</span> 
-                    <span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span> <span class="o">+</span> <span class="s">&quot;_error&quot;</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">],</span> 
+                    <span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">],</span>
+                    <span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_2</span><span class="p">],</span>
+                    <span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span> <span class="o">+</span> <span class="s">&quot;_error&quot;</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">],</span>
                     <span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span> <span class="o">+</span> <span class="s">&quot;_error&quot;</span><span class="p">)[</span><span class="n">ve_2</span><span class="p">])</span>
 
                 <span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">]</span> <span class="o">=</span> \
-                    <span class="n">_ops</span><span class="p">[</span><span class="n">op</span><span class="p">](</span><span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">],</span> 
-                            <span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_2</span><span class="p">])</span>
+                    <span class="n">_ops</span><span class="p">[</span><span class="n">op</span><span class="p">](</span><span class="n">mesh_1</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_1</span><span class="p">],</span>
+                             <span class="n">other</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">getTagHandle</span><span class="p">(</span><span class="n">tag</span><span class="p">)[</span><span class="n">ve_2</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="n">mesh_1</span>
 </pre></div>
@@ -1389,29 +1415,29 @@ if(ga_enabled){
   <div class="sphinxlocaltoc">
   <h3>Contents</h3>
     <ul><li><ul>
-    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a href="../../pyapi/index.html">Capabilities</a></li>
     <li><a>Get Started</a></li>
     <ul>
-       <li><a href="http://pyne.io/install/index.html">Install</a></li>
-       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+       <li><a href="../../install/index.html">Install</a></li>
+       <li><a href="../../tutorial/index.html">Tutorial</a></li>
     </ul>
     <li><a>Use</a></li>
     <ul>
-       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a href="../../usersguide/index.html">User's Guide</a></li>
        <li><a>API Documentation</a></li>
        <ul>
-          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
-          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+          <li><a href="../../pyapi/index.html">Python</a></li>
+          <li><a href="../../cppapi/index.html">C++</a></li>
        </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
        <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
     </ul>
     <li><a>Contribute</a></li>
     <ul>
        <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="../../devsguide/index.html">Developer's Guide</a></li>
        <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
     </ul>
     </ul></li></ul>
   </div>
@@ -1457,7 +1483,7 @@ if(ga_enabled){
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Last updated on Nov 23, 2014.
+      Last updated on Nov 24, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

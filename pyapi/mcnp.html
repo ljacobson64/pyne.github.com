@@ -103,55 +103,6 @@ mesh manipulation methods.</p>
 <p class="rubric">Notes</p>
 <p>All Mesh/StatMesh attributes are also present via a super() call to
 StatMesh.__init__().</p>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="13%" />
-<col width="14%" />
-<col width="72%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>tally_number</td>
-<td>int</td>
-<td>The MCNP tally number. Must end in 4 (e.g. 4, 14, 214).</td>
-</tr>
-<tr class="row-even"><td>particle</td>
-<td>string</td>
-<td>Either &#8220;neutron&#8221; for a neutron mesh tally or &#8220;photon&#8221; for a photon mesh
-tally.</td>
-</tr>
-<tr class="row-odd"><td>dose_response</td>
-<td>bool</td>
-<td>True is the tally is modified by a dose response function.</td>
-</tr>
-<tr class="row-even"><td>x_bounds</td>
-<td>list of floats</td>
-<td>The locations of mesh vertices in the x direction.</td>
-</tr>
-<tr class="row-odd"><td>y_bounds</td>
-<td>list of floats</td>
-<td>The locations of mesh vertices in the y direction.</td>
-</tr>
-<tr class="row-even"><td>z_bounds</td>
-<td>list of floats</td>
-<td>The locations of mesh vertices in the z direction.</td>
-</tr>
-<tr class="row-odd"><td>e_bounds</td>
-<td>list of floats</td>
-<td>The minimum and maximum bounds for energy bins</td>
-</tr>
-<tr class="row-even"><td>mesh :</td>
-<td>&nbsp;</td>
-<td>An iMesh instance tagged with all results and
-relative errors</td>
-</tr>
-<tr class="row-odd"><td>tag_names</td>
-<td>iterable</td>
-<td>Four strs that specify the tag names for the results, relative errors,
-total results, and relative errors of the total results.</td>
-</tr>
-</tbody>
-</table>
 <p>Create MeshTally object from a filestream open to the second
 line of a mesh tally header (the neutron/photon line). MeshTally objects
 should be instantiated only through the Meshtal class.</p>
@@ -169,7 +120,7 @@ should be instantiated only through the Meshtal class.</p>
 </div></blockquote>
 <p><strong>tag_names</strong> : iterable, optional</p>
 <blockquote>
-<div><p>Four strs that specify the tag names for the results, relative 
+<div><p>Four strs that specify the tag names for the results, relative
 errors, total results and relative errors of the total results.
 This should come from the Meshtal.tags attribute dict.</p>
 </div></blockquote>
@@ -190,7 +141,6 @@ objects.</p>
 <dd><p>This class stores all the information from an MCNP meshtal file with
 single or multiple fmesh4 neutron or photon tallies. The &#8220;tally&#8221; attribute
 provides key/value access to invidial MeshTally objects.</p>
-<p class="rubric">Attributes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -204,7 +154,7 @@ provides key/value access to invidial MeshTally objects.</p>
 <div><p>Maps integer tally numbers to iterables containing four strs: the
 results tag name, the relative error tag name, the total results
 tag name, and the total relative error tag name. If tags is None
-the tags are named &#8216;x_result&#8217;, &#8216;x_rel_error&#8217;, &#8216;x_result_total&#8217;, 
+the tags are named &#8216;x_result&#8217;, &#8216;x_rel_error&#8217;, &#8216;x_result_total&#8217;,
 &#8216;x_rel_error_total&#8217; where x is n or p for neutrons or photons.</p>
 </div></blockquote>
 <p><strong>meshes_have_mats</strong> : bool</p>
@@ -425,14 +375,14 @@ This updates the surface source in-place.</p>
 <dl class="method">
 <dt id="pyne.mcnp.SurfSrc.write_header">
 <tt class="descname">write_header</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.write_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.write_header" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write the first part of the MCNP surface source file. The header content 
+<dd><p>Write the first part of the MCNP surface source file. The header content
 comprises five parts shown below.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyne.mcnp.SurfSrc.write_tracklist">
 <tt class="descname">write_tracklist</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#SurfSrc.write_tracklist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.SurfSrc.write_tracklist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write track records for individual particles. Second part of the MCNP 
+<dd><p>Write track records for individual particles. Second part of the MCNP
 surface source file.  Tracklist is also known as a &#8216;phase space&#8217;.</p>
 </dd></dl>
 
@@ -448,76 +398,6 @@ simotaneous neutron and photon WWINP files are supported.</p>
 <p class="rubric">Notes</p>
 <p>Attribute names are identical to names speficied in WWINP file
 description in the MCNP5 User&#8217;s Guide Volume 3 Appendix J.</p>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="4%" />
-<col width="40%" />
-<col width="56%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>ni</td>
-<td>number of integers on card 2.</td>
-<td>ni = 1 for neutron WWINPs, ni = 2 for photon WWINPs or neutron + photon WWINPs.</td>
-</tr>
-<tr class="row-even"><td>nr</td>
-<td>int</td>
-<td>10 for rectangular, 16 for cylindrical.</td>
-</tr>
-<tr class="row-odd"><td>ne</td>
-<td>list of number of energy groups for neutrons and photons.</td>
-<td>If ni = 1 the list is only 1 value long,
-to represent the number of neutron energy groups</td>
-</tr>
-<tr class="row-even"><td>nf</td>
-<td>list of numbers</td>
-<td>of fine mesh points in the i, j, k dimensions</td>
-</tr>
-<tr class="row-odd"><td>nft</td>
-<td>int</td>
-<td>total number of fine mesh points</td>
-</tr>
-<tr class="row-even"><td>origin</td>
-<td>list of i, j, k</td>
-<td>minimums.</td>
-</tr>
-<tr class="row-odd"><td>nc</td>
-<td>list</td>
-<td>number of coarse mesh points in the i, j, k dimensions</td>
-</tr>
-<tr class="row-even"><td>nwg</td>
-<td>int</td>
-<td>1 for rectangular, 2 for cylindrical.</td>
-</tr>
-<tr class="row-odd"><td>cm</td>
-<td>list of lists</td>
-<td>of coarse mesh points in the i, j, k dimensions. Note
-the origin is not considered a coarse mesh point (as in MCNP).</td>
-</tr>
-<tr class="row-even"><td>fm</td>
-<td>list of lists</td>
-<td>of number of fine mesh points between the coarses
-mesh points in the i, j, k dimensions.</td>
-</tr>
-<tr class="row-odd"><td>e</td>
-<td>list of lists</td>
-<td>of energy upper bounds for neutrons, photons. If
-ni = 1, the e will look like [[]]. If ni = 2, e will look like
-[[], []].</td>
-</tr>
-<tr class="row-even"><td>bounds</td>
-<td>list of lists</td>
-<td>of spacial bounds in the i, j, k dimensions.</td>
-</tr>
-<tr class="row-odd"><td>mesh</td>
-<td>Mesh object</td>
-<td>with a structured mesh containing all the neutron and/or
-photon weight window lower bounds. These tags have the form
-&#8220;ww_X&#8221; where X is n or p The mesh has rootSet tags in the form
-X_e_upper_bounds.</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyne.mcnp.Wwinp.read_mesh">
 <tt class="descname">read_mesh</tt><big>(</big><em>mesh</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#Wwinp.read_mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.Wwinp.read_mesh" title="Permalink to this definition">¶</a></dt>
@@ -547,42 +427,6 @@ X_e_upper_bounds containing a list of energy upper bounds.</p>
 <dd><p>This class stores the information contained in a single MCNP xsdir file.</p>
 <p class="rubric">Notes</p>
 <p>See MCNP5 User&#8217;s Guide Volume 3 Appendix K for more information.</p>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="10%" />
-<col width="13%" />
-<col width="77%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>f</td>
-<td>file handle</td>
-<td>The xsdir file.</td>
-</tr>
-<tr class="row-even"><td>filename</td>
-<td>str</td>
-<td>Path to the xsdir file.</td>
-</tr>
-<tr class="row-odd"><td>directory</td>
-<td>str</td>
-<td>Path to the directory containing the xsdir file.</td>
-</tr>
-<tr class="row-even"><td>datapath</td>
-<td>str</td>
-<td>The data path specified in the first line of the xsdir file, if it
-exists.</td>
-</tr>
-<tr class="row-odd"><td>awr</td>
-<td>dict</td>
-<td>Maps material ids to their atomic weight ratios.</td>
-</tr>
-<tr class="row-even"><td>tables</td>
-<td>list</td>
-<td>Entries are XsdirTable objects, that appear in the same order as the
-xsdir table lines.</td>
-</tr>
-</tbody>
-</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -668,68 +512,8 @@ in the xsdir.</p>
 <dt id="pyne.mcnp.XsdirTable">
 <em class="property">class </em><tt class="descclassname">pyne.mcnp.</tt><tt class="descname">XsdirTable</tt><a class="reference internal" href="../_modules/pyne/mcnp.html#XsdirTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.XsdirTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stores all information that describes a xsdir table entry, which appears
-as a single line in xsdir file. Attribute names are based off of those found in
-the MCNP5 User&#8217;s Guide Volume 3, appendix K.</p>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="14%" />
-<col width="6%" />
-<col width="80%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>name</td>
-<td>str</td>
-<td>The ZAID and library identifier, delimited by a &#8216;.&#8217;.</td>
-</tr>
-<tr class="row-even"><td>awr</td>
-<td>float</td>
-<td>The atomic mass ratio of the nuclide.</td>
-</tr>
-<tr class="row-odd"><td>filename</td>
-<td>str</td>
-<td>The relative path of the file containing the xs table.</td>
-</tr>
-<tr class="row-even"><td>access</td>
-<td>str</td>
-<td>Additional string to specify an access route, such as UNIX directory.
-This entry is typically 0.</td>
-</tr>
-<tr class="row-odd"><td>filetype</td>
-<td>int</td>
-<td>Describes whether the file contains formated (1) or unformated (2)
-file.</td>
-</tr>
-<tr class="row-even"><td>address</td>
-<td>int</td>
-<td>If filetype is 1, address is the line number of the xsdir table. If
-filetype is 2, address is the record number.</td>
-</tr>
-<tr class="row-odd"><td>tablelength</td>
-<td>int</td>
-<td>Length of the second block of a data table.</td>
-</tr>
-<tr class="row-even"><td>recordlength</td>
-<td>int</td>
-<td>Unused for filetype = 1. For filetype = 2, recordlength is the number
-of entires per record times the size (in bytes) of each entry.</td>
-</tr>
-<tr class="row-odd"><td>entries</td>
-<td>int</td>
-<td>Unused for filetype = 1. For filetype = 2, it is the number of entries
-per record</td>
-</tr>
-<tr class="row-even"><td>temperature</td>
-<td>float</td>
-<td>Temperature in MeV for neutron data only.</td>
-</tr>
-<tr class="row-odd"><td>ptable</td>
-<td>bool</td>
-<td>True if xs table describes continuous energy neutron data with
-unresolved resonance range probability tables.</td>
-</tr>
-</tbody>
-</table>
+as a single line in xsdir file. Attribute names are based off of those
+found in the MCNP5 User&#8217;s Guide Volume 3, appendix K.</p>
 <dl class="method">
 <dt id="pyne.mcnp.XsdirTable.to_serpent">
 <tt class="descname">to_serpent</tt><big>(</big><em>directory=''</em><big>)</big><a class="reference internal" href="../_modules/pyne/mcnp.html#XsdirTable.to_serpent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mcnp.XsdirTable.to_serpent" title="Permalink to this definition">¶</a></dt>
@@ -858,29 +642,29 @@ mat_from_mcnp.</p>
   <div class="sphinxlocaltoc">
   <h3>Contents</h3>
     <ul><li><ul>
-    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a href="index.html">Capabilities</a></li>
     <li><a>Get Started</a></li>
     <ul>
-       <li><a href="http://pyne.io/install/index.html">Install</a></li>
-       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+       <li><a href="../install/index.html">Install</a></li>
+       <li><a href="../tutorial/index.html">Tutorial</a></li>
     </ul>
     <li><a>Use</a></li>
     <ul>
-       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a href="../usersguide/index.html">User's Guide</a></li>
        <li><a>API Documentation</a></li>
        <ul>
-          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
-          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+          <li><a href="index.html">Python</a></li>
+          <li><a href="../cppapi/index.html">C++</a></li>
        </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
        <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
     </ul>
     <li><a>Contribute</a></li>
     <ul>
        <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="../devsguide/index.html">Developer's Guide</a></li>
        <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
     </ul>
     </ul></li></ul>
   </div>

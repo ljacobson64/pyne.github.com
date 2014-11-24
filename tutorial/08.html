@@ -10791,11 +10791,50 @@ In&nbsp;[1]:
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/slayer/.local/lib/python2.7/site-packages/pyne/mesh.py:12: VnVWarning: pyne.mesh is not yet V&amp;V compliant.
+  warn(__name__ + &quot; is not yet V&amp;V compliant.&quot;, VnVWarning)
+/home/slayer/.local/lib/python2.7/site-packages/pyne/mesh.py:20: VnVWarning: pyne.data is not yet V&amp;V compliant.
+  from pyne.material import Material, MaterialLibrary, MultiMaterial
+/home/slayer/.local/lib/python2.7/site-packages/pyne/mesh.py:20: VnVWarning: pyne.material is not yet V&amp;V compliant.
+  from pyne.material import Material, MaterialLibrary, MultiMaterial
+/home/slayer/.local/lib/python2.7/site-packages/pyne/xs/cache.py:14: VnVWarning: pyne.xs.models is not yet V&amp;V compliant.
+  from pyne.xs.models import partial_energy_matrix, phi_g
+/home/slayer/.local/lib/python2.7/site-packages/pyne/openmc.py:18: VnVWarning: pyne.openmc is not yet V&amp;V compliant.
+  warn(__name__ + &quot; is not yet V&amp;V compliant.&quot;, VnVWarning)
+/home/slayer/.local/lib/python2.7/site-packages/pyne/xs/data_source.py:22: VnVWarning: pyne.rxname is not yet V&amp;V compliant.
+  from pyne import rxname
+/home/slayer/.local/lib/python2.7/site-packages/pyne/rxdata.py:5: VnVWarning: pyne.rxdata is not yet V&amp;V compliant.
+  warn(__name__ + &quot; is not yet V&amp;V compliant.&quot;, VnVWarning)
+/home/slayer/.local/lib/python2.7/site-packages/pyne/xs/data_source.py:23: VnVWarning: pyne.endf is not yet V&amp;V compliant.
+  from pyne import endf
+/home/slayer/.local/lib/python2.7/site-packages/pyne/xs/data_source.py:24: VnVWarning: pyne.bins is not yet V&amp;V compliant.
+  from pyne import bins
+/home/slayer/.local/lib/python2.7/site-packages/pyne/xs/data_source.py:25: VnVWarning: pyne.ace is not yet V&amp;V compliant.
+  from pyne import ace
+/home/slayer/.local/lib/python2.7/site-packages/pyne/xs/data_source.py:29: VnVWarning: pyne.xs.data_source is not yet V&amp;V compliant.
+  warn(__name__ + &quot; is not yet V&amp;V compliant.&quot;, VnVWarning)
+/home/slayer/.local/lib/python2.7/site-packages/pyne/xs/cache.py:18: VnVWarning: pyne.xs.cache is not yet V&amp;V compliant.
+  warn(__name__ + &quot; is not yet V&amp;V compliant.&quot;, VnVWarning)
+/home/slayer/.local/lib/python2.7/site-packages/pyne/xs/channels.py:26: VnVWarning: pyne.xs.channels is not yet V&amp;V compliant.
+  warn(__name__ + &quot; is not yet V&amp;V compliant.&quot;, VnVWarning)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[10]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -10821,7 +10860,7 @@ In&nbsp;[2]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[3]:
+In&nbsp;[11]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -10874,7 +10913,7 @@ In&nbsp;[3]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[36]:
+In&nbsp;[12]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -10916,7 +10955,7 @@ In&nbsp;[36]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[37]:
+In&nbsp;[13]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -10959,7 +10998,7 @@ In&nbsp;[37]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[38]:
+In&nbsp;[14]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -11014,7 +11053,7 @@ In&nbsp;[38]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[39]:
+In&nbsp;[15]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -11022,6 +11061,39 @@ In&nbsp;[39]:
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_pyerr">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">ValueError</span>                                Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-15-95dce1dcf2a4&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">----&gt; 1</span><span class="ansiyellow"> </span>rx <span class="ansiyellow">=</span> create_reactor<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">&lt;ipython-input-14-eff46afc4621&gt;</span> in <span class="ansicyan">create_reactor</span><span class="ansiblue">(multfact, radius)</span>
+<span class="ansigreen">     33</span>             phis<span class="ansiyellow">.</span>append<span class="ansiyellow">(</span><span class="ansicyan">4e14</span> <span class="ansiyellow">*</span> radius<span class="ansiyellow">**</span><span class="ansicyan">2</span> <span class="ansiyellow">/</span> r2 <span class="ansigreen">if</span> r2 <span class="ansiyellow">&lt;</span> <span class="ansicyan">0.7</span><span class="ansiyellow">**</span><span class="ansicyan">2</span> <span class="ansigreen">else</span> <span class="ansicyan">0.0</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">     34</span>             ks<span class="ansiyellow">.</span>append<span class="ansiyellow">(</span><span class="ansicyan">0.0</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">---&gt; 35</span><span class="ansiyellow">     </span>rx<span class="ansiyellow">.</span>D<span class="ansiyellow">[</span><span class="ansiyellow">:</span><span class="ansiyellow">]</span> <span class="ansiyellow">=</span> Ds<span class="ansiyellow"></span>
+<span class="ansigreen">     36</span>     rx<span class="ansiyellow">.</span>Sigma_a<span class="ansiyellow">[</span><span class="ansiyellow">:</span><span class="ansiyellow">]</span> <span class="ansiyellow">=</span> Sigma_as<span class="ansiyellow"></span>
+<span class="ansigreen">     37</span>     rx<span class="ansiyellow">.</span>phi<span class="ansiyellow">[</span><span class="ansiyellow">:</span><span class="ansiyellow">]</span> <span class="ansiyellow">=</span> phis<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/slayer/.local/lib/python2.7/site-packages/pyne/mesh.pyc</span> in <span class="ansicyan">__setitem__</span><span class="ansiblue">(self, key, value)</span>
+<span class="ansigreen">    398</span>             v <span class="ansiyellow">=</span> np<span class="ansiyellow">.</span>empty<span class="ansiyellow">(</span>len<span class="ansiyellow">(</span>key<span class="ansiyellow">)</span><span class="ansiyellow">,</span> self<span class="ansiyellow">.</span>tag<span class="ansiyellow">.</span>type<span class="ansiyellow">)</span> <span class="ansigreen">if</span> tsize <span class="ansiyellow">==</span> <span class="ansicyan">1</span> <span class="ansigreen">else</span><span class="ansired"> </span><span class="ansired">\</span><span class="ansiyellow"></span>
+<span class="ansigreen">    399</span>                 np<span class="ansiyellow">.</span>empty<span class="ansiyellow">(</span><span class="ansiyellow">(</span>len<span class="ansiyellow">(</span>key<span class="ansiyellow">)</span><span class="ansiyellow">,</span> tsize<span class="ansiyellow">)</span><span class="ansiyellow">,</span> self<span class="ansiyellow">.</span>tag<span class="ansiyellow">.</span>type<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 400</span><span class="ansiyellow">             </span>v<span class="ansiyellow">[</span><span class="ansiyellow">.</span><span class="ansiyellow">.</span><span class="ansiyellow">.</span><span class="ansiyellow">]</span> <span class="ansiyellow">=</span> value<span class="ansiyellow"></span>
+<span class="ansigreen">    401</span>             mtag<span class="ansiyellow">[</span>key<span class="ansiyellow">]</span> <span class="ansiyellow">=</span> v<span class="ansiyellow"></span>
+<span class="ansigreen">    402</span>         <span class="ansigreen">elif</span> isinstance<span class="ansiyellow">(</span>key<span class="ansiyellow">,</span> np<span class="ansiyellow">.</span>ndarray<span class="ansiyellow">)</span> <span class="ansigreen">and</span> key<span class="ansiyellow">.</span>dtype <span class="ansiyellow">==</span> np<span class="ansiyellow">.</span>bool<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansired">ValueError</span>: could not broadcast input array from shape (6300,1) into shape (6300)</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -16704,29 +16776,29 @@ AAAoQiQCAAAAQBEiEQAAAACK0P8Pi9n3wGhVwMkAAAAASUVORK5CYII=\
   <div class="sphinxlocaltoc">
   <h3>Contents</h3>
     <ul><li><ul>
-    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a href="../pyapi/index.html">Capabilities</a></li>
     <li><a>Get Started</a></li>
     <ul>
-       <li><a href="http://pyne.io/install/index.html">Install</a></li>
-       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+       <li><a href="../install/index.html">Install</a></li>
+       <li><a href="index.html">Tutorial</a></li>
     </ul>
     <li><a>Use</a></li>
     <ul>
-       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a href="../usersguide/index.html">User's Guide</a></li>
        <li><a>API Documentation</a></li>
        <ul>
-          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
-          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+          <li><a href="../pyapi/index.html">Python</a></li>
+          <li><a href="../cppapi/index.html">C++</a></li>
        </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
        <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
     </ul>
     <li><a>Contribute</a></li>
     <ul>
        <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="../devsguide/index.html">Developer's Guide</a></li>
        <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
     </ul>
     </ul></li></ul>
   </div>

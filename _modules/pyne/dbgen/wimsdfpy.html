@@ -102,7 +102,7 @@ if(ga_enabled){
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
-<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">QAWarning</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="kn">as</span> <span class="nn">urllib2</span>
@@ -119,7 +119,7 @@ if(ga_enabled){
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">pyne.dbgen.api</span> <span class="kn">import</span> <span class="n">BASIC_FILTERS</span>
 
-<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet QA compliant.&quot;</span><span class="p">,</span> <span class="n">QAWarning</span><span class="p">)</span>
 
 <div class="viewcode-block" id="grab_fpy"><a class="viewcode-back" href="../../../pyapi/dbgen/wimsdfpy.html#pyne.dbgen.wimsdfpy.grab_fpy">[docs]</a><span class="k">def</span> <span class="nf">grab_fpy</span><span class="p">(</span><span class="n">build_dir</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s">&#39;wimsd-fpyield.html&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Grabs the WIMS fission product yields from the IAEA website</span>
@@ -243,29 +243,29 @@ if(ga_enabled){
   <div class="sphinxlocaltoc">
   <h3>Contents</h3>
     <ul><li><ul>
-    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a href="../../../pyapi/index.html">Capabilities</a></li>
     <li><a>Get Started</a></li>
     <ul>
-       <li><a href="http://pyne.io/install/index.html">Install</a></li>
-       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+       <li><a href="../../../install/index.html">Install</a></li>
+       <li><a href="../../../tutorial/index.html">Tutorial</a></li>
     </ul>
     <li><a>Use</a></li>
     <ul>
-       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a href="../../../usersguide/index.html">User's Guide</a></li>
        <li><a>API Documentation</a></li>
        <ul>
-          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
-          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+          <li><a href="../../../pyapi/index.html">Python</a></li>
+          <li><a href="../../../cppapi/index.html">C++</a></li>
        </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
        <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
     </ul>
     <li><a>Contribute</a></li>
     <ul>
        <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="../../../devsguide/index.html">Developer's Guide</a></li>
        <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
     </ul>
     </ul></li></ul>
   </div>
@@ -311,7 +311,7 @@ if(ga_enabled){
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Last updated on Nov 23, 2014.
+      Last updated on Nov 24, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

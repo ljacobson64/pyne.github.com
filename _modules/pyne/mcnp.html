@@ -92,26 +92,23 @@ if(ga_enabled){
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">collections</span>
-<span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">struct</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">linecache</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
-<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">VnVWarning</span>
-<span class="kn">import</span> <span class="nn">itertools</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tables</span>
 
+<span class="kn">from</span> <span class="nn">pyne.utils</span> <span class="kn">import</span> <span class="n">QAWarning</span>
 <span class="kn">from</span> <span class="nn">pyne.material</span> <span class="kn">import</span> <span class="n">Material</span>
 <span class="kn">from</span> <span class="nn">pyne.material</span> <span class="kn">import</span> <span class="n">MultiMaterial</span>
 <span class="kn">from</span> <span class="nn">pyne</span> <span class="kn">import</span> <span class="n">nucname</span>
 <span class="kn">from</span> <span class="nn">pyne.binaryreader</span> <span class="kn">import</span> <span class="n">_BinaryReader</span><span class="p">,</span> <span class="n">_FortranRecord</span>
 
-<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet V&amp;V compliant.&quot;</span><span class="p">,</span> <span class="n">VnVWarning</span><span class="p">)</span>
+<span class="n">warn</span><span class="p">(</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot; is not yet QA compliant.&quot;</span><span class="p">,</span> <span class="n">QAWarning</span><span class="p">)</span>
 
 <span class="c"># Mesh specific imports</span>
 <span class="k">try</span><span class="p">:</span>
@@ -120,10 +117,10 @@ if(ga_enabled){
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">warn</span><span class="p">(</span><span class="s">&quot;the PyTAPS optional dependency could not be imported. &quot;</span>
                   <span class="s">&quot;Some aspects of the mcnp module may be incomplete.&quot;</span><span class="p">,</span>
-                  <span class="n">VnVWarning</span><span class="p">)</span>
+                  <span class="n">QAWarning</span><span class="p">)</span>
     <span class="n">HAVE_PYTAPS</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="kn">from</span> <span class="nn">pyne.mesh</span> <span class="kn">import</span> <span class="n">Mesh</span><span class="p">,</span> <span class="n">StatMesh</span><span class="p">,</span> <span class="n">MeshError</span><span class="p">,</span> <span class="n">IMeshTag</span>
+<span class="kn">from</span> <span class="nn">pyne.mesh</span> <span class="kn">import</span> <span class="n">Mesh</span><span class="p">,</span> <span class="n">StatMesh</span><span class="p">,</span> <span class="n">IMeshTag</span>
 
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">cmp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
@@ -520,7 +517,7 @@ if(ga_enabled){
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">njsw</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">njsw</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">niwr</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_fortran_record</span><span class="p">()</span>
             <span class="n">warn</span><span class="p">(</span><span class="s">&quot;Extra info in header not handled: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="p">),</span>
-                          <span class="ne">RuntimeWarning</span><span class="p">)</span>
+                 <span class="ne">RuntimeWarning</span><span class="p">)</span>
 
         <span class="c"># read summary table record</span>
         <span class="n">summary_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fortran_record</span><span class="p">()</span>
@@ -632,7 +629,7 @@ if(ga_enabled){
         <span class="k">return</span>
 </div>
 <div class="viewcode-block" id="SurfSrc.write_header"><a class="viewcode-back" href="../../pyapi/mcnp.html#pyne.mcnp.SurfSrc.write_header">[docs]</a>    <span class="k">def</span> <span class="nf">write_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Write the first part of the MCNP surface source file. The header content </span>
+        <span class="sd">&quot;&quot;&quot;Write the first part of the MCNP surface source file. The header content</span>
 <span class="sd">        comprises five parts shown below.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">put_header</span><span class="p">()</span>
@@ -642,7 +639,7 @@ if(ga_enabled){
         <span class="bp">self</span><span class="o">.</span><span class="n">put_summary</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SurfSrc.write_tracklist"><a class="viewcode-back" href="../../pyapi/mcnp.html#pyne.mcnp.SurfSrc.write_tracklist">[docs]</a>    <span class="k">def</span> <span class="nf">write_tracklist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Write track records for individual particles. Second part of the MCNP </span>
+        <span class="sd">&quot;&quot;&quot;Write track records for individual particles. Second part of the MCNP</span>
 <span class="sd">        surface source file.  Tracklist is also known as a &#39;phase space&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -719,7 +716,7 @@ if(ga_enabled){
         <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fortran_record</span><span class="p">()</span>
 
         <span class="c"># interpret header block</span>
-        <span class="c">#NOTUSED k = header.get_int()  # unique code (947830)</span>
+        <span class="c"># NOTUSED k = header.get_int()  # unique code (947830)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loc_next</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get_int</span><span class="p">()</span>  <span class="c"># loc. of next site in FSO arr (ixak)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_run</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get_int</span><span class="p">()</span>  <span class="c"># source particles yet to be run (nsa)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loc_store</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get_int</span><span class="p">()</span>  <span class="c"># where to put nxt src neutron (ist)</span>
@@ -902,12 +899,12 @@ if(ga_enabled){
 </div>
 <div class="viewcode-block" id="Xsdir.find_table"><a class="viewcode-back" href="../../pyapi/mcnp.html#pyne.mcnp.Xsdir.find_table">[docs]</a>    <span class="k">def</span> <span class="nf">find_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Find all tables for a given ZIAD.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        name : str</span>
 <span class="sd">            The ZIAD name.</span>
-<span class="sd"> </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        tables : list</span>
@@ -947,15 +944,16 @@ if(ga_enabled){
 <span class="sd">        valid_nucs : set</span>
 <span class="sd">            The valid nuclide ids.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">valid_nucs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">nucname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span> <span class="k">if</span>
+        <span class="n">valid_nucs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">nucname</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                         <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span> <span class="k">if</span>
                          <span class="n">nucname</span><span class="o">.</span><span class="n">isnuclide</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="k">return</span> <span class="n">valid_nucs</span>
 
 </div></div>
 <div class="viewcode-block" id="XsdirTable"><a class="viewcode-back" href="../../pyapi/mcnp.html#pyne.mcnp.XsdirTable">[docs]</a><span class="k">class</span> <span class="nc">XsdirTable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Stores all information that describes a xsdir table entry, which appears</span>
-<span class="sd">    as a single line in xsdir file. Attribute names are based off of those found in</span>
-<span class="sd">    the MCNP5 User&#39;s Guide Volume 3, appendix K.</span>
+<span class="sd">    as a single line in xsdir file. Attribute names are based off of those</span>
+<span class="sd">    found in the MCNP5 User&#39;s Guide Volume 3, appendix K.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -1200,7 +1198,7 @@ if(ga_enabled){
             <span class="n">number</span> <span class="o">=</span> <span class="n">length</span> <span class="o">//</span> <span class="n">format_length</span>
 
             <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">b</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">endianness</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> 
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">b</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">endianness</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span>
                                 <span class="p">(</span><span class="n">format</span><span class="o">*</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">b</span><span class="s">&#39;i&#39;</span><span class="p">]),</span> <span class="n">b</span><span class="p">)</span>
             <span class="n">length2</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -1683,7 +1681,7 @@ if(ga_enabled){
                             <span class="o">*</span> <span class="n">k</span> <span class="o">/</span> <span class="n">removed_values</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">removed_values</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_read_block3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
-        <span class="c">#Retrives all the information of the block 3 of a wwinp file.</span>
+        <span class="c"># Retrives all the information of the block 3 of a wwinp file.</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="p">[[]]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ne</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
@@ -1719,7 +1717,7 @@ if(ga_enabled){
         <span class="k">elif</span> <span class="n">particle</span> <span class="o">==</span> <span class="s">&#39;p&#39;</span><span class="p">:</span>
             <span class="n">particle_index</span> <span class="o">=</span> <span class="mi">1</span>
 
-       <span class="c"># read in WW data for a single particle type</span>
+        <span class="c"># read in WW data for a single particle type</span>
         <span class="n">ww_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ne</span><span class="p">[</span><span class="n">particle_index</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nft</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ne</span><span class="p">[</span><span class="n">particle_index</span><span class="p">]):</span>
             <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1730,11 +1728,11 @@ if(ga_enabled){
 
             <span class="n">ww_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ww_row</span>
 
-        <span class="c">#create vector tags for data</span>
+        <span class="c"># create vector tags for data</span>
         <span class="n">tag_ww</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">createTag</span><span class="p">(</span>
             <span class="s">&quot;ww_{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">particle</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ne</span><span class="p">[</span><span class="n">particle_index</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
 
-        <span class="c">#tag vector data to mesh</span>
+        <span class="c"># tag vector data to mesh</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">volume_element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">volume_elements</span><span class="p">):</span>
             <span class="n">tag_ww</span><span class="p">[</span><span class="n">volume_element</span><span class="p">]</span> <span class="o">=</span> <span class="n">ww_data</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
 
@@ -1753,7 +1751,7 @@ if(ga_enabled){
             <span class="bp">self</span><span class="o">.</span><span class="n">_write_block3</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </div>
     <span class="k">def</span> <span class="nf">_write_block1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
-        <span class="c">#Writes the all block 1 data to WWINP file</span>
+        <span class="c"># Writes the all block 1 data to WWINP file</span>
 
         <span class="n">block1</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
 
@@ -1787,7 +1785,7 @@ if(ga_enabled){
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">block1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_write_block2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
-        <span class="c">#Writes the all block 2 data to WWINP file</span>
+        <span class="c"># Writes the all block 2 data to WWINP file</span>
 
         <span class="c"># Create an array of values to be print in block 2.</span>
         <span class="n">block2_array</span> <span class="o">=</span> <span class="p">[[],</span> <span class="p">[],</span> <span class="p">[]]</span>
@@ -1813,7 +1811,7 @@ if(ga_enabled){
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">block2</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_write_block3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
-        <span class="c">#Writes the all block 3 data to WWINP file</span>
+        <span class="c"># Writes the all block 3 data to WWINP file</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ne</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_write_block3_single</span><span class="p">(</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
@@ -1974,7 +1972,7 @@ if(ga_enabled){
 <span class="sd">        Maps integer tally numbers to iterables containing four strs, the</span>
 <span class="sd">        results tag name, the relative error tag name, the total results</span>
 <span class="sd">        tag name, and the total relative error tag name. If tags is None</span>
-<span class="sd">        the tags are named &#39;x_result&#39;, &#39;x_rel_error&#39;, &#39;x_result_total&#39;, </span>
+<span class="sd">        the tags are named &#39;x_result&#39;, &#39;x_rel_error&#39;, &#39;x_result_total&#39;,</span>
 <span class="sd">        &#39;x_rel_error_total&#39; where x is n or p for neutrons or photons.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1988,11 +1986,11 @@ if(ga_enabled){
 <span class="sd">            Maps integer tally numbers to iterables containing four strs: the</span>
 <span class="sd">            results tag name, the relative error tag name, the total results</span>
 <span class="sd">            tag name, and the total relative error tag name. If tags is None</span>
-<span class="sd">            the tags are named &#39;x_result&#39;, &#39;x_rel_error&#39;, &#39;x_result_total&#39;, </span>
+<span class="sd">            the tags are named &#39;x_result&#39;, &#39;x_rel_error&#39;, &#39;x_result_total&#39;,</span>
 <span class="sd">            &#39;x_rel_error_total&#39; where x is n or p for neutrons or photons.</span>
 <span class="sd">        meshes_have_mats : bool</span>
 <span class="sd">             If false, Meshtally objects will be created without PyNE material</span>
-<span class="sd">             material objects. </span>
+<span class="sd">             material objects.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_PYTAPS</span><span class="p">:</span>
@@ -2012,13 +2010,13 @@ if(ga_enabled){
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">line_1</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-        <span class="c">#set mcnp version</span>
+        <span class="c"># set mcnp version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">line_1</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="c">#get version date (&quot;ld&quot; in MCNP User&#39;s Manual)</span>
+        <span class="c"># get version date (&quot;ld&quot; in MCNP User&#39;s Manual)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ld</span> <span class="o">=</span> <span class="n">line_1</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">:]</span>
 
         <span class="n">line_2</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-        <span class="c">#store title card</span>
+        <span class="c"># store title card</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">line_2</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
         <span class="n">line_3</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
@@ -2035,11 +2033,11 @@ if(ga_enabled){
                 <span class="n">tally_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">])</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">tally_num</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">tally_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">MeshTally</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tally_num</span><span class="p">,</span>
-                                            <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">tally_num</span><span class="p">],</span>
-                                            <span class="n">mesh_has_mats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_meshes_have_mats</span><span class="p">)</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">[</span><span class="n">tally_num</span><span class="p">],</span>
+                                          <span class="n">mesh_has_mats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_meshes_have_mats</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">tally</span><span class="p">[</span><span class="n">tally_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">MeshTally</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tally_num</span><span class="p">,</span>
-                                            <span class="n">mesh_has_mats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_meshes_have_mats</span><span class="p">)</span>
+                                          <span class="n">mesh_has_mats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_meshes_have_mats</span><span class="p">)</span>
 
             <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
 
@@ -2094,12 +2092,12 @@ if(ga_enabled){
 <span class="sd">        tally number : int</span>
 <span class="sd">            The MCNP fmesh4 tally number (e.g. 4, 14, 24).</span>
 <span class="sd">        tag_names : iterable, optional</span>
-<span class="sd">            Four strs that specify the tag names for the results, relative </span>
+<span class="sd">            Four strs that specify the tag names for the results, relative</span>
 <span class="sd">            errors, total results and relative errors of the total results.</span>
 <span class="sd">            This should come from the Meshtal.tags attribute dict.</span>
 <span class="sd">        mesh_has_mats : bool</span>
 <span class="sd">             If false, Meshtally objects will be created without PyNE material</span>
-<span class="sd">             objects. </span>
+<span class="sd">             objects.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_PYTAPS</span><span class="p">:</span>
@@ -2109,9 +2107,9 @@ if(ga_enabled){
         <span class="bp">self</span><span class="o">.</span><span class="n">tally_number</span> <span class="o">=</span> <span class="n">tally_number</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_read_meshtally_head</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_read_column_order</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-        
+
         <span class="k">if</span> <span class="n">tag_names</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;{0}_result&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;{0}_result&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span>
                               <span class="s">&quot;{0}_rel_error&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span>
                               <span class="s">&quot;{0}_result_total&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">),</span>
                               <span class="s">&quot;{0}_rel_error_total&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">particle</span><span class="p">))</span>
@@ -2130,7 +2128,7 @@ if(ga_enabled){
         <span class="k">elif</span> <span class="p">(</span><span class="s">&#39;photon&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">particle</span> <span class="o">=</span> <span class="s">&#39;photon&#39;</span>
 
-        <span class="c">#determine if meshtally flux-to-dose conversion factors are being used.</span>
+        <span class="c"># determine if meshtally flux-to-dose conversion factors are being used.</span>
         <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
         <span class="n">dr_str</span> <span class="o">=</span> <span class="s">&#39;This mesh tally is modified by a dose response function.&#39;</span>
         <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="n">dr_str</span><span class="p">:</span>
@@ -2138,7 +2136,7 @@ if(ga_enabled){
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dose_response</span> <span class="o">=</span> <span class="bp">False</span>
 
-        <span class="c">#advance the file to the line where x, y, z, bounds start</span>
+        <span class="c"># advance the file to the line where x, y, z, bounds start</span>
         <span class="k">while</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">!=</span> <span class="s">&#39;Tally bin boundaries:&#39;</span><span class="p">:</span>
             <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
 
@@ -2152,7 +2150,7 @@ if(ga_enabled){
                                  <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_bounds</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
                                  <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_bounds</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
 
-        <span class="c">#skip blank line between enery bin boundaries and table headings</span>
+        <span class="c"># skip blank line between enery bin boundaries and table headings</span>
         <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_read_column_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
@@ -2193,18 +2191,20 @@ if(ga_enabled){
             <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">result_row</span>
             <span class="n">rel_error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel_error_row</span>
 
-        <span class="c">#Tag results and error vector to mesh</span>
-        <span class="n">res_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="n">num_e_groups</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">rel_err_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="n">num_e_groups</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c"># Tag results and error vector to mesh</span>
+        <span class="n">res_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="n">num_e_groups</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                           <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">rel_err_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="n">num_e_groups</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                               <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">num_e_groups</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">res_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">rel_err_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">res_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
             <span class="n">rel_err_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">rel_error</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-        
-        <span class="c">#If &quot;total&quot; data exists (i.e. if there is more than</span>
-        <span class="c">#1 energy group) get it and tag it onto the mesh.</span>
+
+        <span class="c"># If &quot;total&quot; data exists (i.e. if there is more than</span>
+        <span class="c"># 1 energy group) get it and tag it onto the mesh.</span>
         <span class="k">if</span> <span class="n">num_e_groups</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">rel_error</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2215,7 +2215,8 @@ if(ga_enabled){
                     <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_column_idx</span><span class="p">[</span><span class="s">&quot;Rel_Error&quot;</span><span class="p">]]))</span>
 
             <span class="n">res_tot_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-            <span class="n">rel_err_tot_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="n">rel_err_tot_tag</span> <span class="o">=</span> <span class="n">IMeshTag</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mesh</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                                       <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_names</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
             <span class="n">res_tot_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">result</span>
             <span class="n">rel_err_tot_tag</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">rel_error</span>
 
@@ -2235,7 +2236,7 @@ if(ga_enabled){
 <span class="sd">        definition.</span>
 <span class="sd">    title_card : str, optional</span>
 <span class="sd">        The MCNP title card to appear at the top of the input file.</span>
-<span class="sd">   </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    geom : str</span>
@@ -2247,13 +2248,14 @@ if(ga_enabled){
     <span class="n">divs</span> <span class="o">=</span> <span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">structured_get_divisions</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">),</span>
             <span class="n">mesh</span><span class="o">.</span><span class="n">structured_get_divisions</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">),</span>
             <span class="n">mesh</span><span class="o">.</span><span class="n">structured_get_divisions</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">))</span>
- 
+
     <span class="n">cell_cards</span> <span class="o">=</span> <span class="n">_mesh_to_cell_cards</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">divs</span><span class="p">)</span>
     <span class="n">surf_cards</span> <span class="o">=</span> <span class="n">_mesh_to_surf_cards</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">divs</span><span class="p">)</span>
     <span class="n">mat_cards</span> <span class="o">=</span> <span class="n">_mesh_to_mat_cards</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">divs</span><span class="p">,</span> <span class="n">frac_type</span><span class="p">)</span>
- 
-    <span class="k">return</span> <span class="s">&quot;{0}</span><span class="se">\n</span><span class="s">{1}</span><span class="se">\n</span><span class="s">{2}</span><span class="se">\n</span><span class="s">{3}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">title_card</span><span class="p">,</span> <span class="n">cell_cards</span><span class="p">,</span> 
-                                              <span class="n">surf_cards</span><span class="p">,</span> <span class="n">mat_cards</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s">&quot;{0}</span><span class="se">\n</span><span class="s">{1}</span><span class="se">\n</span><span class="s">{2}</span><span class="se">\n</span><span class="s">{3}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">title_card</span><span class="p">,</span> <span class="n">cell_cards</span><span class="p">,</span>
+                                       <span class="n">surf_cards</span><span class="p">,</span> <span class="n">mat_cards</span><span class="p">)</span>
+
 </div>
 <span class="k">def</span> <span class="nf">_mesh_to_cell_cards</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">divs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Prepares the cell cards for mesh_to_geom.&quot;&quot;&quot;</span>
@@ -2270,22 +2272,23 @@ if(ga_enabled){
     <span class="n">z_max</span> <span class="o">=</span> <span class="n">y_max</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">divs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">divs</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
-       <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">divs</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
-           <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">divs</span><span class="p">[</span><span class="mi">2</span><span class="p">])):</span>
-               <span class="c"># Cell number, mat number, density</span>
-               <span class="n">cell_cards</span> <span class="o">+=</span> <span class="s">&quot;{0} {1} {2} &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> 
-                                                   <span class="n">mesh</span><span class="o">.</span><span class="n">density</span><span class="p">[</span><span class="n">idx</span><span class="o">.</span><span class="n">next</span><span class="p">()])</span>
-               <span class="c"># x, y, and z surfaces</span>
-               <span class="n">cell_cards</span> <span class="o">+=</span> <span class="s">&quot;{0} -{1} {2} -{3} {4} -{5}</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">x_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-                            <span class="n">k</span> <span class="o">+</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="n">y_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-               <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">divs</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">divs</span><span class="p">[</span><span class="mi">2</span><span class="p">])):</span>
+                <span class="c"># Cell number, mat number, density</span>
+                <span class="n">cell_cards</span> <span class="o">+=</span> <span class="s">&quot;{0} {1} {2} &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span>
+                                                    <span class="n">mesh</span><span class="o">.</span><span class="n">density</span><span class="p">[</span><span class="n">idx</span><span class="o">.</span><span class="n">next</span><span class="p">()])</span>
+                <span class="c"># x, y, and z surfaces</span>
+                <span class="n">cell_cards</span> <span class="o">+=</span> <span class="s">&quot;{0} -{1} {2} -{3} {4} -{5}</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                              <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">x_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                              <span class="n">k</span> <span class="o">+</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="n">y_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="c"># Append graveyard.</span>
     <span class="n">cell_cards</span> <span class="o">+=</span> <span class="s">&quot;{0} 0 -{1}:{2}:-{3}:{4}:-{5}:{6}</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                   <span class="n">count</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">z_min</span><span class="p">,</span> <span class="n">z_max</span><span class="p">)</span>
+                  <span class="n">count</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">z_min</span><span class="p">,</span> <span class="n">z_max</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">cell_cards</span>
+
 
 <span class="k">def</span> <span class="nf">_mesh_to_surf_cards</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">divs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Prepares the surface cards for mesh_to_geom.&quot;&quot;&quot;</span>
@@ -2298,6 +2301,7 @@ if(ga_enabled){
 
     <span class="k">return</span> <span class="n">surf_cards</span>
 
+
 <span class="k">def</span> <span class="nf">_mesh_to_mat_cards</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">divs</span><span class="p">,</span> <span class="n">frac_type</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Prepares the material cards for mesh_to_geom.&quot;&quot;&quot;</span>
     <span class="n">mat_cards</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
@@ -2305,7 +2309,7 @@ if(ga_enabled){
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
         <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;mat_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">mat_cards</span> <span class="o">+=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mcnp</span><span class="p">(</span><span class="n">frac_type</span><span class="o">=</span><span class="n">frac_type</span><span class="p">)</span>
-  
+
     <span class="k">return</span> <span class="n">mat_cards</span>
 </pre></div>
 
@@ -2320,29 +2324,29 @@ if(ga_enabled){
   <div class="sphinxlocaltoc">
   <h3>Contents</h3>
     <ul><li><ul>
-    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a href="../../pyapi/index.html">Capabilities</a></li>
     <li><a>Get Started</a></li>
     <ul>
-       <li><a href="http://pyne.io/install/index.html">Install</a></li>
-       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+       <li><a href="../../install/index.html">Install</a></li>
+       <li><a href="../../tutorial/index.html">Tutorial</a></li>
     </ul>
     <li><a>Use</a></li>
     <ul>
-       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a href="../../usersguide/index.html">User's Guide</a></li>
        <li><a>API Documentation</a></li>
        <ul>
-          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
-          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+          <li><a href="../../pyapi/index.html">Python</a></li>
+          <li><a href="../../cppapi/index.html">C++</a></li>
        </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
        <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
     </ul>
     <li><a>Contribute</a></li>
     <ul>
        <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="../../devsguide/index.html">Developer's Guide</a></li>
        <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
     </ul>
     </ul></li></ul>
   </div>
@@ -2388,7 +2392,7 @@ if(ga_enabled){
 
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Last updated on Nov 23, 2014.
+      Last updated on Nov 24, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

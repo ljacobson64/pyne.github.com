@@ -87,41 +87,13 @@ if(ga_enabled){
 <em class="property">class </em><tt class="descclassname">pyne.mesh.</tt><tt class="descname">Mesh</tt><big>(</big><em>mesh=None</em>, <em>structured=False</em>, <em>structured_coords=None</em>, <em>structured_set=None</em>, <em>structured_ordering='xyz'</em>, <em>mats=()</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class houses an iMesh instance and contains methods for various mesh
 operations. Special methods exploit the properties of structured mesh.</p>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="18%" />
-<col width="13%" />
-<col width="68%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>mesh</td>
-<td>iMesh instance</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-even"><td>structured</td>
-<td>bool</td>
-<td>True for structured mesh.</td>
-</tr>
-<tr class="row-odd"><td>structured_coords</td>
-<td>list of lists</td>
-<td>A list containing lists of x_points, y_points and z_points that make up
-a structured mesh.</td>
-</tr>
-<tr class="row-even"><td>structured_ordering</td>
-<td>str</td>
-<td>A three character string denoting the iteration order of the mesh (e.g.
-&#8216;xyz&#8217;, meaning z changest fastest, then y, then x.)</td>
-</tr>
-</tbody>
-</table>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mesh</strong> : iMesh instance or str, optional</p>
 <blockquote>
-<div><p>Either an iMesh instance or a file name of file containing an 
+<div><p>Either an iMesh instance or a file name of file containing an
 iMesh instance.</p>
 </div></blockquote>
 <p><strong>structured</strong> : bool, optional</p>
@@ -130,8 +102,8 @@ iMesh instance.</p>
 </div></blockquote>
 <p><strong>structured_coords</strong> : list of lists, optional</p>
 <blockquote>
-<div><p>A list containing lists of x_points, y_points and z_points that make up
-a structured mesh.</p>
+<div><p>A list containing lists of x_points, y_points and z_points
+that make up a structured mesh.</p>
 </div></blockquote>
 <p><strong>structured_set</strong> : iMesh entity set handle, optional</p>
 <blockquote>
@@ -140,13 +112,13 @@ a structured mesh.</p>
 </div></blockquote>
 <p><strong>structured_ordering</strong> : str, optional</p>
 <blockquote>
-<div><p>A three character string denoting the iteration order of the mesh (e.g.
-&#8216;xyz&#8217;, meaning z changest fastest, then y, then x.)</p>
+<div><p>A three character string denoting the iteration order of the mesh
+(e.g. &#8216;xyz&#8217;, meaning z changest fastest, then y, then x.)</p>
 </div></blockquote>
 <p><strong>mats</strong> : MaterialLibrary or dict or Materials or None, optional</p>
 <blockquote class="last">
-<div><p>This is a mapping of volume element handles to Material objects.  If 
-mats is None, then no empty materials are created for the mesh.</p>
+<div><p>This is a mapping of volume element handles to Material objects.
+If mats is None, then no empty materials are created for the mesh.</p>
 <dl class="docutils">
 <dt>Unstructured mesh instantiation:</dt>
 <dd><ul class="first last simple">
@@ -156,23 +128,24 @@ mats is None, then no empty materials are created for the mesh.</p>
 </dd>
 <dt>Structured mesh instantiation:</dt>
 <dd><ul class="first last simple">
-<li>From iMesh instance with exactly 1 entity set (with BOX_DIMS tag)
-by specifying &lt;mesh&gt; and structured = True.</li>
-<li>From mesh file with exactly 1 entity set (with BOX_DIMS tag) by
-specifying &lt;mesh_file&gt; and structured = True.</li>
-<li>From an imesh instance with multiple entity sets by specifying 
-&lt;mesh&gt;, &lt;structured_set&gt;, structured=True.</li>
+<li>From iMesh instance with exactly 1 entity set (with BOX_DIMS
+tag) by specifying &lt;mesh&gt; and structured = True.</li>
+<li>From mesh file with exactly 1 entity set (with BOX_DIMS tag)
+by specifying &lt;mesh_file&gt; and structured = True.</li>
+<li>From an imesh instance with multiple entity sets by
+specifying &lt;mesh&gt;, &lt;structured_set&gt;, structured=True.</li>
 <li>From coordinates by specifying &lt;structured_coords&gt;,
-structured=True, and optional preexisting iMesh instance &lt;mesh&gt;</li>
+structured=True, and optional preexisting iMesh instance
+&lt;mesh&gt;</li>
 </ul>
 </dd>
 </dl>
 <p>The &#8220;BOX_DIMS&#8221; tag on iMesh instances containing structured mesh is
 a vector of floats it the following form:
 [i_min, j_min, k_min, i_max, j_max, k_max]
-where each value is a volume element index number. Typically volume 
-elements should be indexed from 0. The &#8220;BOX_DIMS&#8221; information is stored
-in self.dims.</p>
+where each value is a volume element index number. Typically volume
+elements should be indexed from 0. The &#8220;BOX_DIMS&#8221; information is
+stored in self.dims.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -181,7 +154,7 @@ in self.dims.</p>
 <dl class="method">
 <dt id="pyne.mesh.Mesh.cell_fracs_to_mats">
 <tt class="descname">cell_fracs_to_mats</tt><big>(</big><em>cell_fracs</em>, <em>cell_mats</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.cell_fracs_to_mats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.cell_fracs_to_mats" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function uses the output from dagmc.discretize_geom() and 
+<dd><p>This function uses the output from dagmc.discretize_geom() and
 a mapping of geometry cells to Materials to assign materials
 to each mesh volume element.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -197,7 +170,7 @@ array, each entry containing the following fields:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">idx:</th><td class="field-body">int 
+<tr class="field-odd field"><th class="field-name">idx:</th><td class="field-body">int
 The volume element index.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">cell:</th><td class="field-body">int
@@ -212,8 +185,8 @@ The relative error associated with the volume fraction.</td>
 </tbody>
 </table>
 </div></blockquote>
-<p>The array must be sorted with respect to both idx and cell, with cell
-changing fastest.</p>
+<p>The array must be sorted with respect to both idx and cell, with
+cell changing fastest.</p>
 </div></blockquote>
 <p><strong>cell_mats</strong> : dict</p>
 <blockquote class="last">
@@ -261,7 +234,7 @@ material each cell is made of.</p>
 <dt id="pyne.mesh.Mesh.iter_structured_idx">
 <tt class="descname">iter_structured_idx</tt><big>(</big><em>order=None</em><big>)</big><a class="reference internal" href="../_modules/pyne/mesh.html#Mesh.iter_structured_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.Mesh.iter_structured_idx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterater object of volume element indexes (idx) for any
-iteration order. Note that idx is assigned upon instantiation in the 
+iteration order. Note that idx is assigned upon instantiation in the
 order of the structured_ordering attribute. This method is meant to be
 used when the order argument is different from structured_ordering.
 When they are the same, the iterator (0, 1, 2, ... N-1) is returned.</p>
@@ -384,8 +357,8 @@ the data.</p>
 </div></blockquote>
 <p><strong>tagtype</strong> : Tag or str, optional</p>
 <blockquote>
-<div><p>The type of tag this should be any of the following classes or 
-strings are accepted: IMeshTag, MetadataTag, ComputedTag, &#8216;imesh&#8217;, 
+<div><p>The type of tag this should be any of the following classes or
+strings are accepted: IMeshTag, MetadataTag, ComputedTag, &#8216;imesh&#8217;,
 &#8216;metadata&#8217;, or &#8216;computed&#8217;.</p>
 </div></blockquote>
 <p><strong>doc</strong> : str, optional</p>
@@ -446,8 +419,8 @@ volume element.</p>
 <dd><p>A mesh tag which looks itself up by calling a function (or other callable)
 with the following signature:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;mesh is a pyne.mesh.Mesh() object and i is the volume element index</span>
-<span class="sd">    to compute.</span>
+    <span class="sd">&quot;&quot;&quot;mesh is a pyne.mesh.Mesh() object and i is the volume element</span>
+<span class="sd">    index to compute.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c"># ... do some work ...</span>
     <span class="k">return</span> <span class="n">anything_you_want</span>
@@ -461,7 +434,7 @@ name:</p>
 <p>It also adds slicing, fancy indexing, boolean masking, and broadcasting
 features to this process.</p>
 <p class="rubric">Notes</p>
-<p>The results of computed tags are not stored and the function object itself 
+<p>The results of computed tags are not stored and the function object itself
 is also not persisted.  Therefore, you must manually re-tag the mesh with
 the desired functions each session.</p>
 </dd></dl>
@@ -483,8 +456,8 @@ features to this process.</p>
 <dl class="attribute">
 <dt id="pyne.mesh.MaterialMethodTag">
 <tt class="descclassname">pyne.mesh.</tt><tt class="descname">MaterialMethodTag</tt><a class="reference internal" href="../_modules/pyne/mesh.html#MaterialMethodTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.MaterialMethodTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>A mesh tag which looks itself up by calling a material method which takes 
-no arguments.  This makes the following expressions equivalent for a given 
+<dd><p>A mesh tag which looks itself up by calling a material method which takes
+no arguments.  This makes the following expressions equivalent for a given
 material method name:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
 </pre></div>
@@ -510,9 +483,10 @@ features to this process.</p>
 <dt id="pyne.mesh.MetadataTag">
 <tt class="descclassname">pyne.mesh.</tt><tt class="descname">MetadataTag</tt><a class="reference internal" href="../_modules/pyne/mesh.html#MetadataTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyne.mesh.MetadataTag" title="Permalink to this definition">¶</a></dt>
 <dd><p>A mesh tag which looks itself up as a material metadata attribute.
-Tags of this are untyped and may have any size.  Use this for catch-all tags.
-This makes the following expressions equivalent for a given material property
-name:</p>
+Tags of this are untyped and may have any size.  Use this for catch-all
+tags. This makes the following expressions equivalent for a given material
+property.</p>
+<p>name:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -542,29 +516,29 @@ metadata attributes.</p>
   <div class="sphinxlocaltoc">
   <h3>Contents</h3>
     <ul><li><ul>
-    <li><a href="http://pyne.io/pyapi/index.html">Capabilities</a></li>
+    <li><a href="index.html">Capabilities</a></li>
     <li><a>Get Started</a></li>
     <ul>
-       <li><a href="http://pyne.io/install/index.html">Install</a></li>
-       <li><a href="http://pyne.io/tutorial.html">Tutorial</a></li>
+       <li><a href="../install/index.html">Install</a></li>
+       <li><a href="../tutorial/index.html">Tutorial</a></li>
     </ul>
     <li><a>Use</a></li>
     <ul>
-       <li><a href="http://pyne.io/usersguide/index.html">User's Guide</a></li>
+       <li><a href="../usersguide/index.html">User's Guide</a></li>
        <li><a>API Documentation</a></li>
        <ul>
-          <li><a href="http://pyne.io/pyapi/index.html">Python</a></li>
-          <li><a href="http://pyne.io/cppapi/index.html">C++</a></li>
+          <li><a href="index.html">Python</a></li>
+          <li><a href="../cppapi/index.html">C++</a></li>
        </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> <br> mailing list.
+       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
        <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
     </ul>
     <li><a>Contribute</a></li>
     <ul>
        <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="http://pyne.io/devsguide.html">Developer's Guide</a></li>
+       <li><a href="../devsguide/index.html">Developer's Guide</a></li>
        <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> <br> mailing list.
+           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
     </ul>
     </ul></li></ul>
   </div>

@@ -186,6 +186,25 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isnuclide</b> (char *
 <tr class="memitem:a78423ab514ba698a3e86d808423f364b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a78423ab514ba698a3e86d808423f364b"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isnuclide</b> (int nuc)</td></tr>
 <tr class="separator:a78423ab514ba698a3e86d808423f364b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">iselement functions</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>These functions test if an input <em>nuc</em> is a valid element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nuc</td><td>a possible element </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a bool </dd></dl>
+</div></td></tr>
+<tr class="memitem:a9e11edcac3e156039532a2806436dc27"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9e11edcac3e156039532a2806436dc27"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>iselement</b> (std::string nuc)</td></tr>
+<tr class="separator:a9e11edcac3e156039532a2806436dc27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa032e936f90e8505ce246e6429b5d394"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa032e936f90e8505ce246e6429b5d394"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>iselement</b> (char *nuc)</td></tr>
+<tr class="separator:aa032e936f90e8505ce246e6429b5d394"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2905de5d4024d9f5d287026d2e8e74f3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2905de5d4024d9f5d287026d2e8e74f3"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>iselement</b> (int nuc)</td></tr>
+<tr class="separator:a2905de5d4024d9f5d287026d2e8e74f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Identifier Form Functions</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>The 'id' nuclide naming convention is the canonical form for representing nuclides in PyNE. This is termed a ZAS, or ZZZAAASSSS, representation because It stores 3 Z-number digits, 3 A-number digits, followed by 4 S-number digits which the nucleus excitation state.</p>
 <p>The id() function will always return an nuclide in id form, if successful. If the input nuclide is in id form already, then this is function does no work. For all other formats, the id() function provides a best-guess based on a heirarchy of other formats that is used to resolve ambiguities between naming conventions. For integer input the form resolution order is:</p>
@@ -950,7 +969,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>id_to_state_id</b> (in
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 23 2014 13:44:26 for PyNE C++ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 24 2014 11:03:51 for PyNE C++ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>
