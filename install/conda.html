@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -80,25 +79,30 @@ if(ga_enabled){
 After installing anaconda or miniconda from
 <a class="reference external" href="http://continuum.io/downloads">the Continuum downloads page</a>
 add conda&#8217;s binary directory to your bash profile by adding:</p>
-<div class="highlight-python"><pre>export PATH=/path/to/anaconda/bin:$PATH</pre>
+<div class="highlight-python"><div class="highlight"><pre>export PATH=/path/to/anaconda/bin:$PATH
+</pre></div>
 </div>
 <p>to your .bashrc or .bash_profile. Then in a new shell:</p>
-<div class="highlight-python"><pre>conda install conda-build jinja2 nose setuptools pytables hdf5 scipy</pre>
+<div class="highlight-python"><div class="highlight"><pre>conda install conda-build jinja2 nose setuptools pytables hdf5 scipy
+</pre></div>
 </div>
 <p>on linux you may also need to run:</p>
-<div class="highlight-python"><pre>conda install patchelf</pre>
+<div class="highlight-python"><div class="highlight"><pre>conda install patchelf
+</pre></div>
 </div>
 <p>Then dowload the latest conda-recipes <a class="reference external" href="https://github.com/conda/conda-recipes/archive/master.zip">here</a></p>
 <p>cd to the conda-recipes directory and run:</p>
-<div class="highlight-python"><pre>conda build pyne
+<div class="highlight-python"><div class="highlight"><pre>conda build pyne
 conda install $(conda build --output pyne)
-nuc_data_make</pre>
+nuc_data_make
+</pre></div>
 </div>
 <div class="section" id="binary">
 <h2>Binary<a class="headerlink" href="#binary" title="Permalink to this headline">¶</a></h2>
 <p>Binary distributions of the latest release (0.4) for mac and linux (64-bit)
 using the conda package manager can be installed by running the command:</p>
-<div class="highlight-python"><pre>conda install -c https://conda.binstar.org/pyne pyne</pre>
+<div class="highlight-python"><div class="highlight"><pre>conda install -c https://conda.binstar.org/pyne pyne
+</pre></div>
 </div>
 <p>A windows 32-bit binary is also available on conda via the same command but
 it is highly experimental and likely broken. Conda binaries do not have
@@ -125,35 +129,36 @@ moab/pytaps/mesh support (yet).</p>
 
   </div>
   <div class="sphinxlocaltoc">
-  <h3>Contents</h3>
-    <ul><li><ul>
-    <li><a href="../pyapi/index.html">Capabilities</a></li>
-    <li><a>Get Started</a></li>
-    <ul>
-       <li><a href="index.html">Install</a></li>
-       <li><a href="../tutorial/index.html">Tutorial</a></li>
-    </ul>
-    <li><a>Use</a></li>
-    <ul>
-       <li><a href="../usersguide/index.html">User's Guide</a></li>
-       <li><a>API Documentation</a></li>
-       <ul>
-          <li><a href="../pyapi/index.html">Python</a></li>
-          <li><a href="../cppapi/index.html">C++</a></li>
-       </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
-       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
-    </ul>
-    <li><a>Contribute</a></li>
-    <ul>
-       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="../devsguide/index.html">Developer's Guide</a></li>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
-    </ul>
-    </ul></li></ul>
+  <h3>Getting Started</h3>
+  <ul>
+    <li><a href="index.html">Install</a></li>
+    <li><a href="../tutorial/index.html">Tutorial</a></li>
+  </ul>
+  <h3>Using PyNE</h3>
+  <ul>
+    <li><a href="../usersguide/index.html">User's Guide</a></li>
+    <li><a href="../pyapi/index.html">Python API Documentation</a></li>
+    <li><a href="../cppapi/index.html">C++ & Fortran API Documentation</a></li>
+    <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
+    <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+  </ul>
+  <h3>Contribute</h3>
+  <ul>
+    <li><a href="../devsguide/index.html">Developer's Guide</a></li>
+    <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+    <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+        <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
+    <li><a href="../dev_team.html">The PyNE Team</a></li>
+  </ul>
+  <h3>Learn More</h3>
+  <ul>
+    <li><a href="../theorymanual/index.html">Theory Manual</a></li>
+    <li><a href="../pubs.html">Publications</a></li>
+    <li><a href="../previous/index.html">Release Notes</a></li>
+    <li><a href="../gsoc/index.html">Project Ideas</a></li>
+  </ul>
   </div>
-    
+  
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -197,7 +202,7 @@ moab/pytaps/mesh support (yet).</p>
         
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Last updated on Nov 24, 2014.
+      Last updated on Nov 27, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");

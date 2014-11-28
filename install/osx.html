@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -79,34 +78,39 @@ if(ga_enabled){
 <p>These instructions are based on using the homebrew <a class="reference external" href="http://brew.sh/">http://brew.sh/</a> package manager
 Install command line tools from <a class="reference external" href="https://developer.apple.com/downloads/">https://developer.apple.com/downloads/</a>
 you will need to create an account in order to download:</p>
-<div class="highlight-python"><pre>ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
+<div class="highlight-python"><div class="highlight"><pre>ruby -e &quot;$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)&quot;
 brew doctor
 brew tap homebrew/science
 brew install hdf5
 brew install cmake
-brew install python</pre>
+brew install python
+</pre></div>
 </div>
 <p>Add:</p>
-<div class="highlight-python"><pre>export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/share/python:$PATH</pre>
+<div class="highlight-python"><div class="highlight"><pre>export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/share/python:$PATH
+</pre></div>
 </div>
 <p>to ~/.bash_profile, then:</p>
-<div class="highlight-python"><pre>source ~/.bash_profile
+<div class="highlight-python"><div class="highlight"><pre>source ~/.bash_profile
 sudo pip install numpy
 sudo chown -R $(whoami) /usr/local
 brew install gfortran
 pip install scipy
 pip install cython
 pip install numexpr
-pip install tables</pre>
+pip install tables
+</pre></div>
 </div>
 <p>download pyne-staging cd to that directory:</p>
-<div class="highlight-python"><pre>cd Downloads/pyne-staging
-python setup.py install</pre>
+<div class="highlight-python"><div class="highlight"><pre>cd Downloads/pyne-staging
+python setup.py install
+</pre></div>
 </div>
 <p>Once those lines have been added, run the following command before running
 <tt class="docutils literal"><span class="pre">nuc_data_make</span></tt>:</p>
-<div class="highlight-python"><pre>source ~/.bashrc</pre>
+<div class="highlight-python"><div class="highlight"><pre>source ~/.bashrc
+</pre></div>
 </div>
 </div>
 
@@ -120,35 +124,36 @@ python setup.py install</pre>
           <img class="logo" src="../_static/pyne_icon_small.png" alt="Logo"/>
         </a></p>
   <div class="sphinxlocaltoc">
-  <h3>Contents</h3>
-    <ul><li><ul>
-    <li><a href="../pyapi/index.html">Capabilities</a></li>
-    <li><a>Get Started</a></li>
-    <ul>
-       <li><a href="index.html">Install</a></li>
-       <li><a href="../tutorial/index.html">Tutorial</a></li>
-    </ul>
-    <li><a>Use</a></li>
-    <ul>
-       <li><a href="../usersguide/index.html">User's Guide</a></li>
-       <li><a>API Documentation</a></li>
-       <ul>
-          <li><a href="../pyapi/index.html">Python</a></li>
-          <li><a href="../cppapi/index.html">C++</a></li>
-       </ul>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
-       <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
-    </ul>
-    <li><a>Contribute</a></li>
-    <ul>
-       <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
-       <li><a href="../devsguide/index.html">Developer's Guide</a></li>
-       <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
-           <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
-    </ul>
-    </ul></li></ul>
+  <h3>Getting Started</h3>
+  <ul>
+    <li><a href="index.html">Install</a></li>
+    <li><a href="../tutorial/index.html">Tutorial</a></li>
+  </ul>
+  <h3>Using PyNE</h3>
+  <ul>
+    <li><a href="../usersguide/index.html">User's Guide</a></li>
+    <li><a href="../pyapi/index.html">Python API Documentation</a></li>
+    <li><a href="../cppapi/index.html">C++ & Fortran API Documentation</a></li>
+    <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank"> Users</a> mailing list.
+    <li><a href="https://github.com/pyne/pyne/issues">Report an Issue</a></li>
+  </ul>
+  <h3>Contribute</h3>
+  <ul>
+    <li><a href="../devsguide/index.html">Developer's Guide</a></li>
+    <li><a href="http://github.com/pyne/pyne">Source Code</a></li>
+    <li><a href="mailto:pyne-users+subscribe@googlegroups.com?subject=Subscribe&body=Send this message to subscribe to the list">Join</a> the 
+        <a href="https://groups.google.com/forum/#!forum/pyne-users" target="_blank">Developers</a> mailing list.
+    <li><a href="../dev_team.html">The PyNE Team</a></li>
+  </ul>
+  <h3>Learn More</h3>
+  <ul>
+    <li><a href="../theorymanual/index.html">Theory Manual</a></li>
+    <li><a href="../pubs.html">Publications</a></li>
+    <li><a href="../previous/index.html">Release Notes</a></li>
+    <li><a href="../gsoc/index.html">Project Ideas</a></li>
+  </ul>
   </div>
-    
+  
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -192,7 +197,7 @@ python setup.py install</pre>
         
     <div class="footer">
         &copy; Copyright 2011-2014, The PyNE Development Team.
-      Last updated on Nov 24, 2014.
+      Last updated on Nov 27, 2014.
     </div><script type="text/javascript">
     if(ga_enabled){
         document.write("<div class=\"footer\">This page uses <a href=\"http://analytics.google.com\">Google Analytics</a> to collect statistics. ");
